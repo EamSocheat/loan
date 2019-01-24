@@ -6,13 +6,13 @@
     <!-- Content Header (Page header) -->
     <section class="content-header">
 		<h1>
-			<i class="fa fa-bar-chart"></i>
-			<span data-i18ncd="lb_products">Products</span>
+			<i class="fa fa-shopping-cart"></i>
+			<span data-i18ncd="lb_check_out">Contract</span>
         	<small data-i18ncd="lb_information">Information</small>
 		</h1>
       	<ol class="breadcrumb">
         	<li><a href="javascript:"><i class="fa fa-dashboard"></i><span data-i18ncd="lb_dasbord">Dashboard</span></a></li>
-			<li class="active" data-i18ncd="lb_products">Products</li>
+			<li class="active" data-i18ncd="lb_check_out">Contract</li>
 		</ol>
     </section>
 
@@ -120,7 +120,7 @@
 					<tbody>
 						<tr>
 							<td><input type="checkbox"></td>
-							<td><div>Products 000001</div></td>
+							<td><div>contract 000001</div></td>
 							<td><div>000001</div></td>
 							<td><div>000001</div></td>
 							<td><div>2018-10-01</div></td>
@@ -158,5 +158,5 @@
   <!-- /.content-wrapper -->
 
 <?php echo $footer; ?>
-<script src="<?php echo base_url('assets/') ?>js/pages/v_products.js"></script>
+<script src="<?php echo base_url('assets/') ?>js/pages/v_contract.js"></script>
 <?php echo $iframe; ?>

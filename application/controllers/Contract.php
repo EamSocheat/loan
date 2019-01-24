@@ -1,7 +1,7 @@
 <?php 
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class CheckOut extends CI_Controller{
+class Contract extends CI_Controller{
     public function __construct(){
         parent::__construct();
         $this->load->model('M_login');
@@ -9,7 +9,7 @@ class CheckOut extends CI_Controller{
         $this->load->model('M_check_user');
         $this->load->model('M_menu');
         $this->load->helper('form');
-        $this->load->model('M_check_out');
+        $this->load->model('M_contract');
         $this->load->model('M_common');
     }
     
@@ -18,12 +18,12 @@ class CheckOut extends CI_Controller{
             redirect('/Login');
         }
         
-        $dataMenu['menu_active'] = "CheckOut";
+        $dataMenu['menu_active'] = "Contract";
         $data['header'] = $this->load->view('v_header', $dataMenu, TRUE);
         $data['footer'] = $this->load->view('v_footer', NULL, TRUE);
         $data['iframe'] = $this->load->view('v_iframe', NULL, TRUE);
         
-        $this->load->view('v_checkout',$data);
+        $this->load->view('v_contract',$data);
     }    
     
 }

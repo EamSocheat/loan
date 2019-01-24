@@ -1,7 +1,7 @@
 <?php 
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Position extends CI_Controller{
+class Payment extends CI_Controller{
     public function __construct(){
         parent::__construct();
         $this->load->model('M_login');
@@ -9,7 +9,7 @@ class Position extends CI_Controller{
         $this->load->model('M_check_user');
         $this->load->model('M_menu');
         $this->load->helper('form');
-        $this->load->model('M_position');
+        $this->load->model('M_payment');
         $this->load->model('M_common');
     }
     
@@ -18,12 +18,12 @@ class Position extends CI_Controller{
             redirect('/Login');
         }
         
-        $dataMenu['menu_active'] = "Position";
+        $dataMenu['menu_active'] = "Payment";
         $data['header'] = $this->load->view('v_header', $dataMenu, TRUE);
         $data['footer'] = $this->load->view('v_footer', NULL, TRUE);
         $data['iframe'] = $this->load->view('v_iframe', NULL, TRUE);
         
-        $this->load->view('v_position',$data);
+        $this->load->view('v_payment',$data);
     }
     
     public function getPositionData(){
@@ -40,8 +40,8 @@ class Position extends CI_Controller{
             'srch_all' 	=> $this->input->post('srchAll')
         );
         
-        $data["OUT_REC"] = $this->M_position->selectPositionData($dataSrch);
-        $data["OUT_REC_CNT"] = $this->M_position->countPositionData($dataSrch);
+        $data["OUT_REC"] = $this->M_payment->selectPaymentData($dataSrch);
+        $data["OUT_REC_CNT"] = $this->M_payment->countPaymentnData($dataSrch);
         echo json_encode($data);
     }
     

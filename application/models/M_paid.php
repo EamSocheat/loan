@@ -1,5 +1,5 @@
 <?php
-	class M_check_out extends CI_Model{
+	class M_paid extends CI_Model{
 		
 		function __construct() 
 		{
@@ -7,11 +7,11 @@
         	
     	}
 
-    	function selectStockData($dataSrch){
+    	function selectPaidData($dataSrch){
     	    
     	}
 
-		public function countStockData($dataSrch){
+    	public function countPaidData($dataSrch){
 		    
 		}		
     }

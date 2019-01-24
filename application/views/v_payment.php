@@ -7,12 +7,12 @@
     <section class="content-header">
 		<h1>
 			<i class="fa fa-user-plus"></i>
-			<span data-i18ncd="lb_position">Position</span>
+			<span data-i18ncd="lb_payment">Payment</span>
         	<small data-i18ncd="lb_information">Information</small>
 		</h1>
       	<ol class="breadcrumb">
         	<li><a href="javascript:"><i class="fa fa-dashboard"></i><span data-i18ncd="lb_dasbord">Dashboard</span></a></li>
-			<li class="active" data-i18ncd="lb_position">Position</li>
+			<li class="active" data-i18ncd="lb_payment">Payment</li>
 		</ol>
     </section>
 
@@ -106,7 +106,7 @@
 				</div>
 				
 				<div class="box-body table-responsive">
-				  <table class="table table-hover" id="tblPosition">
+				  <table class="table table-hover" id="tblPayment">
 				    <thead>  
     					<tr>
     					  <th><input type="checkbox" id="chkAll" style="display:none;"></th>
@@ -149,5 +149,5 @@
   <!-- /.content-wrapper -->
 
 <?php echo $footer; ?>
-<script src="<?php echo base_url('assets/') ?>js/pages/v_position.js"></script>
+<script src="<?php echo base_url('assets/') ?>js/pages/v_payment.js"></script>
 <?php echo $iframe; ?>

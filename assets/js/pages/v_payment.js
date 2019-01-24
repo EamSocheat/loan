@@ -1,7 +1,7 @@
 
 var _pageNo = 1;
 $(document).ready(function(){
-	_thisPage.onload();
+	//_thisPage.onload();
 });
 
 var _thisPage = {

@@ -1,7 +1,7 @@
 
 var _pageNo = 1;
 $(document).ready(function(){
-	console.log("PRODUCTS")
+	console.log("PAID")
 	console.log(true)
 });
 
@@ -21,7 +21,7 @@ var _thisPage = {
 		}
 }
 
-function popupPositionCallback(){
+function popupPaidCallback(){
 	
 }
 
