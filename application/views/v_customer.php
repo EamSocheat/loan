@@ -4,13 +4,13 @@
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-        <i class="fa fa-users"></i> <span data-i18ncd="lb_staff">Staff</span>
+        <i class="fa fa-users"></i> <span data-i18ncd="lb_customer">Customer</span>
         <small data-i18ncd="lb_information">Information</small>
       </h1>
       
       <ol class="breadcrumb">
         <li><a href="Dashboard"><i class="fa fa-dashboard"></i> <span data-i18ncd="lb_dasbord">Dashboard</span></a></li>
-        <li class="active" data-i18ncd="lb_staff">Staff</li>
+        <li class="active" data-i18ncd="lb_customer">Customer</li>
       </ol>
      
     </section>
@@ -38,23 +38,23 @@
 								    <div class="col-sm-12 col-md-12 col-lg-12 row">
 								        <div class="col-sm-3 col-md-3 col-lg-3">
         									<div class="form-group">
-                                                <label for="txtSrchStaNm" class="control-label" data-i18ncd="lb_name">Name</label>
-                                                <input type="text" class="form-control input-sm" id="txtSrchStaNm" placeholder="Name">
+                                                <label for="txtSrchCusNm" class="control-label" data-i18ncd="lb_name">Name</label>
+                                                <input type="text" class="form-control input-sm" id="txtSrchCusNm" placeholder="Name">
                                               
                                             </div>
         								</div>
         								<div class="col-sm-3 col-md-3 col-lg-3">
         									<div class="form-group">
-                                                <label for="txtSrchStaNmKh" class="control-label" data-i18ncd="lb_name_kh">Khmer Name </label>
-                                                <input type="text" class="form-control input-sm" id="txtSrchStaNmKh" placeholder="Khmer Name ">
+                                                <label for="txtSrchCusNmKh" class="control-label" data-i18ncd="lb_name_kh">Khmer Name </label>
+                                                <input type="text" class="form-control input-sm" id="txtSrchCusNmKh" placeholder="Khmer Name ">
                                         
                                             </div>
         								</div>
         								
         								<div class="col-sm-3 col-md-3 col-lg-3">
         									<div class="form-group">
-                                                <label for="txtSrchStaPhone" class="control-label" data-i18ncd="lb_phone">Phone </label>
-                                                <input type="text" class="form-control input-sm"  id="txtSrchStaPhone" placeholder="Phone">
+                                                <label for="txtSrchCusPhone" class="control-label" data-i18ncd="lb_phone">Phone </label>
+                                                <input type="text" class="form-control input-sm"  id="txtSrchCusPhone" placeholder="Phone">
                                         
                                             </div>
         								</div>
@@ -119,7 +119,7 @@
 				
 				
 				<div class="box-body table-responsive">
-				  <table class="table table-hover" id="tblStaff">
+				  <table class="table table-hover" id="tblCustomer">
 				    <thead>  
     					<tr>
     					  <th><input type="checkbox" id="chkAllBox"></th>
@@ -128,8 +128,9 @@
     					  <th data-i18ncd="lb_name_kh">Khmer Name</th>
     					  <th data-i18ncd="lb_gender">Gender</th>
     					  <th data-i18ncd="lb_phone">Phone</th>
-    					  <th data-i18ncd="lb_position">Position</th>
-    					  <th data-i18ncd="lb_branch">Branch</th>
+    					  <th data-i18ncd="lb_email">Email</th>
+    					  <th data-i18ncd="lb_address">Address</th>
+    					  <th data-i18ncd="lb_description">Description</th>
     					  <th data-i18ncd="lb_action">Action</th>
     					</tr>
 					</thead>

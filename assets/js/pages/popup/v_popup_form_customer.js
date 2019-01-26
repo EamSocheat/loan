@@ -7,24 +7,24 @@ $(document).ready(function() {
 var _thisPage = {
 		init : function(){
 			_this = this;
-			
 			_this.onload();
 			_this.event();
 		},
 		onload : function(){
 			parent.$("#loading").hide();
 			clearForm();
+			
 			if($("#frmAct").val() == "U"){
-			    getDataEdit($("#staId").val());
-			    $("#popupTitle").html("<i class='fa fa-home'></i> "+$.i18n.prop("btn_edit")+" "+ $.i18n.prop("lb_staff"));
+			    getDataEdit($("#cusId").val());
+			    $("#popupTitle").html("<i class='fa fa-users'></i> "+$.i18n.prop("btn_edit")+" "+ $.i18n.prop("lb_customer"));
 			}else{
 			    $("#btnSaveNew").show();
-			    $("#popupTitle").html("<i class='fa fa-home'></i> "+$.i18n.prop("btn_add_new")+" "+ $.i18n.prop("lb_staff"));
+			    $("#popupTitle").html("<i class='fa fa-users'></i> "+$.i18n.prop("btn_add_new")+" "+ $.i18n.prop("lb_customer"));
 			}
-			$("#frmStaff").show();
+			
+			$("#frmCustomer").show();
 			$("#braNm").focus();
 			
-			//
 			$('#txtDob').datepicker({
 				language: (getCookie("lang") == "kh" ? "kh" : "en"),
 				format: "dd/mm/yyyy",
@@ -34,9 +34,7 @@ var _thisPage = {
 			    autoclose: true
 		    });
 			$("#txtDob").inputmask();
-			//
 			
-			//
 			$("#txtStartDate").datepicker({
 				language: (getCookie("lang") == "kh" ? "kh" : "en"),
 				weekStart: true,
@@ -48,10 +46,7 @@ var _thisPage = {
 				format: "dd/mm/yyyy",
 			});
 			$("#txtStartDate").inputmask();
-			//
 			
-			//
-			//
 			$("#txtStopDate").datepicker({
 				language: (getCookie("lang") == "kh" ? "kh" : "en"),
 				weekStart: true,
@@ -63,21 +58,18 @@ var _thisPage = {
 				format: "dd/mm/yyyy",
 			});
 			$("#txtStopDate").inputmask();
-			//
-			
 			
 			stock.comm.inputPhoneKhmer("txtPhone1");
 			stock.comm.inputPhoneKhmer("txtPhone2");
 			
 		},
 		event : function(){
-			//
 			$("#btnClose,#btnExit").click(function(e){
 				//parent.$("#modalMd").modal('hide');
-				parent.stock.comm.closePopUpForm("PopupFormCustomer",parent.popupStaffCallback);
+				parent.stock.comm.closePopUpForm("PopupFormCustomer",parent.popupCustomerCallback);
 			});
-			//
-			$("#frmStaff").submit(function(e){
+			
+			$("#frmCustomer").submit(function(e){
 				e.preventDefault();
 				if(_btnId == "btnSave"){
 			    	saveData();
@@ -98,14 +90,13 @@ var _thisPage = {
 			});
 			//
 			$("#btnSelectPhoto").click(function(e){
-				$("#fileStaPhoto").trigger( "click" );
+				$("#fileCusPhoto").trigger( "click" );
 				
 			});
 			//
-			$("#fileStaPhoto").change(function(){
+			$("#fileCusPhoto").change(function(){
 			    readURL(this);
 			});
-			//
 			//
 			$("#btnPopupBranch").click(function(e){
 				var data="parentId=ifameStockForm";
@@ -115,7 +106,6 @@ var _thisPage = {
 				option["height"] = "450px";
 			    stock.comm.openPopUpSelect(controllerNm,option, data,"modal-md");
 			});
-			
 			//
 			$("#btnPopupPosition").click(function(e){
 				var data="parentId=ifameStockForm";
@@ -126,18 +116,17 @@ var _thisPage = {
 			    stock.comm.openPopUpSelect(controllerNm,option, data,"modal-md");
 			});
 			
-			
 		}
 };
 
 
 function saveData(str){
-	$("#staId").appendTo("#frmStaff");
+	$("#cusId").appendTo("#frmCustomer");
     parent.$("#loading").show();
 	$.ajax({
-		type: "POST",
-		url: $("#base_url").val() +"Staff/save",
-		data: new FormData($("#frmStaff")[0]),
+		type : "POST",
+		url  : $("#base_url").val() +"Customer/save",
+		data : new FormData($("#frmCustomer")[0]),
 		cache: false,
         contentType: false,
         processData: false,
@@ -145,12 +134,12 @@ function saveData(str){
 			console.log(res);
 		    parent.$("#loading").hide();
 			if(res =="OK"){
-				parent.stock.comm.alertMsg($.i18n.prop("msg_save_com"),"braNm");
+				parent.stock.comm.alertMsg($.i18n.prop("msg_save_com"),"cusNm");
 				if(str == "new"){
 				    clearForm();
+				    parent.popupCustomerCallback();
 				}else{
-				    //close popup
-				    parent.stock.comm.closePopUpForm("PopupFormCustomer",parent.popupStaffCallback);
+				    parent.stock.comm.closePopUpForm("PopupFormCustomer", parent.popupCustomerCallback);
 				}
 			}
 		},
@@ -161,39 +150,37 @@ function saveData(str){
 	});
 }
 
-function getDataEdit(sta_id){
-    //
+function getDataEdit(cus_id){
+	console.log(cus_id)
     $("#loading").show();
     $.ajax({
 		type: "POST",
-		url: $("#base_url").val() +"Staff/getStaff",
-		data: {"staId":sta_id},
+		url : $("#base_url").val() +"Customer/getCustomer",
+		data: {"cusId":cus_id},
 		dataType: "json",
 		async: false,
 		success: function(res) {
-			
 			if(res.OUT_REC != null && res.OUT_REC.length >0){
 			    $("#txtBraNm").val(res.OUT_REC[0]["bra_nm"]);
 			    $("#txtBraId").val(res.OUT_REC[0]["bra_id"]);
-			    $("#txtStaffNm").val(res.OUT_REC[0]["sta_nm"]);
+			    $("#txtCustomerNm").val(res.OUT_REC[0]["cus_nm"]);
 			    $("#txtPosNm").val(res.OUT_REC[0]["pos_nm"]);
 			    $("#txtPosId").val(res.OUT_REC[0]["pos_id"]);
-			    $("#txtStaffNmKh").val(res.OUT_REC[0]["sta_nm_kh"]);
-			    $("#cboGender").val(res.OUT_REC[0]["sta_gender"]);
-			    $("#txtDob").val(moment(res.OUT_REC[0]["sta_dob"], "YYYY-MM-DD").format("DD-MM-YYYY"));
-			    $("#txtAddr").val(res.OUT_REC[0]["sta_addr"]);
-			    $("#txtPhone1").val(res.OUT_REC[0]["sta_phone1"]);
-			    $("#txtPhone2").val(res.OUT_REC[0]["sta_phone2"]);
-			    $("#txtEmail").val(res.OUT_REC[0]["sta_email"]);
-			    $("#txtStartDate").val(moment(res.OUT_REC[0]["sta_start_dt"], "YYYY-MM-DD").format("DD-MM-YYYY"));
-			    $("#txtEndDate").val(moment(res.OUT_REC[0]["sta_end_dt"], "YYYY-MM-DD").format("DD-MM-YYYY"));
-			    $("#txtDes").val(res.OUT_REC[0]["sta_des"]);
-			    if(res.OUT_REC[0]["sta_photo"] != null && res.OUT_REC[0]["sta_photo"] != ""){
-			    	$("#staImgView").attr("src",$("#base_url").val()+"upload"+res.OUT_REC[0]["sta_photo"]);
+			    $("#txtCustomerNmKh").val(res.OUT_REC[0]["cus_nm_kh"]);
+			    $("#cboGender").val(res.OUT_REC[0]["cus_gender"]);
+			    $("#txtDob").val(moment(res.OUT_REC[0]["cus_dob"], "YYYY-MM-DD").format("DD-MM-YYYY"));
+			    $("#txtAddr").val(res.OUT_REC[0]["cus_addr"]);
+			    $("#txtPhone1").val(res.OUT_REC[0]["cus_phone1"]);
+			    $("#txtPhone2").val(res.OUT_REC[0]["cus_phone2"]);
+			    $("#txtEmail").val(res.OUT_REC[0]["cus_email"]);
+			    $("#txtStartDate").val(moment(res.OUT_REC[0]["cus_start_dt"], "YYYY-MM-DD").format("DD-MM-YYYY"));
+			    $("#txtEndDate").val(moment(res.OUT_REC[0]["cus_end_dt"], "YYYY-MM-DD").format("DD-MM-YYYY"));
+			    $("#txtDes").val(res.OUT_REC[0]["cus_des"]);
+			    if(res.OUT_REC[0]["cus_photo"] != null && res.OUT_REC[0]["cus_photo"] != ""){
+			    	$("#cusImgView").attr("src",$("#base_url").val()+"upload"+res.OUT_REC[0]["cus_photo"]);
 			    }
 			
-			    
-			    $("#txtStaffNm").focus();
+			    $("#txtCustomerNm").focus();
 			}else{
 			    console.log(res);
 			    stock.comm.alertMsg($.i18n.prop("msg_err"));
@@ -209,10 +196,10 @@ function getDataEdit(sta_id){
 }
 
 function clearForm(){
-    $("#frmStaff input").val("");
-    $("#frmStaff textarea").val("");
-    $("#staImgView").attr("src",$("#base_url").val()+"assets/image/default-staff-photo.png");
-    $("#txtStaffNm").focus();
+    $("#frmCustomer input").val("");
+    $("#frmCustomer textarea").val("");
+    $("#cusImgView").attr("src",$("#base_url").val()+"assets/image/default-staff-photo.png");
+    $("#txtCustomerNm").focus();
 }
 
 function selectBranchCallback(data){
@@ -232,9 +219,8 @@ function selectPositionCallback(data){
 function readURL(input) {
     if (input.files && input.files[0]) {
         var reader = new FileReader();
-        
         reader.onload = function (e) {
-            $('#staImgView').attr('src', e.target.result);
+            $('#cusImgView').attr('src', e.target.result);
         }
         reader.readAsDataURL(input.files[0]);
     }
