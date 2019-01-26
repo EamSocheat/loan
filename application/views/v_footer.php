@@ -289,7 +289,6 @@ $(document).ready(function() {
 		});
 		
 	});	
-		
 });
 
 function setCookie(cname,cvalue,exdays) {

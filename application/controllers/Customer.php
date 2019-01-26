@@ -38,6 +38,7 @@ class Customer extends CI_Controller {
 	        'cus_id' 		=> $this->input->post('cusId'),
 	        'cus_nm' 		=> $this->input->post('cusNm'),
 	        'cus_nm_kh' 	=> $this->input->post('cusNmKh'),
+	        'cus_idnt_num'	=> $this->input->post('cusIdentityNmKh'),
 	        'cus_phone1' 	=> $this->input->post('cusPhone')
 	    );
 	    $data["OUT_REC"] = $this->M_customer->selectCustomer($dataSrch);
@@ -53,6 +54,8 @@ class Customer extends CI_Controller {
 	    $cusPhoto = "";
 	    if(!empty($_FILES['fileCusPhoto']['name'])){
 	        $cusPhoto = $this->M_common->uploadImage($_FILES['fileCusPhoto'],'fileCusPhoto','./upload/loan/customer','/loan/customer/');
+	    }else{
+	        $cusPhoto = $this->input->post('cusImgPath');
 	    }
 	    
 	    $data = array(
@@ -60,6 +63,7 @@ class Customer extends CI_Controller {
 	         'pos_id' 		=> $this->input->post('txtPosId'), */
 	        'cus_nm'		=> $this->input->post('txtCustomerNm'),
 	        'cus_nm_kh'		=> $this->input->post('txtCustomerNmKh'),
+	        'cus_idnt_num'	=> $this->input->post('txtIdentityNmKh'),
 	        'cus_photo'	    => $cusPhoto,
 	        'cus_gender'	=> $this->input->post('cboGender'),
 	        'cus_dob'		=> date('Y-m-d',strtotime($this->input->post('txtDob'))),
@@ -105,19 +109,19 @@ class Customer extends CI_Controller {
 	    $cntDel = 0;
 	    for($i=0; $i<sizeof($delObj); $i++){
 	        $cntActive = 0;
-	        //check staff table using branch or not 
-	       /*  $dataCol = array(
-            'tbl_nm' 		=> "tbl_staff",
-            'id_nm' 		=> "bra_id",
+	        //check contract table using branch or not 
+	       $dataCol = array(
+            'tbl_nm' 		=> "tbl_contract",
+            'id_nm' 		=> "con_id",
             'com_id' 		=> "com_id"
             );
             
             $dataVal = array(
-            'id_val' 		=> $delObj[$i]['staId'],
+            'id_val' 		=> $delObj[$i]['cusId'],
             'com_val' 		=> $_SESSION['comId']
             );
 	        $chkData = $this->M_common->checkActiveRecord($dataCol,$dataVal);
-	        $cntActive +=$chkData->active_rec; */
+	        $cntActive +=$chkData->active_rec;
 	        
 	        if($cntActive >0){
 	            continue;

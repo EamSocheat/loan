@@ -112,6 +112,7 @@ function getData(page_no){
     dat["cusNm"]	= $("#txtSrchCusNm").val().trim();
     dat["cusNmKh"]	= $("#txtSrchCusNmKh").val().trim();
     dat["cusPhone"] = $("#txtSrchCusPhone").val().trim();
+    dat["cusIdentityNmKh"] = $("#txtSrchIdentityNmKh").val().trim();
         
     $("#loading").show();
     $.ajax({
@@ -129,10 +130,11 @@ function getData(page_no){
 			        if(res.OUT_REC[i]["cus_photo"] != null && res.OUT_REC[i]["cus_photo"] != ""){
 			        	urlPhoto = $("#base_url").val()+"/upload"+ res.OUT_REC[i]["cus_photo"];
 			        }else{
-			        	urlPhoto = $("#base_url").val()+"/upload/loan/customer/Default_User.png";
+			        	urlPhoto = $("#base_url").val()+"/assets/image/default-staff-photo.png";
 			        }
 			        html += "<td class='chk_box'><input type='checkbox'></td>";
 			        html += "<td class='cus_image'><img style='width: 35px;height: 35px;' src='"+ urlPhoto +"' class='img-circle' /></td>";
+			        html += "<td class='cus_iden'>"+stock.comm.nullToEmpty(res.OUT_REC[i]["cus_idnt_num"])+"</td>";
 			        html += "<td class='cus_nm'>"+res.OUT_REC[i]["cus_nm"]+"</td>";
 			        html += "<td class='cus_nm_kh'>"+res.OUT_REC[i]["cus_nm_kh"]+"</td>";
 			        html += "<td class='cus_gender'>"+res.OUT_REC[i]["cus_gender"]+"</td>";
@@ -206,6 +208,7 @@ function resetFormSearch(){
     $("#txtSrchCusPhone").val("");
     $("#cbxSrchBranch").val("");
     $("#cbxSrchPos").val("");
+    $("#txtSrchIdentityNmKh").val("");
 }
 
 /**

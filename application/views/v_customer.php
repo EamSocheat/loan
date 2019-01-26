@@ -61,8 +61,8 @@
         								
         								<div class="col-sm-3 col-md-3 col-lg-3">
         									<div class="form-group">
-                                                <label for="txtSrchCusIdnt" class="control-label" data-i18ncd="">Identity</label>
-                                                <input type="text" class="form-control input-sm"  id="txtSrchCusIdnt" placeholder="Phone">
+                                                <label for="txtSrchIdentityNmKh" class="control-label" data-i18ncd="">Identity</label>
+                                                <input type="text" class="form-control input-sm"  id="txtSrchIdentityNmKh" placeholder="Identity" maxlength="9">
                                         
                                             </div>
         								</div>        								
@@ -106,7 +106,7 @@
                                 <option value="1" data-i18ncd="lb_row1">1 rows</option>
                                 <option value="2" data-i18ncd="lb_row2"> 2 rows</option>
                                 <option value="3" data-i18ncd="lb_row3">3 rows</option>
-                                <option value="10" data-i18ncd="lb_row10">10 rows</option>
+                                <option value="10" data-i18ncd="lb_row10" selected>10 rows</option>
                                 <option value="20" data-i18ncd="lb_row20">20 rows</option>
                                 <option value="50" data-i18ncd="lb_row50">50 rows</option>
                                 <option value="100" data-i18ncd="lb_row100">100 rows</option>
@@ -124,13 +124,14 @@
     					<tr>
     					  <th><input type="checkbox" id="chkAllBox"></th>
     					  <th></th>
+    					  <th data-i18ncd="lb_ident">Identity</th>
     					  <th data-i18ncd="lb_name">Name</th>
     					  <th data-i18ncd="lb_name_kh">Khmer Name</th>
     					  <th data-i18ncd="lb_gender">Gender</th>
     					  <th data-i18ncd="lb_phone">Phone</th>
     					  <th data-i18ncd="lb_email">Email</th>
-    					  <th data-i18ncd="lb_address">Address</th>
-    					  <th data-i18ncd="lb_description">Description</th>
+    					  <th data-i18ncd="lb_addr">Address</th>
+    					  <th data-i18ncd="lb_des">Description</th>
     					  <th data-i18ncd="lb_action">Action</th>
     					</tr>
 					</thead>

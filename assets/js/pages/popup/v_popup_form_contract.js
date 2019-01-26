@@ -13,19 +13,18 @@ var _thisPage = {
 		onload : function(){
 			parent.$("#loading").hide();
 			clearForm();
-			
 			if($("#frmAct").val() == "U"){
-			    getDataEdit($("#cusId").val());
-			    $("#popupTitle").html("<i class='fa fa-users'></i> "+$.i18n.prop("btn_edit")+" "+ $.i18n.prop("lb_customer"));
+			    getDataEdit($("#contId").val());
+			    $("#popupTitle").html("<i class='fa fa-home'></i> "+$.i18n.prop("btn_edit")+" "+ $.i18n.prop("lb_contract"));
 			}else{
 			    $("#btnSaveNew").show();
-			    $("#popupTitle").html("<i class='fa fa-users'></i> "+$.i18n.prop("btn_add_new")+" "+ $.i18n.prop("lb_customer"));
+			    $("#popupTitle").html("<i class='fa fa-home'></i> "+$.i18n.prop("btn_add_new")+" "+ $.i18n.prop("lb_contract"));
 			}
-			
-			$("#frmCustomer").show();
+			$("#frmContract").show();
 			$("#braNm").focus();
 			
-			$('#txtDob').datepicker({
+			//
+			$('#txtContSD').datepicker({
 				language: (getCookie("lang") == "kh" ? "kh" : "en"),
 				format: "dd/mm/yyyy",
 			    startView: 'decade',
@@ -33,8 +32,10 @@ var _thisPage = {
 			    minView: 2,
 			    autoclose: true
 		    });
-			$("#txtDob").inputmask();
+			$("#txtContSD").inputmask();
+			//
 			
+			//
 			$("#txtStartDate").datepicker({
 				language: (getCookie("lang") == "kh" ? "kh" : "en"),
 				weekStart: true,
@@ -47,6 +48,7 @@ var _thisPage = {
 			});
 			$("#txtStartDate").inputmask();
 			
+			//
 			$("#txtStopDate").datepicker({
 				language: (getCookie("lang") == "kh" ? "kh" : "en"),
 				weekStart: true,
@@ -58,18 +60,22 @@ var _thisPage = {
 				format: "dd/mm/yyyy",
 			});
 			$("#txtStopDate").inputmask();
+			//
+			
 			
 			stock.comm.inputPhoneKhmer("txtPhone1");
 			stock.comm.inputPhoneKhmer("txtPhone2");
 			
 		},
 		event : function(){
+			//
 			$("#btnClose,#btnExit").click(function(e){
 				//parent.$("#modalMd").modal('hide');
-				parent.stock.comm.closePopUpForm("PopupFormCustomer",parent.popupCustomerCallback);
+				parent.stock.comm.closePopUpForm("PopupFormContract",parent.popupContractCallback);
 			});
 			
-			$("#frmCustomer").submit(function(e){
+			//
+			$("#frmContract").submit(function(e){
 				e.preventDefault();
 				if(_btnId == "btnSave"){
 			    	saveData();
@@ -90,12 +96,14 @@ var _thisPage = {
 			});
 			//
 			$("#btnSelectPhoto").click(function(e){
-				$("#fileCusPhoto").trigger( "click" );
+				$("#fileContPhoto").trigger( "click" );
+				
 			});
 			//
-			$("#fileCusPhoto").change(function(){
+			$("#fileContPhoto").change(function(){
 			    readURL(this);
 			});
+			//
 			//
 			$("#btnPopupBranch").click(function(e){
 				var data="parentId=ifameStockForm";
@@ -105,6 +113,7 @@ var _thisPage = {
 				option["height"] = "450px";
 			    stock.comm.openPopUpSelect(controllerNm,option, data,"modal-md");
 			});
+			
 			//
 			$("#btnPopupPosition").click(function(e){
 				var data="parentId=ifameStockForm";
@@ -115,29 +124,31 @@ var _thisPage = {
 			    stock.comm.openPopUpSelect(controllerNm,option, data,"modal-md");
 			});
 			
+			
 		}
 };
 
 
 function saveData(str){
-	$("#cusId").appendTo("#frmCustomer");
+	$("#contId").appendTo("#frmContract");
     parent.$("#loading").show();
 	$.ajax({
-		type : "POST",
-		url  : $("#base_url").val() +"Customer/save",
-		data : new FormData($("#frmCustomer")[0]),
+		type: "POST",
+		url: $("#base_url").val() +"Contract/save",
+		data: new FormData($("#frmContract")[0]),
 		cache: false,
         contentType: false,
         processData: false,
 		success: function(res) {
+			console.log(res);
 		    parent.$("#loading").hide();
 			if(res =="OK"){
-				parent.stock.comm.alertMsg($.i18n.prop("msg_save_com"),"cusNm");
+				parent.stock.comm.alertMsg($.i18n.prop("msg_save_com"),"braNm");
 				if(str == "new"){
 				    clearForm();
-				    parent.popupCustomerCallback();
 				}else{
-				    parent.stock.comm.closePopUpForm("PopupFormCustomer", parent.popupCustomerCallback);
+				    //close popup
+				    parent.stock.comm.closePopUpForm("PopupFormContract",parent.popupContractCallback);
 				}
 			}
 		},
@@ -148,33 +159,41 @@ function saveData(str){
 	});
 }
 
-function getDataEdit(cus_id){
+function getDataEdit(cont_id){
+    //
     $("#loading").show();
     $.ajax({
 		type: "POST",
-		url : $("#base_url").val() +"Customer/getCustomer",
-		data: {"cusId":cus_id},
+		url: $("#base_url").val() +"Contract/getContract",
+		data: {"contId":cont_id},
 		dataType: "json",
 		async: false,
 		success: function(res) {
+			
 			if(res.OUT_REC != null && res.OUT_REC.length >0){
-			    $("#txtCustomerNm").val(res.OUT_REC[0]["cus_nm"]);
-			    $("#txtCustomerNmKh").val(res.OUT_REC[0]["cus_nm_kh"]);
-			    $("#txtIdentityNmKh").val(res.OUT_REC[0]["cus_idnt_num"]);
-			    $("#cboGender").val(res.OUT_REC[0]["cus_gender"]);
-			    $("#txtDob").val(moment(res.OUT_REC[0]["cus_dob"], "YYYY-MM-DD").format("DD-MM-YYYY"));
-			    $("#txtAddr").val(res.OUT_REC[0]["cus_addr"]);
-			    $("#txtPhone1").val(res.OUT_REC[0]["cus_phone1"]);
-			    $("#txtPhone2").val(res.OUT_REC[0]["cus_phone2"]);
-			    $("#txtEmail").val(res.OUT_REC[0]["cus_email"]);
-			    $("#txtDes").val(res.OUT_REC[0]["cus_des"]);
-			    if(res.OUT_REC[0]["cus_photo"] != null && res.OUT_REC[0]["cus_photo"] != ""){
-			    	$("#cusImgView").attr("src", $("#base_url").val()+"upload"+res.OUT_REC[0]["cus_photo"]);
-			    	$("#cusImgPath").val(res.OUT_REC[0]["cus_photo"]);
+			    $("#txtBraNm").val(res.OUT_REC[0]["bra_nm"]);
+			    $("#txtBraId").val(res.OUT_REC[0]["bra_id"]);
+			    $("#txtContractNm").val(res.OUT_REC[0]["cont_nm"]);
+			    $("#txtPosNm").val(res.OUT_REC[0]["pos_nm"]);
+			    $("#txtPosId").val(res.OUT_REC[0]["pos_id"]);
+			    $("#txtContractNmKh").val(res.OUT_REC[0]["cont_nm_kh"]);
+			    $("#cboGender").val(res.OUT_REC[0]["cont_gender"]);
+			    $("#txtDob").val(moment(res.OUT_REC[0]["cont_dob"], "YYYY-MM-DD").format("DD-MM-YYYY"));
+			    $("#txtAddr").val(res.OUT_REC[0]["cont_addr"]);
+			    $("#txtPhone1").val(res.OUT_REC[0]["cont_phone1"]);
+			    $("#txtPhone2").val(res.OUT_REC[0]["cont_phone2"]);
+			    $("#txtEmail").val(res.OUT_REC[0]["cont_email"]);
+			    $("#txtStartDate").val(moment(res.OUT_REC[0]["sta_start_dt"], "YYYY-MM-DD").format("DD-MM-YYYY"));
+			    $("#txtEndDate").val(moment(res.OUT_REC[0]["sta_end_dt"], "YYYY-MM-DD").format("DD-MM-YYYY"));
+			    $("#txtDes").val(res.OUT_REC[0]["sta_des"]);
+			    if(res.OUT_REC[0]["sta_photo"] != null && res.OUT_REC[0]["sta_photo"] != ""){
+			    	$("#staImgView").attr("src",$("#base_url").val()+"upload"+res.OUT_REC[0]["sta_photo"]);
 			    }
 			
-			    $("#txtCustomerNm").focus();
+			    
+			    $("#txtContractNm").focus();
 			}else{
+			    console.log(res);
 			    stock.comm.alertMsg($.i18n.prop("msg_err"));
 			}
 			$("#loading").hide();
@@ -188,10 +207,10 @@ function getDataEdit(cus_id){
 }
 
 function clearForm(){
-    $("#frmCustomer input").val("");
-    $("#frmCustomer textarea").val("");
-    $("#cusImgView").attr("src",$("#base_url").val()+"assets/image/default-staff-photo.png");
-    $("#txtCustomerNm").focus();
+    $("#frmContract input").val("");
+    $("#frmContract textarea").val("");
+    $("#staImgView").attr("src",$("#base_url").val()+"assets/image/default-staff-photo.png");
+    $("#txtContractNm").focus();
 }
 
 function selectBranchCallback(data){
@@ -211,8 +230,9 @@ function selectPositionCallback(data){
 function readURL(input) {
     if (input.files && input.files[0]) {
         var reader = new FileReader();
+        
         reader.onload = function (e) {
-        	$("#cusImgView").attr('src', e.target.result);
+            $('#contImgView').attr('src', e.target.result);
         }
         reader.readAsDataURL(input.files[0]);
     }

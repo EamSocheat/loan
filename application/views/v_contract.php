@@ -1,27 +1,27 @@
 <?php echo $header; ?>
 	<!--  test git --> 
 
-  <!-- Content Wrapper. Contains page content -->
-  <div class="content-wrapper">
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper">
     <!-- Content Header (Page header) -->
-    <section class="content-header">
+	<section class="content-header">
 		<h1>
 			<i class="fa fa-shopping-cart"></i>
-			<span data-i18ncd="lb_check_out">Contract</span>
+			<span data-i18ncd="lb_lb_contract">Contract</span>
         	<small data-i18ncd="lb_information">Information</small>
 		</h1>
       	<ol class="breadcrumb">
         	<li><a href="javascript:"><i class="fa fa-dashboard"></i><span data-i18ncd="lb_dasbord">Dashboard</span></a></li>
-			<li class="active" data-i18ncd="lb_check_out">Contract</li>
+			<li class="active" data-i18ncd="lb_lb_contract">Contract</li>
 		</ol>
     </section>
 
     <!-- Main content -->
-    <section class="content">
+	<section class="content">
       <!-- Main row -->
-      <div class="row">
+	<div class="row">
         <!-- main col -->
-        <section class="">
+		<section class="">
 			<div class="col-xs-12">
 			  <div class="box">
 				<!-- box-header -->
@@ -37,15 +37,15 @@
 							<div class="row" >
 							    <div class="col-sm-12 col-md-12 col-lg-12 row">
 							        <div class="col-sm-4 col-md-4 col-lg-4">
-    									<div class="form-group form-inline">
-                                            <label for="txtSrchPosNm" class="control-label" data-i18ncd="lb_name">Name</label>
-                                            <input type="text" class="form-control input-sm" id="txtSrchPosNm" placeholder="Name">
+										<div class="form-group form-inline">
+                                            <label for="txtSrchContNm" class="control-label" data-i18ncd="lb_name">Name</label>
+                                            <input type="text" class="form-control input-sm" id="txtSrchContNm" placeholder="Name">
                                         </div>
     								</div>
     								<div class="col-sm-4 col-md-4 col-lg-4">
     									<div class="form-group form-inline">
-                                            <label for="txtSrchPosNmKh" class="control-label" data-i18ncd="lb_name_kh">Khmer Name</label>
-                                            <input type="text" class="form-control input-sm" id="txtSrchPosNmKh" placeholder="Khmer Name">
+                                            <label for="txtSrchContNmKh" class="control-label" data-i18ncd="lb_name_kh">Khmer Name</label>
+                                            <input type="text" class="form-control input-sm" id="txtSrchContNmKh" placeholder="Khmer Name">
                                         </div>
     								</div>
     								<!-- <div class="col-sm-3 col-md-3 col-lg-3">
@@ -64,7 +64,7 @@
     								</div> -->
 							    </div>
 								<div class="col-sm-12 col-md-12 col-lg-12">
-								    <button id="btnSearch" type="button" class="btn btn-success btn-sm pull-right" onclick="_thisPage.loadData(1);"><i class="fa fa-search" aria-hidden="true"></i> <span data-i18ncd="lb_search">Search</span></button>
+									<button id="btnSearch" type="button" class="btn btn-success btn-sm pull-right" onclick="_thisPage.loadData(1);"><i class="fa fa-search" aria-hidden="true"></i> <span data-i18ncd="lb_search">Search</span></button>
 									<button id="btnReset" type="button" class="btn btn-warning btn-sm pull-right" style="margin-right: 5px"><i class="fa fa-refresh" aria-hidden="true"></i> <span data-i18ncd="btn_reset">Reset</span></button>
 								</div>
 							</div>
@@ -93,7 +93,7 @@
                             <label for="limitRow" data-i18ncd="lb_records">Records</label>
                             <select class="form-control input-sm" id="perPage" onchange="_thisPage.loadData(1);">
                                 <option value="1" data-i18ncd="lb_row1">1 rows</option>
-                                <option value="2" data-i18ncd="lb_row2"> 2 rows</option>
+                                <option value="2" data-i18ncd="lb_row2">2 rows</option>
                                 <option value="3" data-i18ncd="lb_row3">3 rows</option>
                                 <option value="10" data-i18ncd="lb_row10">10 rows</option>
                                 <option value="20" data-i18ncd="lb_row20">20 rows</option>
@@ -106,55 +106,55 @@
 				</div>
 				
 				<div class="box-body table-responsive">
-				  <table class="table table-hover" id="">
-				    <thead>  
-    					<tr>
-    					  <th><input type="checkbox" id="chkAll" style="display:none;"></th>
-    					  <th data-i18ncd="lb_name">Name</th>
-    					  <th data-i18ncd="lb_name_kh">Khmer Name</th>
-    					  <th data-i18ncd="lb_des">Description</th>
-    					  <th data-i18ncd="lb_docreate">Register Date</th>
-    					  <th data-i18ncd="lb_action">Action</th>
-    					</tr>
-					</thead>
-					<tbody>
-						<tr>
-							<td><input type="checkbox"></td>
-							<td><div>contract 000001</div></td>
-							<td><div>000001</div></td>
-							<td><div>000001</div></td>
-							<td><div>2018-10-01</div></td>
-							<td class="text-center">
-								<button onclick="" type="button" class="btn btn-primary btn-xs"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></button>
-							</td>
-						</tr>
-   					</tbody>
-				  </table>
+					<table class="table table-hover" id="">
+						<thead>  
+    						<tr>
+    					  		<th><input type="checkbox" id="chkAll" style="display:none;"></th>
+    					  		<th data-i18ncd="lb_name">Name</th>
+        					  	<th data-i18ncd="lb_name_kh">Khmer Name</th>
+        					  	<th data-i18ncd="lb_des">Description</th>
+        					  	<th data-i18ncd="lb_docreate">Register Date</th>
+    					  		<th data-i18ncd="lb_action">Action</th>
+    						</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td><input type="checkbox"></td>
+								<td><div>contract 000001</div></td>
+								<td><div>000001</div></td>
+								<td><div>000001</div></td>
+								<td><div>2018-10-01</div></td>
+								<td class="text-center">
+									<button onclick="" type="button" class="btn btn-primary btn-xs"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></button>
+								</td>
+							</tr>
+						</tbody>
+					</table>
 				</div>
 				<!-- /.box-body -->
 				<!-- box-footer -->
 				<div class="box-footer clearfix">
-                  <ul class="pagination pagination-sm no-margin pull-right" id="paging" style="display:none">
-                    <!--<li><a href="javascript:">&laquo;</a></li>-->
-                    <li><a href="javascript:">1</a></li>
-                    <li><a href="javascript:">2</a></li>
-                    <li><a href="javascript:">3</a></li>
-                    <!--<li><a href="javascript:">&raquo;</a></li>-->
-                  </ul>
-                </div>
+					<ul class="pagination pagination-sm no-margin pull-right" id="paging" style="display:none">
+                        <!--<li><a href="javascript:">&laquo;</a></li>-->
+						<li><a href="javascript:">1</a></li>
+						<li><a href="javascript:">2</a></li>
+						<li><a href="javascript:">3</a></li>
+                        <!--<li><a href="javascript:">&raquo;</a></li>-->
+					</ul>
+				</div>
                 <!-- /.box-footer -->
-			  </div>
-			  <!-- /.box -->
+			</div>
+			<!-- /.box -->
 			<div>
 			</div>
 			</div>
-        </section>
+		</section>
         <!-- main col -->
-      </div>
+	</div>
       <!-- /.row (main row) -->
-    </section>
+	</section>
     <!-- /.content -->
-  </div>
+</div>
   <!-- /.content-wrapper -->
 
 <?php echo $footer; ?>

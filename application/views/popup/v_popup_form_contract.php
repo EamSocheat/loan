@@ -1,54 +1,60 @@
 <?php include 'v_popup_header.php';?>
-		  <!-- general form elements -->
-		  <input type="hidden" id="cusId" name="cusId" value="<?php if(isset($_GET["id"])){ echo $_GET["id"]; }?>"/>
-		  <input type="hidden" id="frmAct" name="frmAct" value="<?php if(isset($_GET["action"])){ echo $_GET["action"]; }?>"/>
-		  <!-- form start -->
-          <form role="form" class="form-horizontal" id="frmCustomer" action="" style="display: none">
-          <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close" id="btnExit">
-              <span aria-hidden="true">&times;</span></button>
-            <h4 class="modal-title" id="popupTitle">Default Modal</h4>
-          </div>
-          
-          <div class="modal-body" id="modalMdBody">
-          		<!-- modal body  -->
-            	
-            	<div class="row">
-            		<div class="col-xs-12 row" style="padding:0px; margin-bottom: 20px;">
-            		
-            			<div class="col-xs-4 padding-forms-left" style="padding-left: 35px;">
-                			<div class="image" style="text-align: center">
-                            	<img id="cusImgView" src="<?php echo base_url('assets/image/default-staff-photo.png') ?>" class="img-circle" style="width: 150px;height: 150px;" alt="User Image">
-                            	<input type="hidden" class="form-control" id="cusImgPath" name="cusImgPath">
-                            </div>
-                            <div style="text-align: center;margin-top: 5px;">
-                            	<button  type="button" class="btn btn-info btn-xs" id="btnSelectPhoto"><i class="fa fa-image" aria-hidden="true"></i> <span data-i18ncd="lb_select_img">Select Image</span></button>
-                            	<input type="file" style="display: none" class="form-control" accept="image/*"  id="fileCusPhoto" name="fileCusPhoto">
+    <!-- general form elements -->
+	<input type="hidden" id="contId" name="contId" value="<?php if(isset($_GET["id"])){ echo $_GET["id"]; }?>"/>
+	<input type="hidden" id="frmAct" name="frmAct" value="<?php if(isset($_GET["action"])){ echo $_GET["action"]; }?>"/>
+    <!-- form start -->
+	<form role="form" class="form-horizontal" id="frmContract" action="" style="display: none">
+		<div class="modal-header">
+			<button type="button" class="close" data-dismiss="modal" aria-label="Close" id="btnExit">
+				<span aria-hidden="true">&times;</span></button>
+				<h4 class="modal-title" id="popupTitle">Default Modal</h4>
+		</div>
+
+		<div class="modal-body" id="modalMdBody">
+		<!-- modal body  -->
+
+			<div class="row" style="margin: 0;">
+				<div class="col-xs-12">
+					<div class="col-xs-6 padding-forms-right">
+						<div class="form-group">
+							<label for="cusNm2" data-i18ncd="lb_customer_name">Customer Name</label>
+							<div class="input-group">
+								<input type="text" class="form-control input-sm" disabled="disabled" id="txtCusNm" name="txtCusNm">
+									<span id="btnPopupCusch" class="input-group-addon label-info" style="border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;cursor: pointer;border-color: #46b8da !important;"><i class="fa fa-search-plus"></i></span>
+							</div>
+							<input type="hidden" id="txtCusNameId" name="txtCusNameId">
+						</div>
+	                    <!--  -->
+						<div class="form-group">
+							<label for="txtContSD" data-i18ncd="contSTART">Contract StartDate</label>
+							<div class="input-group date">
+								<div class="input-group-addon" id="txtContSDIcon" style="border-top-left-radius: 5px; border-bottom-left-radius: 5px;">
+									<i class="fa fa-calendar"></i>
+								</div>
+								<input type="text" class="form-control pull-right date-pick" id="txtContSD" name="txtContSD" required="required" data-inputmask="'alias': 'dd/mm/yyyy'" data-mask="">
+							</div>
+						</div>
+					</div>
+
+					<div class="col-xs-6 padding-forms-right">
+						<div class="form-group">
+							<label for="txtCusPhone" data-i18ncd="lb_customer_phone">Customer Phone</label>
+							<div class="input-group">
+								<input type="text" class="form-control input-sm" disabled="disabled" id="txtCusPhone" name="txtCusPhone">
+								<span id="btnPopupPosition" class="input-group-addon label-info" style="border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;cursor: pointer;border-color: #46b8da !important;"><i class="fa fa-search-plus"></i></span>
+							</div>
+							<input type="hidden" id="txtCusPhoneId" name="txtCusPhoneId">
+						</div>
+						<!--  -->
+						<div class="form-group">
+                               	<label for="txtContractNmKh" data-i18ncd="lb_name_kh">Khmer Name</label>
+                            	<input type="text" class="form-control" id="txtContractNmKh" name="txtContractNmKh" required="required">
                             </div>
                 		</div>
-                		<div class="col-xs-4 padding-forms-right">                			
-                			<div class="form-group">
-                              <label for="braNm" data-i18ncd="lb_name">Name</label>
-                              <input type="text" class="form-control" id="txtCustomerNm" name="txtCustomerNm" required="required">
-                            </div>
-                		</div>
-                		
-                		<div class="col-xs-4 padding-forms-right">                	
-                			<div class="form-group">
-                               	<label for="txtCustomerNmKh" data-i18ncd="lb_name_kh">Khmer Name</label>
-                            	<input type="text" class="form-control" id="txtCustomerNmKh" name="txtCustomerNmKh" required="required">
-                            </div>
-                		</div>
-                		
-                		<div class="col-xs-8 padding-forms-right">
-                			<div class="form-group">
-                               	<label for="txtIdentityNmKh" data-i18ncd="lb_identity">Identity</label>
-                            	<input type="text" class="form-control" id="txtIdentityNmKh" name="txtIdentityNmKh" required="required" maxlength="9">
-                            </div>
-                		</div>
-                		
-                		
-                	</div>
+					
+					</div>
                 
                 	<div class="col-xs-12 row" style="padding:0px">
                 		<div class="col-xs-4 padding-forms-left">
@@ -62,7 +68,7 @@
                 		</div>
                 		<div class="col-xs-4 padding-forms-right">
                 			<div class="form-group">
-                               	<label for="txtDob" data-i18ncd="cusDob">DOB</label>
+                               	<label for="txtDob" data-i18ncd="contDob">DOB</label>
 			                	<div class="input-group date">
 				                  	<div class="input-group-addon" style="border-top-left-radius: 5px; border-bottom-left-radius: 5px;">
 				                    	<i class="fa fa-calendar"></i>
@@ -74,7 +80,7 @@
                 		
                 		<div class="col-xs-4 padding-forms-right">
                 			<div class="form-group">
-                				<label for="txtDes" data-i18ncd="lb_des">Description</label>
+                				<label for="txtDes" data-i18ncd="contDes">Description</label>
                               	<input type="text" class="form-control" id="txtDes" name="txtDes" />
                 			</div>
                 		</div>
@@ -104,17 +110,17 @@
                 	<div class="col-xs-12 row" style="padding:0px">
                 		<div class="col-xs-12 padding-forms-left padding-forms-right">
                 			<div class="form-group">
-                               	<label for="txtAddr" data-i18ncd="lb_addr">Address</label>
+                               	<label for="txtAddr" data-i18ncd="txtAddr">Address</label>
                             	<input type="text" class="form-control" id="txtAddr" name="txtAddr">
                             </div>
                 		</div>
                 	</div>
                 	
                 	
-                	<!-- <div class="col-xs-12 row" style="padding:0px">
+                	<div class="col-xs-12 row" style="padding:0px">
                 		<div class="col-xs-4 padding-forms-left">
                 			<div class="form-group">
-                				<label for="txtStartDate" data-i18ncd="cusStartDate">Start Date</label>
+                				<label for="txtStartDate" data-i18ncd="contStartDate">Start Date</label>
                               	<div class="input-group date">
 				                  	<div class="input-group-addon" style="border-top-left-radius: 5px; border-bottom-left-radius: 5px;">
 				                    	<i class="fa fa-calendar"></i>
@@ -125,7 +131,7 @@
                 		</div>
                 		<div class="col-xs-4 padding-forms-right">
                 			<div class="form-group">
-                				<label for="txtStopDate" data-i18ncd="cusEndDate">Stop Date</label>
+                				<label for="txtStopDate" data-i18ncd="contEndDate">Stop Date</label>
                               	<div class="input-group date">
 				                  	<div class="input-group-addon" style="border-top-left-radius: 5px; border-bottom-left-radius: 5px;">
 				                    	<i class="fa fa-calendar"></i>
@@ -134,7 +140,8 @@
 				                </div>
                 			</div>
                 		</div>
-                	</div>  -->
+                		
+                	</div>
            
                 	
             	</div>
@@ -150,4 +157,4 @@
           <!-- form end --> 
           <!-- end general form elements -->
 <?php include 'v_popup_footer.php';?>
-<script src="<?php echo base_url('assets/') ?>js/pages/popup/v_popup_form_customer.js"></script>
+<script src="<?php echo base_url('assets/') ?>js/pages/popup/v_popup_form_contract.js"></script>
