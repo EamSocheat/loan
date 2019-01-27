@@ -12,140 +12,167 @@
 
 		<div class="modal-body" id="modalMdBody">
 		<!-- modal body  -->
-
-			<div class="row" style="margin: 0;">
-				<div class="col-xs-12">
-					<div class="col-xs-6 padding-forms-right">
-						<div class="form-group">
-							<label for="cusNm2" data-i18ncd="lb_customer_name">Customer Name</label>
-							<div class="input-group">
-								<input type="text" class="form-control input-sm" disabled="disabled" id="txtCusNm" name="txtCusNm">
-									<span id="btnPopupCusch" class="input-group-addon label-info" style="border-top-right-radius: 5px;
-    border-bottom-right-radius: 5px;cursor: pointer;border-color: #46b8da !important;"><i class="fa fa-search-plus"></i></span>
-							</div>
-							<input type="hidden" id="txtCusNameId" name="txtCusNameId">
-						</div>
-	                    <!--  -->
-						<div class="form-group">
-							<label for="txtContSD" data-i18ncd="contSTART">Contract StartDate</label>
-							<div class="input-group date">
-								<div class="input-group-addon" id="txtContSDIcon" style="border-top-left-radius: 5px; border-bottom-left-radius: 5px;">
-									<i class="fa fa-calendar"></i>
+			<div class="row">
+				<div class="col-xs-12 row" style="padding:0px">
+                		<div class="col-xs-4 padding-forms-left">
+                			<div class="form-group">
+								<label for="cusNm2" data-i18ncd="lb_customer_name">Customer Name</label>
+								<div class="input-group">
+									<input type="text" style="height: 34px;" class="form-control input-sm" disabled="disabled" id="txtCusNm" name="txtCusNm">
+										<span id="btnPopupCusch" class="input-group-addon label-info" style="border-top-right-radius: 5px;
+		    border-bottom-right-radius: 5px;cursor: pointer;border-color: #46b8da !important;"><i class="fa fa-search-plus"></i></span>
 								</div>
-								<input type="text" class="form-control pull-right date-pick" id="txtContSD" name="txtContSD" required="required" data-inputmask="'alias': 'dd/mm/yyyy'" data-mask="">
+								<input type="hidden" id="txtCusNameId" name="txtCusNameId">
 							</div>
-						</div>
-					</div>
-
-					<div class="col-xs-6 padding-forms-right">
-						<div class="form-group">
-							<label for="txtCusPhone" data-i18ncd="lb_customer_phone">Customer Phone</label>
-							<div class="input-group">
-								<input type="text" class="form-control input-sm" disabled="disabled" id="txtCusPhone" name="txtCusPhone">
-								<span id="btnPopupPosition" class="input-group-addon label-info" style="border-top-right-radius: 5px;
-    border-bottom-right-radius: 5px;cursor: pointer;border-color: #46b8da !important;"><i class="fa fa-search-plus"></i></span>
-							</div>
-							<input type="hidden" id="txtCusPhoneId" name="txtCusPhoneId">
-						</div>
-						<!--  -->
-						<div class="form-group">
-                               	<label for="txtContractNmKh" data-i18ncd="lb_name_kh">Khmer Name</label>
-                            	<input type="text" class="form-control" id="txtContractNmKh" name="txtContractNmKh" required="required">
-                            </div>
-                		</div>
-					
-					</div>
-                
-                	<div class="col-xs-12 row" style="padding:0px">
-                		<div class="col-xs-4 padding-forms-left">
-                			<div class="form-group">
-                              <label for="cboGender" data-i18ncd="cboGender">Gender</label>
-                              <select class="form-control" id="cboGender" name="cboGender">
-	                    			<option value="M">Male</option>
-			                    	<option value="F" selected>Female</option>
-			                  </select>
-                            </div>
                 		</div>
                 		<div class="col-xs-4 padding-forms-right">
                 			<div class="form-group">
-                               	<label for="txtDob" data-i18ncd="contDob">DOB</label>
-			                	<div class="input-group date">
-				                  	<div class="input-group-addon" style="border-top-left-radius: 5px; border-bottom-left-radius: 5px;">
-				                    	<i class="fa fa-calendar"></i>
-				                  	</div>
-				                  	<input type="text" class="form-control pull-right date-pick" id="txtDob" name="txtDob" required="required" data-inputmask="'alias': 'dd/mm/yyyy'" data-mask="">
-				                </div>
+								<label for="txtCusPhone" data-i18ncd="lb_customer_phone">Customer Phone</label>
+								<div class="input-group" style="width:100%;">
+									<input style="height: 34px; border-radius: 3px;" type="text"  class="form-control input-sm" disabled="disabled" id="txtCusPhone" name="txtCusPhone">
+									
+								</div>
+								
+							</div>
+                		</div>
+                		<div class="col-xs-4 padding-forms-right">
+                			<div class="form-group">
+                               	<label for="txtContractNmKh" data-i18ncd="">Currency</label>
+                            	<select class="form-control" id="cboCurrency" name="cboCurrency" style="font-size: 14px;">
+                            		<option value="M">Please Select</option>
+		                    		<option value="M">Reil</option>
+				                </select>
                             </div>
+                		</div>
+                	</div>
+                	<!-- second row -->
+                	<div class="col-xs-12 row" style="padding:0px">
+                		<div class="col-xs-4 padding-forms-left">
+                			<div class="form-group">
+                				<label for="txtContSD" data-i18ncd="contSTART">Contract StartDate</label>
+								<div class="input-group date">
+									<div class="input-group-addon" id="txtContSDIcon" style="border-top-left-radius: 5px; border-bottom-left-radius: 5px;">
+										<i class="fa fa-calendar"></i>
+									</div>
+									<input type="text" class="form-control pull-right date-pick" id="txtContSD" name="txtContSD" required="required" data-inputmask="'alias': 'dd/mm/yyyy'" data-mask="">
+								</div>
+                			</div>
+                		</div>
+                		<div class="col-xs-4 padding-forms-right">
+                			<div class="form-group">
+					      		<label  for="lAmt" data-i18nCd="lb_cl_lamt" >Loan Amount $:</label> 		      		          
+					        	<input type="text" class="form-control" id="lAmt" placeholder="Enter loan amount" name="lAmt" >
+					    	</div>
                 		</div>
                 		
                 		<div class="col-xs-4 padding-forms-right">
                 			<div class="form-group">
-                				<label for="txtDes" data-i18ncd="contDes">Description</label>
-                              	<input type="text" class="form-control" id="txtDes" name="txtDes" />
-                			</div>
-                		</div>
-                	</div>
-                	
-                	<div class="col-xs-12 row" style="padding:0px">
-                		<div class="col-xs-4 padding-forms-left">
-                			<div class="form-group">
-                              <label for="txtPhone1" data-i18ncd="lb_phone">Phone</label>
-                              <input type="text" class="form-control" id="txtPhone1" name="txtPhone1"  required="required">
-                            </div>
-                		</div>
-                		<div class="col-xs-4 padding-forms-right">
-                			<div class="form-group">
-                              <label for="txtPhone2" data-i18ncd="lb_phone2">Phone2</label>
-                              <input type="text" class="form-control" id="txtPhone2" name="txtPhone2" />
-                            </div>
-                		</div>
-                		<div class="col-xs-4 padding-forms-right">
-                			<div class="form-group">
-                				<label for="txtEmail" data-i18ncd="lb_email">Email</label>
-                              	<input type="email" class="form-control" id="txtEmail" name="txtEmail" />
-                			</div>
-                		</div>
-                	</div>
-                	
-                	<div class="col-xs-12 row" style="padding:0px">
-                		<div class="col-xs-12 padding-forms-left padding-forms-right">
-                			<div class="form-group">
-                               	<label for="txtAddr" data-i18ncd="txtAddr">Address</label>
-                            	<input type="text" class="form-control" id="txtAddr" name="txtAddr">
-                            </div>
-                		</div>
-                	</div>
-                	
-                	
-                	<div class="col-xs-12 row" style="padding:0px">
-                		<div class="col-xs-4 padding-forms-left">
-                			<div class="form-group">
-                				<label for="txtStartDate" data-i18ncd="contStartDate">Start Date</label>
-                              	<div class="input-group date">
-				                  	<div class="input-group-addon" style="border-top-left-radius: 5px; border-bottom-left-radius: 5px;">
-				                    	<i class="fa fa-calendar"></i>
-				                  	</div>
-				                  	<input type="text" class="form-control pull-right date-pick" id="txtStartDate" name="txtStartDate" required="required" data-inputmask="'alias': 'dd/mm/yyyy'" data-mask="">
-				                </div>
-                			</div>
-                		</div>
-                		<div class="col-xs-4 padding-forms-right">
-                			<div class="form-group">
-                				<label for="txtStopDate" data-i18ncd="contEndDate">Stop Date</label>
-                              	<div class="input-group date">
-				                  	<div class="input-group-addon" style="border-top-left-radius: 5px; border-bottom-left-radius: 5px;">
-				                    	<i class="fa fa-calendar"></i>
-				                  	</div>
-				                  	<input type="text" class="form-control pull-right date-pick" id="txtStopDate" name="txtStopDate" data-inputmask="'alias': 'dd/mm/yyyy'" data-mask="">
-				                </div>
-                			</div>
+					    		<label for="lRate" data-i18nCd="lb_cl_lint" >Interest %:</label>
+						      	<input type="text" maxlength="2" class="form-control" id="lRate" placeholder="Enter interest" name="lRate" >
+					      	</div>  
                 		</div>
                 		
                 	</div>
-           
+                	<!-- 3 row -->
+                	<div class="col-xs-12 row" style="padding:0px">
+                		<div class="col-xs-4 padding-forms-left">
+                			<div class="form-group">
+					      		<label  for="lRate" data-i18nCd="lb_cl_lint" >Interest Type:</label>
+	                			 <select class="form-control" id="cbointerestType" name="cboCurrency" style="font-size: 14px;">
+		                    		<option value="M">Monthly</option>
+		                    		<option value="Y">Yearly</option>
+				                </select>
+					    	</div>
+                		</div>
+                		
+                		<div class="col-xs-4 padding-forms-right">
+                			<div class="form-group">
+					      		<label for="lYear" data-i18nCd="lb_cl_ly" >Year:</label> 		      		          
+					        	<input type="text" maxlength="2" class="form-control" id="lYear" placeholder="Enter year" name="lYear"  >
+					    	</div> 
+                		</div>
+                		
+                		<div class="col-xs-4 padding-forms-right">
+                			<div class="form-group">
+					    		<label for="lMonth" data-i18nCd="lb_cl_lm">Month:</label>
+						      	<input type="text" maxlength="2" class="form-control" id="lMonth" placeholder="Enter month" name="lMonth" >
+					      	</div> 	
+                		</div>
+                	</div>
                 	
-            	</div>
-                <!-- end modal body  -->
+                	<!--   -->
+                	<div class="col-xs-12 row" style="padding:0px">
+                		<button type="button" class="btn btn-info btn-sm" style="color: white;float: right;" id="btnCal" ><i class="fa fa-fw fa-money"></i> <span data-i18nCd="btn_cal" > Calculate </span></button>
+                  		<button type="button" class="btn btn-warning  btn-sm" style="color: white;float: right;margin-right: 8px;" id="btnReset" ><i class="fa fa-undo"></i> <span data-i18nCd="btn_reset" > Reset </span> </button>
+                	</div>
+                	<!--   -->
+                	
+                	<!-- Detail Row -->
+                	<div class="col-xs-12 row" style="padding:0px">
+                		<div class="col-xs-12 padding-forms-left">	
+                			<div class="col-sm-12" style="text-align: center;">
+		              			<h6> <span data-i18nCd="lb_lp_emi" > EMI $: </span> <span id="monEmi"></span></h6>
+		              		</div>
+	              			<div class="col-sm-12" style="text-align: center;">
+		              			<div class="table-responsive">
+		              				<table class="table table-bordered">
+		              					<colgroup >
+	  									<col width="250"/>
+	  									<col />
+	  								</colgroup>
+									  	<tbody>
+									    	<tr>
+									      		<th scope="row" data-i18nCd="tb_cl_lamt" >Loan Amount $</th>
+									      		<td id="tbl_la"></td>
+									   		</tr>
+									   	 	<tr>
+									      		<th scope="row" data-i18nCd="tb_cl_lint" >Interest %</th>
+									      		<td id="tbl_roi"></td>
+									   		</tr>
+									   		<tr>
+									      		<th scope="row" data-i18nCd="tb_lp_lper" > Period (Months) $ </th>
+									      		<td id="tbl_nm"></td>
+									   	 	</tr>
+									    	<tr>
+									      		<th scope="row" data-i18nCd="tb_cl_lmem" >Monthly EMI $</th>
+									      		<td id="tbl_emi"></td>
+									   	 	</tr>
+									   	 	
+									   	 	<tr>
+									      		<th scope="row" data-i18nCd="tb_cl_ltin">Total Interest $</th>
+									      		<td id="tbl_int"></td>
+									   	 	</tr>
+									   	 	
+									   	 	<tr>
+									      		<th scope="row" data-i18nCd="tb_cl_ltpay">Total Payment $</th>
+									      		<td id="tbl_full"></td>
+									   	 	</tr>
+									   	 	
+									  	</tbody>
+									</table>
+		              			</div>
+			              		<!--  -->
+			              	</div>
+			              	
+		              		
+			         
+                		</div>
+                	</div>
+                	<!-- table -->
+                	<div class="col-xs-12 row" style="padding:0px">
+                		<div class="col-xs-12 padding-forms-left">
+	                		<!--  -->
+							<div class="table-responsive">
+								<table id="tblPayDetail" class="table">
+	              			
+	              				</table>
+							</div>
+	              			<!--  -->
+              			</div>
+                	</div>
+                	
+                </div>	
+          <!-- end modal body  -->
           </div>
      
           <div class="modal-footer">

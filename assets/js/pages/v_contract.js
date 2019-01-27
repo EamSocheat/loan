@@ -40,9 +40,9 @@ var _thisPage = {
 				$("#loading").show();
 				var controllerNm = "PopupFormContract";
 				var option={};
-				option["height"] = "650px";
+				option["height"] = "850px";
 				
-				stock.comm.openPopUpForm(controllerNm, option, null, "modal-md");
+				stock.comm.openPopUpForm(controllerNm, option, null, "modal-lg");
 			});
 			
 			//
