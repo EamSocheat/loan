@@ -6,7 +6,7 @@
     <!-- Content Header (Page header) -->
 	<section class="content-header">
 		<h1>
-			<i class="fa fa-shopping-cart"></i>
+			<i class="fa fa-handshake-o"></i>
 			<span data-i18ncd="lb_lb_contract">Contract</span>
         	<small data-i18ncd="lb_information">Information</small>
 		</h1>

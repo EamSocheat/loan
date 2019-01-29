@@ -15,10 +15,10 @@ var _thisPage = {
 			clearForm();
 			if($("#frmAct").val() == "U"){
 			    getDataEdit($("#contId").val());
-			    $("#popupTitle").html("<i class='fa fa-home'></i> "+$.i18n.prop("btn_edit")+" "+ $.i18n.prop("lb_contract"));
+			    $("#popupTitle").html("<i class='fa fa-handshake-o'></i> "+$.i18n.prop("btn_edit")+" "+ $.i18n.prop("lb_contract"));
 			}else{
 			    $("#btnSaveNew").show();
-			    $("#popupTitle").html("<i class='fa fa-home'></i> "+$.i18n.prop("btn_add_new")+" "+ $.i18n.prop("lb_contract"));
+			    $("#popupTitle").html("<i class='fa fa-handshake-o'></i> "+$.i18n.prop("btn_add_new")+" "+ $.i18n.prop("lb_contract"));
 			}
 			$("#frmContract").show();
 			$("#braNm").focus();
