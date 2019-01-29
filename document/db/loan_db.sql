@@ -1,15 +1,13 @@
 -- phpMyAdmin SQL Dump
--- version 4.7.4
+-- version 4.6.4
 -- https://www.phpmyadmin.net/
 --
--- Host: 127.0.0.1:3306
--- Generation Time: Jan 23, 2019 at 07:11 AM
--- Server version: 5.7.19
--- PHP Version: 7.0.23
+-- Host: 127.0.0.1
+-- Generation Time: Jan 29, 2019 at 10:21 AM
+-- Server version: 5.7.14
+-- PHP Version: 5.6.25
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-SET AUTOCOMMIT = 0;
-START TRANSACTION;
 SET time_zone = "+00:00";
 
 
@@ -28,9 +26,8 @@ SET time_zone = "+00:00";
 -- Table structure for table `tbl_branch`
 --
 
-DROP TABLE IF EXISTS `tbl_branch`;
-CREATE TABLE IF NOT EXISTS `tbl_branch` (
-  `bra_id` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `tbl_branch` (
+  `bra_id` int(11) NOT NULL,
   `bra_nm` varchar(30) COLLATE utf8_unicode_ci NOT NULL,
   `bra_phone1` varchar(15) COLLATE utf8_unicode_ci DEFAULT NULL,
   `bra_phone2` varchar(15) COLLATE utf8_unicode_ci DEFAULT NULL,
@@ -44,8 +41,7 @@ CREATE TABLE IF NOT EXISTS `tbl_branch` (
   `upUsr` int(11) NOT NULL,
   `bra_type_id` int(11) NOT NULL,
   `com_id` int(11) NOT NULL,
-  `bra_nm_kh` varchar(50) COLLATE utf8_unicode_ci DEFAULT NULL,
-  PRIMARY KEY (`bra_id`)
+  `bra_nm_kh` varchar(50) COLLATE utf8_unicode_ci DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- --------------------------------------------------------
@@ -54,9 +50,8 @@ CREATE TABLE IF NOT EXISTS `tbl_branch` (
 -- Table structure for table `tbl_branch_type`
 --
 
-DROP TABLE IF EXISTS `tbl_branch_type`;
-CREATE TABLE IF NOT EXISTS `tbl_branch_type` (
-  `bra_type_id` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `tbl_branch_type` (
+  `bra_type_id` int(11) NOT NULL,
   `bra_nm` varchar(30) COLLATE utf8_unicode_ci DEFAULT NULL,
   `bra_des` text COLLATE utf8_unicode_ci,
   `regDt` datetime DEFAULT NULL,
@@ -65,9 +60,8 @@ CREATE TABLE IF NOT EXISTS `tbl_branch_type` (
   `regUsr` int(11) DEFAULT NULL,
   `upUsr` int(11) DEFAULT NULL,
   `com_id` int(11) DEFAULT NULL,
-  `bra_nm_kh` varchar(30) COLLATE utf8_unicode_ci DEFAULT NULL,
-  PRIMARY KEY (`bra_type_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+  `bra_nm_kh` varchar(30) COLLATE utf8_unicode_ci DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Dumping data for table `tbl_branch_type`
@@ -83,9 +77,8 @@ INSERT INTO `tbl_branch_type` (`bra_type_id`, `bra_nm`, `bra_des`, `regDt`, `upD
 -- Table structure for table `tbl_category`
 --
 
-DROP TABLE IF EXISTS `tbl_category`;
-CREATE TABLE IF NOT EXISTS `tbl_category` (
-  `cat_id` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `tbl_category` (
+  `cat_id` int(11) NOT NULL,
   `cat_nm` varchar(30) COLLATE utf8_unicode_ci NOT NULL,
   `cat_nm_kh` varchar(50) COLLATE utf8_unicode_ci DEFAULT NULL,
   `cat_des` text COLLATE utf8_unicode_ci,
@@ -94,8 +87,7 @@ CREATE TABLE IF NOT EXISTS `tbl_category` (
   `useYn` varchar(1) COLLATE utf8_unicode_ci NOT NULL,
   `upUsr` int(11) NOT NULL,
   `regUsr` int(11) NOT NULL,
-  `com_id` int(11) NOT NULL,
-  PRIMARY KEY (`cat_id`)
+  `com_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- --------------------------------------------------------
@@ -104,9 +96,8 @@ CREATE TABLE IF NOT EXISTS `tbl_category` (
 -- Table structure for table `tbl_company`
 --
 
-DROP TABLE IF EXISTS `tbl_company`;
-CREATE TABLE IF NOT EXISTS `tbl_company` (
-  `com_id` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `tbl_company` (
+  `com_id` int(11) NOT NULL,
   `com_nm` varchar(30) COLLATE utf8_unicode_ci NOT NULL,
   `com_phone` varchar(15) COLLATE utf8_unicode_ci NOT NULL,
   `com_email` varchar(50) COLLATE utf8_unicode_ci DEFAULT NULL,
@@ -114,16 +105,62 @@ CREATE TABLE IF NOT EXISTS `tbl_company` (
   `com_des` text COLLATE utf8_unicode_ci,
   `regDt` datetime DEFAULT NULL,
   `upDt` datetime DEFAULT NULL,
-  `useYn` varchar(1) COLLATE utf8_unicode_ci NOT NULL,
-  PRIMARY KEY (`com_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+  `useYn` varchar(1) COLLATE utf8_unicode_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Dumping data for table `tbl_company`
 --
 
 INSERT INTO `tbl_company` (`com_id`, `com_nm`, `com_phone`, `com_email`, `com_addr`, `com_des`, `regDt`, `upDt`, `useYn`) VALUES
-(1, 'Socheat', '010234567', NULL, NULL, NULL, '2019-01-07 16:53:06', NULL, 'Y');
+(1, 'Socheat', '010234567', NULL, NULL, NULL, '2019-01-07 16:53:06', NULL, 'Y'),
+(5, 'b', '0963276991', NULL, NULL, NULL, '2019-01-27 20:36:17', NULL, 'Y');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tbl_contract`
+--
+
+CREATE TABLE `tbl_contract` (
+  `con_id` int(11) NOT NULL,
+  `con_start_dt` datetime NOT NULL,
+  `con_end_dt` datetime NOT NULL,
+  `con_principle` double NOT NULL,
+  `con_interest` double NOT NULL,
+  `con_period` int(11) NOT NULL,
+  `con_emi` double NOT NULL,
+  `con_total_principle` double NOT NULL,
+  `con_total_interest` double NOT NULL,
+  `con_status` varchar(10) NOT NULL,
+  `con_type` int(11) NOT NULL,
+  `regDt` datetime DEFAULT NULL,
+  `upDt` datetime DEFAULT NULL,
+  `useYn` varchar(1) NOT NULL,
+  `regUsr` int(11) NOT NULL,
+  `upUsr` int(11) NOT NULL,
+  `com_id` int(11) NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=armscii8;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tbl_currency`
+--
+
+CREATE TABLE `tbl_currency` (
+  `cur_id` int(11) NOT NULL,
+  `cur_nm` varchar(30) NOT NULL,
+  `cur_nm_kh` varchar(30) NOT NULL,
+  `cur_syn` varchar(10) NOT NULL,
+  `cur_syn_kh` varchar(10) NOT NULL,
+  `regDt` datetime DEFAULT NULL,
+  `upDt` datetime DEFAULT NULL,
+  `useYn` varchar(1) NOT NULL,
+  `regUsr` int(11) NOT NULL,
+  `upUsr` int(11) NOT NULL,
+  `com_id` int(11) NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=armscii8;
 
 -- --------------------------------------------------------
 
@@ -131,9 +168,8 @@ INSERT INTO `tbl_company` (`com_id`, `com_nm`, `com_phone`, `com_email`, `com_ad
 -- Table structure for table `tbl_customer`
 --
 
-DROP TABLE IF EXISTS `tbl_customer`;
-CREATE TABLE IF NOT EXISTS `tbl_customer` (
-  `cus_id` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `tbl_customer` (
+  `cus_id` int(11) NOT NULL,
   `cus_nm` varchar(30) DEFAULT NULL,
   `cus_nm_kh` varchar(30) DEFAULT NULL,
   `cus_gender` varchar(1) DEFAULT NULL,
@@ -150,9 +186,21 @@ CREATE TABLE IF NOT EXISTS `tbl_customer` (
   `upDt` datetime DEFAULT NULL,
   `useYn` varchar(1) DEFAULT NULL,
   `regUsr` int(11) DEFAULT NULL,
-  `com_id` int(11) DEFAULT NULL,
-  PRIMARY KEY (`cus_id`)
+  `upUsr` varchar(100) CHARACTER SET armscii8 NOT NULL,
+  `com_id` int(11) DEFAULT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `tbl_customer`
+--
+
+INSERT INTO `tbl_customer` (`cus_id`, `cus_nm`, `cus_nm_kh`, `cus_gender`, `cus_dob`, `cus_photo`, `cus_phone1`, `cus_phone2`, `cus_email`, `cus_addr`, `cus_des`, `cus_idnt_num`, `cus_idnt_type`, `regDt`, `upDt`, `useYn`, `regUsr`, `upUsr`, `com_id`) VALUES
+(1, 'customer 00001', 'អតិថិជន 00001', 'F', '2019-01-01', '/loan/customer/2019-01-26-09-46-29_1_1.jpg', '092333344', '092888822', 'customer00001@gmail.com', 'customer str.', 'customer detail', '123321212', NULL, '2019-01-25 00:00:00', '2019-01-26 09:46:29', 'Y', 1, '1', 1),
+(2, 'customer 00002', 'អតិថិជន 00002', 'M', '1970-01-01', '/loan/customer/2019-01-26-09-46-39_1_1.jpg', '091222233', '098111122', 'staff00002@gmail.com', 'customer 00002 str.', 'customer 00002 description', '112222222', NULL, '2019-01-26 05:06:15', '2019-01-26 09:46:39', 'Y', 1, '1', 1),
+(3, 'customer 00003', 'អតិថិជន 00003', 'M', '1990-01-07', '/loan/customer/2019-01-26-10-08-47_1_1.jpg', '012222233', '012333344', 'customer00003@gmail.com', 'customer 00003 str.', 'customer 00003 detail', '999888809', NULL, '2019-01-26 05:30:50', '2019-01-26 10:08:47', 'Y', 1, '1', 1),
+(4, 'customer 00004', 'អតិថិជន 00004', 'F', '1989-06-02', '', '012223344', '092335577', 'staff00004@gmail.com', 'customer 00004 str.', 'customer 00004 description', '757456445', NULL, '2019-01-26 05:31:55', '2019-01-26 08:05:09', 'Y', 1, '1', 1),
+(5, 'customer 00005', 'អតិថិជន 00005', 'F', '1999-08-12', '/loan/customer/2019-01-26-09-47-15_1_1.jpg', '091222333', '012333444', 'customer00005@gmail.com', 'customer 00005 str.', 'customer 00005 description', '999888877', NULL, '2019-01-26 05:37:09', '2019-01-26 09:47:20', 'Y', 1, '1', 1),
+(6, 'customer 00006', 'អតិថិជន 00006', 'M', '1990-06-02', '/loan/customer/2019-01-26-09-47-04_1_1.jpg', '092222233', '098777766', 'customer00006@gmail.com', 'customer 00006 str.', 'customer 00006 description', '123455321', NULL, '2019-01-26 07:51:18', '2019-01-26 09:47:04', 'Y', 1, '1', 1);
 
 -- --------------------------------------------------------
 
@@ -160,9 +208,8 @@ CREATE TABLE IF NOT EXISTS `tbl_customer` (
 -- Table structure for table `tbl_import`
 --
 
-DROP TABLE IF EXISTS `tbl_import`;
-CREATE TABLE IF NOT EXISTS `tbl_import` (
-  `imp_id` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `tbl_import` (
+  `imp_id` int(11) NOT NULL,
   `imp_total_qty` int(11) DEFAULT NULL,
   `imp_total_price` double DEFAULT NULL,
   `imp_date` date NOT NULL,
@@ -173,8 +220,7 @@ CREATE TABLE IF NOT EXISTS `tbl_import` (
   `regUsr` int(11) NOT NULL,
   `upUsr` int(11) NOT NULL,
   `sup_id` int(11) NOT NULL,
-  `com_id` int(11) NOT NULL,
-  PRIMARY KEY (`imp_id`)
+  `com_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- --------------------------------------------------------
@@ -183,8 +229,7 @@ CREATE TABLE IF NOT EXISTS `tbl_import` (
 -- Table structure for table `tbl_import_detail`
 --
 
-DROP TABLE IF EXISTS `tbl_import_detail`;
-CREATE TABLE IF NOT EXISTS `tbl_import_detail` (
+CREATE TABLE `tbl_import_detail` (
   `imp_id` int(11) NOT NULL,
   `pro_id` int(11) NOT NULL,
   `pro_unit_price` double DEFAULT NULL,
@@ -194,9 +239,32 @@ CREATE TABLE IF NOT EXISTS `tbl_import_detail` (
   `useYn` varchar(1) COLLATE utf8_unicode_ci NOT NULL,
   `regUsr` int(11) NOT NULL,
   `upUsr` int(11) NOT NULL,
-  `com_id` int(11) NOT NULL,
-  PRIMARY KEY (`imp_id`,`pro_id`)
+  `com_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tbl_installment`
+--
+
+CREATE TABLE `tbl_installment` (
+  `ins_id` int(11) NOT NULL,
+  `ins_num` int(11) NOT NULL,
+  `ins_dt` datetime NOT NULL,
+  `ins_principle` double NOT NULL,
+  `ins_interest` double NOT NULL,
+  `ins_status` varchar(10) NOT NULL,
+  `ins_pay_dt` datetime DEFAULT NULL,
+  `con_total_interest` double NOT NULL,
+  `con_status` double NOT NULL,
+  `regDt` datetime DEFAULT NULL,
+  `upDt` datetime DEFAULT NULL,
+  `useYn` varchar(1) NOT NULL,
+  `regUsr` int(11) NOT NULL,
+  `upUsr` int(11) NOT NULL,
+  `com_id` int(11) NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=armscii8;
 
 -- --------------------------------------------------------
 
@@ -204,18 +272,16 @@ CREATE TABLE IF NOT EXISTS `tbl_import_detail` (
 -- Table structure for table `tbl_menu`
 --
 
-DROP TABLE IF EXISTS `tbl_menu`;
-CREATE TABLE IF NOT EXISTS `tbl_menu` (
-  `menu_id` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `tbl_menu` (
+  `menu_id` int(11) NOT NULL,
   `menu_nm` varchar(30) COLLATE utf8_unicode_ci DEFAULT NULL,
   `menu_nm_kh` varchar(30) COLLATE utf8_unicode_ci DEFAULT NULL,
   `regDt` datetime DEFAULT NULL,
   `menu_icon_nm` varchar(30) COLLATE utf8_unicode_ci DEFAULT NULL,
   `menu_level` int(11) DEFAULT NULL,
   `menu_order` int(11) DEFAULT NULL,
-  `menu_group` int(11) DEFAULT NULL,
-  PRIMARY KEY (`menu_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+  `menu_group` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Dumping data for table `tbl_menu`
@@ -225,7 +291,8 @@ INSERT INTO `tbl_menu` (`menu_id`, `menu_nm`, `menu_nm_kh`, `regDt`, `menu_icon_
 (1, 'Contract', 'កិច្ចសន្យា', '2018-08-24 01:02:15', 'fa fa-home', NULL, 2, 1),
 (2, 'Payment', 'ការបង់ប្រាក់', '2018-08-24 02:59:23', 'fa fa-pie-chart', NULL, 3, 1),
 (3, 'Paid', 'ប្រាក់បានបង់', '2018-08-24 02:59:23', 'fa fa-money', NULL, 4, 1),
-(4, 'Customer', 'អតិថិជន', '2018-08-24 02:59:23', 'fa fa-users', 0, 1, 1);
+(4, 'Customer', 'អតិថិជន', '2018-08-24 02:59:23', 'fa fa-users', 0, 1, 1),
+(5, 'Calculate_Sample', 'របៀបគណនា', '2019-01-26 00:00:00', 'fa fa-calculator', NULL, 5, 1);
 
 -- --------------------------------------------------------
 
@@ -233,14 +300,12 @@ INSERT INTO `tbl_menu` (`menu_id`, `menu_nm`, `menu_nm_kh`, `regDt`, `menu_icon_
 -- Table structure for table `tbl_menu_company`
 --
 
-DROP TABLE IF EXISTS `tbl_menu_company`;
-CREATE TABLE IF NOT EXISTS `tbl_menu_company` (
+CREATE TABLE `tbl_menu_company` (
   `menu_id` int(11) NOT NULL,
   `com_id` int(11) NOT NULL,
   `upDt` datetime DEFAULT NULL,
   `regDt` datetime DEFAULT NULL,
-  `useYn` varchar(1) COLLATE utf8_unicode_ci DEFAULT NULL,
-  PRIMARY KEY (`menu_id`,`com_id`)
+  `useYn` varchar(1) COLLATE utf8_unicode_ci DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
@@ -249,9 +314,15 @@ CREATE TABLE IF NOT EXISTS `tbl_menu_company` (
 
 INSERT INTO `tbl_menu_company` (`menu_id`, `com_id`, `upDt`, `regDt`, `useYn`) VALUES
 (1, 1, NULL, '2019-01-07 16:53:06', 'Y'),
+(1, 5, NULL, '2019-01-27 20:36:17', 'Y'),
 (2, 1, NULL, '2019-01-07 16:53:06', 'Y'),
+(2, 5, NULL, '2019-01-27 20:36:17', 'Y'),
 (3, 1, NULL, '2019-01-07 16:53:06', 'Y'),
-(4, 1, NULL, '2019-01-07 16:53:06', 'Y');
+(3, 5, NULL, '2019-01-27 20:36:17', 'Y'),
+(4, 1, NULL, '2019-01-07 16:53:06', 'Y'),
+(4, 5, NULL, '2019-01-27 20:36:17', 'Y'),
+(5, 1, NULL, '2019-01-26 00:00:00', 'Y'),
+(5, 5, NULL, '2019-01-27 20:36:17', 'Y');
 
 -- --------------------------------------------------------
 
@@ -259,14 +330,12 @@ INSERT INTO `tbl_menu_company` (`menu_id`, `com_id`, `upDt`, `regDt`, `useYn`) V
 -- Table structure for table `tbl_menu_user`
 --
 
-DROP TABLE IF EXISTS `tbl_menu_user`;
-CREATE TABLE IF NOT EXISTS `tbl_menu_user` (
+CREATE TABLE `tbl_menu_user` (
   `menu_id` int(11) NOT NULL,
   `usr_id` int(11) NOT NULL,
   `upDt` datetime DEFAULT NULL,
   `regDt` datetime DEFAULT NULL,
-  `useYn` varchar(1) COLLATE utf8_unicode_ci NOT NULL,
-  PRIMARY KEY (`menu_id`,`usr_id`)
+  `useYn` varchar(1) COLLATE utf8_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
@@ -275,9 +344,15 @@ CREATE TABLE IF NOT EXISTS `tbl_menu_user` (
 
 INSERT INTO `tbl_menu_user` (`menu_id`, `usr_id`, `upDt`, `regDt`, `useYn`) VALUES
 (1, 1, NULL, '2019-01-07 16:53:06', 'Y'),
+(1, 2, NULL, '2019-01-27 20:36:17', 'Y'),
 (2, 1, NULL, '2019-01-07 16:53:06', 'Y'),
+(2, 2, NULL, '2019-01-27 20:36:17', 'Y'),
 (3, 1, NULL, '2019-01-07 16:53:06', 'Y'),
-(4, 1, NULL, '2019-01-07 16:53:06', 'Y');
+(3, 2, NULL, '2019-01-27 20:36:17', 'Y'),
+(4, 1, NULL, '2019-01-07 16:53:06', 'Y'),
+(4, 2, NULL, '2019-01-27 20:36:17', 'Y'),
+(5, 1, NULL, '2019-01-26 00:00:00', 'Y'),
+(5, 2, NULL, '2019-01-27 20:36:17', 'Y');
 
 -- --------------------------------------------------------
 
@@ -285,9 +360,8 @@ INSERT INTO `tbl_menu_user` (`menu_id`, `usr_id`, `upDt`, `regDt`, `useYn`) VALU
 -- Table structure for table `tbl_move`
 --
 
-DROP TABLE IF EXISTS `tbl_move`;
-CREATE TABLE IF NOT EXISTS `tbl_move` (
-  `mov_id` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `tbl_move` (
+  `mov_id` int(11) NOT NULL,
   `mov_total_qty` int(11) NOT NULL,
   `mov_date` date NOT NULL,
   `mov_des` text COLLATE utf8_unicode_ci,
@@ -299,8 +373,7 @@ CREATE TABLE IF NOT EXISTS `tbl_move` (
   `sta_id` int(11) NOT NULL,
   `regUsr` int(11) NOT NULL,
   `upUsr` int(11) NOT NULL,
-  `com_id` int(11) NOT NULL,
-  PRIMARY KEY (`mov_id`)
+  `com_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- --------------------------------------------------------
@@ -309,8 +382,7 @@ CREATE TABLE IF NOT EXISTS `tbl_move` (
 -- Table structure for table `tbl_move_detail`
 --
 
-DROP TABLE IF EXISTS `tbl_move_detail`;
-CREATE TABLE IF NOT EXISTS `tbl_move_detail` (
+CREATE TABLE `tbl_move_detail` (
   `mov_id` int(11) NOT NULL,
   `pro_id` int(11) NOT NULL,
   `pro_qty` int(11) NOT NULL,
@@ -319,8 +391,7 @@ CREATE TABLE IF NOT EXISTS `tbl_move_detail` (
   `useYn` varchar(1) COLLATE utf8_unicode_ci NOT NULL,
   `regUsr` int(11) NOT NULL,
   `upUsr` int(11) NOT NULL,
-  `com_id` int(11) NOT NULL,
-  PRIMARY KEY (`mov_id`,`pro_id`)
+  `com_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- --------------------------------------------------------
@@ -329,9 +400,8 @@ CREATE TABLE IF NOT EXISTS `tbl_move_detail` (
 -- Table structure for table `tbl_position`
 --
 
-DROP TABLE IF EXISTS `tbl_position`;
-CREATE TABLE IF NOT EXISTS `tbl_position` (
-  `pos_id` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `tbl_position` (
+  `pos_id` int(11) NOT NULL,
   `pos_nm` varchar(30) COLLATE utf8_unicode_ci NOT NULL,
   `pos_nm_kh` varchar(30) COLLATE utf8_unicode_ci DEFAULT NULL,
   `pos_des` text COLLATE utf8_unicode_ci,
@@ -340,9 +410,8 @@ CREATE TABLE IF NOT EXISTS `tbl_position` (
   `useYn` varchar(1) COLLATE utf8_unicode_ci DEFAULT NULL,
   `regUsr` int(11) NOT NULL,
   `upUsr` int(11) NOT NULL,
-  `com_id` int(11) NOT NULL,
-  PRIMARY KEY (`pos_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+  `com_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Dumping data for table `tbl_position`
@@ -357,9 +426,8 @@ INSERT INTO `tbl_position` (`pos_id`, `pos_nm`, `pos_nm_kh`, `pos_des`, `regDt`,
 -- Table structure for table `tbl_product`
 --
 
-DROP TABLE IF EXISTS `tbl_product`;
-CREATE TABLE IF NOT EXISTS `tbl_product` (
-  `pro_id` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `tbl_product` (
+  `pro_id` int(11) NOT NULL,
   `pro_nm` varchar(30) COLLATE utf8_unicode_ci NOT NULL,
   `pro_nm_kh` varchar(50) COLLATE utf8_unicode_ci DEFAULT NULL,
   `pro_vol` varchar(10) COLLATE utf8_unicode_ci DEFAULT NULL,
@@ -373,8 +441,7 @@ CREATE TABLE IF NOT EXISTS `tbl_product` (
   `regUsr` int(11) NOT NULL,
   `upUsr` int(11) NOT NULL,
   `cat_id` int(11) NOT NULL,
-  `com_id` int(11) NOT NULL,
-  PRIMARY KEY (`pro_id`)
+  `com_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- --------------------------------------------------------
@@ -383,9 +450,8 @@ CREATE TABLE IF NOT EXISTS `tbl_product` (
 -- Table structure for table `tbl_staff`
 --
 
-DROP TABLE IF EXISTS `tbl_staff`;
-CREATE TABLE IF NOT EXISTS `tbl_staff` (
-  `sta_id` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `tbl_staff` (
+  `sta_id` int(11) NOT NULL,
   `sta_nm` varchar(30) COLLATE utf8_unicode_ci NOT NULL,
   `sta_nm_kh` varchar(30) COLLATE utf8_unicode_ci DEFAULT NULL,
   `sta_gender` varchar(1) COLLATE utf8_unicode_ci NOT NULL,
@@ -405,16 +471,16 @@ CREATE TABLE IF NOT EXISTS `tbl_staff` (
   `upUsr` int(11) NOT NULL,
   `pos_id` int(11) NOT NULL,
   `bra_id` int(11) DEFAULT NULL,
-  `com_id` int(11) NOT NULL,
-  PRIMARY KEY (`sta_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+  `com_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Dumping data for table `tbl_staff`
 --
 
 INSERT INTO `tbl_staff` (`sta_id`, `sta_nm`, `sta_nm_kh`, `sta_gender`, `sta_dob`, `sta_photo`, `sta_phone1`, `sta_phone2`, `sta_email`, `sta_addr`, `sta_des`, `sta_start_dt`, `sta_end_dt`, `regDt`, `upDt`, `useYn`, `regUsr`, `upUsr`, `pos_id`, `bra_id`, `com_id`) VALUES
-(1, 'a', NULL, '', NULL, NULL, '010234567', NULL, NULL, NULL, NULL, NULL, NULL, '2019-01-07 16:53:06', NULL, 'Y', 0, 0, 1, NULL, 1);
+(1, 'a', NULL, '', NULL, NULL, '010234567', NULL, NULL, NULL, NULL, NULL, NULL, '2019-01-07 16:53:06', NULL, 'Y', 0, 0, 1, NULL, 1),
+(2, 'b', NULL, '', NULL, NULL, '0963276991', NULL, NULL, NULL, NULL, NULL, NULL, '2019-01-27 20:36:17', NULL, 'Y', 0, 0, 1, NULL, 5);
 
 -- --------------------------------------------------------
 
@@ -422,9 +488,8 @@ INSERT INTO `tbl_staff` (`sta_id`, `sta_nm`, `sta_nm_kh`, `sta_gender`, `sta_dob
 -- Table structure for table `tbl_stock`
 --
 
-DROP TABLE IF EXISTS `tbl_stock`;
-CREATE TABLE IF NOT EXISTS `tbl_stock` (
-  `sto_id` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `tbl_stock` (
+  `sto_id` int(11) NOT NULL,
   `sto_nm` varchar(30) COLLATE utf8_unicode_ci NOT NULL,
   `sto_nm_kh` varchar(50) COLLATE utf8_unicode_ci DEFAULT NULL,
   `sto_addr` text COLLATE utf8_unicode_ci,
@@ -435,8 +500,7 @@ CREATE TABLE IF NOT EXISTS `tbl_stock` (
   `regUsr` int(11) NOT NULL,
   `upUsr` int(11) NOT NULL,
   `bra_id` int(11) NOT NULL,
-  `com_id` int(11) NOT NULL,
-  PRIMARY KEY (`sto_id`)
+  `com_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- --------------------------------------------------------
@@ -445,8 +509,7 @@ CREATE TABLE IF NOT EXISTS `tbl_stock` (
 -- Table structure for table `tbl_stock_product`
 --
 
-DROP TABLE IF EXISTS `tbl_stock_product`;
-CREATE TABLE IF NOT EXISTS `tbl_stock_product` (
+CREATE TABLE `tbl_stock_product` (
   `sto_id` int(11) NOT NULL,
   `pro_id` int(11) NOT NULL,
   `imp_mov_id` int(11) NOT NULL,
@@ -459,8 +522,7 @@ CREATE TABLE IF NOT EXISTS `tbl_stock_product` (
   `useYn` varchar(1) COLLATE utf8_unicode_ci DEFAULT NULL,
   `regUsr` int(11) NOT NULL,
   `upUsr` int(11) NOT NULL,
-  `com_id` int(11) NOT NULL,
-  PRIMARY KEY (`sto_id`,`pro_id`)
+  `com_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- --------------------------------------------------------
@@ -469,9 +531,8 @@ CREATE TABLE IF NOT EXISTS `tbl_stock_product` (
 -- Table structure for table `tbl_supplier`
 --
 
-DROP TABLE IF EXISTS `tbl_supplier`;
-CREATE TABLE IF NOT EXISTS `tbl_supplier` (
-  `sup_id` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `tbl_supplier` (
+  `sup_id` int(11) NOT NULL,
   `sup_nm` varchar(30) COLLATE utf8_unicode_ci NOT NULL,
   `sup_phone` varchar(50) COLLATE utf8_unicode_ci DEFAULT NULL,
   `sup_email` varchar(50) COLLATE utf8_unicode_ci DEFAULT NULL,
@@ -485,8 +546,16 @@ CREATE TABLE IF NOT EXISTS `tbl_supplier` (
   `upUsr` int(11) NOT NULL,
   `com_id` int(11) NOT NULL,
   `sup_nm_kh` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
-  PRIMARY KEY (`sup_id`)
+  `pos_nm` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
+  `pos_nm_kh` varchar(100) COLLATE utf8_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Dumping data for table `tbl_supplier`
+--
+
+INSERT INTO `tbl_supplier` (`sup_id`, `sup_nm`, `sup_phone`, `sup_email`, `sup_addr`, `sup_des`, `sup_cont`, `regDt`, `upDt`, `useYn`, `regUsr`, `upUsr`, `com_id`, `sup_nm_kh`, `pos_nm`, `pos_nm_kh`) VALUES
+(1, '', NULL, NULL, NULL, NULL, NULL, '2019-01-27 20:36:17', NULL, 'Y', 0, 0, 5, NULL, 'Admin', 'ម្ចាស់ក្រុមហ៊ុន');
 
 -- --------------------------------------------------------
 
@@ -494,9 +563,8 @@ CREATE TABLE IF NOT EXISTS `tbl_supplier` (
 -- Table structure for table `tbl_use`
 --
 
-DROP TABLE IF EXISTS `tbl_use`;
-CREATE TABLE IF NOT EXISTS `tbl_use` (
-  `use_id` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `tbl_use` (
+  `use_id` int(11) NOT NULL,
   `use_total_qty` int(11) NOT NULL,
   `use_date` date NOT NULL,
   `use_des` text COLLATE utf8_unicode_ci,
@@ -507,8 +575,7 @@ CREATE TABLE IF NOT EXISTS `tbl_use` (
   `sta_id` int(11) NOT NULL,
   `regUsr` int(11) NOT NULL,
   `upUsr` int(11) NOT NULL,
-  `com_id` int(11) NOT NULL,
-  PRIMARY KEY (`use_id`)
+  `com_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- --------------------------------------------------------
@@ -517,9 +584,8 @@ CREATE TABLE IF NOT EXISTS `tbl_use` (
 -- Table structure for table `tbl_user`
 --
 
-DROP TABLE IF EXISTS `tbl_user`;
-CREATE TABLE IF NOT EXISTS `tbl_user` (
-  `usr_id` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `tbl_user` (
+  `usr_id` int(11) NOT NULL,
   `usr_nm` varchar(30) COLLATE utf8_unicode_ci NOT NULL,
   `usr_pwd` text COLLATE utf8_unicode_ci NOT NULL,
   `usr_wri_yn` varchar(1) COLLATE utf8_unicode_ci NOT NULL,
@@ -531,16 +597,16 @@ CREATE TABLE IF NOT EXISTS `tbl_user` (
   `upUsr` int(11) NOT NULL,
   `sta_id` int(11) NOT NULL,
   `com_id` int(11) NOT NULL,
-  `usr_str` varchar(1) COLLATE utf8_unicode_ci DEFAULT NULL,
-  PRIMARY KEY (`usr_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+  `usr_str` varchar(1) COLLATE utf8_unicode_ci DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Dumping data for table `tbl_user`
 --
 
 INSERT INTO `tbl_user` (`usr_id`, `usr_nm`, `usr_pwd`, `usr_wri_yn`, `usr_menu`, `regDt`, `upDt`, `useYn`, `regUsr`, `upUsr`, `sta_id`, `com_id`, `usr_str`) VALUES
-(1, 'a', 'n+5kD5H1xwRWYucJPgGBv7pva6vRwbzWXsltb6R4H+IjPWshmH7RDANChFjzeo+eD1d8nm7ovgpesSCog8HHgQ==', 'Y', NULL, '2019-01-07 16:53:06', NULL, 'Y', 0, 0, 1, 1, 'Y');
+(1, 'a', 'n+5kD5H1xwRWYucJPgGBv7pva6vRwbzWXsltb6R4H+IjPWshmH7RDANChFjzeo+eD1d8nm7ovgpesSCog8HHgQ==', 'Y', NULL, '2019-01-07 16:53:06', NULL, 'Y', 0, 0, 1, 1, 'Y'),
+(2, 'b', '4zBn/TFTHHRLFHOwOIJnRS7UliSpowZGtttqee5jmphL2q/VpPHY7ybpwSYhqwwcbii0JkhlhnoSl6bbsYTazQ==', 'Y', NULL, '2019-01-27 20:36:17', NULL, 'Y', 0, 0, 2, 5, 'Y');
 
 -- --------------------------------------------------------
 
@@ -548,8 +614,7 @@ INSERT INTO `tbl_user` (`usr_id`, `usr_nm`, `usr_pwd`, `usr_wri_yn`, `usr_menu`,
 -- Table structure for table `tbl_use_detail`
 --
 
-DROP TABLE IF EXISTS `tbl_use_detail`;
-CREATE TABLE IF NOT EXISTS `tbl_use_detail` (
+CREATE TABLE `tbl_use_detail` (
   `use_id` int(11) NOT NULL,
   `pro_id` int(11) NOT NULL,
   `pro_qty` int(11) DEFAULT NULL,
@@ -559,8 +624,7 @@ CREATE TABLE IF NOT EXISTS `tbl_use_detail` (
   `useYn` varchar(1) COLLATE utf8_unicode_ci DEFAULT NULL,
   `regUsr` int(11) NOT NULL,
   `upUsr` int(11) NOT NULL,
-  `com_id` int(11) NOT NULL,
-  PRIMARY KEY (`use_id`,`pro_id`)
+  `com_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- --------------------------------------------------------
@@ -569,9 +633,8 @@ CREATE TABLE IF NOT EXISTS `tbl_use_detail` (
 -- Table structure for table `tbl_use_detail_status`
 --
 
-DROP TABLE IF EXISTS `tbl_use_detail_status`;
-CREATE TABLE IF NOT EXISTS `tbl_use_detail_status` (
-  `use_stat_id` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `tbl_use_detail_status` (
+  `use_stat_id` int(11) NOT NULL,
   `use_id` int(11) NOT NULL,
   `pro_id` int(11) NOT NULL,
   `use_stat_des` text COLLATE utf8_unicode_ci,
@@ -580,11 +643,262 @@ CREATE TABLE IF NOT EXISTS `tbl_use_detail_status` (
   `useYn` varchar(1) COLLATE utf8_unicode_ci NOT NULL,
   `regUsr` int(11) NOT NULL,
   `upUsr` int(11) NOT NULL,
-  `com_id` int(11) NOT NULL,
-  PRIMARY KEY (`use_stat_id`)
+  `com_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-COMMIT;
 
+--
+-- Indexes for dumped tables
+--
+
+--
+-- Indexes for table `tbl_branch`
+--
+ALTER TABLE `tbl_branch`
+  ADD PRIMARY KEY (`bra_id`);
+
+--
+-- Indexes for table `tbl_branch_type`
+--
+ALTER TABLE `tbl_branch_type`
+  ADD PRIMARY KEY (`bra_type_id`);
+
+--
+-- Indexes for table `tbl_category`
+--
+ALTER TABLE `tbl_category`
+  ADD PRIMARY KEY (`cat_id`);
+
+--
+-- Indexes for table `tbl_company`
+--
+ALTER TABLE `tbl_company`
+  ADD PRIMARY KEY (`com_id`);
+
+--
+-- Indexes for table `tbl_contract`
+--
+ALTER TABLE `tbl_contract`
+  ADD PRIMARY KEY (`con_id`);
+
+--
+-- Indexes for table `tbl_currency`
+--
+ALTER TABLE `tbl_currency`
+  ADD PRIMARY KEY (`cur_id`);
+
+--
+-- Indexes for table `tbl_customer`
+--
+ALTER TABLE `tbl_customer`
+  ADD PRIMARY KEY (`cus_id`);
+
+--
+-- Indexes for table `tbl_import`
+--
+ALTER TABLE `tbl_import`
+  ADD PRIMARY KEY (`imp_id`);
+
+--
+-- Indexes for table `tbl_import_detail`
+--
+ALTER TABLE `tbl_import_detail`
+  ADD PRIMARY KEY (`imp_id`,`pro_id`);
+
+--
+-- Indexes for table `tbl_installment`
+--
+ALTER TABLE `tbl_installment`
+  ADD PRIMARY KEY (`ins_id`);
+
+--
+-- Indexes for table `tbl_menu`
+--
+ALTER TABLE `tbl_menu`
+  ADD PRIMARY KEY (`menu_id`);
+
+--
+-- Indexes for table `tbl_menu_company`
+--
+ALTER TABLE `tbl_menu_company`
+  ADD PRIMARY KEY (`menu_id`,`com_id`);
+
+--
+-- Indexes for table `tbl_menu_user`
+--
+ALTER TABLE `tbl_menu_user`
+  ADD PRIMARY KEY (`menu_id`,`usr_id`);
+
+--
+-- Indexes for table `tbl_move`
+--
+ALTER TABLE `tbl_move`
+  ADD PRIMARY KEY (`mov_id`);
+
+--
+-- Indexes for table `tbl_move_detail`
+--
+ALTER TABLE `tbl_move_detail`
+  ADD PRIMARY KEY (`mov_id`,`pro_id`);
+
+--
+-- Indexes for table `tbl_position`
+--
+ALTER TABLE `tbl_position`
+  ADD PRIMARY KEY (`pos_id`);
+
+--
+-- Indexes for table `tbl_product`
+--
+ALTER TABLE `tbl_product`
+  ADD PRIMARY KEY (`pro_id`);
+
+--
+-- Indexes for table `tbl_staff`
+--
+ALTER TABLE `tbl_staff`
+  ADD PRIMARY KEY (`sta_id`);
+
+--
+-- Indexes for table `tbl_stock`
+--
+ALTER TABLE `tbl_stock`
+  ADD PRIMARY KEY (`sto_id`);
+
+--
+-- Indexes for table `tbl_stock_product`
+--
+ALTER TABLE `tbl_stock_product`
+  ADD PRIMARY KEY (`sto_id`,`pro_id`);
+
+--
+-- Indexes for table `tbl_supplier`
+--
+ALTER TABLE `tbl_supplier`
+  ADD PRIMARY KEY (`sup_id`);
+
+--
+-- Indexes for table `tbl_use`
+--
+ALTER TABLE `tbl_use`
+  ADD PRIMARY KEY (`use_id`);
+
+--
+-- Indexes for table `tbl_user`
+--
+ALTER TABLE `tbl_user`
+  ADD PRIMARY KEY (`usr_id`);
+
+--
+-- Indexes for table `tbl_use_detail`
+--
+ALTER TABLE `tbl_use_detail`
+  ADD PRIMARY KEY (`use_id`,`pro_id`);
+
+--
+-- Indexes for table `tbl_use_detail_status`
+--
+ALTER TABLE `tbl_use_detail_status`
+  ADD PRIMARY KEY (`use_stat_id`);
+
+--
+-- AUTO_INCREMENT for dumped tables
+--
+
+--
+-- AUTO_INCREMENT for table `tbl_branch`
+--
+ALTER TABLE `tbl_branch`
+  MODIFY `bra_id` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `tbl_branch_type`
+--
+ALTER TABLE `tbl_branch_type`
+  MODIFY `bra_type_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+--
+-- AUTO_INCREMENT for table `tbl_category`
+--
+ALTER TABLE `tbl_category`
+  MODIFY `cat_id` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `tbl_company`
+--
+ALTER TABLE `tbl_company`
+  MODIFY `com_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+--
+-- AUTO_INCREMENT for table `tbl_contract`
+--
+ALTER TABLE `tbl_contract`
+  MODIFY `con_id` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `tbl_currency`
+--
+ALTER TABLE `tbl_currency`
+  MODIFY `cur_id` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `tbl_customer`
+--
+ALTER TABLE `tbl_customer`
+  MODIFY `cus_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+--
+-- AUTO_INCREMENT for table `tbl_import`
+--
+ALTER TABLE `tbl_import`
+  MODIFY `imp_id` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `tbl_installment`
+--
+ALTER TABLE `tbl_installment`
+  MODIFY `ins_id` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `tbl_menu`
+--
+ALTER TABLE `tbl_menu`
+  MODIFY `menu_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+--
+-- AUTO_INCREMENT for table `tbl_move`
+--
+ALTER TABLE `tbl_move`
+  MODIFY `mov_id` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `tbl_position`
+--
+ALTER TABLE `tbl_position`
+  MODIFY `pos_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+--
+-- AUTO_INCREMENT for table `tbl_product`
+--
+ALTER TABLE `tbl_product`
+  MODIFY `pro_id` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `tbl_staff`
+--
+ALTER TABLE `tbl_staff`
+  MODIFY `sta_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+--
+-- AUTO_INCREMENT for table `tbl_stock`
+--
+ALTER TABLE `tbl_stock`
+  MODIFY `sto_id` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `tbl_supplier`
+--
+ALTER TABLE `tbl_supplier`
+  MODIFY `sup_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+--
+-- AUTO_INCREMENT for table `tbl_use`
+--
+ALTER TABLE `tbl_use`
+  MODIFY `use_id` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `tbl_user`
+--
+ALTER TABLE `tbl_user`
+  MODIFY `usr_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+--
+-- AUTO_INCREMENT for table `tbl_use_detail_status`
+--
+ALTER TABLE `tbl_use_detail_status`
+  MODIFY `use_stat_id` int(11) NOT NULL AUTO_INCREMENT;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
