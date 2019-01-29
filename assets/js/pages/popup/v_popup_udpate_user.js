@@ -1,5 +1,6 @@
 $(document).ready(function() {
-	$("#loading").hide();
+	renderPersonalData();
+	
 	stock.comm.inputNumber("usrPhone");
 	
 	$("#frmReg").submit(function(e){
@@ -71,13 +72,38 @@ function register(){
 			if (res == "OK"){
 				stock.comm.alertMsg("You were registered, please contact NorkorAPP to confirm.");
 				$("#alertMsgOk").click(function(e){
-					//
 					window.location.href= $("#base_url").val()+"Login";
 				});
 			}else{
 				console.log(res);
 	            stock.comm.alertMsg("System Error!!! PLease connect again.");
 			}
+		},
+		error : function(data) {
+			console.log(data);
+            stock.comm.alertMsg("System Error!!! PLease connect again.");
+        }
+	});
+	
+}
+
+function renderPersonalData(){
+	$.ajax({
+		type: "POST",
+		url : $("#base_url").val() +"PopupFormUpdate/selectUserAccData",
+		data: {},
+		success: function(res) {
+			console.log(res)
+			/*$('#loading').hide();
+			if (res == "OK"){
+				stock.comm.alertMsg("You were registered, please contact NorkorAPP to confirm.");
+				$("#alertMsgOk").click(function(e){
+					window.location.href= $("#base_url").val()+"Login";
+				});
+			}else{
+				console.log(res);
+	            stock.comm.alertMsg("System Error!!! PLease connect again.");
+			}*/
 		},
 		error : function(data) {
 			console.log(data);

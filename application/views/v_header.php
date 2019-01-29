@@ -100,20 +100,20 @@
             <!-- Header Navbar: style can be found in header.less -->
     		<nav class="navbar navbar-static-top">
             <!-- Sidebar toggle button-->
-          		<a href="#" class="sidebar-toggle" data-toggle="push-menu" role="button">
+          		<a href="javascript:" class="sidebar-toggle" data-toggle="push-menu" role="button">
     				<span class="sr-only">Toggle navigation</span>
           		</a>
           		<div class="navbar-custom-menu">
             		<ul class="nav navbar-nav">          
                     <!-- Notifications: style can be found in dropdown.less -->
               			<li class="dropdown notifications-menu">
-                			<a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                			<a href="javascript:" class="dropdown-toggle" data-toggle="dropdown">
                   				<i class="fa fa-home"></i> <span data-i18nCd="lb_com_pro">Company Profile</span>
                 			</a>
               			</li>
                         <!-- Tasks: style can be found in dropdown.less -->
               			<li class="dropdown tasks-menu">
-                			<a href="#" class="dropdown-toggle" data-toggle="dropdown" id="langDrop">
+                			<a href="javascript:" class="dropdown-toggle" data-toggle="dropdown" id="langDrop">
                  	 			<img data-lng="kh" style="width: 28px;" alt="" src="">
                 			</a>
                 			<ul class="dropdown-menu" style="min-width: 150px; width: 150px;" id="langDropSelect">
@@ -121,13 +121,13 @@
                                 <!-- inner menu: contains the actual data -->
                     				<ul class="menu">
                       					<li><!-- Task item -->
-                        					<a href="#" id="langKh">
+                        					<a href="javascript:" id="langKh">
                        							<img style="width: 28px;" alt="" src="<?php echo base_url('assets/')?>image/khmer.png"> ភាសាខ្មែរ
                         					</a>
                       					</li>
                                         <!-- end task item -->
                                       	<li><!-- Task item -->
-                        					<a href="#" id="langEn">
+                        					<a href="javascript:" id="langEn">
                         						<img style="width: 28px;" alt="" src="<?php echo base_url('assets/')?>image/english.png"> English
                         					</a>
                      	 				</li>
@@ -138,7 +138,7 @@
               			</li>
                         <!-- User Account: style can be found in dropdown.less -->
               			<li class="dropdown user user-menu">
-                			<a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                			<a href="javascript:" class="dropdown-toggle" data-toggle="dropdown">
                   				<img src="<?php echo base_url('assets/') ?>dist/img/user2-160x160.jpg" class="user-image" alt="User Image">
                   				<span class="hidden-xs">Alexander Pierce</span>
                 			</a>
@@ -152,13 +152,13 @@
         						<li class="user-body">
                         			<div class="row">
                                   		<div class="col-xs-4 text-center">
-                                            <!-- <a href="#">Followers</a> -->
+                                            <!-- <a href="javascript:">Followers</a> -->
                                   		</div>
                           				<div class="col-xs-4 text-center">
-                                            <!-- <a href="#">Sales</a> -->
+                                            <!-- <a href="javascript:">Sales</a> -->
                           				</div>
                           				<div class="col-xs-4 text-center">
-                                            <!-- <a href="#">Friends</a> -->
+                                            <!-- <a href="javascript:">Friends</a> -->
         								</div>
                         			</div>
                                 <!-- /.row -->
@@ -166,17 +166,17 @@
                                 <!-- Menu Footer-->
         						<li class="user-footer">
                         			<div class="pull-left">
-                          				<a href="#" class="btn btn-default btn-flat">Profile</a>
+                          				<a href="javascript:" class="btn btn-default btn-flat" id="UPDATE" onclick="updateUser()">Profile</a>
                         			</div>
                         			<div class="pull-right">
-                          				<a href="#" class="btn btn-default btn-flat">Sign out</a>
+                          				<a href="javascript:" class="btn btn-default btn-flat" id="SIGNOUT">Sign out</a>
                         			</div>
                       			</li>
     						</ul>
     					</li>
                         <!-- Control Sidebar Toggle Button -->
                         <!-- <li>
-                            <a href="#" data-toggle="control-sidebar"><i class="fa fa-gears"></i></a>
+                            <a href="javascript:" data-toggle="control-sidebar"><i class="fa fa-gears"></i></a>
                         </li> -->
     				</ul>
     			</div>

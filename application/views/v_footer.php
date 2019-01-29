@@ -248,19 +248,9 @@ $('#adminCalendar').fullCalendar({
 });
 
 $(document).ready(function() {
-
-
-	/* onload */
-	
 	//render menu for user
 	getUserMenu();
-	
-	//
 	checkCookieLang();
-	//
-	
-	/*  */
-	
 	
 	$("#langDropSelect a").click(function(e){
 		$('#loading').show();
@@ -287,8 +277,9 @@ $(document).ready(function() {
 				$(".box-search .box-header i").addClass("fa-search-plus");
 			}
 		});
-		
-	});	
+	});
+
+
 });
 
 function setCookie(cname,cvalue,exdays) {
@@ -470,6 +461,17 @@ function getUserMenu(){
 			stock.comm.alertMsg($.i18n.prop("msg_err"));
         }
 	});
+}
+
+
+function updateUser(){
+	var data = "&action=U";
+	var controllerNm = "PopupFormUpdate";
+	var option = {};
+	option["height"] = "510px";
+	
+	stock.comm.openPopUpForm(controllerNm, option, data, "modal-md");
+	$("#loading").hide();
 }
 
 </script>
