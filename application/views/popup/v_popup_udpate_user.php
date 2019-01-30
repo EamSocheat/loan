@@ -84,11 +84,10 @@
                         </div>
                 </div> -->
                     <!-- /.col -->
-        			<div class="col-xs-4"></div>
-        			<div class="col-xs-4">
-          				<button type="submit" class="btn btn-primary btn-block btn-flat">Update</button>
-        			</div>
-        			<div class="col-xs-4"></div>
+        			<div class="col-xs-3"></div>
+        			<div class="col-xs-3"><button type="submit" class="btn btn-primary btn-block btn-flat">Update</button></div>
+        			<div class="col-xs-3"><button type="button" class="btn btn-primary btn-block btn-flat" id="btnCalcel">Cancel</button></div>
+        			<div class="col-xs-3"></div>
                     <!-- /.col -->
       			</div>
 			</form>
@@ -123,25 +122,47 @@
 	</div>
     <!-- end modal  --> 
 
+
+
+<!-- ./wrapper -->
 <!-- jQuery 3 -->
 <script src="<?php echo base_url('assets/') ?>bower_components/jquery/dist/jquery.min.js"></script>
-<!-- Bootstrap 3.3.7 -->
-<script  src="<?php echo base_url('assets/') ?>bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
-<!-- iCheck -->
-<script src="<?php echo base_url('assets/') ?>plugins/iCheck/icheck.min.js"></script>
-<script src="<?php echo base_url('assets/') ?>js/comm/stock.comm.js"></script>
-<script src="<?php echo base_url('assets/') ?>js/pages/popup/v_popup_udpate_user.js"></script>
+<!-- jQuery UI 1.11.4 -->
+<script src="<?php echo base_url('assets/') ?>bower_components/jquery-ui/jquery-ui.min.js"></script>
 
+<!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
+<script>
+  $.widget.bridge('uibutton', $.ui.button);
+</script>
+<!-- Bootstrap 3.3.7 -->
+<script src="<?php echo base_url('assets/') ?>bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+
+<!-- daterangepicker -->
+<script src="<?php echo base_url('assets/') ?>bower_components/moment/min/moment.min.js"></script>
+<!-- datepicker -->
+<script src="<?php echo base_url('assets/') ?>bower_components/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js"></script>
+<script src="<?php echo base_url('assets/') ?>bower_components/bootstrap-datepicker/dist/js/bootstrap-datepicker.kh.js"></script>
+
+<!-- FastClick -->
+<script src="<?php echo base_url('assets/') ?>bower_components/fastclick/lib/fastclick.js"></script>
+<!-- AdminLTE App -->
+<script src="<?php echo base_url('assets/') ?>dist/js/adminlte.min.js"></script>
+
+<!-- fullCalendar -->
+<script src="<?php echo base_url('assets/') ?>bower_components/moment/moment.js"></script>
+<script src="<?php echo base_url('assets/') ?>bower_components/fullcalendar/dist/fullcalendar.min.js"></script>
+
+<!--Multi language  -->
+<script src="<?php echo base_url('assets/') ?>lib/jquery.i18n.properties-min.js"></script>
+<script src="<?php echo base_url('assets/') ?>js/comm/stock.comm.js"></script>
+
+<!--inputmask  -->
+<script src="<?php echo base_url('assets/') ?>plugins/input-mask/jquery.inputmask.js"></script>
+<script src="<?php echo base_url('assets/') ?>plugins/input-mask/jquery.inputmask.date.extensions.js"></script>
+<script src="<?php echo base_url('assets/') ?>plugins/input-mask/jquery.inputmask.extensions.js"></script>
+
+<script src="<?php echo base_url('assets/') ?>js/pages/popup/v_popup_udpate_user.js"></script>
 <input type="hidden" id="base_url" value="<?php echo base_url() ?>"/>
 
-<script>
-    $(function () {
-        $('input').iCheck({
-          checkboxClass: 'icheckbox_square-blue',
-          radioClass: 'iradio_square-blue',
-          increaseArea: '20%' /* optional */
-        });
-    });
-</script>
 </body>
 </html>

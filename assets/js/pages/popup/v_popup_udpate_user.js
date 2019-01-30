@@ -1,13 +1,18 @@
 $(document).ready(function() {
-	renderPersonalData();
 	
+	renderPersonalData();
 	stock.comm.inputNumber("usrPhone");
 	
+	/*$('input').iCheck({
+        checkboxClass: 'icheckbox_square-blue',
+        radioClass: 'iradio_square-blue',
+        increaseArea: '20%'
+        //optional
+    });*/
 	$("#frmReg").submit(function(e){
 		e.preventDefault();
 		register();
 	});
-	
 	$("#regPwdCon").keyup(function(e){
 		if($("#regPwd").val() != $("#regPwdCon").val()){
 			showPwdErr();
@@ -17,7 +22,6 @@ $(document).ready(function() {
 			$("#regPwdCon").css("border-color","#ced4da");
 		}
 	});
-	
 	$("#regPwd").keyup(function(e){
 		if($("#regPwd").val() != $("#regPwdCon").val()){
 			showPwdErr();
@@ -35,12 +39,15 @@ $(document).ready(function() {
 		}
 	});
 	*/
-	$('input#chkTerm').on('ifClicked', function() {
+	/*$('input#chkTerm').on('ifClicked', function() {
 		if(!$(this).is(":checked") && $("#regPwd").css("border-color") != "rgb(255, 0, 0)"){
 			$("#msgErr").hide();
 		}
+	});*/
+	$("#btnCalcel").on("click", function(e){
+		console.log(true);
+		parent.stock.comm.closePopUpForm("PopupFormUpdate", '');
 	});
-	
 });
 
 function register(){
@@ -118,4 +125,8 @@ function showPwdErr(){
 	$("#msgShw").html("Password do not match!!!");
 	$("#msgErr").show();
 	
+}
+function closePopup(){
+	console.log(true);
+	parent.stock.comm.closePopUpForm("PopupFormUpdate", '');
 }
