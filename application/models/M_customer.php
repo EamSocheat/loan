@@ -81,5 +81,11 @@
 			return $this->db->insert_id();
 		}
 		
-
+		function selectTestCustomer(){
+		    
+		    $this->db->select('*');
+		    //$this->db->from('tbl_customer');
+		   
+		    return $this->db->get('tbl_customer')->result();
+		}
     }

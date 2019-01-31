@@ -9,12 +9,12 @@ class M_user_account extends CI_Model{
 
     	function selectUserAccData(){
     	    $this->db->select('*');
-    	    //$this->db->from('tbl_customer');
+    	    $this->db->from('tbl_user');
     	    $this->db->where('tbl_user.com_id', $_SESSION['comId']);
     	    $this->db->where('tbl_user.useYn', 'Y');
     	    $this->db->where('tbl_user.sta_id', $_SESSION['staId']);
     	    
-    	    return $this->db->get('tbl_user')->result();
+    	    return $this->db->get()->result();
     	}
 
     	public function countUserAccData($dataSrch){

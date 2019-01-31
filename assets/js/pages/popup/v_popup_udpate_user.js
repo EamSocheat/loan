@@ -31,19 +31,17 @@ $(document).ready(function() {
 			$("#regPwdCon").css("border-color","#ced4da");
 		}
 	});
-	/*
 	$("#chkTerm").click(function(e){
 		console.log("OK");
 		if($(this).is(":checked")){
 			$("#msgErr").hide();
 		}
 	});
-	*/
-	/*$('input#chkTerm').on('ifClicked', function() {
+	$('input#chkTerm').on('ifClicked', function() {
 		if(!$(this).is(":checked") && $("#regPwd").css("border-color") != "rgb(255, 0, 0)"){
 			$("#msgErr").hide();
 		}
-	});*/
+	});
 	$("#btnCalcel").on("click", function(e){
 		console.log(true);
 		parent.stock.comm.closePopUpForm("PopupFormUpdate", '');
@@ -125,8 +123,4 @@ function showPwdErr(){
 	$("#msgShw").html("Password do not match!!!");
 	$("#msgErr").show();
 	
-}
-function closePopup(){
-	console.log(true);
-	parent.stock.comm.closePopUpForm("PopupFormUpdate", '');
 }
