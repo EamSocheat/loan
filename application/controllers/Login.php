@@ -8,41 +8,48 @@ class Login extends CI_Controller {
 		$this->load->library('session');
 		$this->load->helper('form');
 		$this->load->library('encrypt');
+		$this->load->model('M_user_account');
 	}
 	
 	public function index()
 	{	
 		$this->session->sess_destroy();
-		
 		$this->load->view('/v_login');
-		
 	}
 	
 	
-	//
-	
-	
 	public function checkLogin(){
+		$usrNm  = $this->input->post('usrNm');
+		$usrPwd = $this->input->post('usrPwd');
 		
-		$usrNm=$this->input->post('usrNm');
-		$usrPwd=$this->input->post('usrPwd');
-		
-		
-		$login = $this->M_login->checkUser($usrNm,$usrPwd);
-		$str=false;
+		$login = $this->M_login->checkUser($usrNm, $usrPwd);
+		$str   = false;
+
     	foreach($login as $r){
-			$comNm= $r->com_nm;
-    		$usrNm=$r->usr_nm;
+			$comNm = $r->com_nm;
+    		$usrNm = $r->usr_nm;
     		$comId = $r->com_id;
     		$usrId = $r->usr_id;
-			$staffPos= $r->pos_nm;
-    		$staffPhone= $r->sta_phone1;
-    		$staffPhoto= $r->sta_photo;
-    		$staffNm=$r->sta_nm;
-		
-			$this->setSession($usrNm,$comId,$comNm,$usrId,$staffPos,$staffPhone,$staffPhoto,$staffNm);
-			$str=true;
+			$staffPos = $r->pos_nm;
+    		$staffPhone = $r->sta_phone1;
+    		$staffPhoto = $r->sta_photo;
+    		$staffNm    = $r->sta_nm;
 			
+			$this->setSession($usrNm,$comId,$comNm,$usrId,$staffPos,$staffPhone,$staffPhoto,$staffNm);
+			// $str = true;
+			
+			$record = $this->M_user_account->selectUserAccData();
+			if(count($record) > 0){
+				$pwd = "";
+				foreach($record as $r){
+					$pwd = $this->encrypt->decode($r->usr_pwd,"PWD_ENCR_LOAN");
+				}
+				if($usrPwd == $pwd){
+					$str = true;
+				}else{
+					$str = false;
+				}
+			}
 			// $data = array(
 				// 'usrId' 	=> $usrId,
 				// 'comId' 	=> $comId,
@@ -52,7 +59,7 @@ class Login extends CI_Controller {
 			// $this->M_login->insertUserLogin($data);
 			
     	}
-    	
+
 		if($str){
 		    echo "OK";	
 		}else{
@@ -61,9 +68,7 @@ class Login extends CI_Controller {
 	}
 	
 	public function logout(){
-		
 		$this->clearSession();
-
 	}
 	
 	
@@ -81,11 +86,11 @@ class Login extends CI_Controller {
 	        if($email !="" && $email != null){
 	            $emailObj = explode("@",$email);
 	            $email = $emailObj[0];
-	            $tmp="";
+	            $tmp = "";
 	            for($i=0; $i < strlen($email)-2; $i++ ){
 	                $tmp.="*";
 	            }
-	            $email=  substr($email,0,2).$tmp.'@'.$emailObj[1];
+	            $email = substr($email,0,2).$tmp.'@'.$emailObj[1];
 	            echo $email;
 	        }else{
 	            echo "ERR";
@@ -97,14 +102,11 @@ class Login extends CI_Controller {
 	   
 	}
 	
-	
-	
 	public function sendEmail(){
 	    $usrNm=$this->input->post('usrNm');
 	    $emailChk= $this->M_login->getPwd($usrNm);
 	    echo $emailChk;
 	}
-	
 	
 	function setSession($userNm,$comId,$comNm,$usrId,$staffPos,$staffPhone,$staffPhoto,$staffNm){
     	
@@ -124,9 +126,9 @@ class Login extends CI_Controller {
 			$this->session->set_userdata($newsession);
 		}
     }
+
     function clearSession(){
     	$this->session->sess_destroy();
-    	
     }
 	
 	

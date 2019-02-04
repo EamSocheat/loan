@@ -30,9 +30,13 @@ class UserAccountUpdate extends CI_Controller {
 	    echo json_encode($data);
 	}
 
-	public function chkPwdChange(){
+	public function chkPwdChange($newPwd){
 		$isOk = 0;
-		$paramPwd = $this->input->post('pwdNew');
+		if($newPwd != null || $newPwd != ""){
+			$paramPwd = $newPwd;
+		}else{
+			$paramPwd = $this->input->post('pwdNew');
+		}
 
 		$record = $this->M_user_account->selectUserAccData();
 		if(count($record) > 0){
@@ -47,6 +51,33 @@ class UserAccountUpdate extends CI_Controller {
 			}
 		}
 		echo $isOk;
+		return $isOk;
 	}
-	
+
+	public function update(){
+	    $this->db->trans_begin();
+	    
+	    //if(chkPwdChange() == 0) return;
+
+        $data = array(
+            'usr_nm' 	=> $this->input->post('regLogNm'),
+            'usr_pwd'	=> $this->encrypt->encode($this->input->post('regPwdCon'),"PWD_ENCR_LOAN"),
+            'upDt'		=> date('Y-m-d H:i:s'),
+            'usr_wri_yn'=> "Y",
+            'useYn'		=> "Y",
+			'usr_str'	=> "Y",
+            'upUsr'		=> $_SESSION['usrId']
+        );
+        
+        $this->M_user_account->update($data);		
+		
+        if ($this->db->trans_status() === FALSE){
+            $this->db->trans_rollback();
+            echo 'ERR';
+        }else{
+            $this->db->trans_commit();
+            echo 'OK';
+        }
+	}
+
 }   

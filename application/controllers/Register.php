@@ -15,10 +15,8 @@ class Register extends CI_Controller {
 		//$this->load->library('encryption');
 	}
 	
-	
 	public function index(){
 		$this->load->view('v_register');
-		
 	}
 	
 	public function insert(){

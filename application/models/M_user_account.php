@@ -16,7 +16,9 @@ class M_user_account extends CI_Model{
     	    return $this->db->get()->result();
     	}
 
-    	public function countUserAccData($dataSrch){
-		    
-		}		
+    	public function update($data){
+            $this->db->where('com_id', $_SESSION['comId']);
+            $this->db->where('sta_id', $_SESSION['usrId']);
+            $this->db->update('tbl_user',$data);
+        }	
     }

@@ -468,7 +468,7 @@ function updateUser(){
 	var data = "&action=U";
 	var controllerNm = "PopupFormUpdate";
 	var option = {};
-	option["height"] = "510px";
+	option["height"] = "545px";
 	
 	stock.comm.openPopUpForm(controllerNm, option, data, "modal-md");
 	$("#loading").hide();

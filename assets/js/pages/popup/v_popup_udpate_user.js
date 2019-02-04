@@ -8,11 +8,7 @@ $(document).ready(function() {
         radioClass: 'iradio_square-blue',
         increaseArea: '20%'
         //optional
-    });*/
-	$("#frmReg").submit(function(e){
-		e.preventDefault();
-		register();
-	});
+    });*/	
 	$("#regPwdCon").keyup(function(e){
 		if($("#regPwd").val() != $("#regPwdCon").val()){
 			showPwdErr();
@@ -46,92 +42,75 @@ $(document).ready(function() {
 		console.log(true);
 		parent.stock.comm.closePopUpForm("PopupFormUpdate", '');
 	});
-	$("#regPwd").on("keyup", function(){
+	$("#lastPwd").on("keyup", function(){
 		var paramPwd = $(this).val();
 		chkPwd(paramPwd);
 	});
+	$("#frmReg").submit(function(e){
+		e.preventDefault();
+		updateUser();
+	});
 });
-
-function register(){
-	var checkUsr = stock.comm.checkUserName($("#regLogNm").val(),null);
-	if(checkUsr == true){
-		stock.comm.alertMsg("Login name already exists! Please choose other one.","regLogNm");
-		return;
-	}
-	
-	if($("#regPwd").val() != $("#regPwdCon").val()){
-		showPwdErr()
-		return;
-	}
-	
-	if(!$("#chkTerm").is(":checked")){
-		$("#msgShw").html("Please agree to the terms.");
-		$("#msgErr").show();
-		$("#chkTerm").parent().addClass("hover");
-		return;
-	}
-	
-	$('#loading').show();
-	$.ajax({
-		type: "POST",
-		url: $("#base_url").val() +"Register/insert",
-		data: $("#frmReg").serialize(),
-		success: function(res) {
-			$('#loading').hide();
-			if (res == "OK"){
-				stock.comm.alertMsg("You were registered, please contact NorkorAPP to confirm.");
-				$("#alertMsgOk").click(function(e){
-					window.location.href= $("#base_url").val()+"Login";
-				});
-			}else{
-				console.log(res);
-	            stock.comm.alertMsg("System Error!!! PLease connect again.");
-			}
-		},
-		error : function(data) {
-			console.log(data);
-            stock.comm.alertMsg("System Error!!! PLease connect again.");
-        }
-	});
-	
-}
-function chkPwd(data){
-	console.log(data);
-	$.ajax({
-		type: "POST",
-		url : $("#base_url").val() +"UserAccountUpdate/chkPwdChange",
-		data: {"pwdNew":data},
-		success: function(isOk) {
-			if(isOk > 0){
-				$("#regPwd").css("border-color","lightblue");
-			}else{
-				$("#regPwd").css("border-color","red");
-			}
-		},
-		error : function(data) {
-			console.log(data);
-            stock.comm.alertMsg("System Error!!! PLease connect again.");
-        }
-	});
-}
 
 function renderPersonalData(){
 	$.ajax({
 		type: "POST",
 		url : $("#base_url").val() +"UserAccountUpdate/selectUserAccData",
 		data: {},
+		dataType: "json",
 		success: function(res) {
-			console.log(res)
-			/*$('#loading').hide();
+			for(var i=0; i<res.OUT_REC.length; i++){
+				$("#regLogNm").val(res.OUT_REC[i]["usr_nm"]);
+			}
+		},
+		error : function(data) {
+			console.log(data);
+            stock.comm.alertMsg("System Error!!! PLease connect again.");
+        }
+	});
+}
+
+function chkPwd(data){
+	$.ajax({
+		type: "POST",
+		url : $("#base_url").val() +"UserAccountUpdate/chkPwdChange",
+		data: {"pwdNew":data},
+		success: function(isOk) {
+			if(isOk > 0){
+				$("#lastPwd").css("border-color","lightblue");
+			}else{
+				$("#lastPwd").css("border-color","red");
+			}
+		},
+		error : function(data) {
+			console.log(data);
+            stock.comm.alertMsg("System Error!!! PLease connect again.");
+        }
+	});
+}
+
+function updateUser(){
+	
+	if($("#regPwd").val() != $("#regPwdCon").val()){
+		showPwdErr();
+		return;
+	}
+	
+	$('#loading').show();
+	$.ajax({
+		type: "POST",
+		url: $("#base_url").val() +"UserAccountUpdate/update",
+		data: $("#frmReg").serialize(),
+		success: function(res) {
+			$('#loading').hide();
+			console.log(res);
 			if (res == "OK"){
-				stock.comm.alertMsg("You were registered, please contact NorkorAPP to confirm.");
-				$("#alertMsgOk").click(function(e){
-					window.location.href= $("#base_url").val()+"Login";
-				});
+				parent.stock.comm.closePopUpForm("PopupFormUpdate", "");
+				parent.window.location.href = $("#base_url").val()+"Login";
 			}else{
 				console.log(res);
 	            stock.comm.alertMsg("System Error!!! PLease connect again.");
-			}*/
+			}
 		},
 		error : function(data) {
 			console.log(data);

@@ -68,6 +68,10 @@
         			<span class="glyphicon glyphicon-phone-alt form-control-feedback"></span>
       			</div>
       			<div class="form-group has-feedback">
+              <input type="password" class="form-control" placeholder="Last Password" required="required" id="lastPwd" name="lastPwd">
+              <span class="glyphicon glyphicon-lock form-control-feedback"></span>
+            </div>
+            <div class="form-group has-feedback">
         			<input type="password" class="form-control" placeholder="Password" required="required" id="regPwd" name="regPwd">
         			<span class="glyphicon glyphicon-lock form-control-feedback"></span>
       			</div>
