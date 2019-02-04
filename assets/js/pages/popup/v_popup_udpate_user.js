@@ -46,6 +46,10 @@ $(document).ready(function() {
 		console.log(true);
 		parent.stock.comm.closePopUpForm("PopupFormUpdate", '');
 	});
+	$("#regPwd").on("keyup", function(){
+		var paramPwd = $(this).val();
+		chkPwd(paramPwd);
+	});
 });
 
 function register(){
@@ -91,11 +95,30 @@ function register(){
 	});
 	
 }
+function chkPwd(data){
+	console.log(data);
+	$.ajax({
+		type: "POST",
+		url : $("#base_url").val() +"UserAccountUpdate/chkPwdChange",
+		data: {"pwdNew":data},
+		success: function(isOk) {
+			if(isOk > 0){
+				$("#regPwd").css("border-color","lightblue");
+			}else{
+				$("#regPwd").css("border-color","red");
+			}
+		},
+		error : function(data) {
+			console.log(data);
+            stock.comm.alertMsg("System Error!!! PLease connect again.");
+        }
+	});
+}
 
 function renderPersonalData(){
 	$.ajax({
 		type: "POST",
-		url : $("#base_url").val() +"PopupFormUpdate/selectUserAccData",
+		url : $("#base_url").val() +"UserAccountUpdate/selectUserAccData",
 		data: {},
 		success: function(res) {
 			console.log(res)

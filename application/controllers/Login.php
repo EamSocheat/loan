@@ -6,7 +6,7 @@ class Login extends CI_Controller {
 		parent::__construct();
 		$this->load->model('M_login');
 		$this->load->library('session');
-		$this->load->helper('form'); 
+		$this->load->helper('form');
 		$this->load->library('encrypt');
 	}
 	
