@@ -61,6 +61,7 @@ function renderPersonalData(){
 		success: function(res) {
 			for(var i=0; i<res.OUT_REC.length; i++){
 				$("#regLogNm").val(res.OUT_REC[i]["usr_nm"]);
+				// $("#regComNm").val(res.OUT_REC[i]["com_nm"]);
 			}
 		},
 		error : function(data) {

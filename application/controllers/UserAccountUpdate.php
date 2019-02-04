@@ -69,7 +69,7 @@ class UserAccountUpdate extends CI_Controller {
             'upUsr'		=> $_SESSION['usrId']
         );
         
-        $this->M_user_account->update($data);		
+        $this->M_user_account->update($data);
 		
         if ($this->db->trans_status() === FALSE){
             $this->db->trans_rollback();

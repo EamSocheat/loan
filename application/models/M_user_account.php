@@ -7,8 +7,9 @@ class M_user_account extends CI_Model{
     	}
 
     	function selectUserAccData(){
-    	    $this->db->select('*');
+    	    $this->db->select('tbl_company.com_nm, tbl_user.usr_nm');
     	    $this->db->from('tbl_user');
+            $this->db->join('tbl_company', 'tbl_company.com_id = tbl_user.com_id');
     	    $this->db->where('tbl_user.com_id', $_SESSION['comId']);
     	    $this->db->where('tbl_user.useYn', 'Y');
     	    $this->db->where('tbl_user.sta_id', $_SESSION['usrId']);
