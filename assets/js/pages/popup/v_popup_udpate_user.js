@@ -124,5 +124,4 @@ function showPwdErr(){
 	$("#regPwdCon").css("border-color","red");
 	$("#msgShw").html("Password do not match!!!");
 	$("#msgErr").show();
-	
 }

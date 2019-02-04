@@ -35,6 +35,7 @@
         .mdl-msg{ z-index: 9999999; }
         .modal-header .close {  margin-top: -25px; }
         .btn{ border-radius: 0px; }
+        .unlock-size{ font-size: 19px; }
   </style>
   
 </head>
@@ -69,7 +70,7 @@
       			</div>
       			<div class="form-group has-feedback">
               <input type="password" class="form-control" placeholder="Last Password" required="required" id="lastPwd" name="lastPwd">
-              <span class="glyphicon glyphicon-lock form-control-feedback"></span>
+              <span class="fa fa-unlock-alt form-control-feedback unlock-size"></span>
             </div>
             <div class="form-group has-feedback">
         			<input type="password" class="form-control" placeholder="Password" required="required" id="regPwd" name="regPwd">
