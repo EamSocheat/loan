@@ -92,6 +92,11 @@ var _thisPage = {
 		$("#btnReset").click(function(e){
 			resetFormSearch();
 		});
+
+		$("#btnDownExcel").click(function(){
+			console.log(true);
+			downloadExcel();
+		});
 	}
 };
 
@@ -190,6 +195,23 @@ function deleteDataArr(dataArr){
 		        stock.comm.alertMsg($.i18n.prop("msg_err_del"));
 		        return;
 		    }
+		    $("#loading").hide();
+		},
+		error : function(data) {
+			console.log(data);
+			stock.comm.alertMsg($.i18n.prop("msg_err"));
+        }
+	});
+}
+
+function downloadExcel(){
+	console.log("inside function");
+	$.ajax({
+		type: "POST",
+		url: $("#base_url").val() +"Customer/download_excel",
+		data: {},
+		success: function(res) {
+		   console.log(res);
 		    $("#loading").hide();
 		},
 		error : function(data) {

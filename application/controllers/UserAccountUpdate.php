@@ -13,6 +13,7 @@ class UserAccountUpdate extends CI_Controller {
 		$this->load->model('M_user_account');
 		$this->load->model('M_company');		
         $this->load->library('encrypt');
+        $this->load->library("excel");
 	}
 	
 	public function index(){
@@ -86,6 +87,6 @@ class UserAccountUpdate extends CI_Controller {
             $this->db->trans_commit();
             echo 'OK';
         }
-	}
+	}	
 
 }   

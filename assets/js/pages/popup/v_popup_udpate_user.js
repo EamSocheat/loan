@@ -118,7 +118,7 @@ function updateUser(){
 		$("#regPwdCon").attr("required",false);
 	}
 
-	if(confirmPwd.length > 0){		
+	if(confirmPwd.length > 0){
 		$("#lastPwd").attr("required","required");
 		$("#regPwd").attr("required","required");
 	}else{
