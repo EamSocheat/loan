@@ -24,7 +24,6 @@ class Login extends CI_Controller {
 		
 		$login = $this->M_login->checkUser($usrNm, $usrPwd);
 		$str   = false;
-
     	foreach($login as $r){
 			$comNm = $r->com_nm;
     		$usrNm = $r->usr_nm;
@@ -38,11 +37,11 @@ class Login extends CI_Controller {
 			$this->setSession($usrNm,$comId,$comNm,$usrId,$staffPos,$staffPhone,$staffPhoto,$staffNm);
 			// $str = true;
 			
-			$record = $this->M_user_account->selectUserAccData();
+			$record = $this->M_user_account->selectUserPwd();
 			if(count($record) > 0){
 				$pwd = "";
 				foreach($record as $r){
-					$pwd = $this->encrypt->decode($r->usr_pwd,"PWD_ENCR_LOAN");
+					$pwd = $this->encrypt->decode($r->usr_pwd, "PWD_ENCR_LOAN");
 				}
 				if($usrPwd == $pwd){
 					$str = true;

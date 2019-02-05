@@ -63,21 +63,17 @@
       			<div class="form-group has-feedback">
         			<input type="text" class="form-control" placeholder="Login name" required="required" id="regLogNm" name="regLogNm">
         			<span class="glyphicon glyphicon-user form-control-feedback"></span>
-      			</div>
+      			</div>      			
       			<div class="form-group has-feedback">
-        			<input type="text" class="form-control" placeholder="Phone" required="required" id="regPhone" name="regPhone">
-        			<span class="glyphicon glyphicon-phone-alt form-control-feedback"></span>
-      			</div>
-      			<div class="form-group has-feedback">
-              <input type="password" class="form-control" placeholder="Last Password" required="required" id="lastPwd" name="lastPwd">
+              <input type="password" class="form-control" placeholder="Last Password" id="lastPwd" name="lastPwd">
               <span class="fa fa-unlock-alt form-control-feedback unlock-size"></span>
             </div>
             <div class="form-group has-feedback">
-        			<input type="password" class="form-control" placeholder="Password" required="required" id="regPwd" name="regPwd">
+        			<input type="password" class="form-control" placeholder="Password" id="regPwd" name="regPwd">
         			<span class="glyphicon glyphicon-lock form-control-feedback"></span>
       			</div>
       			<div class="form-group has-feedback">
-        			<input type="password" class="form-control" placeholder="Retype password" required="required" id="regPwdCon" name="regPwdCon">
+        			<input type="password" class="form-control" placeholder="Retype password" id="regPwdCon" name="regPwdCon">
         			<span class="glyphicon glyphicon-log-in form-control-feedback"></span>
       			</div>
       			<div class="row text-center">

@@ -108,7 +108,7 @@
                     <!-- Notifications: style can be found in dropdown.less -->
               			<li class="dropdown notifications-menu">
                 			<a href="javascript:" class="dropdown-toggle" data-toggle="dropdown">
-                  				<i class="fa fa-home"></i> <span data-i18nCd="lb_com_pro">Company Profile</span>
+                  				<i class="fa fa-home"></i> <span id="comName">Company Profile</span>
                 			</a>
               			</li>
                         <!-- Tasks: style can be found in dropdown.less -->

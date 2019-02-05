@@ -1,5 +1,6 @@
-$(document).ready(function() {
-	
+
+var isPwdOk = !0;
+$(document).ready(function() {	
 	renderPersonalData();
 	stock.comm.inputNumber("usrPhone");
 	
@@ -61,7 +62,7 @@ function renderPersonalData(){
 		success: function(res) {
 			for(var i=0; i<res.OUT_REC.length; i++){
 				$("#regLogNm").val(res.OUT_REC[i]["usr_nm"]);
-				// $("#regComNm").val(res.OUT_REC[i]["com_nm"]);
+				$("#regComNm").val(res.OUT_REC[i]["com_nm"]);
 			}
 		},
 		error : function(data) {
@@ -71,7 +72,7 @@ function renderPersonalData(){
 	});
 }
 
-function chkPwd(data){
+function chkPwd(data){	
 	$.ajax({
 		type: "POST",
 		url : $("#base_url").val() +"UserAccountUpdate/chkPwdChange",
@@ -79,8 +80,10 @@ function chkPwd(data){
 		success: function(isOk) {
 			if(isOk > 0){
 				$("#lastPwd").css("border-color","lightblue");
+				isPwdOk = !0;
 			}else{
 				$("#lastPwd").css("border-color","red");
+				isPwdOk = !1;
 			}
 		},
 		error : function(data) {
@@ -91,6 +94,37 @@ function chkPwd(data){
 }
 
 function updateUser(){
+	var oldPwd = $("#lastPwd").val();
+	var newPwd = $("#regPwd").val();
+	var confirmPwd = $("#regPwdCon").val();
+
+	if(oldPwd.length > 0){
+		/*$("#regPwd").attr("required","required");
+		$("#regPwdCon").attr("required","required");*/
+		chkPwd(oldPwd);
+		if(!isPwdOk){
+			$("#lastPwd").css("border-color","red");
+			return;
+		}else{
+			$("#lastPwd").css("border-color","lightblue");
+		}
+	}
+	
+	if(newPwd.length > 0){
+		$("#lastPwd").attr("required","required");
+		$("#regPwdCon").attr("required","required");
+	}else{
+		$("#lastPwd").attr("required",false);
+		$("#regPwdCon").attr("required",false);
+	}
+
+	if(confirmPwd.length > 0){		
+		$("#lastPwd").attr("required","required");
+		$("#regPwd").attr("required","required");
+	}else{
+		$("#lastPwd").attr("required",false);
+		$("#regPwd").attr("required",false);
+	}
 	
 	if($("#regPwd").val() != $("#regPwdCon").val()){
 		showPwdErr();

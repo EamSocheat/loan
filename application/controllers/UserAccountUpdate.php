@@ -11,6 +11,7 @@ class UserAccountUpdate extends CI_Controller {
 		$this->load->helper('form');
 		$this->load->model('M_common');
 		$this->load->model('M_user_account');
+		$this->load->model('M_company');		
         $this->load->library('encrypt');
 	}
 	
@@ -38,7 +39,7 @@ class UserAccountUpdate extends CI_Controller {
 			$paramPwd = $this->input->post('pwdNew');
 		}
 
-		$record = $this->M_user_account->selectUserAccData();
+		$record = $this->M_user_account->selectUserPwd();
 		if(count($record) > 0){
 			$pwd = "";
 			foreach($record as $r){
@@ -56,20 +57,27 @@ class UserAccountUpdate extends CI_Controller {
 
 	public function update(){
 	    $this->db->trans_begin();
+	    $oldPwd = $this->input->post('lastPwd');
+	    $newPwd = $this->input->post('regPwdCon');
 	    
-	    //if(chkPwdChange() == 0) return;
+	    if($newPwd != null || $newPwd != ""){
+			$data = array(
+	            'usr_nm' 	=> $this->input->post('regLogNm'),
+	            'usr_pwd'	=> $this->encrypt->encode($this->input->post('regPwdCon'),"PWD_ENCR_LOAN"),
+	            'upDt'		=> date('Y-m-d H:i:s'),
+	            'upUsr'		=> $_SESSION['usrId']
+	        );
+	        
+	        $this->M_user_account->update($data);
+	    }
 
-        $data = array(
-            'usr_nm' 	=> $this->input->post('regLogNm'),
-            'usr_pwd'	=> $this->encrypt->encode($this->input->post('regPwdCon'),"PWD_ENCR_LOAN"),
+	    $dataCompany = array(
+            'com_nm' 	=> $this->input->post('regComNm'),
             'upDt'		=> date('Y-m-d H:i:s'),
-            'usr_wri_yn'=> "Y",
-            'useYn'		=> "Y",
-			'usr_str'	=> "Y",
             'upUsr'		=> $_SESSION['usrId']
         );
-        
-        $this->M_user_account->update($data);
+
+        $this->M_company->update($_SESSION['comId'], $dataCompany);
 		
         if ($this->db->trans_status() === FALSE){
             $this->db->trans_rollback();

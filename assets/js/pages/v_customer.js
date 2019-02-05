@@ -37,10 +37,10 @@ var _thisPage = {
 		$("#btnAddNew").click(function(){
 			$("#loading").show();
 			var controllerNm = "PopupFormCustomer";
-			var option={};
+			var option = {};
 			option["height"] = "570px";
 			
-			stock.comm.openPopUpForm(controllerNm,option, null,"modal-md");
+			stock.comm.openPopUpForm(controllerNm, option, null, "modal-md");
 		});
 		
 		//

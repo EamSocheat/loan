@@ -299,11 +299,12 @@ if(!stock.comm) {stock.comm={};}
 	 * 
 	 */
 	stock.comm.openPopUpForm = function(controller_nm, option, data, modal_size, id_popup, id_popup_content, id_iframe){
-		var modalId= "";
-		var popupContentId = "";
+		var modalId  = "";
 		var iframeId = "";
+		var popupContentId = "";
+		
 		if(id_popup != undefined && id_popup !="" && id_popup != null){
-			modalId= id_popup;
+			modalId = id_popup;
 			popupContentId = id_popup_content;
 			iframeId = $("#"+id_iframe);
 		}else{
@@ -312,7 +313,7 @@ if(!stock.comm) {stock.comm={};}
 			iframeId = parent.$("#ifameStockForm");
 		}
 		//
-		if(modal_size !="" && modal_size !=null && modal_size != undefined){
+		if(modal_size !="" && modal_size != null && modal_size != undefined){
 			if(modal_size == "modal-sm" || modal_size == "modal-md" || modal_size == "modal-lg" ){
 				parent.$("#"+modalId+" .modal-dialog").removeClass("modal-sm");
 				parent.$("#"+modalId+" .modal-dialog").removeClass("modal-md");
@@ -322,9 +323,9 @@ if(!stock.comm) {stock.comm={};}
 			}
 		}
 	    $("#loading").show();
-		var dataUrl="";
-		if(data !=null && data !="" && data != undefined){
-			dataUrl="?"+data;
+		var dataUrl = "";
+		if(data != null && data != "" && data != undefined){
+			dataUrl = "?"+data;
 		}
 		
 		var iframe = iframeId;
@@ -337,7 +338,12 @@ if(!stock.comm) {stock.comm={};}
 	    parent.$("#"+modalId).addClass("modal");
 	    parent.$("#"+modalId).addClass("fade");
 	    
-	    parent.$("#"+popupContentId).css("height",option["height"]);
+	    parent.$("#"+popupContentId).css("width", "");
+	    for(var key in option){	    	
+			parent.$("#"+popupContentId).css(key, option[key]);
+		}
+		
+	    // parent.$("#"+popupContentId).css("height", option["height"]);
 	    parent.$("#"+popupContentId).css("border-radius","5px");
 	    iframe.css("border-radius","5px");
 	    parent.$("#"+popupContentId).html(iframe);

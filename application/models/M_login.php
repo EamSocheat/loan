@@ -40,7 +40,6 @@ class M_login extends CI_Model{
         }else{
             return "ERR";
         }
-        
     }
     
     

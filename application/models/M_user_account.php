@@ -17,6 +17,16 @@ class M_user_account extends CI_Model{
     	    return $this->db->get()->result();
     	}
 
+        function selectUserPwd(){
+            $this->db->select('tbl_user.usr_pwd');
+            $this->db->from('tbl_user');
+            $this->db->where('tbl_user.com_id', $_SESSION['comId']);
+            $this->db->where('tbl_user.useYn', 'Y');
+            $this->db->where('tbl_user.sta_id', $_SESSION['usrId']);
+            
+            return $this->db->get()->result();
+        }
+
     	public function update($data){
             $this->db->where('com_id', $_SESSION['comId']);
             $this->db->where('sta_id', $_SESSION['usrId']);

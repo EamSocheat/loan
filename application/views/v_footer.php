@@ -241,16 +241,13 @@ $('#adminCalendar').fullCalendar({
 
   }
 
-
-  	
-
-  
 });
 
 $(document).ready(function() {
 	//render menu for user
 	getUserMenu();
 	checkCookieLang();
+  setCompanyName();
 	
 	$("#langDropSelect a").click(function(e){
 		$('#loading').show();
@@ -457,7 +454,7 @@ function getUserMenu(){
 			
 		},
 		error : function(data) {
-			console.log(data);
+		  console.log(data);
 			stock.comm.alertMsg($.i18n.prop("msg_err"));
         }
 	});
@@ -468,10 +465,30 @@ function updateUser(){
 	var data = "&action=U";
 	var controllerNm = "PopupFormUpdate";
 	var option = {};
-	option["height"] = "545px";
-	
+  option["width"]  = "420px";
+	option["height"] = "498px";
+  option["left"]   = "110px";
+  
 	stock.comm.openPopUpForm(controllerNm, option, data, "modal-md");
 	$("#loading").hide();
+}
+
+function setCompanyName(){
+  $.ajax({
+    type: "POST",
+    url : $("#base_url").val() +"UserAccountUpdate/selectUserAccData",
+    data: {},
+    dataType: "json",
+    success: function(res) {
+      for(var i=0; i<res.OUT_REC.length; i++){
+        $("#comName").text(res.OUT_REC[i]["com_nm"]);
+      }
+    },
+    error : function(data) {
+      console.log(data);
+      stock.comm.alertMsg("System Error!!! PLease connect again.");
+    }
+  });
 }
 
 </script>
