@@ -337,9 +337,10 @@ if(!stock.comm) {stock.comm={};}
 	    parent.$("#"+modalId).addClass(controller_nm);
 	    parent.$("#"+modalId).addClass("modal");
 	    parent.$("#"+modalId).addClass("fade");
-	    
+
 	    parent.$("#"+popupContentId).css("width", "");
-	    for(var key in option){	    	
+	    parent.$("#"+popupContentId).css("left", "");
+	    for(var key in option){
 			parent.$("#"+popupContentId).css(key, option[key]);
 		}
 		
