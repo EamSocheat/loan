@@ -24,7 +24,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 |
 */
 //$config['base_url'] = 'http://localhost/stock';
-$config['base_url'] = 'http://localhost/loan_dev';
+$config['base_url'] = 'http://localhost/loan';
 
 /*
 |--------------------------------------------------------------------------
