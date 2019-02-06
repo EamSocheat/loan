@@ -94,7 +94,6 @@ var _thisPage = {
 		});
 
 		$("#btnDownExcel").click(function(){
-			console.log(true);
 			downloadExcel();
 		});
 	}
@@ -204,14 +203,33 @@ function deleteDataArr(dataArr){
 	});
 }
 
-function downloadExcel(){
-	console.log("inside function");
+function downloadExcel(page_no){
+	var pageNo = 1;
+    if(page_no != "" && page_no != null && page_no != undefined){
+        if(page_no <=0){
+            page_no = 1;
+        }
+        pageNo = page_no;
+    }
+    var dat = {};
+    //paging
+    dat["perPage"] = $("#perPage").val();
+    dat["offset"]  = parseInt($("#perPage").val())  * ( pageNo - 1);
+    //searching
+    dat["cusNm"]	= $("#txtSrchCusNm").val().trim();
+    dat["cusNmKh"]	= $("#txtSrchCusNmKh").val().trim();
+    dat["cusPhone"] = $("#txtSrchCusPhone").val().trim();
+    dat["cusIdentityNmKh"] = $("#txtSrchIdentityNmKh").val().trim();
+
+	console.log($("#base_url").val());
 	$.ajax({
 		type: "POST",
 		url: $("#base_url").val() +"Customer/download_excel",
-		data: {},
+		data: dat,
+		contentType: "application/vnd.ms-excel",
+		dataType: "text",
 		success: function(res) {
-		   console.log(res);
+		   	console.log(res);
 		    $("#loading").hide();
 		},
 		error : function(data) {
