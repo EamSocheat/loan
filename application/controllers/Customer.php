@@ -167,22 +167,22 @@ class Customer extends CI_Controller {
 		 * set style to header
 		 */
 		$styleArray = array(
-		    'font' => array('bold' => true,'color' => array('rgb' => 'E5E5E5'),),
+		    'font' => array('bold' => true,'color' => array('rgb' => 'FF0000'),),
 		    'alignment' => array('horizontal' => \PHPExcel_Style_Alignment::HORIZONTAL_CENTER,),
-		    'fill' => array(
+		    /*'fill' => array(
 	            'type' => PHPExcel_Style_Fill::FILL_SOLID,
 	            'color' => array('rgb' => 'B2B2B2')
-	        ),
+	        ),*/
 	        'borders' => array(
 				'allborders' => array(
 	                'style' => PHPExcel_Style_Border::BORDER_THIN,
 	                'color' => array('rgb' => 'DDDDDD'),),
 	        	'top' => array(
 					'style' => \PHPExcel_Style_Border::BORDER_THIN,),
-				'fill' => array(
+				/*'fill' => array(
 					'type' => \PHPExcel_Style_Fill::FILL_GRADIENT_LINEAR,
 					'rotation' => 90,
-					'startcolor' => array('argb' => 'FFA0A0A0',),'endcolor' => array('argb' => '333333',),),
+					'startcolor' => array('argb' => 'FFA0A0A0',),'endcolor' => array('argb' => '333333',),),*/
 			),
 		);
 		$object->getActiveSheet()->getStyle('A1:L1')->applyFromArray($styleArray);
