@@ -143,19 +143,54 @@ class Customer extends CI_Controller {
 	
 	function download_excel(){
 		$object = new PHPExcel();
-
-		$object->setActiveSheetIndex(0);
+		$object->setActiveSheetIndex(0);		
 
 		$table_columns = array("Name", "Khmer Name", "Gender", "Date of birth", "Phone 1", "Phone 2", "Email", "Address", "Description", "ID", "ID type", "Register Date");
-
 		$column = 0;
 
-		foreach($table_columns as $field)
-		{
+		/**
+		 * get header
+		 */
+		foreach($table_columns as $field){
 			$object->getActiveSheet()->setCellValueByColumnAndRow($column, 1, $field);
 			$column++;
+						
+			/**
+			 * set auto width foreach column size
+			 */
+			foreach (range($field, $object->getActiveSheet()->getHighestDataColumn()) as $col) {
+			    $object->getActiveSheet()->getColumnDimension($col)->setAutoSize(true);
+			}
 		}
 
+		/**
+		 * set style to header
+		 */
+		$styleArray = array(
+		    'font' => array('bold' => true,'color' => array('rgb' => 'E5E5E5'),),
+		    'alignment' => array('horizontal' => \PHPExcel_Style_Alignment::HORIZONTAL_CENTER,),
+		    'fill' => array(
+	            'type' => PHPExcel_Style_Fill::FILL_SOLID,
+	            'color' => array('rgb' => 'B2B2B2')
+	        ),
+	        'borders' => array(
+				'allborders' => array(
+	                'style' => PHPExcel_Style_Border::BORDER_THIN,
+	                'color' => array('rgb' => 'DDDDDD'),),
+	        	'top' => array(
+					'style' => \PHPExcel_Style_Border::BORDER_THIN,),
+				'fill' => array(
+					'type' => \PHPExcel_Style_Fill::FILL_GRADIENT_LINEAR,
+					'rotation' => 90,
+					'startcolor' => array('argb' => 'FFA0A0A0',),'endcolor' => array('argb' => '333333',),),
+			),
+		);
+		$object->getActiveSheet()->getStyle('A1:L1')->applyFromArray($styleArray);
+		$object->getDefaultStyle()->getFont()->setName('Khmer OS Battambang');
+
+		/**
+		 * retrieve data from table database
+		 */
 		/*$dataSrch = array(
 	        'limit' 		=> $this->input->post('perPage'),
 	        'offset' 		=> $this->input->post('offset'),
@@ -167,13 +202,11 @@ class Customer extends CI_Controller {
 	    );*/
 		$customer_data = $this->M_customer->selectCustomer();
 
+		/**
+		 * match header and data
+		 */
 		$excel_row = 2;
-
-		echo json_decode($customer_data);
-		// return;
-
-		foreach($customer_data as $row)
-		{
+		foreach($customer_data as $row){
 			$object->getActiveSheet()->setCellValueByColumnAndRow(0, $excel_row, $row->cus_nm);
 			$object->getActiveSheet()->setCellValueByColumnAndRow(1, $excel_row, $row->cus_nm_kh);
 			$object->getActiveSheet()->setCellValueByColumnAndRow(2, $excel_row, $row->cus_gender);
@@ -191,7 +224,7 @@ class Customer extends CI_Controller {
 
 		$object_writer = PHPExcel_IOFactory::createWriter($object, 'Excel5');
 		header('Content-Type: application/vnd.ms-excel');
-		header('Content-Disposition: attachment;filename="Customer Data.xls"');		
+		header('Content-Disposition: attachment;filename="Customer_'.date('Y/m/d').'.xls"');		
 		$object_writer->save('php://output');
 	}
 	
