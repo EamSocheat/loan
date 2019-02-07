@@ -85,16 +85,16 @@
                 <!-- mini logo for sidebar mini 50x50 pixels -->
         		<span class="logo-mini">
         			<div class="pull-left image">
-        				<img src="<?php echo base_url('assets/') ?>dist/img/user2-160x160.jpg" class="img-circle" style="width: 40px;" alt="User Image">
+        				<!-- <img src="<?php echo base_url('assets/') ?>dist/img/pack-money.png" class="img-circle" style="width: 40px;" alt="User Image"> -->
         			</div>
         		</span>
                 <!-- logo for regular state and mobile devices -->
         		<span class="logo-lg">
         			<div class="pull-left image">
-        				<img src="<?php echo base_url('assets/') ?>dist/img/user2-160x160.jpg" class="img-circle" style="width: 40px;" alt="User Image">
+        				<!-- <img src="<?php echo base_url('assets/') ?>dist/img/pack-money.png" class="img-circle" style="width: 40px;" alt="User Image"> -->
         			</div>
-        			<b>Tulip Salon</b>
-        		</span>      
+        			<b class="comName"></b>
+        		</span>
     		</a>
             
             <!-- Header Navbar: style can be found in header.less -->
@@ -140,13 +140,13 @@
               			<li class="dropdown user user-menu">
                 			<a href="javascript:" class="dropdown-toggle" data-toggle="dropdown">
                   				<!-- <img src="<?php echo base_url('assets/') ?>dist/img/user2-160x160.jpg" class="user-image" alt="User Image"> -->
-                  				<span class="hidden-xs" id="comName"Company Name</span>
+                  				<span class="hidden-xs comName">Company Name</span>
                 			</a>
                 			<ul class="dropdown-menu">
                                 <!-- User image -->
                       			<li class="user-header">
-                        			<img src="<?php echo base_url('assets/') ?>dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
-                        			<p>Alexander Pierce - Web Developer<small>Member since Nov. 2012</small></p>
+                        			<img src="<?php echo base_url('assets/') ?>dist/img/pack-money.png" class="img-circle" alt="User Image">
+                        			<p>The E-Loan in Country<small>Since Jan. 2010</small></p>
                       			</li>
                                 <!-- Menu Body -->
         						<li class="user-body">
@@ -169,7 +169,7 @@
                           				<a href="javascript:" class="btn btn-default btn-flat" id="UPDATE" onclick="updateUser()">Profile</a>
                         			</div>
                         			<div class="pull-right">
-                          				<a href="javascript:" class="btn btn-default btn-flat" id="SIGNOUT">Sign out</a>
+                          				<a href="javascript:" class="btn btn-default btn-flat" id="SIGNOUT" onclick="signOut()">Sign out</a>
                         			</div>
                       			</li>
     						</ul>

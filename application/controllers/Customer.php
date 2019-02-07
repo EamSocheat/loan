@@ -142,6 +142,7 @@ class Customer extends CI_Controller {
 	}
 	
 	function download_excel(){
+
 		$object = new PHPExcel();
 		$object->setActiveSheetIndex(0);		
 
@@ -187,20 +188,14 @@ class Customer extends CI_Controller {
 		);
 		$object->getActiveSheet()->getStyle('A1:L1')->applyFromArray($styleArray);
 		$object->getDefaultStyle()->getFont()->setName('Khmer OS Battambang');
-
+		
 		/**
 		 * retrieve data from table database
 		 */
-		/*$dataSrch = array(
-	        'limit' 		=> $this->input->post('perPage'),
-	        'offset' 		=> $this->input->post('offset'),
-	        'cus_id' 		=> $this->input->post('cusId'),
-	        'cus_nm' 		=> $this->input->post('cusNm'),
-	        'cus_nm_kh' 	=> $this->input->post('cusNmKh'),
-	        'cus_idnt_num'	=> $this->input->post('cusIdentityNmKh'),
-	        'cus_phone1' 	=> $this->input->post('cusPhone')
-	    );*/
-		$customer_data = $this->M_customer->selectCustomer();
+		$dataSrch = array(
+	        'cusIdArr' => $this->input->post("cusIdArray")
+	    );
+		$customer_data = $this->M_customer->selectCustomer($dataSrch);
 
 		/**
 		 * match header and data

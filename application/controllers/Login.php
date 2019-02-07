@@ -127,8 +127,12 @@ class Login extends CI_Controller {
     }
 
     function clearSession(){
-    	$this->session->sess_destroy();
+    	$this->session->unset_userdata('usrNm');
+		$this->session->sess_destroy();
     }
+    /*function clearSession(){
+    	$this->session->sess_destroy();
+    }*/
 	
 	
 }

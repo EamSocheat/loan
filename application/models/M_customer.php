@@ -13,7 +13,12 @@
         	//$this->db->from('tbl_customer');
         	$this->db->where('tbl_customer.com_id', $_SESSION['comId']);
         	$this->db->where('tbl_customer.useYn', 'Y');
-        	
+
+            if($dataSrch['cusIdArr'] != null && $dataSrch['cusIdArr'] != ""){
+                $integerIDs = array_map('intval', explode(',', $dataSrch['cusIdArr']));
+                $this->db->where_in('tbl_customer.cus_id', $integerIDs);
+            }
+
         	if($dataSrch['cus_id'] != null && $dataSrch['cus_id'] != ""){
         	    $this->db->where('tbl_customer.cus_id', $dataSrch['cus_id']);
         	}

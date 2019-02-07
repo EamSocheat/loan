@@ -52,7 +52,7 @@
 
   <footer class="main-footer">
     <div class="pull-right hidden-xs">
-      <b>Version</b> 2.4.0
+      <b>Version</b> 1.0.0
     </div>
     <strong>Copyright &copy; 2018-2019 <!-- <a target="blank" href="https://adminlte.io">Almsaeed Studio</a>. --></strong> All rights
     reserved.
@@ -473,6 +473,22 @@ function updateUser(){
 	$("#loading").hide();
 }
 
+function signOut(){
+  $.ajax({
+    type: "POST",
+    url : $("#base_url").val() +"Login/clearSession()",
+    data: {},
+    dataType: "json",
+    success: function(res) {
+      console.log(res);
+    },
+    error : function(data) {
+      console.log(data);
+      stock.comm.alertMsg("System Error!!! PLease connect again.");
+    }
+  });
+}
+
 function setCompanyName(){
   $.ajax({
     type: "POST",
@@ -481,7 +497,7 @@ function setCompanyName(){
     dataType: "json",
     success: function(res) {
       for(var i=0; i<res.OUT_REC.length; i++){
-        $("#comName").text(res.OUT_REC[i]["com_nm"]);
+        $(".comName").text(res.OUT_REC[i]["com_nm"]);
       }
     },
     error : function(data) {

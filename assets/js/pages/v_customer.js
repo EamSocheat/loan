@@ -93,8 +93,24 @@ var _thisPage = {
 			resetFormSearch();
 		});
 
-		$("#btnDownExcel").click(function(){
-			downloadExcel();
+		$("#btnDownExcel").click(function(e){
+			e.preventDefault();
+			var chkVal = $('#tblCustomer tbody tr td.chk_box input[type="checkbox"]:checked');
+
+			if(chkVal.length <= 0){
+				stock.comm.alertMsg($.i18n.prop("msg_con_del"));
+				return;
+			}
+			
+			var objArr = [];
+			chkVal.each(function(i){
+				var tblTr   = $(this).parent().parent();
+				var data_id = tblTr.attr("data-id");
+				objArr.push(Number(data_id));
+			});
+			
+			$("#cusId").val(objArr);
+			$("#btnExcel").submit();
 		});
 	}
 };
@@ -186,6 +202,9 @@ function deleteDataArr(dataArr){
 		type: "POST",
 		url: $("#base_url").val() +"Customer/delete",
 		data: dataArr,
+		contentType:false,
+		cache:false,
+		processData:false,
 		success: function(res) {
 		    if(res > 0){
 		        stock.comm.alertMsg(res+$.i18n.prop("msg_del_com"));
@@ -203,31 +222,16 @@ function deleteDataArr(dataArr){
 	});
 }
 
-function downloadExcel(page_no){
-	var pageNo = 1;
-    if(page_no != "" && page_no != null && page_no != undefined){
-        if(page_no <=0){
-            page_no = 1;
-        }
-        pageNo = page_no;
-    }
-    var dat = {};
-    //paging
-    dat["perPage"] = $("#perPage").val();
-    dat["offset"]  = parseInt($("#perPage").val())  * ( pageNo - 1);
-    //searching
-    dat["cusNm"]	= $("#txtSrchCusNm").val().trim();
-    dat["cusNmKh"]	= $("#txtSrchCusNmKh").val().trim();
-    dat["cusPhone"] = $("#txtSrchCusPhone").val().trim();
-    dat["cusIdentityNmKh"] = $("#txtSrchIdentityNmKh").val().trim();
-
-	console.log($("#base_url").val());
+function downloadExcel(dataRec){
+	console.log(dataRec);
+	
 	$.ajax({
 		type: "POST",
-		url: $("#base_url").val() +"Customer/download_excel",
-		data: dat,
+		url : $("#base_url").val() +"Customer/download_excel",
+		data: dataRec,
 		contentType: "application/vnd.ms-excel",
-		dataType: "text",
+		dataType: "json",
+        cache: false,
 		success: function(res) {
 		   	console.log(res);
 		    $("#loading").hide();
