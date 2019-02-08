@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Feb 08, 2019 at 01:49 AM
+-- Generation Time: Feb 08, 2019 at 03:31 AM
 -- Server version: 5.7.19
 -- PHP Version: 5.6.31
 
@@ -136,24 +136,34 @@ INSERT INTO `tbl_company` (`com_id`, `com_nm`, `com_phone`, `com_email`, `com_ad
 DROP TABLE IF EXISTS `tbl_contract`;
 CREATE TABLE IF NOT EXISTS `tbl_contract` (
   `con_id` int(11) NOT NULL AUTO_INCREMENT,
+  `con_no` int(10) NOT NULL,
   `con_start_dt` datetime NOT NULL,
   `con_principle` double NOT NULL,
   `con_interest` double NOT NULL,
-  `con_interest_type` double NOT NULL,
+  `con_interest_type` varchar(1) NOT NULL,
   `con_per_year` int(11) NOT NULL,
   `con_per_month` int(11) NOT NULL,
   `con_total_principle` double NOT NULL,
   `con_total_interest` double NOT NULL,
   `con_status` varchar(10) NOT NULL,
   `con_end_dt` datetime DEFAULT NULL,
-  `regUsr` varchar(30) NOT NULL,
   `regDt` datetime DEFAULT NULL,
+  `regUsr` varchar(100) DEFAULT NULL,
   `upDt` datetime DEFAULT NULL,
   `upUsr` varchar(30) DEFAULT NULL,
   `useYn` varchar(1) NOT NULL,
   `com_id` int(11) NOT NULL,
-  PRIMARY KEY (`con_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=armscii8;
+  `cus_id` int(11) DEFAULT NULL,
+  PRIMARY KEY (`con_id`),
+  UNIQUE KEY `con_no` (`con_no`)
+) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=armscii8;
+
+--
+-- Dumping data for table `tbl_contract`
+--
+
+INSERT INTO `tbl_contract` (`con_id`, `con_no`, `con_start_dt`, `con_principle`, `con_interest`, `con_interest_type`, `con_per_year`, `con_per_month`, `con_total_principle`, `con_total_interest`, `con_status`, `con_end_dt`, `regDt`, `regUsr`, `upDt`, `upUsr`, `useYn`, `com_id`, `cus_id`) VALUES
+(1, 1, '2019-02-08 00:00:00', 200, 20, 'M', 1, 12, 216.8, 16.8, 'Y', NULL, '2019-02-08 00:00:00', '1', NULL, NULL, 'Y', 1, 1);
 
 -- --------------------------------------------------------
 
