@@ -127,7 +127,7 @@ function getData(page_no){
     var dat = {};
     //paging
     dat["perPage"] = $("#perPage").val();
-    dat["offset"] = parseInt($("#perPage").val())  * ( pageNo - 1);
+    dat["offset"]  = parseInt($("#perPage").val())  * ( pageNo - 1);
     //searching
     dat["cusNm"]	= $("#txtSrchCusNm").val().trim();
     dat["cusNmKh"]	= $("#txtSrchCusNmKh").val().trim();

@@ -9,6 +9,7 @@ $(document).ready(function(){
 var _thisPage = {
 		onload : function(){
 			_thisPage.event();
+			stock.comm.checkAllTblChk("chkAllBox","tblContract","chk_box");
 		}, loadData : function(page_no){
 			
 		}, editData : function(pos_id){
@@ -39,8 +40,8 @@ var _thisPage = {
 			$("#btnAddNew").click(function(){
 				$("#loading").show();
 				var controllerNm = "PopupFormContract";
-				var option={};
-				option["height"] = "850px";
+				var option = {};
+				option["height"] = "440px";
 				
 				stock.comm.openPopUpForm(controllerNm, option, null, "modal-lg");
 			});
@@ -62,7 +63,7 @@ var _thisPage = {
 			$("#btnDelete").click(function(e){
 				var chkVal = $('#tblStaff tbody tr td.chk_box input[type="checkbox"]:checked');
 				
-				if(chkVal.length <=0){
+				if(chkVal.length <= 0){
 					stock.comm.alertMsg($.i18n.prop("msg_con_del"));
 					return;
 				}
@@ -103,23 +104,3 @@ var _thisPage = {
 function popupPositionCallback(){
 	
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

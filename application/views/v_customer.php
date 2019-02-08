@@ -118,7 +118,6 @@
                                 <option value="50" data-i18ncd="lb_row50">50 rows</option>
                                 <option value="100" data-i18ncd="lb_row100">100 rows</option>
                             </select>
-                            
                       </form>
                     </div>
 				    <br>

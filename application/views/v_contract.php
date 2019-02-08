@@ -106,24 +106,29 @@
 				</div>
 				
 				<div class="box-body table-responsive">
-					<table class="table table-hover" id="">
+					<table class="table table-hover" id="tblContract">
 						<thead>  
     						<tr>
-    					  		<th><input type="checkbox" id="chkAll" style="display:none;"></th>
-    					  		<th data-i18ncd="lb_name">Name</th>
-        					  	<th data-i18ncd="lb_name_kh">Khmer Name</th>
-        					  	<th data-i18ncd="lb_des">Description</th>
-        					  	<th data-i18ncd="lb_docreate">Register Date</th>
-    					  		<th data-i18ncd="lb_action">Action</th>
+    					  		<th><input type="checkbox" id="chkAllBox"></th>
+    					  		<th data-i18ncd="">Contract Code</th>
+        					  	<th data-i18ncd="">Contract Start</th>
+        					  	<th data-i18ncd="">Loan Amount</th>
+        					  	<th data-i18ncd="">Loan Interest</th>
+    					  		<th data-i18ncd="">Interest Type</th>
+    					  		<th data-i18ncd="">Period</th>
+    					  		<th data-i18ncd="">Borrower</th>
     						</tr>
 						</thead>
 						<tbody>
 							<tr>
-								<td><input type="checkbox"></td>
-								<td><div>contract 000001</div></td>
+								<td class="chk_box"><input type="checkbox"></td>
 								<td><div>000001</div></td>
-								<td><div>000001</div></td>
-								<td><div>2018-10-01</div></td>
+								<td><div>2019-02-08</div></td>
+								<td><div>200$</div></td>
+								<td><div>10%</div></td>
+								<td><div>M</div></td>
+								<td><div>1 year</div></td>
+								<td><div>customer 00001</div></td>
 								<td class="text-center">
 									<button onclick="" type="button" class="btn btn-primary btn-xs"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></button>
 								</td>
