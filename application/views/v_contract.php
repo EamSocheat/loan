@@ -42,10 +42,16 @@
                                             <input type="text" class="form-control input-sm" id="txtSrchContNm" placeholder="Name">
                                         </div>
     								</div>
-    								<div class="col-sm-4 col-md-4 col-lg-4">
+    								<!-- <div class="col-sm-4 col-md-4 col-lg-4">
     									<div class="form-group form-inline">
                                             <label for="txtSrchContNmKh" class="control-label" data-i18ncd="lb_name_kh">Khmer Name</label>
                                             <input type="text" class="form-control input-sm" id="txtSrchContNmKh" placeholder="Khmer Name">
+                                        </div>
+    								</div> -->
+    								<div class="col-sm-4 col-md-4 col-lg-4">
+    									<div class="form-group form-inline">
+                                            <label for="txtSrchContCode" class="control-label" data-i18ncd="lb_contract_code">Contract Code</label>
+                                            <input type="text" class="form-control input-sm" id="txtSrchContCode" placeholder="Contract Code">
                                         </div>
     								</div>
     								<!-- <div class="col-sm-3 col-md-3 col-lg-3">

@@ -24,7 +24,25 @@ class Contract extends CI_Controller{
         $data['iframe'] = $this->load->view('v_iframe', NULL, TRUE);
         
         $this->load->view('v_contract',$data);
-    }    
+    }
+
+    public function getContract(){
+        if(!$this->M_check_user->check()){
+            redirect('/Login');
+        }
+        $dataSrch = array(
+            'limit'         => $this->input->post('perPage'),
+            'offset'        => $this->input->post('offset'),
+            'con_id'        => $this->input->post('conId'),
+            // 'con_nm'        => $this->input->post('txtSrchContNm'),
+            'con_no'     => $this->input->post('txtSrchContCode'),
+        );
+
+        $data["OUT_REC"] = $this->M_contract->selectContractData($dataSrch);
+        $data["OUT_REC_CNT"] = $this->M_contract->countContractData($dataSrch);
+        echo json_encode($data);
+        
+    }
     
 }
 
