@@ -71,15 +71,15 @@ var _thisPage = {
 			$("#loading").show();
 			var option = {};
 			var data = "id="+pos_id;
-			var controllerNm = "PopupFormPosition";
-			option["height"] = "321px";
+			var controllerNm = "PopupFormPayment";
+			option["height"] = "400px";
 			
 			stock.comm.openPopUpForm(controllerNm, option, data);
 		}, addNewData : function(){
 			$("#loading").show();
-			var controllerNm = "PopupFormPosition";
+			var controllerNm = "PopupFormPayment";
 			var option = {};
-			option["height"] = "321px";
+			option["height"] = "400px";
 			
 			stock.comm.openPopUpForm(controllerNm, option, null);
 		}, deleteData : function(dataArr){
