@@ -37,7 +37,7 @@
 
             		<div class="col-xs-4 padding-forms-right">
             			<div class="form-group">
-                           	<label for="txtContractNmKh" data-i18ncd="">Currency</label>
+                           	<label for="cboCurrency" data-i18ncd="">Currency</label>
                         	<select class="form-control" id="cboCurrency" name="cboCurrency" style="font-size: 14px;">
                         		<option value="M">Please Select</option>
 	                    		<option value="M">Reil</option>

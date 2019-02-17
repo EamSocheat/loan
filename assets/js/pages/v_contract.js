@@ -74,7 +74,7 @@ var _thisPage = {
 			
 		}, event : function(){
 			$("#perPage").change(function(e){
-				_pageNo=1;
+				_pageNo = 1;
 				_thisPage.loadData();
 			});
 
@@ -95,7 +95,7 @@ var _thisPage = {
 				$("#loading").show();
 				var controllerNm = "PopupFormContract";
 				var option = {};
-				option["height"] = "440px";
+				option["height"] = "445px";
 				
 				stock.comm.openPopUpForm(controllerNm, option, null, "modal-lg");
 			});
@@ -126,17 +126,17 @@ var _thisPage = {
 				$("#btnConfirmOk").unbind().click(function(e){
 					$("#mdlConfirm").modal('hide');
 					
-					var delArr=[];
-					var delObj={};
+					var delArr = [];
+					var delObj = {};
 					chkVal.each(function(i){
-						var delData={};
+						var delData = {};
 						var tblTr = $(this).parent().parent();
-						var braId=tblTr.attr("data-id");
+						var braId = tblTr.attr("data-id");
 						delData["staId"] = braId;
 						delArr.push(delData);
 					});
 					
-					delObj["delObj"]= delArr;
+					delObj["delObj"] = delArr;
 					//
 					deleteDataArr(delObj);
 				});

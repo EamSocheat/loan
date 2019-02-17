@@ -80,20 +80,20 @@ var _thisPage = {
 			//
 			//
 			$("#btnPopupBranch").click(function(e){
-				var data="parentId=ifameStockForm";
+				var data = "parentId=ifameStockForm";
 				data+="&dataSrch="+$("#txtBraNm").val();
 				var controllerNm = "PopupSelectBranch";
-				var option={};
+				var option = {};
 				option["height"] = "450px";
 			    stock.comm.openPopUpSelect(controllerNm,option, data,"modal-md");
 			});
 			
 			//
 			$("#btnPopupPosition").click(function(e){
-				var data="parentId=ifameStockForm";
+				var data = "parentId=ifameStockForm";
 				data+="&dataSrch="+$("#txtPosNm").val();
 				var controllerNm = "PopupSelectPosition";
-				var option={};
+				var option = {};
 				option["height"] = "450px";
 			    stock.comm.openPopUpSelect(controllerNm,option, data,"modal-md");
 			});
@@ -118,20 +118,18 @@ function saveData(str){
     parent.$("#loading").show();
 	$.ajax({
 		type: "POST",
-		url: $("#base_url").val() +"Contract/save",
+		url : $("#base_url").val() +"Contract/saveContract",
 		data: new FormData($("#frmContract")[0]),
 		cache: false,
         contentType: false,
         processData: false,
 		success: function(res) {
-			console.log(res);
 		    parent.$("#loading").hide();
 			if(res =="OK"){
 				parent.stock.comm.alertMsg($.i18n.prop("msg_save_com"),"braNm");
 				if(str == "new"){
 				    clearForm();
 				}else{
-				    //close popup
 				    parent.stock.comm.closePopUpForm("PopupFormContract",parent.popupContractCallback);
 				}
 			}

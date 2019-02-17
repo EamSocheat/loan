@@ -8,11 +8,11 @@
     	}
 
     	function selectContractData($dataSrch){
-    	    $this->db->select('*');
+    	    $this->db->select('tbl_contract.*, tbl_customer.cus_nm, tbl_customer.cus_nm_kh');
             //$this->db->from('tbl_contract');
+            $this->db->join('tbl_customer','tbl_customer.cus_id = tbl_contract.cus_id');
             $this->db->where('tbl_contract.com_id', $_SESSION['comId']);
-            $this->db->where('tbl_contract.useYn', 'Y');
-
+            
             if($dataSrch['con_id'] != null && $dataSrch['con_id'] != ""){
                 $this->db->where('tbl_contract.con_id', $dataSrch['con_id']);
             }
@@ -28,6 +28,7 @@
     	public function countContractData($dataSrch){
 		    $this->db->select('count(con_id) as total_rec');
             $this->db->from('tbl_contract');
+            $this->db->join('tbl_customer','tbl_customer.cus_id = tbl_contract.cus_id');
             $this->db->where('tbl_contract.com_id', $_SESSION['comId']);
             $this->db->where('tbl_contract.useYn', 'Y');
             

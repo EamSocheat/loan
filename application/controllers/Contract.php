@@ -43,6 +43,20 @@ class Contract extends CI_Controller{
         echo json_encode($data);
         
     }
+
+    public function saveContract(){
+        if(!$this->M_check_user->check()){
+            redirect('/Login');
+        }
+
+        $dataSrch = array(
+            'cus_num'       => $this->input->post('txtCusNm'),
+            'cus_phone1'    => $this->input->post('txtCusPhone')
+        );
+
+        echo json_encode($dataSrch);
+        
+    }
     
 }
 
