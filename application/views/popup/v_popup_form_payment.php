@@ -17,7 +17,7 @@
 				<div class="col-xs-12 row" style="padding:0px">
             		<div class="col-xs-4 padding-forms-left">
             			<div class="form-group">
-							<label for="cusNm2" data-i18ncd="lb_customer_name">Contract No.</label>
+							<label for="cusNm2" data-i18ncd="">Contract No.</label>
 							<div class="input-group">
 								<input type="text" style="height: 34px;" class="form-control input-sm" disabled="disabled" id="txtCusNm" name="txtCusNm">
 									<span id="btnPopupCusch" class="input-group-addon label-info" style="border-top-right-radius: 5px;border-bottom-right-radius: 5px;cursor: pointer;border-color: #46b8da !important;"><i class="fa fa-search-plus"></i></span>
@@ -28,7 +28,7 @@
 
             		<div class="col-xs-4 padding-forms-right">
             			<div class="form-group">
-							<label for="txtCusPhone" data-i18ncd="lb_customer_phone">Customer Name</label>
+							<label for="txtCusPhone" data-i18ncd="lb_customer_name">Customer Name</label>
 							<div class="input-group" style="width:100%;">
 								<input style="height: 34px; border-radius: 3px;" type="text"  class="form-control input-sm" disabled="disabled" id="txtCusPhone" name="txtCusPhone">
 							</div>
