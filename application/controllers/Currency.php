@@ -21,7 +21,7 @@ class Currency extends CI_Controller{
         $data["OUT_REC"] = $this->M_currency->selectCurrencyData();
         echo json_encode($data);
     }
-    
+     
 }
 
 ?>
