@@ -49,9 +49,11 @@ class Contract extends CI_Controller{
             redirect('/Login');
         }
 
-        $dataSrch = array(
+        $dataSrch = array(            
             'cus_num'       => $this->input->post('txtCusNm'),
-            'cus_phone1'    => $this->input->post('txtCusPhone')
+            'cus_phone1'    => $this->input->post('txtCusPhone'),
+            'con_sdate'     => $this->input->post('txtContSD'),            
+            'cur_id'     => $this->input->post('cboCurrency'),
         );
 
         echo json_encode($dataSrch);

@@ -8,9 +8,10 @@
     	}
 
     	function selectContractData($dataSrch){
-    	    $this->db->select('tbl_contract.*, tbl_customer.cus_nm, tbl_customer.cus_nm_kh');
+    	    $this->db->select('tbl_contract.*, tbl_customer.cus_nm, tbl_customer.cus_nm_kh, tbl_currency.cur_nm, tbl_currency.cur_nm_kh, tbl_currency.cur_syn');
             //$this->db->from('tbl_contract');
             $this->db->join('tbl_customer','tbl_customer.cus_id = tbl_contract.cus_id');
+            $this->db->join('tbl_currency','tbl_currency.cur_id = tbl_contract.cur_id');
             $this->db->where('tbl_contract.com_id', $_SESSION['comId']);
             
             if($dataSrch['con_id'] != null && $dataSrch['con_id'] != ""){

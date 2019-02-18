@@ -40,6 +40,7 @@ var _thisPage = {
 			stock.comm.inputPhoneKhmer("txtPhone1");
 			stock.comm.inputPhoneKhmer("txtPhone2");
 			
+			loadCurrencyData();
 		},
 		event : function(){
 			//
@@ -112,6 +113,33 @@ var _thisPage = {
 		}
 };
 
+function loadCurrencyData(){
+    parent.$("#loading").show();
+	$.ajax({
+		type: "POST",
+		url : $("#base_url").val() +"Currency/getCurrency",
+		// data: new FormData($("#frmContract")[0]),
+		cache: false,
+		dataType: "json",
+        contentType: false,
+        processData: false,
+		success: function(res) {
+		    parent.$("#loading").hide();
+		    $("#cboCurrency").html("");
+		    var html = '';
+			if(res.OUT_REC != null && res.OUT_REC.length > 0){
+				$.each(res.OUT_REC, function(i,v){
+					html += '<option value="'+v.cur_id+'">'+v.cur_nm+'</option>';
+				});
+				$("#cboCurrency").html(html);
+			}
+		},
+		error : function(data) {
+			console.log(data);
+			stock.comm.alertMsg($.i18n.prop("msg_err"));
+        }
+	});
+}
 
 function saveData(str){
 	$("#contId").appendTo("#frmContract");

@@ -20,7 +20,7 @@
 							<label for="cusNm2" data-i18ncd="lb_customer_name">Customer Name</label>
 							<div class="input-group">
 								<input type="text" style="height: 34px;" class="form-control input-sm" disabled="disabled" id="txtCusNm" name="txtCusNm">
-									<span id="btnPopupCusch" class="input-group-addon label-info" style="border-top-right-radius: 5px;border-bottom-right-radius: 5px;cursor: pointer;border-color: #46b8da !important;"><i class="fa fa-search-plus"></i></span>
+								<span id="btnPopupCusch" class="input-group-addon label-info" style="border-top-right-radius: 5px;border-bottom-right-radius: 5px;cursor: pointer;border-color: #46b8da !important;"><i class="fa fa-search-plus"></i></span>
 							</div>
 							<input type="hidden" id="txtCusNameId" name="txtCusNameId">
 						</div>
@@ -39,8 +39,8 @@
             			<div class="form-group">
                            	<label for="cboCurrency" data-i18ncd="">Currency</label>
                         	<select class="form-control" id="cboCurrency" name="cboCurrency" style="font-size: 14px;">
-                        		<option value="M">Please Select</option>
-	                    		<option value="M">Reil</option>
+                        		<!-- <option value="M">Please Select</option>
+	                    		<option value="M">Reil</option> -->
 			                </select>
                         </div>
             		</div>
@@ -77,8 +77,8 @@
             	<div class="col-xs-12 row" style="padding:0px">
             		<div class="col-xs-4 padding-forms-left">
             			<div class="form-group">
-				      		<label  for="lRate" data-i18nCd="lb_cl_lint" >Interest Type:</label>
-                			 <select class="form-control" id="cbointerestType" name="cboCurrency" style="font-size: 14px;">
+				      		<label  for="cbointerestType" data-i18nCd="lb_cl_lint" >Interest Type:</label>
+                			 <select class="form-control" id="cbointerestType" name="cbointerestType" style="font-size: 14px;">
 	                    		<option value="M">Monthly</option>
 	                    		<option value="Y">Yearly</option>
 			                </select>

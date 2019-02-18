@@ -42,7 +42,7 @@ var _thisPage = {
 					        html += 	'<td class="chk_box"><input type="checkbox"></td>';
 							html += 	'<td><div>000000000'+stock.comm.nullToEmpty(res.OUT_REC[i]["con_no"])+'</div></td>';
 							html += 	'<td><div>'+strinngDate(res.OUT_REC[i]["con_start_dt"].substr(0,10))+'</div></td>';
-							html += 	'<td><div>'+res.OUT_REC[i]["con_principle"]+'$</div></td>';
+							html += 	'<td><div>'+res.OUT_REC[i]["con_principle"]+res.OUT_REC[i]["cur_syn"]+'</div></td>';
 							html += 	'<td><div>'+res.OUT_REC[i]["con_interest"]+'%</div></td>';
 							html += 	'<td><div>'+res.OUT_REC[i]["con_interest_type"]+'</div></td>';
 							html += 	'<td><div>'+res.OUT_REC[i]["con_per_month"]+'</div></td>';

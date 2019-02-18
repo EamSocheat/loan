@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Feb 08, 2019 at 03:31 AM
+-- Generation Time: Feb 18, 2019 at 10:33 AM
 -- Server version: 5.7.19
 -- PHP Version: 5.6.31
 
@@ -154,6 +154,7 @@ CREATE TABLE IF NOT EXISTS `tbl_contract` (
   `useYn` varchar(1) NOT NULL,
   `com_id` int(11) NOT NULL,
   `cus_id` int(11) DEFAULT NULL,
+  `cur_id` int(11) NOT NULL,
   PRIMARY KEY (`con_id`),
   UNIQUE KEY `con_no` (`con_no`)
 ) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=armscii8;
@@ -162,8 +163,8 @@ CREATE TABLE IF NOT EXISTS `tbl_contract` (
 -- Dumping data for table `tbl_contract`
 --
 
-INSERT INTO `tbl_contract` (`con_id`, `con_no`, `con_start_dt`, `con_principle`, `con_interest`, `con_interest_type`, `con_per_year`, `con_per_month`, `con_total_principle`, `con_total_interest`, `con_status`, `con_end_dt`, `regDt`, `regUsr`, `upDt`, `upUsr`, `useYn`, `com_id`, `cus_id`) VALUES
-(1, 1, '2019-02-08 00:00:00', 200, 20, 'M', 1, 12, 216.8, 16.8, 'Y', NULL, '2019-02-08 00:00:00', '1', NULL, NULL, 'Y', 1, 1);
+INSERT INTO `tbl_contract` (`con_id`, `con_no`, `con_start_dt`, `con_principle`, `con_interest`, `con_interest_type`, `con_per_year`, `con_per_month`, `con_total_principle`, `con_total_interest`, `con_status`, `con_end_dt`, `regDt`, `regUsr`, `upDt`, `upUsr`, `useYn`, `com_id`, `cus_id`, `cur_id`) VALUES
+(1, 1, '2019-02-08 00:00:00', 200, 20, 'Y', 1, 12, 216.8, 16.8, 'Y', NULL, '2019-02-08 00:00:00', '1', NULL, NULL, 'Y', 1, 1, 2);
 
 -- --------------------------------------------------------
 
@@ -174,18 +175,26 @@ INSERT INTO `tbl_contract` (`con_id`, `con_no`, `con_start_dt`, `con_principle`,
 DROP TABLE IF EXISTS `tbl_currency`;
 CREATE TABLE IF NOT EXISTS `tbl_currency` (
   `cur_id` int(11) NOT NULL AUTO_INCREMENT,
-  `cur_nm` varchar(30) NOT NULL,
-  `cur_nm_kh` varchar(30) NOT NULL,
-  `cur_syn` varchar(10) NOT NULL,
-  `cur_syn_kh` varchar(10) NOT NULL,
+  `cur_nm` varchar(30) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
+  `cur_nm_kh` varchar(30) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
+  `cur_syn` varchar(10) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
+  `cur_syn_kh` varchar(10) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
   `regDt` datetime DEFAULT NULL,
   `upDt` datetime DEFAULT NULL,
   `useYn` varchar(1) NOT NULL,
   `regUsr` int(11) NOT NULL,
-  `upUsr` int(11) NOT NULL,
+  `upUsr` int(11) DEFAULT NULL,
   `com_id` int(11) NOT NULL,
   PRIMARY KEY (`cur_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=armscii8;
+) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=armscii8;
+
+--
+-- Dumping data for table `tbl_currency`
+--
+
+INSERT INTO `tbl_currency` (`cur_id`, `cur_nm`, `cur_nm_kh`, `cur_syn`, `cur_syn_kh`, `regDt`, `upDt`, `useYn`, `regUsr`, `upUsr`, `com_id`) VALUES
+(2, 'Dollar', 'ដុល្លា', '$', '', '2019-02-18 00:00:00', NULL, 'Y', 1, NULL, 1),
+(1, 'Riel', 'រៀល', '៛', '', '2019-02-18 00:00:00', NULL, 'Y', 1, NULL, 1);
 
 -- --------------------------------------------------------
 
@@ -657,7 +666,7 @@ CREATE TABLE IF NOT EXISTS `tbl_user` (
   `com_id` int(11) NOT NULL,
   `usr_str` varchar(1) COLLATE utf8_unicode_ci DEFAULT NULL,
   PRIMARY KEY (`usr_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Dumping data for table `tbl_user`

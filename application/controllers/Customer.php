@@ -142,9 +142,9 @@ class Customer extends CI_Controller {
 	}
 	
 	function download_excel(){
-
+		
 		$object = new PHPExcel();
-		$object->setActiveSheetIndex(0);		
+		$object->setActiveSheetIndex(0);
 
 		$table_columns = array("Name", "Khmer Name", "Gender", "Date of birth", "Phone 1", "Phone 2", "Email", "Address", "Description", "ID", "ID type", "Register Date");
 		$column = 0;
