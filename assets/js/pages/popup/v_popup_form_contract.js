@@ -80,11 +80,11 @@ var _thisPage = {
 			});
 			//
 			//
-			$("#btnPopupBranch").click(function(e){
-				var data = "parentId=ifameStockForm";
-				data+="&dataSrch="+$("#txtBraNm").val();
-				var controllerNm = "PopupSelectBranch";
-				var option = {};
+			$("#btnPopupCusch").click(function(e){
+				var data="parentId=ifameStockForm";
+				data+="&dataSrch="+$("#txtCusNm").val();
+				var controllerNm = "PopupSelectCustomer";
+				var option={};
 				option["height"] = "450px";
 			    stock.comm.openPopUpSelect(controllerNm,option, data,"modal-md");
 			});
@@ -223,9 +223,10 @@ function clearForm(){
     $("#txtContractNm").focus();
 }
 
-function selectBranchCallback(data){
-	$("#txtBraNm").val(data["bra_nm"]);
-	$("#txtBraId").val(data["bra_id"]);
+function selectCustomerCallback(data){
+	console.log(data["cus_nm"])
+	$("#txtCusNm").val(data["cus_nm"]);
+	$("#txtCusId").val(data["cus_id"]);
 }
 
 function selectPositionCallback(data){

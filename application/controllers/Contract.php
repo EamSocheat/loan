@@ -50,9 +50,9 @@ class Contract extends CI_Controller{
         }
 
         $dataSrch = array(            
-            'cus_num'       => $this->input->post('txtCusNm'),
+            'cus_id'        => $this->input->post('txtCusId'),
             'cus_phone1'    => $this->input->post('txtCusPhone'),
-            'con_sdate'     => $this->input->post('txtContSD'),            
+            'con_sdate'     => date('Y-m-d',strtotime($this->input->post('txtContSD'))),
             'cur_id'     => $this->input->post('cboCurrency'),
         );
 

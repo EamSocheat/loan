@@ -137,7 +137,6 @@
     					  <th data-i18ncd="lb_phone">Phone</th>
     					  <th data-i18ncd="lb_email">Email</th>
     					  <th data-i18ncd="lb_addr">Address</th>
-    					  <th data-i18ncd="lb_des">Description</th>
     					  <th data-i18ncd="lb_action">Action</th>
     					</tr>
 					</thead>

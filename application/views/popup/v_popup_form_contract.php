@@ -22,7 +22,7 @@
 								<input type="text" style="height: 34px;" class="form-control input-sm" disabled="disabled" id="txtCusNm" name="txtCusNm">
 								<span id="btnPopupCusch" class="input-group-addon label-info" style="border-top-right-radius: 5px;border-bottom-right-radius: 5px;cursor: pointer;border-color: #46b8da !important;"><i class="fa fa-search-plus"></i></span>
 							</div>
-							<input type="hidden" id="txtCusNameId" name="txtCusNameId">
+							<input type="hidden" id="txtCusId" name="txtCusId">
 						</div>
             		</div>
 
