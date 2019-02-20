@@ -30,6 +30,7 @@ class Contract extends CI_Controller{
         if(!$this->M_check_user->check()){
             redirect('/Login');
         }
+        
         $dataSrch = array(
             'limit'         => $this->input->post('perPage'),
             'offset'        => $this->input->post('offset'),
@@ -49,15 +50,32 @@ class Contract extends CI_Controller{
             redirect('/Login');
         }
 
-        $dataSrch = array(            
+        $data = array(
             'cus_id'        => $this->input->post('txtCusId'),
-            'cus_phone1'    => $this->input->post('txtCusPhone'),
-            'con_sdate'     => date('Y-m-d',strtotime($this->input->post('txtContSD'))),
-            'cur_id'     => $this->input->post('cboCurrency'),
+            'con_start_dt'  => date('Y-m-d H:i:s',strtotime($this->input->post('txtContSD'))),
+            'cur_id'        => $this->input->post('cboCurrency'),
+            'con_principle' => $this->input->post('lAmt'),
+            'con_interest'  => $this->input->post('lRate'),
+            'con_interest_type'  => $this->input->post('cbointerestType'),
+            'con_per_year'  => $this->input->post('lYear'),
+            'con_per_month' => $this->input->post('lMonth'),
         );
 
-        echo json_encode($dataSrch);
-        
+        if($this->input->post('contId') != null && $this->input->post('contId') != ""){
+            //update data
+            $data['con_id'] = $this->input->post('contId');
+            $data['upUsr']  = $_SESSION['usrId'];
+            $data['upDt']   = date('Y-m-d H:i:s');
+            $this->M_contract->update($data);
+        }else{
+            //insert data
+            $data['com_id'] = $_SESSION['comId'];
+            $data['regUsr'] = $_SESSION['usrId'];
+            $data['regDt']  = date('Y-m-d H:i:s');
+            $this->M_contract->insert($data);
+        }
+
+        echo 'ok';
     }
     
 }

@@ -133,7 +133,7 @@ function getData(page_no){
     dat["cusNmKh"]	= $("#txtSrchCusNmKh").val().trim();
     dat["cusPhone"] = $("#txtSrchCusPhone").val().trim();
     dat["cusIdentityNmKh"] = $("#txtSrchIdentityNmKh").val().trim();
-        
+    
     $("#loading").show();
     $.ajax({
 		type: "POST",

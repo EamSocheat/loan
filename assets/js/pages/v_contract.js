@@ -26,6 +26,7 @@ var _thisPage = {
 		    // dat["txtSrchContNm"]	= $("#txtSrchContNm").val();
 		    dat["txtSrchContCode"]	= $("#txtSrchContCode").val();
 
+		    console.log(dat)
 		    $("#loading").show();
 		    $.ajax({
 				type: "POST",
@@ -46,7 +47,7 @@ var _thisPage = {
 							html += 	'<td><div>'+res.OUT_REC[i]["con_interest"]+'%</div></td>';
 							html += 	'<td><div>'+res.OUT_REC[i]["con_interest_type"]+'</div></td>';
 							html += 	'<td><div>'+res.OUT_REC[i]["con_per_month"]+'</div></td>';
-							html += 	'<td><div>customer 00001</div></td>';
+							html += 	'<td><div>'+res.OUT_REC[i]["cus_nm"]+'</div></td>';
 							html += 	'<td class="text-center">';
 							html +=			'<button onclick="" type="button" class="btn btn-primary btn-xs">';
 							html += 		'<i class="fa fa-pencil-square-o" aria-hidden="true"></i></button>';
@@ -155,8 +156,8 @@ var _thisPage = {
 		}
 }
 
-function popupPositionCallback(){
-	
+function popupContractCallback(){
+    _thisPage.loadData(_pageNo);
 }
 
 function reverseString(str) {
