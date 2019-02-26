@@ -145,9 +145,9 @@ function saveData(str){
 	$("#contId").appendTo("#frmContract");
     parent.$("#loading").show();
 	$.ajax({
-		type: "POST",
-		url : $("#base_url").val() +"Contract/saveContract",
-		data: new FormData($("#frmContract")[0]),
+		type : "POST",
+		url  : $("#base_url").val() +"Contract/saveContract",
+		data : new FormData($("#frmContract")[0]),
 		cache: false,
         contentType: false,
         processData: false,

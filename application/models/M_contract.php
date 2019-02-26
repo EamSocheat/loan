@@ -44,6 +44,13 @@
             return $this->db->get()->result();
 		}
 
+        public function selectId(){
+            $this->db->select('max(tbl_contract.con_id)');
+            $this->db->where('com_id', $_SESSION['comId']);
+            $con_id = $this->db->get('tbl_contract');
+            return $con_id;
+        }
+
         public function update($data){
             $this->db->where('com_id', $_SESSION['comId']);
             $this->db->where('con_id', $data['con_id']);

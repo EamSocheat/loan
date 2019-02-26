@@ -48,7 +48,7 @@ class Contract extends CI_Controller{
     public function saveContract(){
         if(!$this->M_check_user->check()){
             redirect('/Login');
-        }
+        }    
 
         $data = array(
             'cus_id'        => $this->input->post('txtCusId'),
@@ -58,7 +58,7 @@ class Contract extends CI_Controller{
             'con_interest'  => $this->input->post('lRate'),
             'con_interest_type'  => $this->input->post('cbointerestType'),
             'con_per_year'  => $this->input->post('lYear'),
-            'con_per_month' => $this->input->post('lMonth'),
+            'con_per_month' => $this->input->post('lMonth')
         );
 
         if($this->input->post('contId') != null && $this->input->post('contId') != ""){
@@ -72,9 +72,11 @@ class Contract extends CI_Controller{
             $data['com_id'] = $_SESSION['comId'];
             $data['regUsr'] = $_SESSION['usrId'];
             $data['regDt']  = date('Y-m-d H:i:s');
+            //$data['con_no'] = $this->M_contract->selectId();
             $this->M_contract->insert($data);
         }
 
+        // echo $this->M_contract->selectId();
         echo 'ok';
     }
     
