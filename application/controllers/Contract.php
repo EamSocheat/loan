@@ -30,6 +30,7 @@ class Contract extends CI_Controller{
         if(!$this->M_check_user->check()){
             redirect('/Login');
         }
+        $con_no = 0;
         
         $dataSrch = array(
             'limit'         => $this->input->post('perPage'),
@@ -41,6 +42,8 @@ class Contract extends CI_Controller{
 
         $data["OUT_REC"] = $this->M_contract->selectContractData($dataSrch);
         $data["OUT_REC_CNT"] = $this->M_contract->countContractData($dataSrch);
+        $con_no = $this->M_contract->selectId();
+        $data["TEST_MAX_ID"] = $con_no;
         echo json_encode($data);
         
     }
