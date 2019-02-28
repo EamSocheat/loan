@@ -48,8 +48,7 @@
             $this->db->select_max('tbl_contract.con_no', 'con_no');
             $this->db->from('tbl_contract');
             $this->db->where('com_id', $_SESSION['comId']);
-            $con_no = $this->db->get()->result();
-            return $con_no;
+            return $this->db->get()->result();
         }
 
         public function update($data){

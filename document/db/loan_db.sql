@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Feb 18, 2019 at 10:33 AM
+-- Generation Time: Feb 28, 2019 at 03:52 AM
 -- Server version: 5.7.19
 -- PHP Version: 5.6.31
 
@@ -136,7 +136,7 @@ INSERT INTO `tbl_company` (`com_id`, `com_nm`, `com_phone`, `com_email`, `com_ad
 DROP TABLE IF EXISTS `tbl_contract`;
 CREATE TABLE IF NOT EXISTS `tbl_contract` (
   `con_id` int(11) NOT NULL AUTO_INCREMENT,
-  `con_no` int(10) NOT NULL,
+  `con_no` varchar(20) NOT NULL,
   `con_start_dt` datetime NOT NULL,
   `con_principle` double NOT NULL,
   `con_interest` double NOT NULL,
@@ -157,14 +157,15 @@ CREATE TABLE IF NOT EXISTS `tbl_contract` (
   `cur_id` int(11) NOT NULL,
   PRIMARY KEY (`con_id`),
   UNIQUE KEY `con_no` (`con_no`)
-) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=armscii8;
+) ENGINE=MyISAM AUTO_INCREMENT=15 DEFAULT CHARSET=armscii8;
 
 --
 -- Dumping data for table `tbl_contract`
 --
 
 INSERT INTO `tbl_contract` (`con_id`, `con_no`, `con_start_dt`, `con_principle`, `con_interest`, `con_interest_type`, `con_per_year`, `con_per_month`, `con_total_principle`, `con_total_interest`, `con_status`, `con_end_dt`, `regDt`, `regUsr`, `upDt`, `upUsr`, `useYn`, `com_id`, `cus_id`, `cur_id`) VALUES
-(1, 1, '2019-02-08 00:00:00', 200, 20, 'Y', 1, 12, 216.8, 16.8, 'Y', NULL, '2019-02-08 00:00:00', '1', NULL, NULL, 'Y', 1, 1, 2);
+(9, '0000000001', '1970-01-01 00:00:00', 100000, 10, 'M', 2, 0, 0, 0, '', NULL, '2019-02-20 02:50:12', '1', NULL, NULL, '', 1, 1, 1),
+(13, '0001000002', '1970-01-01 00:00:00', 150000, 5, 'M', 0, 11, 0, 0, '', NULL, '2019-02-27 10:19:28', '1', NULL, NULL, '', 1, 3, 1);
 
 -- --------------------------------------------------------
 
