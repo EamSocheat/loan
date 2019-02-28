@@ -85,7 +85,7 @@
 				<div class="row">
 					<div class="col-xs-12">
                         <div class="col-xs-12">
-    					    <button type="button" id="btnDelete" class="btn btn-danger btn-sm" style="margin-right: 5px" onclick="fn_delete();"><i class="fa fa-trash" aria-hidden="true"></i> <span data-i18ncd="btn_delete">Delete</span></button>
+    					    <button type="button" id="btnDelete" class="btn btn-danger btn-sm" style="margin-right: 5px"><i class="fa fa-trash" aria-hidden="true"></i> <span data-i18ncd="btn_delete">Delete</span></button>
     					    <!-- <button type="button" id="btnEdit" class="btn btn-primary btn-sm" style="margin-right: 5px"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> <span data-i18ncd="btn_edit">Edit</span></button> -->
     					    <button type="button" id="btnAddNew" class="btn btn-default btn-sm" onclick="_thisPage.addNewData();"><i class="fa fa-plus" aria-hidden="true"></i> <span data-i18ncd="btn_add_new">Add New</span></button>
                         </div>
@@ -101,8 +101,8 @@
                                 <option value="1" data-i18ncd="lb_row1">1 rows</option>
                                 <option value="2" data-i18ncd="lb_row2">2 rows</option>
                                 <option value="3" data-i18ncd="lb_row3">3 rows</option>
-                                <option value="10" data-i18ncd="lb_row10" selected="selected">10 rows</option>
-                                <option value="20" data-i18ncd="lb_row20">20 rows</option>
+                                <option value="10" data-i18ncd="lb_row10">10 rows</option>
+                                <option value="20" data-i18ncd="lb_row20" selected="selected">20 rows</option>
                                 <option value="50" data-i18ncd="lb_row50">50 rows</option>
                                 <option value="100" data-i18ncd="lb_row100">100 rows</option>
                             </select>
@@ -117,12 +117,12 @@
     						<tr>
     					  		<th><input type="checkbox" id="chkAllBox"></th>
     					  		<th data-i18ncd="">Contract Code</th>
-        					  	<th data-i18ncd="">Contract Start</th>
-        					  	<th data-i18ncd="">Loan Amount</th>
-        					  	<th data-i18ncd="">Loan Interest</th>
-    					  		<th data-i18ncd="">Interest Type</th>
-    					  		<th data-i18ncd="">Period</th>
-    					  		<th data-i18ncd="">Borrower</th>
+        					  	<th data-i18ncd="" class="txt_c">Contract Start</th>
+        					  	<th data-i18ncd="" class="txt_r">Loan Amount</th>
+        					  	<th data-i18ncd="" class="txt_r">Loan Interest</th>
+    					  		<th data-i18ncd="" class="txt_c">Interest Type</th>
+    					  		<th data-i18ncd="" class="txt_c">Period</th>
+    					  		<th data-i18ncd="" class="txt_c">Borrower</th>
     						</tr>
 						</thead>
 						<tbody>

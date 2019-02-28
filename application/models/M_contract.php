@@ -45,7 +45,7 @@
 		}
 
         public function selectId(){
-            $this->db->select_max('tbl_contract.con_no', 'con_no');
+            $this->db->select_max('tbl_contract.con_id', 'con_id');
             $this->db->from('tbl_contract');
             $this->db->where('com_id', $_SESSION['comId']);
             return $this->db->get()->result();

@@ -40,7 +40,8 @@ class Customer extends CI_Controller {
 	        'cus_nm' 		=> $this->input->post('cusNm'),
 	        'cus_nm_kh' 	=> $this->input->post('cusNmKh'),
 	        'cus_idnt_num'	=> $this->input->post('cusIdentityNmKh'),
-	        'cus_phone1' 	=> $this->input->post('cusPhone')
+	        'cus_phone1' 	=> $this->input->post('cusPhone'),
+	        'srch_all'		=> $this->input->post('srchAll')
 	    );
 	    $data["OUT_REC"] = $this->M_customer->selectCustomer($dataSrch);
 	    $data["OUT_REC_CNT"] = $this->M_customer->countCustomer($dataSrch);
@@ -93,7 +94,6 @@ class Customer extends CI_Controller {
 	    }
 	    
 	    echo 'OK';
-	    
 	}
 	
 	public function getBranchType(){
@@ -112,9 +112,9 @@ class Customer extends CI_Controller {
 	        $cntActive = 0;
 	        //check contract table using branch or not 
 	       $dataCol = array(
-            'tbl_nm' 		=> "tbl_contract",
-            'id_nm' 		=> "con_id",
-            'com_id' 		=> "com_id"
+				'tbl_nm' 		=> "tbl_contract",
+            	'id_nm' 		=> "con_id",
+            	'com_id' 		=> "com_id"
             );
             
             $dataVal = array(
@@ -128,7 +128,7 @@ class Customer extends CI_Controller {
 	            continue;
 	        }else{
 	            $data = array(
-	                'cus_id'    => $delObj[$i]['cusId'],
+	                'cus_id'	=> $delObj[$i]['cusId'],
         			'useYn'		=> "N",
                     'com_id'	=> $_SESSION['comId'],
                     'upDt'		=> date('Y-m-d H:i:s'),

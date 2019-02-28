@@ -41,10 +41,7 @@ class Contract extends CI_Controller{
 
         $data["OUT_REC"] = $this->M_contract->selectContractData($dataSrch);
         $data["OUT_REC_CNT"] = $this->M_contract->countContractData($dataSrch);
-
-        $con_no  = $this->M_contract->selectId();
-        // $json = json_encode($con_no);
-        $data["TEST_MAX_ID"] = $con_no["con_no"][0];
+       
         echo json_encode($data);
         
     }
@@ -52,7 +49,7 @@ class Contract extends CI_Controller{
     public function saveContract(){
         if(!$this->M_check_user->check()){
             redirect('/Login');
-        }    
+        }
 
         $data = array(
             'cus_id'        => $this->input->post('txtCusId'),
@@ -64,6 +61,17 @@ class Contract extends CI_Controller{
             'con_per_year'  => $this->input->post('lYear'),
             'con_per_month' => $this->input->post('lMonth')
         );
+        
+        $con_id  = $this->M_contract->selectId();
+        foreach($con_id as $r){
+            $max_id = (int)$r->con_id + 1;
+            $max_id = (string)$max_id;
+            $zero   = '';
+            for($i = strlen($max_id); $i <= 9; $i++){
+                $zero = '0'.$zero;
+            }
+            $con_id = $zero.$max_id;
+        }
 
         if($this->input->post('contId') != null && $this->input->post('contId') != ""){
             //update data
@@ -73,17 +81,40 @@ class Contract extends CI_Controller{
             $this->M_contract->update($data);
         }else{
             //insert data
+            $data['useYn']  = 'Y';
             $data['com_id'] = $_SESSION['comId'];
             $data['regUsr'] = $_SESSION['usrId'];
             $data['regDt']  = date('Y-m-d H:i:s');
-            // $data['con_no'] = $this->M_contract->selectId();
+            $data['con_no'] = $con_id;
             $this->M_contract->insert($data);
         }
 
-        // echo $this->M_contract->selectId();
-        echo 'ok';
+        echo 'OK';
     }
-    
+
+
+    public function delete(){
+        if(!$this->M_check_user->check()){
+            redirect('/Login');
+        }
+        
+        $delObj = $this->input->post('delObj');
+        $cntDel = 0;
+        for($i = 0; $i < sizeof($delObj); $i++){
+            $data = array(
+                    'con_id'    => $delObj[$i]['contId'],
+                    'useYn'     => "N",
+                    'com_id'    => $_SESSION['comId'],
+                    'upDt'      => date('Y-m-d H:i:s'),
+                    'upUsr'     => $_SESSION['usrId']
+            );
+            $this->M_contract->update($data);
+            $cntDel += 1;
+        }
+        echo $cntDel;
+        echo(sizeof($delObj));
+    }
+
 }
 
 ?>

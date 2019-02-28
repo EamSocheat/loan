@@ -11,7 +11,7 @@ var _thisPage = {
 		_this.onload();
 		_this.event();
 		//
-	    stock.comm.checkAllTblChk("chkAll","tblBranch","chk_box");
+	    stock.comm.checkAllTblChk("chkAllCustomer","tblCustomer","chk_box");
 	},
 	onload : function(){
 		parent.parent.$("#loading").hide();
@@ -26,19 +26,28 @@ var _thisPage = {
 		});
 		//
 		$("#btnAddNew").click(function(){
-		    parent.$("#loading").show();
+		    /*parent.$("#loading").show();
 			var controllerNm = "PopupFormBranch";
 			var option={};
 			option["height"] = "460px";
 			var data="parentId="+"ifameStockSelect";
 			
-			parent.stock.comm.openPopUpForm(controllerNm,option, data,null,"modalMdBranch","modalMdContentBranch","ifameStockFormBranch");
+			parent.stock.comm.openPopUpForm(controllerNm,option, data,null,"modalMdBranch","modalMdContentBranch","ifameStockFormBranch");*/
+
+			parent.$("#loading").show();
+			var controllerNm = "PopupFormCustomer";
+			var option = {};
+			option["height"] = "570px";
+			var data = "parentId="+"ifameCustomerSelect";
+			
+			stock.comm.openPopUpForm(controllerNm, option, null, "modal-md");
+			// parent.stock.comm.openPopUpForm(controllerNm, option, data, null, "modalMdCustomer", "modalMdContentCustomer", "ifameStockFormCustomer");
 		});
 		
 		
 		//
 		$("#btnEdit").click(function(){
-			var chkVal = $('#tblBranch tbody tr td.chk_box input[type="checkbox"]:checked');
+			var chkVal = $('#tblCustomer tbody tr td.chk_box input[type="checkbox"]:checked');
 			if(chkVal.length != 1){
 			    parent.stock.comm.alertMsg($.i18n.prop("msg_con_edit1"));
 				return;
@@ -51,7 +60,7 @@ var _thisPage = {
 		
 		//
 		$("#btnDelete").click(function(e){
-			var chkVal = $('#tblBranch tbody tr td.chk_box input[type="checkbox"]:checked');
+			var chkVal = $('#tblCustomer tbody tr td.chk_box input[type="checkbox"]:checked');
 			
 			if(chkVal.length <=0){
 				parent.stock.comm.alertMsg($.i18n.prop("msg_con_del"));
@@ -62,21 +71,19 @@ var _thisPage = {
 			parent.$("#btnConfirmOk").unbind().click(function(e){
 				parent.$("#mdlConfirm").modal('hide');
 				
-				var delArr=[];
-				var delObj={};
+				var delArr = [];
+				var delObj = {};
 				chkVal.each(function(i){
-					var delData={};
+					var delData = {};
 					var tblTr = $(this).parent().parent();
-					var braId=tblTr.attr("data-id");
-					delData["braId"] = braId;
+					var cusId = tblTr.attr("data-id");
+					delData["cusId"] = cusId;
 					delArr.push(delData);
 				});
 				
 				delObj["delObj"]= delArr;
-				//
 				deleteDataArr(delObj);
 			});
-			
 		});
 		
 		//
@@ -109,7 +116,7 @@ var _thisPage = {
 		});
 		//
 		$("#btnChoose").click(function(e) {
-			var chkVal = $('#tblBranch tbody tr td.chk_box input[type="checkbox"]:checked');
+			var chkVal = $('#tblCustomer tbody tr td.chk_box input[type="checkbox"]:checked');
 			if(chkVal.length != 1){
 			    parent.stock.comm.alertMsg($.i18n.prop("msg_con_choose1"));
 				return;
@@ -130,7 +137,7 @@ var _thisPage = {
 		});
 		
 		//
-		$("#tblBranch tbody").on("dblclick", "tr td:not(.chk_box,.act_btn)", function() {
+		$("#tblCustomer tbody").on("dblclick", "tr td:not(.chk_box,.act_btn)", function() {
 			var tblTr = $(this).parent();
 			var data={};
 			data["bra_nm"] = tblTr.find("td.bra_nm").html();
@@ -150,23 +157,23 @@ var _thisPage = {
 };
 
 function getData(){
-	var dat={};
+	var dat = {};
 	//paging
     dat["perPage"] = _perPage;
-    dat["offset"] = _perPage * ( _pageNo - 1);
+    dat["offset"]  = _perPage * ( _pageNo - 1);
     //searching
-    //dat["srchAll"] = $("#txtSearch").val().trim();	
-    //
+    dat["srchAll"] = $("#txtSearch").val().trim();	
+    
     parent.$("#loading").show();
     $.ajax({
 		type: "POST",
-		url: $("#base_url").val() +"Customer/getCustomer",
+		url : $("#base_url").val() +"Customer/getCustomer",
 		data: dat,
 		dataType: "json",
 		success: function(res) {
 			parent.$("#loading").hide();
 			if(dat["offset"] == 0){
-				$("#tblBranch tbody").html("");
+				$("#tblCustomer tbody").html("");
 			}
 			
 			if(res.OUT_REC != null && res.OUT_REC.length >0){
@@ -188,12 +195,11 @@ function getData(){
 			        html += "<td class='cus_addr'>"+res.OUT_REC[i]["cus_addr"]+"</td>";
 			        html += "</tr>";
 			        
-			        $("#tblBranch tbody").append(html);
+			        $("#tblCustomer tbody").append(html);
 			    }    
-				
 			}else{
-				if($("#tblBranch tbody tr").length <= 0){
-					$("#tblBranch tbody").append("<tr><td colspan='9' style='    text-align: center;'>"+$.i18n.prop("lb_no_data")+"</td></tr>");
+				if($("#tblCustomer tbody tr").length <= 0){
+					$("#tblCustomer tbody").append("<tr><td colspan='9' style='    text-align: center;'>"+$.i18n.prop("lb_no_data")+"</td></tr>");
 				}
 			    
 			}
@@ -239,13 +245,13 @@ function deleteDataArr(dataArr){
 
 	$.ajax({
 		type: "POST",
-		url: $("#base_url").val() +"Branch/delete",
+		url: $("#base_url").val() +"Customer/delete",
 		data: dataArr,
 		success: function(res) {
 		    if(res > 0){
 		        parent.stock.comm.alertMsg(res+$.i18n.prop("msg_del_com"));
-		        _pageNo=1;
-		    	_perPage=$("#tblBranch tbody tr").length;
+		        _pageNo  = 1;
+		    	_perPage = $("#tblCustomer tbody tr").length;
 		        getData();
 		    }else{
 		        parent.stock.comm.alertMsg($.i18n.prop("msg_err_del"));
@@ -275,6 +281,6 @@ function resetFormSearch(){
 */
 function popupBranchCallback(){
 	_pageNo=1;
-	_perPage=$("#tblBranch tbody tr").length;
+	_perPage=$("#tblCustomer tbody tr").length;
     getData();
 }

@@ -39,6 +39,12 @@
         	    $this->db->like('tbl_customer.cus_idnt_num', $dataSrch['cus_idnt_num']);
         	}
         	
+            if($dataSrch['srch_all'] != null && $dataSrch['srch_all'] != ""){
+                $this->db->like('tbl_customer.cus_nm', $dataSrch['srch_all']);
+                $this->db->or_like('tbl_customer.cus_nm_kh', $dataSrch['srch_all']);
+                $this->db->or_like('tbl_customer.cus_idnt_num', $dataSrch['srch_all']);
+                $this->db->or_like('tbl_customer.cus_phone1', $dataSrch['srch_all']);
+            }
         	
         	$this->db->order_by("cus_id", "asc");
         	return $this->db->get('tbl_customer',$dataSrch['limit'],$dataSrch['offset'])->result();

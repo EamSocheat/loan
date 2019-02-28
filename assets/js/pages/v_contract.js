@@ -42,14 +42,14 @@ var _thisPage = {
 					    	html += '<tr data-id='+res.OUT_REC[i]["con_id"]+'>';
 					        html += 	'<td class="chk_box"><input type="checkbox"></td>';
 							html += 	'<td><div>'+stock.comm.nullToEmpty(res.OUT_REC[i]["con_no"])+'</div></td>';
-							html += 	'<td><div>'+strinngDate(res.OUT_REC[i]["con_start_dt"].substr(0,10))+'</div></td>';
-							html += 	'<td><div>'+res.OUT_REC[i]["con_principle"]+res.OUT_REC[i]["cur_syn"]+'</div></td>';
-							html += 	'<td><div>'+res.OUT_REC[i]["con_interest"]+'%</div></td>';
-							html += 	'<td><div>'+res.OUT_REC[i]["con_interest_type"]+'</div></td>';
-							html += 	'<td><div>'+res.OUT_REC[i]["con_per_month"]+'</div></td>';
-							html += 	'<td><div>'+res.OUT_REC[i]["cus_nm"]+'</div></td>';
+							html += 	'<td><div class="txt_c">'+stringDate(res.OUT_REC[i]["con_start_dt"].substr(0,10))+'</div></td>';
+							html += 	'<td><div class="txt_r">'+res.OUT_REC[i]["con_principle"]+res.OUT_REC[i]["cur_syn"]+'</div></td>';
+							html += 	'<td><div class="txt_r">'+res.OUT_REC[i]["con_interest"]+'%</div></td>';
+							html += 	'<td><div class="txt_c">'+res.OUT_REC[i]["con_interest_type"]+'</div></td>';
+							html += 	'<td><div class="txt_c">'+res.OUT_REC[i]["con_per_month"]+'</div></td>';
+							html += 	'<td><div class="txt_c">'+res.OUT_REC[i]["cus_nm"]+'</div></td>';
 							html += 	'<td class="text-center">';
-							html +=			'<button onclick="" type="button" class="btn btn-primary btn-xs">';
+							html +=			'<button onclick="editData('+res.OUT_REC[i]["con_id"]+')" type="button" class="btn btn-primary btn-xs">';
 							html += 		'<i class="fa fa-pencil-square-o" aria-hidden="true"></i></button>';
 							html += 	'</td>';
 							html += '</tr>';
@@ -88,8 +88,7 @@ var _thisPage = {
 			$(".box-footer").on("click", "#btnGoToPage", function(e) {
 				var pageNo = $("#txtGoToPage").val();
 				_thisPage.loadData(pageNo);
-			}); 
-			
+			});
 			
 			//
 			$("#btnAddNew").click(function(){
@@ -103,20 +102,20 @@ var _thisPage = {
 			
 			//
 			$("#btnEdit").click(function(){
-				var chkVal = $('#tblStaff tbody tr td.chk_box input[type="checkbox"]:checked');
+				var chkVal = $('#tblContract tbody tr td.chk_box input[type="checkbox"]:checked');
 				if(chkVal.length != 1){
 					stock.comm.alertMsg($.i18n.prop("msg_con_edit1"));
 					return;
 				}
 				
-				var tblTr = chkVal.parent().parent();
-				var braId = tblTr.attr("data-id");
-				editData(braId);
+				var tblTr   = chkVal.parent().parent();
+				var constId = tblTr.attr("data-id");
+				editData(constId);
 			});
 			
 			//
 			$("#btnDelete").click(function(e){
-				var chkVal = $('#tblStaff tbody tr td.chk_box input[type="checkbox"]:checked');
+				var chkVal = $('#tblContract tbody tr td.chk_box input[type="checkbox"]:checked');
 				
 				if(chkVal.length <= 0){
 					stock.comm.alertMsg($.i18n.prop("msg_con_del"));
@@ -131,14 +130,13 @@ var _thisPage = {
 					var delObj = {};
 					chkVal.each(function(i){
 						var delData = {};
-						var tblTr = $(this).parent().parent();
-						var braId = tblTr.attr("data-id");
-						delData["staId"] = braId;
+						var tblTr   = $(this).parent().parent();
+						var contId  = tblTr.attr("data-id");
+						delData["contId"] = contId;
 						delArr.push(delData);
 					});
 					
 					delObj["delObj"] = delArr;
-					//
 					deleteDataArr(delObj);
 				});
 				
@@ -164,8 +162,43 @@ function reverseString(str) {
 	return (str === '') ? '' : reverseString(str.substr(1)) + str.charAt(0);
 }
 
-function strinngDate(str){
+function stringDate(str){
 	if(str == '') return '';
 
-	return str = str.substr(8,10) +'-'+ str.substr(5,7);// +'-'+ str.substr(0,4);
+	return str = str.substr(8,10) +'-'+ str.substr(5,2) +'-'+ str.substr(0,4);
+}
+
+function deleteDataArr(dataArr){
+	$.ajax({
+		type: "POST",
+		url : $("#base_url").val() +"Contract/delete",
+		data: dataArr,
+		contentType:false,
+		cache:false,
+		processData:false,
+		success: function(res) {
+		    if(res > 0){
+		        stock.comm.alertMsg(res+$.i18n.prop("msg_del_com"));
+		        _thisPage.loadData(_pageNo);
+		    }else{
+		        stock.comm.alertMsg($.i18n.prop("msg_err_del"));
+		        return;
+		    }
+		    $("#loading").hide();
+		},
+		error : function(data) {
+			console.log(data);
+			stock.comm.alertMsg($.i18n.prop("msg_err"));
+        }
+	});
+}
+
+function editData(cont_id){	
+    $("#loading").show();
+	var controllerNm = "PopupFormContract";
+	var option = {};
+	var data   = "id="+cont_id+"&action=U";
+	option["height"] = "445px";
+	
+	stock.comm.openPopUpForm(controllerNm, option, data, "modal-lg");
 }

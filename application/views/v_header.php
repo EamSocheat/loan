@@ -59,6 +59,9 @@
     .box-search .box-header{ text-align: right; }
     .box-search .box-body{ display: none; }
     .box-search .box-header h3, .box-search .box-header i{ cursor: pointer; }
+    .txt_c{ text-align: center; }
+    .txt_r{ text-align: right; }
+    .txt_l{ text-align: left; }
 
 </style>
 </head>

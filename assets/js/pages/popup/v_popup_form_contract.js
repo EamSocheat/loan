@@ -52,6 +52,7 @@ var _thisPage = {
 			//
 			$("#frmContract").submit(function(e){
 				e.preventDefault();
+				console.log(_btnId)
 				if(_btnId == "btnSave"){
 			    	saveData();
 				}else{
@@ -153,11 +154,14 @@ function saveData(str){
         processData: false,
 		success: function(res) {
 		    parent.$("#loading").hide();
+		    console.log(res)
 			if(res =="OK"){
 				parent.stock.comm.alertMsg($.i18n.prop("msg_save_com"),"braNm");
 				if(str == "new"){
+					console.log(true)
 				    clearForm();
 				}else{
+					console.log(false)
 				    parent.stock.comm.closePopUpForm("PopupFormContract",parent.popupContractCallback);
 				}
 			}
@@ -174,34 +178,32 @@ function getDataEdit(cont_id){
     $("#loading").show();
     $.ajax({
 		type: "POST",
-		url: $("#base_url").val() +"Contract/getContract",
-		data: {"contId":cont_id},
+		url : $("#base_url").val() +"Contract/getContract",
+		data: {"conId":cont_id},
 		dataType: "json",
 		async: false,
 		success: function(res) {
 			
 			if(res.OUT_REC != null && res.OUT_REC.length >0){
-			    $("#txtBraNm").val(res.OUT_REC[0]["bra_nm"]);
-			    $("#txtBraId").val(res.OUT_REC[0]["bra_id"]);
-			    $("#txtContractNm").val(res.OUT_REC[0]["cont_nm"]);
-			    $("#txtPosNm").val(res.OUT_REC[0]["pos_nm"]);
-			    $("#txtPosId").val(res.OUT_REC[0]["pos_id"]);
-			    $("#txtContractNmKh").val(res.OUT_REC[0]["cont_nm_kh"]);
-			    $("#cboGender").val(res.OUT_REC[0]["cont_gender"]);
-			    $("#txtDob").val(moment(res.OUT_REC[0]["cont_dob"], "YYYY-MM-DD").format("DD-MM-YYYY"));
-			    $("#txtAddr").val(res.OUT_REC[0]["cont_addr"]);
+			    $("#txtCusNm").val(res.OUT_REC[0]["cus_nm"]);
+			    $("#txtCusId").val(res.OUT_REC[0]["cus_id"]);
+			    // $("#txtPhone1").val(res.OUT_REC[0]["con_phone1"]);
+			    $("#cboCurrency option[value='"+res.OUT_REC[0]["cur_id"]+"']").attr("selected",true);
+			    $("#txtContSD").val(moment(res.OUT_REC[0]["con_start_dt"], "YYYY-MM-DD").format("DD-MM-YYYY"));
+			    $("#lAmt").val(res.OUT_REC[0]["con_principle"]);
+			    $("#lRate").val(res.OUT_REC[0]["con_interest"]);
+				$("#cbointerestType option[value='"+res.OUT_REC[0]["con_interest_type"]+"']").attr("selected",true);
+			    $("#lYear").val(res.OUT_REC[0]["con_per_year"]);
+			    $("#lMonth").val(res.OUT_REC[0]["con_per_month"]);
+
+			    /*$("#txtAddr").val(res.OUT_REC[0]["cont_addr"]);
 			    $("#txtPhone1").val(res.OUT_REC[0]["cont_phone1"]);
 			    $("#txtPhone2").val(res.OUT_REC[0]["cont_phone2"]);
 			    $("#txtEmail").val(res.OUT_REC[0]["cont_email"]);
 			    $("#txtStartDate").val(moment(res.OUT_REC[0]["sta_start_dt"], "YYYY-MM-DD").format("DD-MM-YYYY"));
 			    $("#txtEndDate").val(moment(res.OUT_REC[0]["sta_end_dt"], "YYYY-MM-DD").format("DD-MM-YYYY"));
-			    $("#txtDes").val(res.OUT_REC[0]["sta_des"]);
-			    if(res.OUT_REC[0]["sta_photo"] != null && res.OUT_REC[0]["sta_photo"] != ""){
-			    	$("#staImgView").attr("src",$("#base_url").val()+"upload"+res.OUT_REC[0]["sta_photo"]);
-			    }
-			
+			    $("#txtDes").val(res.OUT_REC[0]["sta_des"]);*/
 			    
-			    $("#txtContractNm").focus();
 			}else{
 			    console.log(res);
 			    stock.comm.alertMsg($.i18n.prop("msg_err"));
