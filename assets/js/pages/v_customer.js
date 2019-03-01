@@ -98,7 +98,7 @@ var _thisPage = {
 			var chkVal = $('#tblCustomer tbody tr td.chk_box input[type="checkbox"]:checked');
 
 			if(chkVal.length <= 0){
-				stock.comm.alertMsg($.i18n.prop("msg_con_del"));
+				stock.comm.alertMsg($.i18n.prop("msg_down_excel"));
 				return;
 			}
 			
@@ -223,8 +223,6 @@ function deleteDataArr(dataArr){
 }
 
 function downloadExcel(dataRec){
-	console.log(dataRec);
-	
 	$.ajax({
 		type: "POST",
 		url : $("#base_url").val() +"Customer/download_excel",
@@ -233,7 +231,6 @@ function downloadExcel(dataRec){
 		dataType: "json",
         cache: false,
 		success: function(res) {
-		   	console.log(res);
 		    $("#loading").hide();
 		},
 		error : function(data) {

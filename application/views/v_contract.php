@@ -36,24 +36,40 @@
 						<div class="box-body">
 							<div class="row" >
 							    <div class="col-sm-12 col-md-12 col-lg-12 row">
-							        <div class="col-sm-4 col-md-4 col-lg-4">
+							        <div class="col-sm-3 col-md-3 col-lg-3">
 										<div class="form-group form-inline">
                                             <label for="txtSrchContNm" class="control-label" data-i18ncd="lb_name">Name</label>
                                             <input type="text" class="form-control input-sm" id="txtSrchContNm" placeholder="Name">
                                         </div>
     								</div>
+    								<div class="col-sm-2 col-md-2 col-lg-2">
+	    								<div class="input-group date">
+											<div class="input-group-addon" id="txtContSDIcon" style="border-top-left-radius: 5px; border-bottom-left-radius: 5px;">
+												<i class="fa fa-calendar"></i>
+											</div>
+											<input type="text" class="form-control pull-right date-pick" id="txtContSD" name="txtContSD" required="required" data-inputmask="'alias': 'dd-mm-yyyy'" data-mask="" placeholder="បញ្ជូល ចាប់ផ្ដើមកិច្ចសន្យា" style="font-size: 14px;">
+										</div>
+									</div>
+    								<div class="col-sm-2 col-md-2 col-lg-2">
+	    								<div class="input-group date">
+											<div class="input-group-addon" id="txtContSDIcon" style="border-top-left-radius: 5px; border-bottom-left-radius: 5px;">
+												<i class="fa fa-calendar"></i>
+											</div>
+											<input type="text" class="form-control pull-right date-pick" id="txtContSD" name="txtContSD" required="required" data-inputmask="'alias': 'dd-mm-yyyy'" data-mask="" placeholder="បញ្ជូល ចាប់ផ្ដើមកិច្ចសន្យា" style="font-size: 14px;">
+										</div>
+									</div>
+    								<div class="col-sm-5 col-md-5 col-lg-5">
+    									<div class="form-group form-inline">
+                                            <label for="txtSrchContCode" class="control-label" data-i18ncd="lb_contract_no">Contract Code</label>
+                                            <input type="text" class="form-control input-sm" id="txtSrchContCode" placeholder="Contract Code">
+                                        </div>
+    								</div>    								
     								<!-- <div class="col-sm-4 col-md-4 col-lg-4">
     									<div class="form-group form-inline">
                                             <label for="txtSrchContNmKh" class="control-label" data-i18ncd="lb_name_kh">Khmer Name</label>
                                             <input type="text" class="form-control input-sm" id="txtSrchContNmKh" placeholder="Khmer Name">
                                         </div>
-    								</div> -->
-    								<div class="col-sm-4 col-md-4 col-lg-4">
-    									<div class="form-group form-inline">
-                                            <label for="txtSrchContCode" class="control-label" data-i18ncd="lb_contract_code">Contract Code</label>
-                                            <input type="text" class="form-control input-sm" id="txtSrchContCode" placeholder="Contract Code">
-                                        </div>
-    								</div>
+    								</div> -->    								
     								<!-- <div class="col-sm-3 col-md-3 col-lg-3">
     									<div class="form-group form-inline">
                                             <label for="txtSrchBraPhone" class="control-label" data-i18ncd="lb_phone">Phone </label>
@@ -116,13 +132,14 @@
 						<thead>  
     						<tr>
     					  		<th><input type="checkbox" id="chkAllBox"></th>
-    					  		<th data-i18ncd="">Contract Code</th>
-        					  	<th data-i18ncd="" class="txt_c">Contract Start</th>
-        					  	<th data-i18ncd="" class="txt_r">Loan Amount</th>
-        					  	<th data-i18ncd="" class="txt_r">Loan Interest</th>
-    					  		<th data-i18ncd="" class="txt_c">Interest Type</th>
-    					  		<th data-i18ncd="" class="txt_c">Period</th>
-    					  		<th data-i18ncd="" class="txt_c">Borrower</th>
+    					  		<th data-i18ncd="lb_contract_no">Contract Code</th>
+        					  	<th data-i18ncd="lb_contract_start" class="txt_c">Contract Start</th>
+        					  	<th data-i18ncd="lb_principle_amt" class="txt_r">Loan Amount</th>
+        					  	<th data-i18ncd="lb_interest_amt" class="txt_r">Loan Interest(%)</th>
+    					  		<th data-i18ncd="lb_interest_type" class="txt_c">Interest Type</th>
+    					  		<th data-i18ncd="lb_period" class="txt_c">Period</th>
+    					  		<th data-i18ncd="lb_borrower" class="txt_c">Borrower</th>
+    					  		<th data-i18ncd="lb_action" class="txt_c">Action</th>
     						</tr>
 						</thead>
 						<tbody>

@@ -61,7 +61,7 @@
         								
         								<div class="col-sm-3 col-md-3 col-lg-3">
         									<div class="form-group">
-                                                <label for="txtSrchIdentityNmKh" class="control-label" data-i18ncd="">Identity</label>
+                                                <label for="txtSrchIdentityNmKh" class="control-label" data-i18ncd="lb_identity">Identity</label>
                                                 <input type="text" class="form-control input-sm"  id="txtSrchIdentityNmKh" placeholder="Identity" maxlength="9">
                                         
                                             </div>
@@ -130,14 +130,15 @@
     					<tr>
     					  <th><input type="checkbox" id="chkAllBox"></th>
     					  <th></th>
-    					  <th data-i18ncd="lb_ident">Identity</th>
+    					  <th data-i18ncd="lb_identity">Identity</th>
     					  <th data-i18ncd="lb_name">Name</th>
     					  <th data-i18ncd="lb_name_kh">Khmer Name</th>
     					  <th data-i18ncd="lb_gender">Gender</th>
     					  <th data-i18ncd="lb_phone">Phone</th>
     					  <th data-i18ncd="lb_email">Email</th>
     					  <th data-i18ncd="lb_addr">Address</th>
-    					  <th data-i18ncd="lb_action">Action</th>
+    					  <th data-i18ncd="lb_des">Description</th>
+                          <th data-i18ncd="lb_action">Action</th>
     					</tr>
 					</thead>
 					<tbody>

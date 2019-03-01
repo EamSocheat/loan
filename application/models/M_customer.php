@@ -46,7 +46,7 @@
                 $this->db->or_like('tbl_customer.cus_phone1', $dataSrch['srch_all']);
             }
         	
-        	$this->db->order_by("cus_id", "asc");
+        	$this->db->order_by("cus_id", "desc");
         	return $this->db->get('tbl_customer',$dataSrch['limit'],$dataSrch['offset'])->result();
 		}
 		
@@ -77,7 +77,6 @@
         	    $this->db->like('tbl_customer.cus_idnt_num', $dataSrch['cus_idnt_num']);
         	}
         	
-        	$this->db->order_by("cus_id", "asc");
         	return $this->db->get()->result();
 		}
 

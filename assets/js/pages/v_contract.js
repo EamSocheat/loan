@@ -26,7 +26,6 @@ var _thisPage = {
 		    // dat["txtSrchContNm"]	= $("#txtSrchContNm").val();
 		    dat["txtSrchContCode"]	= $("#txtSrchContCode").val();
 
-		    console.log(dat)
 		    $("#loading").show();
 		    $.ajax({
 				type: "POST",
@@ -46,7 +45,7 @@ var _thisPage = {
 							html += 	'<td><div class="txt_r">'+res.OUT_REC[i]["con_principle"]+res.OUT_REC[i]["cur_syn"]+'</div></td>';
 							html += 	'<td><div class="txt_r">'+res.OUT_REC[i]["con_interest"]+'%</div></td>';
 							html += 	'<td><div class="txt_c">'+res.OUT_REC[i]["con_interest_type"]+'</div></td>';
-							html += 	'<td><div class="txt_c">'+res.OUT_REC[i]["con_per_month"]+'</div></td>';
+							html += 	'<td><div class="txt_c">'+showPeriod(res.OUT_REC[i]["con_per_year"], res.OUT_REC[i]["con_per_month"])+'</div></td>';
 							html += 	'<td><div class="txt_c">'+res.OUT_REC[i]["cus_nm"]+'</div></td>';
 							html += 	'<td class="text-center">';
 							html +=			'<button onclick="editData('+res.OUT_REC[i]["con_id"]+')" type="button" class="btn btn-primary btn-xs">';
@@ -201,4 +200,38 @@ function editData(cont_id){
 	option["height"] = "445px";
 	
 	stock.comm.openPopUpForm(controllerNm, option, data, "modal-lg");
+}
+
+function showPeriod(y,m){
+	var strPer = '';
+	if((y != null && y != 0) && (m != null && m != 0)){
+		strPer = showYear(y) + showMonth(m);
+	}else if(y != null && y != 0){
+		strPer = showYear(y);
+	}else if(m != null && m != 0){
+		strPer = showMonth(m);
+	}else{
+		strPer = '';
+	}
+	return strPer;
+}
+
+function showYear(y){
+	var year = '';
+	if(y > 1){
+		year = y+"&nbsp;<span data-i18ncd='lb_years'>Years</span>";
+	}else{
+		year = y+"&nbsp;<span data-i18ncd='lb_year'>Year</span>&nbsp;";
+	}
+	return year;
+}
+
+function showMonth(m){
+	var month = '';
+	if(m > 1){
+		month = m+"&nbsp;<span data-i18ncd='lb_months'>Months</span>";
+	}else{
+		month = m+"&nbsp;<span data-i18ncd='lb_month'>Month</span>";
+	}
+	return month;
 }
