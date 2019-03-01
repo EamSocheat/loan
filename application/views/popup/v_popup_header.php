@@ -72,6 +72,10 @@
    	.cur-pointer{
    		cursor: pointer;
    	}
+    .top-zero{
+      position: sticky !important;
+      top: 0 !important;
+    }
   </style>
 </head>
 <body>

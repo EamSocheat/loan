@@ -84,7 +84,7 @@ var _thisPage = {
 				data+="&dataSrch="+$("#txtCusNm").val();
 				var controllerNm = "PopupSelectCustomer";
 				var option={};
-				option["height"] = "450px";
+				option["height"] = "445px";
 			    stock.comm.openPopUpSelect(controllerNm,option, data,"modal-md");
 			});
 			//
@@ -93,7 +93,7 @@ var _thisPage = {
 				data+="&dataSrch="+$("#txtPosNm").val();
 				var controllerNm = "PopupSelectPosition";
 				var option = {};
-				option["height"] = "450px";
+				option["height"] = "445px";
 			    stock.comm.openPopUpSelect(controllerNm,option, data,"modal-md");
 			});
 			//

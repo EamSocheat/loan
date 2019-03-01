@@ -30,20 +30,33 @@ class Contract extends CI_Controller{
         if(!$this->M_check_user->check()){
             redirect('/Login');
         }
+        $startDate = $this->input->post('txtSrchContSD');
+        $endDate   = $this->input->post('txtSrchContED');
         
+        if($startDate != null || $startDate != ""){
+            $startDate = date('Y-m-d H:i:s',strtotime($startDate));
+        }
+
+        if($endDate != null || $endDate != ""){
+            $endDate = date('Y-m-d H:i:s',strtotime($endDate));
+        }
+
         $dataSrch = array(
             'limit'         => $this->input->post('perPage'),
             'offset'        => $this->input->post('offset'),
             'con_id'        => $this->input->post('conId'),
             // 'con_nm'        => $this->input->post('txtSrchContNm'),
-            'con_no'     => $this->input->post('txtSrchContCode'),
+            'con_no'        => $this->input->post('txtSrchContCode'),
+            'con_start_dt'  => $startDate,
+            'con_end_dt'    => $endDate,
         );
 
         $data["OUT_REC"] = $this->M_contract->selectContractData($dataSrch);
         $data["OUT_REC_CNT"] = $this->M_contract->countContractData($dataSrch);
-       
+
+        $data["Start"] = $startDate;
+        $data["Start2"] = $endDate;        
         echo json_encode($data);
-        
     }
 
     public function saveContract(){

@@ -21,6 +21,17 @@
             if($dataSrch['con_no'] != null && $dataSrch['con_no'] != ""){
                 $this->db->like('tbl_contract.con_no', $dataSrch['con_no']);
             }
+
+            if($dataSrch['con_start_dt'] != null && $dataSrch['con_start_dt'] != ""){
+                $this->db->where('tbl_contract.con_start_dt <=', $dataSrch['con_start_dt']);
+                $this->db->where('tbl_contract.con_end_dt >=', $dataSrch['con_start_dt']);
+            }
+
+            if(($dataSrch['con_start_dt'] != null && $dataSrch['con_start_dt'] != "") 
+                && ($dataSrch['con_end_dt'] != null && $dataSrch['con_end_dt'] != "")){
+                $this->db->where('tbl_contract.con_start_dt <=', $dataSrch['con_start_dt']);
+                $this->db->where('tbl_contract.con_start_dt >=', $dataSrch['con_end_dt']);
+            }
             
             $this->db->order_by("con_id", "asc");
             return $this->db->get('tbl_contract',$dataSrch['limit'],$dataSrch['offset'])->result();

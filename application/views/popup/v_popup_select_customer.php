@@ -8,7 +8,7 @@
           <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal" aria-label="Close" id="btnExit">
               <span aria-hidden="true">&times;</span></button>
-            <h4 class="modal-title" id="popupTitle"><i class="fa fa-users"></i> <span data-i18ncd="pop_select_branch">Select Customer</span></h4>
+            <h4 class="modal-title" id="popupTitle"><i class="fa fa-users"></i> <span data-i18ncd="lb_select_customer">Select Customer</span></h4>
           </div>
           
           <div class="modal-body" id="modalMdBody">
@@ -33,18 +33,16 @@
     				</div>
     				<!-- /.button -->
     				<br>
-    				<div class="box-body table-responsive fix-header-tbl" style="height: 235px;">
+    				<div class="box-body table-responsive fix-header-tbl" style="height: 235px;padding-top: 0;">
     				  <table class="table table-hover" id="tblCustomer" >
     				    <thead>  
         					<tr>
-                    <th><input type="checkbox" id="chkAllCustomer"></th>
-                    <th></th>
-                    <th data-i18ncd="lb_ident">Identity</th>
-                    <th data-i18ncd="lb_name">Name</th>
-                    <th data-i18ncd="lb_name_kh">Khmer Name</th>
-                    <th data-i18ncd="lb_gender">Gender</th>
-                    <th data-i18ncd="lb_phone">Phone</th>
-                    <th data-i18ncd="lb_addr">Address</th>
+                    <th class="top-zero"><input type="checkbox" id="chkAllCustomer"></th>
+                    <th class="top-zero"></th>
+                    <th class="top-zero" data-i18ncd="lb_ident" class="top-zero">Identity</th>
+                    <th class="top-zero" data-i18ncd="lb_name">Name</th>
+                    <th class="top-zero" data-i18ncd="lb_name_kh">Khmer Name</th>                    
+                    <th class="top-zero" data-i18ncd="lb_phone">Phone</th>
                   </tr>
     					</thead>
     					<tbody>
@@ -58,7 +56,7 @@
                 <!-- end modal body  -->
           </div>
      
-          <div class="modal-footer">
+          <div class="modal-footer" style="padding-top: 0;padding-bottom: 0;">
             <button data-i18ncd="btn_choose" type="button" class="btn btn-primary btn-sm" id="btnChoose">Choose</button>
             <button data-i18ncd="btn_close" type="button" class="btn btn-default btn-sm" id="btnClose">Close</button>
           </div>

@@ -17,8 +17,9 @@ var _thisPage = {
 		parent.parent.$("#loading").hide();
 		$("#frmStaff").show();
 		//
-	    getData();
-	    
+		parent.$("#loading").show();
+	    setTimeout(getData(),20000);
+	    parent.$("#loading").hide();
 	},event : function(){
 		$("#btnClose,#btnExit").click(function(e){
 			parent.parent.stock.comm.closePopUpForm("PopupSelectCustomer");
@@ -164,14 +165,14 @@ function getData(){
     //searching
     dat["srchAll"] = $("#txtSearch").val().trim();	
     
-    parent.$("#loading").show();
+    // parent.$("#loading").show();
     $.ajax({
 		type: "POST",
 		url : $("#base_url").val() +"Customer/getCustomer",
 		data: dat,
 		dataType: "json",
 		success: function(res) {
-			parent.$("#loading").hide();
+			// parent.$("#loading").hide();
 			if(dat["offset"] == 0){
 				$("#tblCustomer tbody").html("");
 			}
@@ -190,9 +191,7 @@ function getData(){
 			        html += "<td class='cus_iden'>"+stock.comm.nullToEmpty(res.OUT_REC[i]["cus_idnt_num"])+"</td>";
 			        html += "<td class='cus_nm'>"+res.OUT_REC[i]["cus_nm"]+"</td>";
 			        html += "<td class='cus_nm_kh'>"+res.OUT_REC[i]["cus_nm_kh"]+"</td>";
-			        html += "<td class='cus_gender' style='text-align:center'>"+res.OUT_REC[i]["cus_gender"]+"</td>";
-			        html += "<td class='cus_phone1'>"+res.OUT_REC[i]["cus_phone1"]+"</td>";
-			        html += "<td class='cus_addr'>"+res.OUT_REC[i]["cus_addr"]+"</td>";
+			        html += "<td class='cus_phone1'>"+res.OUT_REC[i]["cus_phone1"]+"</td>";			       
 			        html += "</tr>";
 			        
 			        $("#tblCustomer tbody").append(html);

@@ -9,6 +9,30 @@ var _thisPage = {
 			this.event();
 			this.loadData();
 			stock.comm.checkAllTblChk("chkAllBox","tblContract","chk_box");
+
+			$('#txtSrchContSD').datepicker({
+				language: (getCookie("lang") == "kh" ? "kh" : "en"),
+				weekStart: true,
+		        todayBtn:  true,
+				autoclose: true,
+				todayHighlight: 1,
+				forceParse: 0,
+				sideBySide: true,
+				format: "dd-mm-yyyy",
+		    });
+			$("#txtSrchContSD").inputmask();
+
+			$('#txtSrchContED').datepicker({
+				language: (getCookie("lang") == "kh" ? "kh" : "en"),
+				weekStart: true,
+		        todayBtn:  true,
+				autoclose: true,
+				todayHighlight: 1,
+				forceParse: 0,
+				sideBySide: true,
+				format: "dd-mm-yyyy",
+		    });
+			$("#txtSrchContED").inputmask();
 		}, loadData : function(page_no){
 			$("#chkAllBox").prop( "checked", false );
 		    var pageNo = 1;
@@ -25,6 +49,8 @@ var _thisPage = {
 		    //searching
 		    // dat["txtSrchContNm"]	= $("#txtSrchContNm").val();
 		    dat["txtSrchContCode"]	= $("#txtSrchContCode").val();
+		    dat["txtSrchContSD"]	= $("#txtSrchContSD").val();
+		    dat["txtSrchContED"]	= $("#txtSrchContED").val();
 
 		    $("#loading").show();
 		    $.ajax({
@@ -42,7 +68,7 @@ var _thisPage = {
 					        html += 	'<td class="chk_box"><input type="checkbox"></td>';
 							html += 	'<td><div>'+stock.comm.nullToEmpty(res.OUT_REC[i]["con_no"])+'</div></td>';
 							html += 	'<td><div class="txt_c">'+stringDate(res.OUT_REC[i]["con_start_dt"].substr(0,10))+'</div></td>';
-							html += 	'<td><div class="txt_r">'+res.OUT_REC[i]["con_principle"]+res.OUT_REC[i]["cur_syn"]+'</div></td>';
+							html += 	'<td><div class="txt_r">'+commaAmt(res.OUT_REC[i]["con_principle"])+res.OUT_REC[i]["cur_syn"]+'</div></td>';
 							html += 	'<td><div class="txt_r">'+res.OUT_REC[i]["con_interest"]+'%</div></td>';
 							html += 	'<td><div class="txt_c">'+res.OUT_REC[i]["con_interest_type"]+'</div></td>';
 							html += 	'<td><div class="txt_c">'+showPeriod(res.OUT_REC[i]["con_per_year"], res.OUT_REC[i]["con_per_month"])+'</div></td>';
@@ -149,6 +175,10 @@ var _thisPage = {
 			//
 			$("#btnReset").click(function(e){
 				resetFormSearch();
+			});			
+			//
+			$("#txtContSDIcon, #txtContEDIcon").click(function(e){
+				$(this).next().focus();
 			});
 		}
 }
@@ -234,4 +264,9 @@ function showMonth(m){
 		month = m+"&nbsp;<span data-i18ncd='lb_month'>Month</span>";
 	}
 	return month;
+}
+
+function commaAmt(str){
+	str = String(str);
+	return str.replace(/(\d)(?=(?:\d{3})+(?!\d))/g, '$1,');
 }
