@@ -53,18 +53,18 @@
                 	<div class="col-xs-12 row" style="padding:0px">
                 		<div class="col-xs-4 padding-forms-left">
                 			<div class="form-group">
-                              <label for="cboGender" data-i18ncd="cboGender">Gender</label>
+                              <label for="cboGender" data-i18ncd="lb_gender">Gender</label>
                               <select class="form-control" id="cboGender" name="cboGender">
-	                    			<option value="M">Male</option>
-			                    	<option value="F" selected>Female</option>
+	                    			<option value="Male">Male</option>
+			                    	<option value="Female" selected>Female</option>
 			                  </select>
                             </div>
                 		</div>
                 		<div class="col-xs-4 padding-forms-right">
                 			<div class="form-group">
-                               	<label for="txtDob" data-i18ncd="cusDob">DOB</label>
+                               	<label for="txtDob" data-i18ncd="lb_dob">DOB</label>
 			                	<div class="input-group date">
-				                  	<div class="input-group-addon" style="border-top-left-radius: 5px; border-bottom-left-radius: 5px;">
+				                  	<div class="input-group-addon" style="border-top-left-radius: 5px; border-bottom-left-radius: 5px;" id="dobIcon">
 				                    	<i class="fa fa-calendar"></i>
 				                  	</div>
 				                  	<input type="text" class="form-control pull-right date-pick" id="txtDob" name="txtDob" required="required" data-inputmask="'alias': 'dd/mm/yyyy'" data-mask="">

@@ -37,7 +37,7 @@
 
             		<div class="col-xs-4 padding-forms-right">
             			<div class="form-group">
-                           	<label for="cboCurrency" data-i18ncd="">Currency</label>
+                           	<label for="cboCurrency" data-i18ncd="lb_currency">Currency</label>
                         	<select class="form-control" id="cboCurrency" name="cboCurrency" style="font-size: 14px;">
                         		<!-- <option value="M">Please Select</option>
 	                    		<option value="M">Reil</option> -->
@@ -50,25 +50,25 @@
             	<div class="col-xs-12 row" style="padding:0px">
             		<div class="col-xs-4 padding-forms-left">
             			<div class="form-group">
-            				<label for="txtContSD" data-i18ncd="contSTART">Contract StartDate</label>
+            				<label for="txtContSD" data-i18ncd="lb_contract_start">Contract Start Date</label>
 							<div class="input-group date">
 								<div class="input-group-addon" id="txtContSDIcon" style="border-top-left-radius: 5px; border-bottom-left-radius: 5px;">
 									<i class="fa fa-calendar"></i>
 								</div>
-								<input type="text" class="form-control pull-right date-pick" id="txtContSD" name="txtContSD" required="required" data-inputmask="'alias': 'dd-mm-yyyy'" data-mask="">
+								<input type="text" class="form-control pull-right date-pick" id="txtContSD" name="txtContSD" required="required" data-inputmask="'alias': 'dd-mm-yyyy'" data-mask="" />
 							</div>
             			</div>
             		</div>
             		<div class="col-xs-4 padding-forms-right">
             			<div class="form-group">
-				      		<label  for="lAmt" data-i18nCd="lb_cl_lamt" >Loan Amount $:</label>
+				      		<label  for="lAmt" data-i18nCd="lb_principle_amt">Loan Amount</label>
 				        	<input type="text" class="form-control" id="lAmt" placeholder="Enter loan amount" name="lAmt" >
 				    	</div>
             		</div>
             		
             		<div class="col-xs-4 padding-forms-right">
             			<div class="form-group">
-				    		<label for="lRate" data-i18nCd="lb_cl_lint" >Interest %:</label>
+				    		<label for="lRate" data-i18nCd="lb_interest_amt" >Loan Interest(%)</label>
 					      	<input type="text" maxlength="2" class="form-control" id="lRate" placeholder="Enter interest" name="lRate" >
 				      	</div>  
             		</div>
@@ -77,24 +77,24 @@
             	<div class="col-xs-12 row" style="padding:0px">
             		<div class="col-xs-4 padding-forms-left">
             			<div class="form-group">
-				      		<label  for="cbointerestType" data-i18nCd="lb_cl_lint" >Interest Type:</label>
+				      		<label  for="cbointerestType" data-i18nCd="lb_interest_type">Interest Type</label>
                 			 <select class="form-control" id="cbointerestType" name="cbointerestType" style="font-size: 14px;">
-	                    		<option value="M">Monthly</option>
-	                    		<option value="Y">Yearly</option>
+	                    		<option value="Monthly">Monthly</option>
+	                    		<option value="Yearly">Yearly</option>
 			                </select>
 				    	</div>
             		</div>
             		
             		<div class="col-xs-4 padding-forms-right">
             			<div class="form-group">
-				      		<label for="lYear" data-i18nCd="lb_cl_ly" >Year:</label> 		      		          
+				      		<label for="lYear" data-i18nCd="lb_year">Year</label>
 				        	<input type="text" maxlength="2" class="form-control" id="lYear" placeholder="Enter year" name="lYear"  >
 				    	</div> 
             		</div>
             		
             		<div class="col-xs-4 padding-forms-right">
             			<div class="form-group">
-				    		<label for="lMonth" data-i18nCd="lb_cl_lm">Month:</label>
+				    		<label for="lMonth" data-i18nCd="lb_month">Month</label>
 					      	<input type="text" maxlength="2" class="form-control" id="lMonth" placeholder="Enter month" name="lMonth" >
 				      	</div> 	
             		</div>
@@ -103,7 +103,7 @@
                 <div class="col-xs-12 row" style="padding:0;display: block;">
                     <div class="col-xs-4 padding-forms-left">
                         <div class="form-group">
-                            <label for="txtContSD" data-i18ncd="contSTART">Contract End Date</label>
+                            <label for="txtContSD" data-i18ncd="lb_contract_end">Contract End Date</label>
                             <div class="input-group date">
                                 <div class="input-group-addon" id="txtContEDIcon" style="border-top-left-radius: 5px; border-bottom-left-radius: 5px;">
                                     <i class="fa fa-calendar"></i>
@@ -115,14 +115,14 @@
                     
                     <div class="col-xs-4 padding-forms-right">
                         <div class="form-group">
-                            <label  for="totalLAmt" data-i18nCd="lb_cl_lamt" >Total Loaned Amount $</label>
+                            <label  for="totalLAmt" data-i18nCd="lb_total_priciple">Total Loaned Amount</label>
                             <input type="text" class="form-control" id="totalLAmt" placeholder="Loaned amount" name="totalL" disabled="disabled">
                         </div> 
                     </div>
                     
                     <div class="col-xs-4 padding-forms-right">
                         <div class="form-group">
-                            <label for="totalLRate" data-i18nCd="lb_cl_lint" >Total Interest %</label>
+                            <label for="totalLRate" data-i18nCd="lb_total_interest">Total Interest Amount</label>
                             <input type="text" maxlength="2" class="form-control" id="totalLRate" placeholder="Enter interest" name="totalLRate" disabled="disabled">
                         </div>  
                     </div>

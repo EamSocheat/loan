@@ -11,14 +11,13 @@ var _thisPage = {
 		_this.onload();
 		_this.event();
 		//
-	    stock.comm.checkAllTblChk("chkAllCustomer","tblCustomer","chk_box");
+	    stock.comm.checkAllTblChk("chkAllCustomer","tblCustomer","chk_box");	    
 	},
 	onload : function(){
 		parent.parent.$("#loading").hide();
 		$("#frmStaff").show();
 		//
-	    getData(); 
-	    
+	    getData();
 	    
 	},event : function(){
 		$("#btnClose,#btnExit").click(function(e){
@@ -126,6 +125,7 @@ var _thisPage = {
 			var data={};
 			data["cus_nm"] = tblTr.find("td.cus_nm").html();
 			data["cus_id"] = tblTr.attr("data-id");
+			data["cus_phone1"] = tblTr.find("td.cus_phone1").html();
 			
 			var parentFrame="";
 			var callbackFunction=null;

@@ -114,7 +114,10 @@ var _thisPage = {
 				option["height"] = "450px";
 			    stock.comm.openPopUpSelect(controllerNm,option, data,"modal-md");
 			});
-			
+			//
+			$("#dobIcon").click(function(){
+				$(this).next().focus();
+			});
 		}
 };
 

@@ -22,7 +22,6 @@ var _thisPage = {
 			}
 			$("#frmContract").show();
 			$("#braNm").focus();
-			
 			//
 			$('#txtContSD').datepicker({
 				language: (getCookie("lang") == "kh" ? "kh" : "en"),
@@ -32,11 +31,11 @@ var _thisPage = {
 				todayHighlight: 1,
 				forceParse: 0,
 				sideBySide: true,
-				format: "dd/mm/yyyy",
+				format: "dd-mm-yyyy",
 		    });
 			$("#txtContSD").inputmask();
 			//
-			
+			getTodayDate();
 			stock.comm.inputPhoneKhmer("txtPhone1");
 			stock.comm.inputPhoneKhmer("txtPhone2");
 			
@@ -48,7 +47,6 @@ var _thisPage = {
 				//parent.$("#modalMd").modal('hide');
 				parent.stock.comm.closePopUpForm("PopupFormContract",parent.popupContractCallback);
 			});
-			
 			//
 			$("#frmContract").submit(function(e){
 				e.preventDefault();
@@ -89,7 +87,6 @@ var _thisPage = {
 				option["height"] = "450px";
 			    stock.comm.openPopUpSelect(controllerNm,option, data,"modal-md");
 			});
-			
 			//
 			$("#btnPopupPosition").click(function(e){
 				var data = "parentId=ifameStockForm";
@@ -99,17 +96,19 @@ var _thisPage = {
 				option["height"] = "450px";
 			    stock.comm.openPopUpSelect(controllerNm,option, data,"modal-md");
 			});
-			
-			
+			//
 			$("#btnCal").click(function(e){
-				//
 				//resetEmi();
 				calculateEMI();
 			});
-			
+			//
 			$("#btnReset").click(function(e){
 				resetEmi();
 			});
+			//
+			$("#txtContSDIcon").click(function(e){
+				$(this).next().focus();
+			});			
 			
 		}
 };
@@ -187,7 +186,7 @@ function getDataEdit(cont_id){
 			if(res.OUT_REC != null && res.OUT_REC.length >0){
 			    $("#txtCusNm").val(res.OUT_REC[0]["cus_nm"]);
 			    $("#txtCusId").val(res.OUT_REC[0]["cus_id"]);
-			    // $("#txtPhone1").val(res.OUT_REC[0]["con_phone1"]);
+			    $("#txtCusPhone").val(res.OUT_REC[0]["cus_phone1"]);
 			    $("#cboCurrency option[value='"+res.OUT_REC[0]["cur_id"]+"']").attr("selected",true);
 			    $("#txtContSD").val(moment(res.OUT_REC[0]["con_start_dt"], "YYYY-MM-DD").format("DD-MM-YYYY"));
 			    $("#lAmt").val(res.OUT_REC[0]["con_principle"]);
@@ -229,6 +228,7 @@ function selectCustomerCallback(data){
 	console.log(data["cus_nm"])
 	$("#txtCusNm").val(data["cus_nm"]);
 	$("#txtCusId").val(data["cus_id"]);
+	$("#txtCusPhone").val(data["cus_phone1"]);
 }
 
 function selectPositionCallback(data){
@@ -412,4 +412,15 @@ function resetEmi(){
 	$("#lAmt").focus();
 }
 
+/**
+ *
+*/
+function getTodayDate(){
+	var d = new Date();
 
+	var month = d.getMonth() + 1;
+	var day   = d.getDate();
+
+	var todayDate = (day<10 ? '0' : '') + day  + '-' + (month<10 ? '0' : '') + month  + '-' + d.getFullYear();
+	$("#txtContSD").val(todayDate);
+}
