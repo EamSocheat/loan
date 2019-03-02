@@ -26,25 +26,14 @@ var _thisPage = {
 		});
 		//
 		$("#btnAddNew").click(function(){
-		    /*parent.$("#loading").show();
-			var controllerNm = "PopupFormBranch";
-			var option={};
-			option["height"] = "460px";
-			var data="parentId="+"ifameStockSelect";
-			
-			parent.stock.comm.openPopUpForm(controllerNm,option, data,null,"modalMdBranch","modalMdContentBranch","ifameStockFormBranch");*/
-
 			parent.$("#loading").show();
 			var controllerNm = "PopupFormCustomer";
 			var option = {};
 			option["height"] = "570px";
-			var data = "parentId="+"ifameCustomerSelect";
+			var data = "parentId="+"ifameStockSelect";
 			
-			stock.comm.openPopUpForm(controllerNm, option, null, "modal-md");
-			// parent.stock.comm.openPopUpForm(controllerNm, option, data, null, "modalMdCustomer", "modalMdContentCustomer", "ifameStockFormCustomer");
+			parent.stock.comm.openPopUpForm(controllerNm,option, data,null,"modalMdBranch","modalMdContentBranch","ifameStockFormBranch");
 		});
-		
-		
 		//
 		$("#btnEdit").click(function(){
 			var chkVal = $('#tblCustomer tbody tr td.chk_box input[type="checkbox"]:checked');
@@ -57,12 +46,11 @@ var _thisPage = {
 			var braId=tblTr.attr("data-id");
 			editData(braId);
 		});
-		
 		//
 		$("#btnDelete").click(function(e){
 			var chkVal = $('#tblCustomer tbody tr td.chk_box input[type="checkbox"]:checked');
 			
-			if(chkVal.length <=0){
+			if(chkVal.length <= 0){
 				parent.stock.comm.alertMsg($.i18n.prop("msg_con_del"));
 				return;
 			}
@@ -81,18 +69,16 @@ var _thisPage = {
 					delArr.push(delData);
 				});
 				
-				delObj["delObj"]= delArr;
+				delObj["delObj"] = delArr;
 				deleteDataArr(delObj);
 			});
 		});
-		
 		//
 		$("#btnSearch").click(function(e){
-			_pageNo=1;
-			_perPage=6;
+			_pageNo  = 1;
+			_perPage = 6;
 			getData();
 		});
-		
 		//
 		$("#txtSearch").keypress(function(e) {
 		    if(e.which == 13) {
@@ -278,8 +264,9 @@ function resetFormSearch(){
 /**
  * 
 */
-function popupBranchCallback(){
-	_pageNo=1;
-	_perPage=$("#tblCustomer tbody tr").length;
+function popupCustomerCallback(){
+	console.log("log testing");
+	_pageNo  = 1;
+	_perPage = $("#tblCustomer tbody tr").length;
     getData();
 }

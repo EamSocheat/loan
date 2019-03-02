@@ -9,6 +9,7 @@
                 <span aria-hidden="true">&times;</span>
             </button>
             <h4 class="modal-title" id="popupTitle">Default Modal</h4>
+            <h5 class="modal-title" id="contractNo" style="float: right;margin-top: -24px;margin-right: 31px;"></h5>
 		</div>
 
 		<div class="modal-body" id="modalMdBody">
@@ -132,7 +133,10 @@
         </div>
      
         <div class="modal-footer" style="text-align: center;">
-            <button data-i18ncd="btn_save_new"  type="submit" class="btn btn-success btn-sm" id="btnSaveNew" style="display:none">Save + New</button>
+            <input type="hidden" value="" id="statusID" name="statusID" />
+            <button data-i18ncd="btn_status_closed" type="button" class="btn btn-success btn-sm" id="btnStatusActive" style="float: left;display: none;">Close</button>
+            <button data-i18ncd="btn_status_active" type="button" class="btn btn-danger btn-sm" id="btnStatusClose" style="float: left;display: none;">Cancel Close</button>
+            <button data-i18ncd="btn_save_new" type="submit" class="btn btn-success btn-sm" id="btnSaveNew" style="display:none">Save + New</button>
             <button data-i18ncd="btn_save" type="submit" class="btn btn-primary btn-sm" id="btnSave">Save</button>
             <button data-i18ncd="btn_close" type="button" class="btn btn-default btn-sm" id="btnClose">Close</button>
         </div>

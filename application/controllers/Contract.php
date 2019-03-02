@@ -11,6 +11,7 @@ class Contract extends CI_Controller{
         $this->load->helper('form');
         $this->load->model('M_contract');
         $this->load->model('M_common');
+        $this->load->library("excel");
     }
     
     public function index(){
@@ -52,10 +53,7 @@ class Contract extends CI_Controller{
         );
 
         $data["OUT_REC"] = $this->M_contract->selectContractData($dataSrch);
-        $data["OUT_REC_CNT"] = $this->M_contract->countContractData($dataSrch);
-
-        $data["Start"] = $startDate;
-        $data["Start2"] = $endDate;        
+        $data["OUT_REC_CNT"] = $this->M_contract->countContractData($dataSrch);        
         echo json_encode($data);
     }
 
@@ -105,6 +103,24 @@ class Contract extends CI_Controller{
         echo 'OK';
     }
 
+    public function udpateStatus(){
+        if(!$this->M_check_user->check()){
+            redirect('/Login');
+        }
+
+        $cntDel = 0;
+        if($this->input->post('contId') != null && $this->input->post('contId') != ""){
+            //update data
+            $data['con_id'] = $this->input->post('contId');
+            $data['con_status']   = $this->input->post('statusID');
+            $data['upUsr']  = $_SESSION['usrId'];
+            $data['upDt']   = date('Y-m-d H:i:s');
+            $this->M_contract->update($data);
+            $cntDel = 1;
+        }
+
+        echo $cntDel;
+    }
 
     public function delete(){
         if(!$this->M_check_user->check()){
@@ -125,7 +141,93 @@ class Contract extends CI_Controller{
             $cntDel += 1;
         }
         echo $cntDel;
-        echo(sizeof($delObj));
+    }
+
+    function download_excel(){
+        
+        $object = new PHPExcel();
+        $object->setActiveSheetIndex(0);
+
+        $table_columns = array("Contract No", "Contract Start", "Loan Amount", "Loan Interest", "Interest Type", "Period", "Customer", "Total Loan", "Total Interest", "Contract End");
+        $column = 0;
+
+        /**
+         * get header
+         */
+        foreach($table_columns as $field){
+            $object->getActiveSheet()->setCellValueByColumnAndRow($column, 1, $field);
+            $column++;
+                        
+            /**
+             * set auto width foreach column size
+             */
+            foreach (range($field, $object->getActiveSheet()->getHighestDataColumn()) as $col) {
+                $object->getActiveSheet()->getColumnDimension($col)->setAutoSize(true);
+            }
+        }
+
+        /**
+         * set style to header
+         */
+        $styleArray = array(
+            'font' => array('bold' => true,'color' => array('rgb' => 'FF0000'),),
+            'alignment' => array('horizontal' => \PHPExcel_Style_Alignment::HORIZONTAL_CENTER,),
+            /*'fill' => array(
+                'type' => PHPExcel_Style_Fill::FILL_SOLID,
+                'color' => array('rgb' => 'B2B2B2')
+            ),*/
+            'borders' => array(
+                'allborders' => array(
+                    'style' => PHPExcel_Style_Border::BORDER_THIN,
+                    'color' => array('rgb' => 'DDDDDD'),),
+                'top' => array(
+                    'style' => \PHPExcel_Style_Border::BORDER_THIN,),
+                /*'fill' => array(
+                    'type' => \PHPExcel_Style_Fill::FILL_GRADIENT_LINEAR,
+                    'rotation' => 90,
+                    'startcolor' => array('argb' => 'FFA0A0A0',),'endcolor' => array('argb' => '333333',),),*/
+            ),
+        );
+        $object->getActiveSheet()->getStyle('A1:J1')->applyFromArray($styleArray);
+        $object->getDefaultStyle()->getFont()->setName('Khmer OS Battambang');
+        
+        /**
+         * retrieve data from table database
+         */
+        $dataSrch = array(
+            'conIdArr' => $this->input->post("conIdArray")
+        );
+        $contract_data = $this->M_contract->selectContractData($dataSrch);
+
+        /**
+         * match header and data
+         */
+        $excel_row = 2;
+        foreach($contract_data as $row){
+            $object->getActiveSheet()->setCellValueByColumnAndRow(0, $excel_row, $row->con_no);
+            $object->getActiveSheet()->setCellValueByColumnAndRow(1, $excel_row, $row->con_start_dt);
+            $object->getActiveSheet()->setCellValueByColumnAndRow(2, $excel_row, $row->con_principle);
+            $object->getActiveSheet()->setCellValueByColumnAndRow(3, $excel_row, $row->con_interest."%");
+            $object->getActiveSheet()->setCellValueByColumnAndRow(4, $excel_row, $row->con_interest_type);
+            $object->getActiveSheet()->setCellValueByColumnAndRow(5, $excel_row, $row->con_per_year);
+            $object->getActiveSheet()->setCellValueByColumnAndRow(6, $excel_row, $row->cus_nm);
+            $object->getActiveSheet()->setCellValueByColumnAndRow(7, $excel_row, $row->con_total_principle);
+            $object->getActiveSheet()->setCellValueByColumnAndRow(8, $excel_row, $row->con_total_interest);
+            $object->getActiveSheet()->setCellValueByColumnAndRow(9, $excel_row, $row->con_end_dt);
+            $excel_row++;
+        }
+
+        $object_writer = PHPExcel_IOFactory::createWriter($object, 'Excel5');
+        header('Content-Type: application/vnd.ms-excel');
+        header('Content-Disposition: attachment;filename="Contract_'.date('Y/m/d').'.xls"');        
+        $object_writer->save('php://output');
+    }
+
+    function commaAmt($str){
+        $str = String($str);
+        // return $str_replace.replace(/(\d)(?=(?:\d{3})+(?!\d))/g, '$1,');
+        // return eregi_replace("/(\d)(?=(?:\d{3})+(?!\d))/g", "", $str);
+        return $str;
     }
 
 }

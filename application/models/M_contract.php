@@ -14,6 +14,11 @@
             $this->db->join('tbl_currency','tbl_currency.cur_id = tbl_contract.cur_id');
             $this->db->where('tbl_contract.com_id', $_SESSION['comId']);
             
+            if($dataSrch['conIdArr'] != null && $dataSrch['conIdArr'] != ""){
+                $integerIDs = array_map('intval', explode(',', $dataSrch['conIdArr']));
+                $this->db->where_in('tbl_contract.con_id', $integerIDs);
+            }
+
             if($dataSrch['con_id'] != null && $dataSrch['con_id'] != ""){
                 $this->db->where('tbl_contract.con_id', $dataSrch['con_id']);
             }
@@ -23,14 +28,17 @@
             }
 
             if($dataSrch['con_start_dt'] != null && $dataSrch['con_start_dt'] != ""){
-                $this->db->where('tbl_contract.con_start_dt <=', $dataSrch['con_start_dt']);
-                $this->db->where('tbl_contract.con_end_dt >=', $dataSrch['con_start_dt']);
+                $this->db->where('tbl_contract.con_start_dt >=', $dataSrch['con_start_dt']);                
             }
 
             if(($dataSrch['con_start_dt'] != null && $dataSrch['con_start_dt'] != "") 
                 && ($dataSrch['con_end_dt'] != null && $dataSrch['con_end_dt'] != "")){
-                $this->db->where('tbl_contract.con_start_dt <=', $dataSrch['con_start_dt']);
-                $this->db->where('tbl_contract.con_start_dt >=', $dataSrch['con_end_dt']);
+                $this->db->where('tbl_contract.con_start_dt >=', $dataSrch['con_start_dt']);
+                $this->db->where('tbl_contract.con_start_dt <=', $dataSrch['con_end_dt']);
+            }
+
+            if($dataSrch['con_end_dt'] != null && $dataSrch['con_end_dt'] != ""){
+                $this->db->where('tbl_contract.con_end_dt <=', $dataSrch['con_end_dt']);
             }
             
             $this->db->order_by("con_id", "asc");

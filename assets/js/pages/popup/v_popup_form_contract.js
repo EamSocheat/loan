@@ -13,15 +13,6 @@ var _thisPage = {
 		onload : function(){
 			parent.$("#loading").hide();
 			clearForm();
-			if($("#frmAct").val() == "U"){
-			    getDataEdit($("#contId").val());
-			    $("#popupTitle").html("<i class='fa fa-handshake-o'></i> "+$.i18n.prop("btn_edit")+" "+ $.i18n.prop("lb_contract"));
-			}else{
-			    $("#btnSaveNew").show();
-			    $("#popupTitle").html("<i class='fa fa-handshake-o'></i> "+$.i18n.prop("btn_add_new")+" "+ $.i18n.prop("lb_contract"));
-			}
-			$("#frmContract").show();
-			$("#braNm").focus();
 			//
 			$('#txtContSD').datepicker({
 				language: (getCookie("lang") == "kh" ? "kh" : "en"),
@@ -34,8 +25,17 @@ var _thisPage = {
 				format: "dd-mm-yyyy",
 		    });
 			$("#txtContSD").inputmask();
-			//
-			getTodayDate();
+
+			if($("#frmAct").val() == "U"){
+			    getDataEdit($("#contId").val());
+			    $("#popupTitle").html("<i class='fa fa-handshake-o'></i> "+$.i18n.prop("btn_edit")+" "+ $.i18n.prop("lb_contract"));
+			}else{
+				getTodayDate();
+			    $("#btnSaveNew").show();
+			    $("#popupTitle").html("<i class='fa fa-handshake-o'></i> "+$.i18n.prop("btn_add_new")+" "+ $.i18n.prop("lb_contract"));
+			}
+			$("#frmContract").show();
+			$("#braNm").focus();						
 			stock.comm.inputPhoneKhmer("txtPhone1");
 			stock.comm.inputPhoneKhmer("txtPhone2");
 			
@@ -108,7 +108,21 @@ var _thisPage = {
 			//
 			$("#txtContSDIcon").click(function(e){
 				$(this).next().focus();
-			});			
+			});
+			//
+			$("#btnStatusActive, #btnStatusClose").click(function(e){
+				var statusID = $("#statusID").val();
+				if(statusID == "0" || statusID == 0){
+					top.stock.comm.confirmMsg($.i18n.prop("msg_sure_close"));
+				}else{
+					top.stock.comm.confirmMsg($.i18n.prop("msg_sure_active"));
+				}
+				
+				top.$("#btnConfirmOk").unbind().click(function(e){
+					top.$("#mdlConfirm").modal('hide');
+					updateContractStatus(statusID);
+				});
+			});
 			
 		}
 };
@@ -157,13 +171,44 @@ function saveData(str){
 			if(res =="OK"){
 				parent.stock.comm.alertMsg($.i18n.prop("msg_save_com"),"braNm");
 				if(str == "new"){
-					console.log(true)
 				    clearForm();
 				}else{
 					console.log(false)
 				    parent.stock.comm.closePopUpForm("PopupFormContract",parent.popupContractCallback);
 				}
 			}
+		},
+		error : function(data) {
+			console.log(data);
+			stock.comm.alertMsg($.i18n.prop("msg_err"));
+        }
+	});
+}
+
+function updateContractStatus(status){
+	var input = {};
+	input["contId"] = $("#contId").val();
+	input["statusID"] = $("#statusID").val();
+	$.ajax({
+		type: "POST",
+		url : $("#base_url").val() +"Contract/udpateStatus",
+		data: input,
+		dataType: "json",
+		success: function(res) {
+			console.log(res);
+		    if(res > 0){
+		    	if(status == "0"){
+		    		parent.stock.comm.alertMsg($.i18n.prop("msg_close"),"braNm");
+		    	}else{
+		    		parent.stock.comm.alertMsg($.i18n.prop("msg_active"),"braNm");
+		    	}
+				
+				parent.stock.comm.closePopUpForm("PopupFormContract",parent.popupContractCallback);
+			}else{
+				stock.comm.alertMsg($.i18n.prop("msg_err_del"));
+		        return;
+			}
+		    $("#loading").hide();
 		},
 		error : function(data) {
 			console.log(data);
@@ -182,8 +227,9 @@ function getDataEdit(cont_id){
 		dataType: "json",
 		async: false,
 		success: function(res) {
-			
 			if(res.OUT_REC != null && res.OUT_REC.length >0){
+				var status = res.OUT_REC[0]["con_status"];
+				$("#contractNo").text(res.OUT_REC[0]["con_no"]);				
 			    $("#txtCusNm").val(res.OUT_REC[0]["cus_nm"]);
 			    $("#txtCusId").val(res.OUT_REC[0]["cus_id"]);
 			    $("#txtCusPhone").val(res.OUT_REC[0]["cus_phone1"]);
@@ -194,6 +240,18 @@ function getDataEdit(cont_id){
 				$("#cbointerestType option[value='"+res.OUT_REC[0]["con_interest_type"]+"']").attr("selected",true);
 			    $("#lYear").val(res.OUT_REC[0]["con_per_year"]);
 			    $("#lMonth").val(res.OUT_REC[0]["con_per_month"]);
+
+			    if(status == "0" || status == 0){
+			    	$("#btnStatusActive").show();
+			    	$("#btnStatusClose").hide();
+			    	$("#statusID").val("1");
+			    	// $("#btnStatus").attr("data-i18ncd", "btn_status_closed");
+			    }else{
+			    	$("#btnStatusActive").hide();
+			    	$("#btnStatusClose").show();
+			    	$("#statusID").val("0");
+			    	// $("#btnStatus").attr("data-i18ncd", "btn_status_active");
+			    }
 
 			    /*$("#txtAddr").val(res.OUT_REC[0]["cont_addr"]);
 			    $("#txtPhone1").val(res.OUT_REC[0]["cont_phone1"]);

@@ -37,7 +37,7 @@ var _thisPage = {
 			$("#chkAllBox").prop( "checked", false );
 		    var pageNo = 1;
 		    if(page_no != "" && page_no != null && page_no != undefined){
-		        if(page_no <=0){
+		        if(page_no <= 0){
 		            page_no = 1;
 		        }
 		        pageNo = page_no;
@@ -73,6 +73,7 @@ var _thisPage = {
 							html += 	'<td><div class="txt_c">'+res.OUT_REC[i]["con_interest_type"]+'</div></td>';
 							html += 	'<td><div class="txt_c">'+showPeriod(res.OUT_REC[i]["con_per_year"], res.OUT_REC[i]["con_per_month"])+'</div></td>';
 							html += 	'<td><div class="txt_c">'+res.OUT_REC[i]["cus_nm"]+'</div></td>';
+							html += 	'<td><div class="txt_c">'+chkContStatus(res.OUT_REC[i]["con_status"])+'</div></td>';
 							html += 	'<td class="text-center">';
 							html +=			'<button onclick="editData('+res.OUT_REC[i]["con_id"]+')" type="button" class="btn btn-primary btn-xs">';
 							html += 		'<i class="fa fa-pencil-square-o" aria-hidden="true"></i></button>';
@@ -103,7 +104,6 @@ var _thisPage = {
 				_pageNo = 1;
 				_thisPage.loadData();
 			});
-
 			//--pagination
 			$("#paging").on("click", "li a", function(e) {
 				var pageNo = $(this).html();
@@ -113,8 +113,7 @@ var _thisPage = {
 			$(".box-footer").on("click", "#btnGoToPage", function(e) {
 				var pageNo = $("#txtGoToPage").val();
 				_thisPage.loadData(pageNo);
-			});
-			
+			});			
 			//
 			$("#btnAddNew").click(function(){
 				$("#loading").show();
@@ -123,8 +122,7 @@ var _thisPage = {
 				option["height"] = "445px";
 				
 				stock.comm.openPopUpForm(controllerNm, option, null, "modal-lg");
-			});
-			
+			});			
 			//
 			$("#btnEdit").click(function(){
 				var chkVal = $('#tblContract tbody tr td.chk_box input[type="checkbox"]:checked');
@@ -136,8 +134,7 @@ var _thisPage = {
 				var tblTr   = chkVal.parent().parent();
 				var constId = tblTr.attr("data-id");
 				editData(constId);
-			});
-			
+			});			
 			//
 			$("#btnDelete").click(function(e){
 				var chkVal = $('#tblContract tbody tr td.chk_box input[type="checkbox"]:checked');
@@ -165,13 +162,11 @@ var _thisPage = {
 					deleteDataArr(delObj);
 				});
 				
-			});
-			
+			});			
 			//
 			$("#btnSearch").click(function(e){
 				_thisPage.loadData(1);
-			});
-			
+			});			
 			//
 			$("#btnReset").click(function(e){
 				resetFormSearch();
@@ -179,6 +174,26 @@ var _thisPage = {
 			//
 			$("#txtContSDIcon, #txtContEDIcon").click(function(e){
 				$(this).next().focus();
+			});
+			// 
+			$("#btnDownExcel").click(function(e){
+				e.preventDefault();
+				var chkVal = $('#tblContract tbody tr td.chk_box input[type="checkbox"]:checked');
+
+				if(chkVal.length <= 0){
+					stock.comm.alertMsg($.i18n.prop("msg_down_excel"));
+					return;
+				}
+				
+				var objArr = [];
+				chkVal.each(function(i){
+					var tblTr   = $(this).parent().parent();
+					var data_id = tblTr.attr("data-id");
+					objArr.push(Number(data_id));
+				});
+				console.log(objArr);
+				$("#contId").val(objArr);
+				$("#btnExcel").submit();
 			});
 		}
 }
@@ -249,7 +264,7 @@ function showPeriod(y,m){
 function showYear(y){
 	var year = '';
 	if(y > 1){
-		year = y+"&nbsp;<span data-i18ncd='lb_years'>Years</span>";
+		year = y+"&nbsp;<span data-i18ncd='lb_years'>Years</span>&nbsp;";
 	}else{
 		year = y+"&nbsp;<span data-i18ncd='lb_year'>Year</span>&nbsp;";
 	}
@@ -269,4 +284,14 @@ function showMonth(m){
 function commaAmt(str){
 	str = String(str);
 	return str.replace(/(\d)(?=(?:\d{3})+(?!\d))/g, '$1,');
+}
+
+function chkContStatus(s){
+	var statusStr = '';
+	if(s == "0" || s == 0){
+		statusStr = '<span class="label label-danger">Close</span>';		
+	}else{
+		statusStr = '<span class="label label-success">Active</span>';
+	}
+	return statusStr;
 }

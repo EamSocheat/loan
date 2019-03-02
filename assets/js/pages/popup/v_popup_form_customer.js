@@ -138,9 +138,18 @@ function saveData(str){
 				parent.stock.comm.alertMsg($.i18n.prop("msg_save_com"),"cusNm");
 				if(str == "new"){
 				    clearForm();
-				    parent.popupCustomerCallback();
 				}else{
-				    parent.stock.comm.closePopUpForm("PopupFormCustomer", parent.popupCustomerCallback);
+					//close popup
+					var parentFrame = "";
+					var callbackFunction = null;
+					if($("#parentId").val() != "" && $("#parentId").val() != null){
+						parentFrame = $("#parentId").val();
+						callbackFunction = parent.$("#"+parentFrame)[0].contentWindow.popupCustomerCallback
+					}else{
+						callbackFunction = parent.popupCustomerCallback;
+					}
+
+				    parent.stock.comm.closePopUpForm("PopupFormCustomer", callbackFunction);
 				}
 			}
 		},
@@ -164,7 +173,7 @@ function getDataEdit(cus_id){
 			    $("#txtCustomerNm").val(res.OUT_REC[0]["cus_nm"]);
 			    $("#txtCustomerNmKh").val(res.OUT_REC[0]["cus_nm_kh"]);
 			    $("#txtIdentityNmKh").val(res.OUT_REC[0]["cus_idnt_num"]);
-			    $("#cboGender").val(res.OUT_REC[0]["cus_gender"]);
+			    $("#cboGender option[value='"+res.OUT_REC[0]["cus_gender"]+"']").attr("selected",true);
 			    $("#txtDob").val(moment(res.OUT_REC[0]["cus_dob"], "YYYY-MM-DD").format("DD-MM-YYYY"));
 			    $("#txtAddr").val(res.OUT_REC[0]["cus_addr"]);
 			    $("#txtPhone1").val(res.OUT_REC[0]["cus_phone1"]);
