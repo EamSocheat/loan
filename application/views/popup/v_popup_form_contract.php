@@ -20,7 +20,7 @@
             			<div class="form-group">
 							<label for="cusNm2" data-i18ncd="lb_customer_name">Customer Name</label>
 							<div class="input-group">
-								<input type="text" style="height: 34px;" class="form-control input-sm" disabled="disabled" id="txtCusNm" name="txtCusNm">
+								<input type="text" style="height: 34px;" class="form-control input-sm" disabled="disabled" id="txtCusNm" name="txtCusNm" autocomplete="off" />
 								<span id="btnPopupCusch" class="input-group-addon label-info" style="border-top-right-radius: 5px;border-bottom-right-radius: 5px;cursor: pointer;border-color: #46b8da !important;"><i class="fa fa-search-plus"></i></span>
 							</div>
 							<input type="hidden" id="txtCusId" name="txtCusId">
@@ -31,7 +31,7 @@
             			<div class="form-group">
 							<label for="txtCusPhone" data-i18ncd="lb_customer_phone">Customer Phone</label>
 							<div class="input-group" style="width:100%;">
-								<input style="height: 34px; border-radius: 3px;" type="text"  class="form-control input-sm" disabled="disabled" id="txtCusPhone" name="txtCusPhone">
+								<input style="height: 34px; border-radius: 3px;" type="text"  class="form-control input-sm" disabled="disabled" id="txtCusPhone" name="txtCusPhone" autocomplete="off" />
 							</div>
 						</div>
             		</div>
@@ -56,21 +56,21 @@
 								<div class="input-group-addon" id="txtContSDIcon" style="border-top-left-radius: 5px; border-bottom-left-radius: 5px;">
 									<i class="fa fa-calendar"></i>
 								</div>
-								<input type="text" class="form-control pull-right date-pick" id="txtContSD" name="txtContSD" required="required" data-inputmask="'alias': 'dd-mm-yyyy'" data-mask="" />
+								<input type="text" class="form-control pull-right date-pick" id="txtContSD" name="txtContSD" required="required" data-inputmask="'alias': 'dd-mm-yyyy'" data-mask="" autocomplete="off" />
 							</div>
             			</div>
             		</div>
             		<div class="col-xs-4 padding-forms-right">
             			<div class="form-group">
 				      		<label  for="lAmt" data-i18nCd="lb_principle_amt">Loan Amount</label>
-				        	<input type="text" class="form-control" id="lAmt" placeholder="Enter loan amount" name="lAmt" >
+				        	<input type="text" class="form-control" id="lAmt" placeholder="Enter loan amount" name="lAmt" autocomplete="off" />
 				    	</div>
             		</div>
             		
             		<div class="col-xs-4 padding-forms-right">
             			<div class="form-group">
 				    		<label for="lRate" data-i18nCd="lb_interest_amt" >Loan Interest(%)</label>
-					      	<input type="text" maxlength="2" class="form-control" id="lRate" placeholder="Enter interest" name="lRate" >
+					      	<input type="text" maxlength="2" class="form-control" id="lRate" placeholder="Enter interest" name="lRate" autocomplete="off" />
 				      	</div>  
             		</div>
             	</div>
@@ -89,14 +89,14 @@
             		<div class="col-xs-4 padding-forms-right">
             			<div class="form-group">
 				      		<label for="lYear" data-i18nCd="lb_year">Year</label>
-				        	<input type="text" maxlength="2" class="form-control" id="lYear" placeholder="Enter year" name="lYear"  >
+				        	<input type="text" maxlength="2" class="form-control" id="lYear" placeholder="Enter year" name="lYear" autocomplete="off" />
 				    	</div> 
             		</div>
             		
             		<div class="col-xs-4 padding-forms-right">
             			<div class="form-group">
 				    		<label for="lMonth" data-i18nCd="lb_month">Month</label>
-					      	<input type="text" maxlength="2" class="form-control" id="lMonth" placeholder="Enter month" name="lMonth" >
+					      	<input type="text" maxlength="2" class="form-control" id="lMonth" placeholder="Enter month" name="lMonth" autocomplete="off" />
 				      	</div> 	
             		</div>
             	</div>
@@ -109,7 +109,7 @@
                                 <div class="input-group-addon" id="txtContEDIcon" style="border-top-left-radius: 5px; border-bottom-left-radius: 5px;">
                                     <i class="fa fa-calendar"></i>
                                 </div>
-                                <input type="text" class="form-control pull-right date-pick" id="txtContED" name="txtContED" disabled="disabled" data-inputmask="'alias': 'dd/mm/yyyy'" data-mask="">
+                                <input type="text" class="form-control pull-right date-pick" id="txtContED" name="txtContED" disabled="disabled" data-inputmask="'alias': 'dd/mm/yyyy'" data-mask="" autocomplete="off" />
                             </div>
                         </div>
                     </div>
@@ -117,14 +117,14 @@
                     <div class="col-xs-4 padding-forms-right">
                         <div class="form-group">
                             <label  for="totalLAmt" data-i18nCd="lb_total_priciple">Total Loaned Amount</label>
-                            <input type="text" class="form-control" id="totalLAmt" placeholder="Loaned amount" name="totalL" disabled="disabled">
+                            <input type="text" class="form-control" id="totalLAmt" placeholder="Loaned amount" name="totalL" disabled="disabled" autocomplete="off" />
                         </div> 
                     </div>
                     
                     <div class="col-xs-4 padding-forms-right">
                         <div class="form-group">
                             <label for="totalLRate" data-i18nCd="lb_total_interest">Total Interest Amount</label>
-                            <input type="text" maxlength="2" class="form-control" id="totalLRate" placeholder="Enter interest" name="totalLRate" disabled="disabled">
+                            <input type="text" maxlength="2" class="form-control" id="totalLRate" placeholder="Enter interest" name="totalLRate" disabled="disabled" autocomplete="off" />
                         </div>  
                     </div>
                 </div>

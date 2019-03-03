@@ -162,7 +162,6 @@ function getData(page_no){
 			        html += "<td class='cus_email'>"+res.OUT_REC[i]["cus_email"]+"</td>";
 			        html += "<td class='cus_addr'>"+res.OUT_REC[i]["cus_addr"]+"</td>";
 			        html += "<td class='cus_des'>"+res.OUT_REC[i]["cus_des"]+"</td>";
-			        html += "<td class='cus_des'>"+res.OUT_REC[i]["cus_des"]+"</td>";			        
 			        html += "<td class='act_btn text-center'><button onclick='editData("+res.OUT_REC[i]["cus_id"]+")' type='button' class='btn btn-primary btn-xs'><i class='fa fa-pencil-square-o' aria-hidden='true'></i></button></td>";
 			        html += "</tr>";
 			        

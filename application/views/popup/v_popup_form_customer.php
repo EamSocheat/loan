@@ -24,27 +24,27 @@
                             </div>
                             <div style="text-align: center;margin-top: 5px;">
                             	<button  type="button" class="btn btn-info btn-xs" id="btnSelectPhoto"><i class="fa fa-image" aria-hidden="true"></i> <span data-i18ncd="lb_select_img">Select Image</span></button>
-                            	<input type="file" style="display: none" class="form-control" accept="image/*"  id="fileCusPhoto" name="fileCusPhoto">
+                            	<input type="file" style="display: none" class="form-control" accept="image/*"  id="fileCusPhoto" name="fileCusPhoto" autocomplete="off" />
                             </div>
                 		</div>
                 		<div class="col-xs-4 padding-forms-right">                			
                 			<div class="form-group">
                               <label for="braNm" data-i18ncd="lb_name">Name</label>
-                              <input type="text" class="form-control" id="txtCustomerNm" name="txtCustomerNm" required="required">
+                              <input type="text" class="form-control" id="txtCustomerNm" name="txtCustomerNm" required="required" autocomplete="off" />
                             </div>
                 		</div>
                 		
                 		<div class="col-xs-4 padding-forms-right">                	
                 			<div class="form-group">
                                	<label for="txtCustomerNmKh" data-i18ncd="lb_name_kh">Khmer Name</label>
-                            	<input type="text" class="form-control" id="txtCustomerNmKh" name="txtCustomerNmKh" required="required">
+                            	<input type="text" class="form-control" id="txtCustomerNmKh" name="txtCustomerNmKh" required="required" autocomplete="off" />
                             </div>
                 		</div>
                 		
                 		<div class="col-xs-8 padding-forms-right">
                 			<div class="form-group">
                                	<label for="txtIdentityNmKh" data-i18ncd="lb_identity">Identity</label>
-                            	<input type="text" class="form-control" id="txtIdentityNmKh" name="txtIdentityNmKh" required="required" maxlength="9">
+                            	<input type="text" class="form-control" id="txtIdentityNmKh" name="txtIdentityNmKh" required="required" maxlength="9" autocomplete="off" />
                             </div>
                 		</div>
                 		
@@ -68,7 +68,7 @@
 				                  	<div class="input-group-addon" style="border-top-left-radius: 5px; border-bottom-left-radius: 5px;" id="dobIcon">
 				                    	<i class="fa fa-calendar"></i>
 				                  	</div>
-				                  	<input type="text" class="form-control pull-right date-pick" id="txtDob" name="txtDob" required="required" data-inputmask="'alias': 'dd/mm/yyyy'" data-mask="">
+				                  	<input type="text" class="form-control pull-right date-pick" id="txtDob" name="txtDob" required="required" data-inputmask="'alias': 'dd/mm/yyyy'" data-mask="" autocomplete="off" />
 				                </div>
                             </div>
                 		</div>
@@ -76,7 +76,7 @@
                 		<div class="col-xs-4 padding-forms-right">
                 			<div class="form-group">
                 				<label for="txtDes" data-i18ncd="lb_des">Description</label>
-                              	<input type="text" class="form-control" id="txtDes" name="txtDes" />
+                              	<input type="text" class="form-control" id="txtDes" name="txtDes" autocomplete="off" />
                 			</div>
                 		</div>
                 	</div>
@@ -85,19 +85,19 @@
                 		<div class="col-xs-4 padding-forms-left">
                 			<div class="form-group">
                               <label for="txtPhone1" data-i18ncd="lb_phone">Phone</label>
-                              <input type="text" class="form-control" id="txtPhone1" name="txtPhone1"  required="required">
+                              <input type="text" class="form-control" id="txtPhone1" name="txtPhone1" required="required" autocomplete="off" />
                             </div>
                 		</div>
                 		<div class="col-xs-4 padding-forms-right">
                 			<div class="form-group">
                               <label for="txtPhone2" data-i18ncd="lb_phone2">Phone2</label>
-                              <input type="text" class="form-control" id="txtPhone2" name="txtPhone2" />
+                              <input type="text" class="form-control" id="txtPhone2" name="txtPhone2" autocomplete="off" />
                             </div>
                 		</div>
                 		<div class="col-xs-4 padding-forms-right">
                 			<div class="form-group">
                 				<label for="txtEmail" data-i18ncd="lb_email">Email</label>
-                              	<input type="email" class="form-control" id="txtEmail" name="txtEmail" />
+                              	<input type="email" class="form-control" id="txtEmail" name="txtEmail" autocomplete="off" />
                 			</div>
                 		</div>
                 	</div>
@@ -106,7 +106,7 @@
                 		<div class="col-xs-12 padding-forms-left padding-forms-right">
                 			<div class="form-group">
                                	<label for="txtAddr" data-i18ncd="lb_addr">Address</label>
-                            	<input type="text" class="form-control" id="txtAddr" name="txtAddr">
+                            	<input type="text" class="form-control" id="txtAddr" name="txtAddr" autocomplete="off" />
                             </div>
                 		</div>
                 	</div>

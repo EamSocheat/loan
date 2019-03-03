@@ -112,6 +112,19 @@ if(!stock.comm) {stock.comm={};}
 		return dt;
 	}
 	
+	/**
+	 *
+	*/
+	stock.comm.todayDate = function(target,format){
+		format = String(format);
+		var d  = new Date();
+
+		var month = d.getMonth() + 1;
+		var day   = d.getDate();
+
+		var todayDate = (day<10 ? '0' : '') + day  + format + (month<10 ? '0' : '') + month  + format + d.getFullYear();
+		$(target).val(todayDate);
+	}
 	
 	stock.comm.alertMsg = function(val,id_focus,element_focus){
 		$("#mdlAlert").css("border-radius","5px");

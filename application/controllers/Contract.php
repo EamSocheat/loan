@@ -206,10 +206,10 @@ class Contract extends CI_Controller{
         foreach($contract_data as $row){
             $object->getActiveSheet()->setCellValueByColumnAndRow(0, $excel_row, $row->con_no);
             $object->getActiveSheet()->setCellValueByColumnAndRow(1, $excel_row, $row->con_start_dt);
-            $object->getActiveSheet()->setCellValueByColumnAndRow(2, $excel_row, $row->con_principle);
+            $object->getActiveSheet()->setCellValueByColumnAndRow(2, $excel_row, $this->commaAmt($row->con_principle));
             $object->getActiveSheet()->setCellValueByColumnAndRow(3, $excel_row, $row->con_interest."%");
             $object->getActiveSheet()->setCellValueByColumnAndRow(4, $excel_row, $row->con_interest_type);
-            $object->getActiveSheet()->setCellValueByColumnAndRow(5, $excel_row, $row->con_per_year);
+            $object->getActiveSheet()->setCellValueByColumnAndRow(5, $excel_row, $this->showPeriod($row->con_per_year,$row->con_per_month));
             $object->getActiveSheet()->setCellValueByColumnAndRow(6, $excel_row, $row->cus_nm);
             $object->getActiveSheet()->setCellValueByColumnAndRow(7, $excel_row, $row->con_total_principle);
             $object->getActiveSheet()->setCellValueByColumnAndRow(8, $excel_row, $row->con_total_interest);
@@ -224,10 +224,42 @@ class Contract extends CI_Controller{
     }
 
     function commaAmt($str){
-        $str = String($str);
-        // return $str_replace.replace(/(\d)(?=(?:\d{3})+(?!\d))/g, '$1,');
-        // return eregi_replace("/(\d)(?=(?:\d{3})+(?!\d))/g", "", $str);
-        return $str;
+        $str = (int)$str;
+        return number_format($str);
+    }
+
+    function showPeriod($y,$m){
+        $strPer = '';
+        if(($y != null && $y != 0) && ($m != null && $m != 0)){
+            $strPer = $this->showYear($y) . $this->showMonth($m);
+        }else if($y != null && $y != 0){
+            $strPer = $this->showYear($y);
+        }else if($m != null && $m != 0){
+            $strPer = $this->showMonth($m);
+        }else{
+            $strPer = '';
+        }
+        return $strPer;
+    }
+
+    function showYear($y){
+        $year = '';
+        if($y > 1){
+            $year = $y." Years ";
+        }else{
+            $year = $y." Year ";
+        }
+        return $year;
+    }
+
+    function showMonth($m){
+        $month = '';
+        if($m > 1){
+            $month = $m." Months";
+        }else{
+            $month = $m." Month";
+        }
+        return $month;
     }
 
 }

@@ -30,7 +30,7 @@ var _thisPage = {
 			    getDataEdit($("#contId").val());
 			    $("#popupTitle").html("<i class='fa fa-handshake-o'></i> "+$.i18n.prop("btn_edit")+" "+ $.i18n.prop("lb_contract"));
 			}else{
-				getTodayDate();
+				stock.comm.todayDate("#txtContSD","-");
 			    $("#btnSaveNew").show();
 			    $("#popupTitle").html("<i class='fa fa-handshake-o'></i> "+$.i18n.prop("btn_add_new")+" "+ $.i18n.prop("lb_contract"));
 			}
@@ -470,15 +470,3 @@ function resetEmi(){
 	$("#lAmt").focus();
 }
 
-/**
- *
-*/
-function getTodayDate(){
-	var d = new Date();
-
-	var month = d.getMonth() + 1;
-	var day   = d.getDate();
-
-	var todayDate = (day<10 ? '0' : '') + day  + '-' + (month<10 ? '0' : '') + month  + '-' + d.getFullYear();
-	$("#txtContSD").val(todayDate);
-}
