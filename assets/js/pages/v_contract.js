@@ -287,11 +287,12 @@ function commaAmt(str){
 }
 
 function chkContStatus(s){
+	console.log(true)
 	var statusStr = '';
-	if(s == "0" || s == 0){
-		statusStr = '<span class="label label-danger">Close</span>';		
-	}else{
+	if(s != "0" || s != 0){
 		statusStr = '<span class="label label-success">Active</span>';
+	}else{		
+		statusStr = '<span class="label label-danger">Close</span>';
 	}
 	return statusStr;
 }

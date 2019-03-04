@@ -110,10 +110,12 @@
 				    <thead>  
     					<tr>
     					  <th><input type="checkbox" id="chkAll" style="display:none;"></th>
-    					  <th data-i18ncd="lb_name">Name</th>
-    					  <th data-i18ncd="lb_name_kh">Khmer Name</th>
+    					  <th data-i18ncd="lb_pay_code">Payment Code</th>
+    					  <th data-i18ncd="lb_pay_loan">Payment Loan</th>
+    					  <th data-i18ncd="lb_pay_interest">Payment Interest</th>
+                          <th data-i18ncd="lb_docreate">Register Date</th>
+                          <th data-i18ncd="lb_customer">Customer</th>
     					  <th data-i18ncd="lb_des">Description</th>
-    					  <th data-i18ncd="lb_docreate">Register Date</th>
     					  <th data-i18ncd="lb_action">Action</th>
     					</tr>
 					</thead>
