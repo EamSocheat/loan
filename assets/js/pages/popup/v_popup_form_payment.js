@@ -386,4 +386,16 @@ function resetEmi(){
 	$("#lAmt").focus();
 }
 
+function calDayBetweenTwoDate(date1,date2){
+	if(!date1 && !date2) return;
+	date1 = String(date1).substr(0,10).split('-');
+	date2 = String(date2).substr(0,10).split('-');
+
+	var d1 = new Date(date1[0], date1[1], date1[2]);
+	var d2 = new Date(date2[0], date2[1], date2[2]);
+
+	var msDiff = date2 - date1;
+	return daysDiff = msDiff / 1000 / 60 / 60 / 24;
+}
+
 

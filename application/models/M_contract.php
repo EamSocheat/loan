@@ -8,7 +8,24 @@
     	}
 
     	function selectContractData($dataSrch){
-    	    $this->db->select('tbl_contract.*, tbl_customer.cus_nm, tbl_customer.cus_phone1, tbl_customer.cus_nm_kh, tbl_customer.cus_id, tbl_currency.cur_nm, tbl_currency.cur_nm_kh, tbl_currency.cur_syn');
+    	    $this->db->select('tbl_contract.*, tbl_customer.cus_nm, tbl_customer.cus_phone1, tbl_customer.cus_nm_kh, tbl_customer.cus_id, tbl_currency.cur_nm, tbl_currency.cur_nm_kh, tbl_currency.cur_syn,
+                (tbl_contract.con_principle 
+                    - 
+                (select COALESCE(sum(tbl_payment.pay_loan), 0)
+                    from tbl_payment where tbl_payment.con_id = tbl_contract.con_id)
+                ) as loan_amount_left,
+                CASE WHEN (select tbl_payment.pay_date
+                                    from tbl_payment where tbl_payment.con_id = tbl_contract.con_id
+                                    order by tbl_payment.con_id
+                                    limit 1) 
+                IS NULL THEN  tbl_contract.con_start_dt
+                ELSE
+                (select tbl_payment.pay_date
+                            from tbl_payment where tbl_payment.con_id = tbl_contract.con_id
+                            order by tbl_payment.con_id
+                            limit 1) 
+                END                     
+                as pay_last_date');
             //$this->db->from('tbl_contract');
             $this->db->join('tbl_customer','tbl_customer.cus_id = tbl_contract.cus_id');
             $this->db->join('tbl_currency','tbl_currency.cur_id = tbl_contract.cur_id');

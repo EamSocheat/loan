@@ -72,16 +72,16 @@ var _thisPage = {
 			var option = {};
 			var data = "id="+pos_id;
 			var controllerNm = "PopupFormPayment";
-			option["height"] = "400px";
+			option["height"] = "520px";
 			
-			stock.comm.openPopUpForm(controllerNm, option, data);
+			stock.comm.openPopUpForm(controllerNm, option, data, "modal-lg");
 		}, addNewData : function(){
 			$("#loading").show();
 			var controllerNm = "PopupFormPayment";
 			var option = {};
-			option["height"] = "400px";
+			option["height"] = "520px";
 			
-			stock.comm.openPopUpForm(controllerNm, option, null);
+			stock.comm.openPopUpForm(controllerNm, option, null, "modal-lg");
 		}, deleteData : function(dataArr){
 			$.ajax({
 				type: "POST",

@@ -78,8 +78,10 @@ var _thisPage = {
 							html +=			'<button onclick="editData('+res.OUT_REC[i]["con_id"]+')" type="button" class="btn btn-primary btn-xs">';
 							html += 		'<i class="fa fa-pencil-square-o" aria-hidden="true"></i></button>';
 							html += 	'</td>';
-							html += '</tr>';
+							html += '</tr>';							
 					    }
+					    console.log(calDayBetweenTwoDate('2019-03-01', "2019-02-20", '-'));
+					    
 					    $("#tblContract tbody").html(html);
 					    stock.comm.renderPaging("paging",$("#perPage").val(),res.OUT_REC_CNT[0]["total_rec"],pageNo);
 					}else{
@@ -287,7 +289,6 @@ function commaAmt(str){
 }
 
 function chkContStatus(s){
-	console.log(true)
 	var statusStr = '';
 	if(s != "0" || s != 0){
 		statusStr = '<span class="label label-success">Active</span>';
@@ -295,4 +296,17 @@ function chkContStatus(s){
 		statusStr = '<span class="label label-danger">Close</span>';
 	}
 	return statusStr;
+}
+
+function calDayBetweenTwoDate(date1,date2,str){
+	if(!date1 || !date2) return;
+	date1 = String(date1).substr(0,10).split(str);
+	date2 = String(date2).substr(0,10).split(str);
+
+	var d1 = new Date(date1[0], date1[1]-1, date1[2]);
+	var d2 = new Date(date2[0], date2[1]-1, date2[2]);
+
+	var msDiff = d1 - d2;
+	var daysDiff = msDiff / 1000 / 60 / 60 / 24;
+	return daysDiff;
 }
