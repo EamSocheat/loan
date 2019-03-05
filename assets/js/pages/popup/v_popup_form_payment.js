@@ -206,7 +206,7 @@ function calPayInterestAmt(){
 	calDay      = calDayBetweenTwoDate(currDay, lastPay, "-");
 
 	interPayAmt = interPerDay * calDay;
-	interPayAmt = String(interPayAmt);
+	interPayAmt = interPayAmt.toFixed(2);
 	$("#txtPayInterAmt").val(interPayAmt);
 	$("#txtPayInterAmt2").val(interPayAmt);
 }
