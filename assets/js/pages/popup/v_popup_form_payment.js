@@ -200,7 +200,7 @@ function calPayInterestAmt(){
 	var interPerDay  = "";
 	var interPayAmt  = 0;
 
-	(interType == "Monthly") ? Number(interest) : interest = Number(interest) / 12;
+	(interType == "Monthly" || interType == "M") ? Number(interest) : interest = Number(interest) / 12;
 
 	interPerDay = (Number(loanAmt) * (interest / 100)) / 30;
 	calDay      = calDayBetweenTwoDate(currDay, lastPay, "-");
