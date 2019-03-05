@@ -56,6 +56,18 @@ if(!stock.comm) {stock.comm={};}
 		
 	};
 	
+	stock.comm.replaceAll = function(val, str1, str2 )
+	{
+		var temp_str = val;
+		if(temp_str == null || temp_str == "undefined" || temp_str == ""){
+			return "";
+		}else{
+			temp_str = temp_str.replace(/(^\s*)|(\s*$)/gi, "");
+			temp_str = temp_str.replace(eval("/" + str1 + "/gi"), str2);
+			return temp_str;
+		}
+	};
+
 	stock.comm.inputNumber = function (targetId){
 		
 		

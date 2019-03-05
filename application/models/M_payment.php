@@ -52,6 +52,13 @@
 		    return $this->db->get()->result();
 		}
 		
+		public function selectId(){
+            $this->db->select_max('tbl_payment.pay_id', 'pay_id');
+            $this->db->from('tbl_payment');
+            $this->db->where('com_id', $_SESSION['comId']);
+            return $this->db->get()->result();
+        }
+
 		public function updatePaymentDB($data){
 		    $this->db->where('pay_id', $data['pay_id']);
 			$this->db->update('tbl_payment', $data);

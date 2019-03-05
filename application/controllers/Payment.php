@@ -45,30 +45,47 @@ class Payment extends CI_Controller{
         echo json_encode($data);
     }
     
-    public function insertPosition(){
+    public function savePayment(){
         if(!$this->M_check_user->check()){
             redirect('/Login');
         }
         
         $data = array (
-            'pos_nm'    => $this->input->post('posNm'),
-            'pos_nm_kh' => $this->input->post('posNmKh'),
-            'pos_des'   => $this->input->post('posDescr'),
-            'useYn'		=> "Y",
-            'com_id'    => $_SESSION['comId']
+            'con_id'        => $this->input->post('txtContId'),
+            'pay_loan'      => $this->input->post('txtpayLoanAmt'),
+            'pay_int'       => $this->input->post('txtPayInterAmt2'),
+            'pay_loan_int'  => $this->input->post('txtLoanInter2'),
+            'pay_loan_int_type'  => $this->input->post('txtIntTypeCur'),
+            'pay_date'      => date('Y-m-d H:i:s',strtotime($this->input->post('txtContSD'))),
+            'pay_des'       => $this->input->post('txtPayDesc'),
+            'useYn'         => "Y",
+            'com_id'        => $_SESSION['comId']
         );
 
-        if($this->input->post('posId') != null && $this->input->post('posId') != ""){
-            $data['pos_id'] = $this->input->post('posId');
-            //$data['upUsr'] = $_SESSION['usrId'];
-            $data['upDt'] = date('Y-m-d H:i:s');
-            $this->M_position->updatePositionDB($data);
+        $pay_no  = $this->M_payment->selectId();
+        foreach($pay_no as $r){
+            $max_id = (int)$r->pay_id + 1;
+            $max_id = (string)$max_id;
+            $zero   = '';
+            for($i = strlen($max_id); $i <= 9; $i++){
+                $zero = '0'.$zero;
+            }
+            $pay_no = $zero.$max_id;
+        }
+
+        if($this->input->post('payId') != null && $this->input->post('payId') != ""){
+            $data['pay_id'] = $this->input->post('payId');
+            $data['upUsr']  = $_SESSION['usrId'];
+            $data['upDt']   = date('Y-m-d H:i:s');
+            $this->M_payment->updatePaymentDB($data);
         }else{
+            $data['pay_no'] = $pay_no;
             $data['regUsr'] = $_SESSION['usrId'];
-            $data['regDt'] = date('Y-m-d H:i:s');
-            $this->M_position->insertPositionDB($data);
+            $data['regDt']  = date('Y-m-d H:i:s');
+            $this->M_payment->insertPaymentDB($data);
         }
         
+        echo json_encode($data);
         echo 'OK';
     }
     

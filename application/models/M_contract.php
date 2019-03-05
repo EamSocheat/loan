@@ -58,6 +58,12 @@
                 $this->db->where('tbl_contract.con_end_dt <=', $dataSrch['con_end_dt']);
             }
             
+            if($dataSrch['srch_all'] != null && $dataSrch['srch_all'] != ""){
+                $this->db->like('tbl_contract.con_no', $dataSrch['srch_all']);
+                $this->db->or_like('tbl_customer.cus_nm_kh', $dataSrch['srch_all']);
+                $this->db->or_like('tbl_customer.cus_nm', $dataSrch['srch_all']);
+            }
+
             $this->db->order_by("con_id", "asc");
             return $this->db->get('tbl_contract',$dataSrch['limit'],$dataSrch['offset'])->result();
     	}

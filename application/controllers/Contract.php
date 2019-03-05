@@ -50,6 +50,7 @@ class Contract extends CI_Controller{
             'con_no'        => $this->input->post('txtSrchContCode'),
             'con_start_dt'  => $startDate,
             'con_end_dt'    => $endDate,
+            'srch_all'      => $this->input->post('srchAll')
         );
 
         $data["OUT_REC"] = $this->M_contract->selectContractData($dataSrch);
