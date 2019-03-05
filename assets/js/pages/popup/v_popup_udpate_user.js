@@ -140,8 +140,9 @@ function updateUser(){
 			$('#loading').hide();
 			console.log(res);
 			if (res == "OK"){
+				stock.comm.alertMsg("Please login again");
 				parent.stock.comm.closePopUpForm("PopupFormUpdate", "");
-				parent.window.location.href = $("#base_url").val()+"Login";
+				//parent.window.location.href = $("#base_url").val()+"Login";
 			}else{
 				console.log(res);
 	            stock.comm.alertMsg("System Error!!! PLease connect again.");

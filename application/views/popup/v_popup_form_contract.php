@@ -80,8 +80,8 @@
             			<div class="form-group">
 				      		<label  for="cbointerestType" data-i18nCd="lb_interest_type">Interest Type</label>
                 			 <select class="form-control" id="cbointerestType" name="cbointerestType" style="font-size: 14px;">
-	                    		<option value="Monthly">Monthly</option>
-	                    		<option value="Yearly">Yearly</option>
+	                    		<option value="M" data-i18nCd="lb_interest_type_M">Monthly</option>
+	                    		<option value="Y" data-i18nCd="lb_interest_type_Y">Yearly</option>
 			                </select>
 				    	</div>
             		</div>

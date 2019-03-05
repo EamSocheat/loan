@@ -70,7 +70,7 @@ var _thisPage = {
 							html += 	'<td><div class="txt_c">'+stringDate(res.OUT_REC[i]["con_start_dt"].substr(0,10))+'</div></td>';
 							html += 	'<td><div class="txt_r">'+stock.comm.formatCurrency(res.OUT_REC[i]["con_principle"])+res.OUT_REC[i]["cur_syn"]+'</div></td>';
 							html += 	'<td><div class="txt_r">'+res.OUT_REC[i]["con_interest"]+'%</div></td>';
-							html += 	'<td><div class="txt_c">'+res.OUT_REC[i]["con_interest_type"]+'</div></td>';
+							html += 	'<td><div class="txt_c">'+$.i18n.prop("lb_interest_type_"+res.OUT_REC[i]["con_interest_type"])+'</div></td>';
 							html += 	'<td><div class="txt_c">'+showPeriod(res.OUT_REC[i]["con_per_year"], res.OUT_REC[i]["con_per_month"])+'</div></td>';
 							html += 	'<td><div class="txt_c">'+res.OUT_REC[i]["cus_nm"]+'</div></td>';
 							html += 	'<td><div class="txt_c">'+chkContStatus(res.OUT_REC[i]["con_status"])+'</div></td>';
@@ -266,9 +266,9 @@ function showPeriod(y,m){
 function showYear(y){
 	var year = '';
 	if(y > 1){
-		year = y+"&nbsp;<span data-i18ncd='lb_years'>Years</span>&nbsp;";
+		year = y+"&nbsp;"+$.i18n.prop("lb_years")+"&nbsp;";
 	}else{
-		year = y+"&nbsp;<span data-i18ncd='lb_year'>Year</span>&nbsp;";
+		year = y+"&nbsp;"+$.i18n.prop("lb_year")+"&nbsp;";
 	}
 	return year;
 }
@@ -276,9 +276,9 @@ function showYear(y){
 function showMonth(m){
 	var month = '';
 	if(m > 1){
-		month = m+"&nbsp;<span data-i18ncd='lb_months'>Months</span>";
+		month = m+"&nbsp;"+$.i18n.prop("lb_months")+"&nbsp;";
 	}else{
-		month = m+"&nbsp;<span data-i18ncd='lb_month'>Month</span>";
+		month = m+"&nbsp;"+$.i18n.prop("lb_month")+"&nbsp;";
 	}
 	return month;
 }
@@ -291,9 +291,9 @@ function commaAmt(str){
 function chkContStatus(s){
 	var statusStr = '';
 	if(s != "0" || s != 0){
-		statusStr = '<span class="label label-success">Active</span>';
+		statusStr = '<span class="label label-success">'+$.i18n.prop("lb_active")+'</span>';
 	}else{		
-		statusStr = '<span class="label label-danger">Close</span>';
+		statusStr = '<span class="label label-danger">'+$.i18n.prop("lb_close")+'</span>';
 	}
 	return statusStr;
 }

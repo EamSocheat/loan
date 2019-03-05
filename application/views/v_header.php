@@ -169,10 +169,10 @@
                                 <!-- Menu Footer-->
         						<li class="user-footer">
                         			<div class="pull-left">
-                          				<a href="javascript:" class="btn btn-default btn-flat" id="UPDATE" onclick="updateUser()">Profile</a>
+                          				<a href="javascript:" class="btn btn-default btn-flat" id="UPDATE" onclick="updateUser()" data-i18ncd="lb_profile">Profile</a>
                         			</div>
                         			<div class="pull-right">
-                          				<a href="javascript:" class="btn btn-default btn-flat" id="SIGNOUT" onclick="signOut()">Sign out</a>
+                          				<a href="javascript:" class="btn btn-default btn-flat" id="SIGNOUT" onclick="signOut()" data-i18ncd="lb_sign_out">Sign out</a>
                         			</div>
                       			</li>
     						</ul>

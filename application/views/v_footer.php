@@ -466,7 +466,7 @@ function updateUser(){
 	var controllerNm = "PopupFormUpdate";
 	var option = {};
   option["width"]  = "420px";
-	option["height"] = "498px";
+	option["height"] = "420px";
   option["left"]   = "110px";
   
 	stock.comm.openPopUpForm(controllerNm, option, data, "modal-md");
@@ -476,11 +476,9 @@ function updateUser(){
 function signOut(){
   $.ajax({
     type: "POST",
-    url : $("#base_url").val() +"Login/clearSession()",
-    data: {},
-    dataType: "json",
+    url : $("#base_url").val() +"Login/clearSession",
     success: function(res) {
-      console.log(res);
+    	window.location.href= "Login";
     },
     error : function(data) {
       console.log(data);

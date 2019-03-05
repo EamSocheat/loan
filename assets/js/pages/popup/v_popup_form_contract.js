@@ -13,6 +13,7 @@ var _thisPage = {
 		onload : function(){
 			parent.$("#loading").hide();
 			clearForm();
+			loadCurrencyData();
 			//
 			$('#txtContSD').datepicker({
 				language: (getCookie("lang") == "kh" ? "kh" : "en"),
@@ -39,7 +40,7 @@ var _thisPage = {
 			stock.comm.inputPhoneKhmer("txtPhone1");
 			stock.comm.inputPhoneKhmer("txtPhone2");
 			
-			loadCurrencyData();
+			
 		},
 		event : function(){
 			//
@@ -133,17 +134,15 @@ function loadCurrencyData(){
 		type: "POST",
 		url : $("#base_url").val() +"Currency/getCurrency",
 		// data: new FormData($("#frmContract")[0]),
-		cache: false,
 		dataType: "json",
-        contentType: false,
-        processData: false,
+		async: false,
 		success: function(res) {
 		    parent.$("#loading").hide();
 		    $("#cboCurrency").html("");
 		    var html = '';
 			if(res.OUT_REC != null && res.OUT_REC.length > 0){
 				$.each(res.OUT_REC, function(i,v){
-					html += '<option value="'+v.cur_id+'">'+v.cur_nm+'</option>';
+					html += '<option value="'+v.cur_id+'">'+ (getCookie("lang") == "kh" ? v.cur_nm_kh : v.cur_nm) +'</option>';
 				});
 				$("#cboCurrency").html(html);
 			}
@@ -229,11 +228,12 @@ function getDataEdit(cont_id){
 		success: function(res) {
 			if(res.OUT_REC != null && res.OUT_REC.length >0){
 				var status = res.OUT_REC[0]["con_status"];
-				$("#contractNo").text(res.OUT_REC[0]["con_no"]);				
+				$("#contractNo").text( $.i18n.prop("lb_contract_no") +" : "+ res.OUT_REC[0]["con_no"]);				
 			    $("#txtCusNm").val(res.OUT_REC[0]["cus_nm"]);
 			    $("#txtCusId").val(res.OUT_REC[0]["cus_id"]);
 			    $("#txtCusPhone").val(res.OUT_REC[0]["cus_phone1"]);
 			    $("#cboCurrency option[value='"+res.OUT_REC[0]["cur_id"]+"']").attr("selected",true);
+			    //$("#cboCurrency").val(res.OUT_REC[0]["cur_id"]);
 			    $("#txtContSD").val(moment(res.OUT_REC[0]["con_start_dt"], "YYYY-MM-DD").format("DD-MM-YYYY"));
 			    $("#lAmt").val(res.OUT_REC[0]["con_principle"]);
 			    $("#lRate").val(res.OUT_REC[0]["con_interest"]);
@@ -245,12 +245,14 @@ function getDataEdit(cont_id){
 			    	$("#btnStatusActive").show();
 			    	$("#btnStatusClose").hide();
 			    	$("#statusID").val("1");
+			    	$("#btnSave").hide();
 			    	// $("#btnStatus").attr("data-i18ncd", "btn_status_closed");
 			    }else{
 			    	$("#btnStatusActive").hide();
 			    	$("#btnStatusClose").show();
 			    	$("#statusID").val("0");
 			    	// $("#btnStatus").attr("data-i18ncd", "btn_status_active");
+			    	$("#btnSave").show();
 			    }
 
 			    /*$("#txtAddr").val(res.OUT_REC[0]["cont_addr"]);
