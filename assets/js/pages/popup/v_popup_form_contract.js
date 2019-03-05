@@ -29,10 +29,11 @@ var _thisPage = {
 
 			if($("#frmAct").val() == "U"){
 			    getDataEdit($("#contId").val());
+			    $("#lAmt").attr("disabled","disabled");
 			    $("#popupTitle").html("<i class='fa fa-handshake-o'></i> "+$.i18n.prop("btn_edit")+" "+ $.i18n.prop("lb_contract"));
 			}else{
 				stock.comm.todayDate("#txtContSD","-");
-			    $("#btnSaveNew").show();
+			    $("#btnSaveNew").show();			    
 			    $("#popupTitle").html("<i class='fa fa-handshake-o'></i> "+$.i18n.prop("btn_add_new")+" "+ $.i18n.prop("lb_contract"));
 			}
 			$("#frmContract").show();
@@ -235,7 +236,7 @@ function getDataEdit(cont_id){
 			    $("#cboCurrency option[value='"+res.OUT_REC[0]["cur_id"]+"']").attr("selected",true);
 			    //$("#cboCurrency").val(res.OUT_REC[0]["cur_id"]);
 			    $("#txtContSD").val(moment(res.OUT_REC[0]["con_start_dt"], "YYYY-MM-DD").format("DD-MM-YYYY"));
-			    $("#lAmt").val(res.OUT_REC[0]["con_principle"]);
+			    $("#lAmt").val(stock.comm.formatCurrency(res.OUT_REC[0]["con_principle"]));
 			    $("#lRate").val(res.OUT_REC[0]["con_interest"]);
 				$("#cbointerestType option[value='"+res.OUT_REC[0]["con_interest_type"]+"']").attr("selected",true);
 			    $("#lYear").val(res.OUT_REC[0]["con_per_year"]);

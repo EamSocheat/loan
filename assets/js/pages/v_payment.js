@@ -26,20 +26,20 @@ var _thisPage = {
 
 			input["limit"]	 = $("#perPage").val();
 			input["offset"]	 = parseInt($("#perPage").val())  * ( pageNo - 1);
-			input["posNm"]	 =      $("#txtSrchPosNm").val().trim();
-			input["posNmKh"] =    $("#txtSrchPosNmKh").val().trim();
+			input["posNm"]	 = $("#txtSrchPosNm").val().trim();
+			input["posNmKh"] = $("#txtSrchPosNmKh").val().trim();
 			
 		    $("#loading").show();
 		    $.ajax({
 				type: "POST",
-				url: $("#base_url").val() +"Position/getPositionData",
+				url: $("#base_url").val() +"Payment/getPositionData",
 				data: input,
 				dataType: "json",
 				success: function(data) {
 					$("#loading").hide();
 					var html = "";
-					$("#tblPosition tbody").empty();
-					
+					$("#tblPayment tbody").empty();
+					console.log(data.OUT_REC)
 					if(data.OUT_REC.length > 0){
 						$.each(data.OUT_REC, function(i,v){
 							html += '<tr data-id='+v.pos_id+'>';
@@ -51,7 +51,7 @@ var _thisPage = {
 							html += '	<td class="text-center"><button onclick="_thisPage.editData('+v.pos_id+')" type="button" class="btn btn-primary btn-xs"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></button></td>';
 							html += '</tr>';
 						});
-						$("#tblPosition tbody").append(html);
+						$("#tblPayment tbody").append(html);
 						$("#chkAll").show();
 						$("#chkAll").prop("checked",false);
 						stock.comm.renderPaging("paging",$("#perPage").val(),data.OUT_REC_CNT[0]["total_rec"],pageNo);

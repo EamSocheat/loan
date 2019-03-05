@@ -71,7 +71,8 @@ class Contract extends CI_Controller{
             'con_interest'  => $this->input->post('lRate'),
             'con_interest_type' => $this->input->post('cbointerestType'),
             'con_per_year'  => $this->input->post('lYear'),
-            'con_per_month' => $this->input->post('lMonth')
+            'con_per_month' => $this->input->post('lMonth'),
+            'con_desc' => $this->input->post('txtDesc'),            
         );
         
         $con_id  = $this->M_contract->selectId();

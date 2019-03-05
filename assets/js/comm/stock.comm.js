@@ -68,6 +68,14 @@ if(!stock.comm) {stock.comm={};}
 		}
 	};
 
+	stock.comm.null2Void = function(val,option)
+	{
+		if(val == null || val == "undefined" || val == "" || val == undefined || isNaN(val)){
+			return option;
+		}
+		return val;
+	};
+
 	stock.comm.inputNumber = function (targetId){
 		
 		

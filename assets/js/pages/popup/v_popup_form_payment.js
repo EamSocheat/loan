@@ -15,11 +15,11 @@ var _thisPage = {
 			clearForm();
 			if($("#frmAct").val() == "U"){
 			    getDataEdit($("#contId").val());
-			    $("#popupTitle").html("<i class='fa fa-handshake-o'></i> "+$.i18n.prop("btn_edit")+" "+ $.i18n.prop("lb_contract"));
+			    $("#popupTitle").html("<i class='fa fa-pie-chart'></i> "+$.i18n.prop("btn_edit")+" "+ $.i18n.prop("lb_payment"));
 			}else{
 				stock.comm.todayDate("#txtContSD","-");
 			    $("#btnSaveNew").show();
-			    $("#popupTitle").html("<i class='fa fa-handshake-o'></i> "+$.i18n.prop("btn_add_new")+" "+ $.i18n.prop("lb_contract"));
+			    $("#popupTitle").html("<i class='fa fa-pie-chart'></i> "+$.i18n.prop("btn_add_new")+" "+ $.i18n.prop("lb_payment"));
 			}
 			$("#frmPayment").show();
 			$("#braNm").focus();
@@ -33,14 +33,12 @@ var _thisPage = {
 				forceParse: 0,
 				sideBySide: true,
 				format: "dd-mm-yyyy"
-		    }).on('show', function(e) {
-		        console.log("Hello");
-		        $(".datepicker").css("top","-4px");
 		    });
 			$("#txtContSD").inputmask();
 			//
 			stock.comm.inputPhoneKhmer("txtPhone1");
 			stock.comm.inputPhoneKhmer("txtPhone2");
+			stock.comm.inputCurrency("txtpayLoanAmt");
 			
 		},
 		event : function(){
@@ -80,11 +78,16 @@ var _thisPage = {
 			});
 			$("#txtContSDIcon").click(function(e){
 				$(this).next().focus();
-			});	
+			});
+			$("#txtpayLoanAmt").keyup(function(e){				
+				var payLoan     = $(this).val();
+				var interPayAmt = $("#txtPayInterAmt").val();
+				var totalAmtVal = totalAmt(interPayAmt,payLoan);
+				$("#txtTotalInterAmt").val(stock.comm.formatCurrency(totalAmtVal.toFixed(2)));
+			});
 			
 		}
 };
-
 
 function saveData(str){
 	// $("#payId").appendTo("#frmPayment");
@@ -194,8 +197,9 @@ function calPayInterestAmt(){
 	var currDay   = $("#txtContSD").val();
 	var lastPay   = $("#txtLastPay").val();
 	var interest  = stock.comm.replaceAll($("#txtLoanInter2").val(), ",", "");
-	var loanAmt   = stock.comm.replaceAll($("#txtLoanAmt").val(), ",", "");
+	var loanAmt   = stock.comm.replaceAll($("#txtLoanAmtLeft").val(), ",", "");
 	var interType = $("#txtloanInterType").val();
+	var payLoan   = $("#txtpayLoanAmt").val();
 	var calDay    = "";
 	var interPerDay  = "";
 	var interPayAmt  = 0;
@@ -207,8 +211,12 @@ function calPayInterestAmt(){
 
 	interPayAmt = interPerDay * calDay;
 	interPayAmt = interPayAmt.toFixed(2);
+	interPayAmt = stock.comm.null2Void(interPayAmt,"");
+	var totalAmtVal = totalAmt(interPayAmt,payLoan);
+	
 	$("#txtPayInterAmt").val(interPayAmt);
 	$("#txtPayInterAmt2").val(interPayAmt);
+	$("#txtTotalInterAmt").val(stock.comm.formatCurrency(totalAmtVal.toFixed(2)));
 }
 
 function calDayBetweenTwoDate(date1,date2,str){
@@ -227,4 +235,18 @@ function calDayBetweenTwoDate(date1,date2,str){
 function stringDate(str){
 	if(str == '') return '';
 	return str = str.substr(8,10) +'-'+ str.substr(5,2) +'-'+ str.substr(0,4);
+}
+
+function totalAmt(a,b){
+	if(isNaN(a) || a == ""){
+		a = 0
+	}
+	if(isNaN(b) || b == ""){
+		b = 0
+	}
+
+	console.log("a:  "+a)
+	console.log("b:  "+b)
+
+	return parseFloat(a) + parseFloat(b);
 }

@@ -6,7 +6,7 @@
     <!-- Content Header (Page header) -->
     <section class="content-header">
 		<h1>
-			<i class="fa fa-user-plus"></i>
+			<i class="fa fa-pie-chart"></i>
 			<span data-i18ncd="lb_payment">Payment</span>
         	<small data-i18ncd="lb_information">Information</small>
 		</h1>
@@ -113,7 +113,8 @@
     					  <th data-i18ncd="lb_pay_code">Payment Code</th>
     					  <th data-i18ncd="lb_pay_loan">Payment Loan</th>
     					  <th data-i18ncd="lb_pay_interest">Payment Interest</th>
-                          <th data-i18ncd="lb_docreate">Register Date</th>
+                          <th data-i18ncd="lb_pay_date">Payment Date</th>
+                          <th data-i18ncd="lb_pay_total">Total Payment</th>
                           <th data-i18ncd="lb_customer">Customer</th>
     					  <th data-i18ncd="lb_des">Description</th>
     					  <th data-i18ncd="lb_action">Action</th>

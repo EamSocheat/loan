@@ -100,6 +100,14 @@
 				      	</div> 	
             		</div>
             	</div>
+                <div class="col-xs-12 row" style="padding:0px">
+                    <div class="col-xs-12 padding-forms-left">
+                        <div class="form-group">
+                            <label  for="txtDesc" data-i18nCd="lb_des">Description</label>
+                            <input type="text" class="form-control" id="txtDesc" placeholder="Enter Description" name="txtDesc" autocomplete="off" />
+                        </div>
+                    </div>
+                </div>
                 <!-- data readonly -->
                 <div class="col-xs-12 row" style="padding:0;display: block;">
                     <div class="col-xs-4 padding-forms-left">
@@ -128,7 +136,7 @@
                         </div>  
                     </div>
                 </div>
-                <!-- // data readonly -->
+                <!-- // data readonly -->                
             <!-- end modal body  -->
         </div>
      
