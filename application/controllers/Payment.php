@@ -26,7 +26,7 @@ class Payment extends CI_Controller{
         $this->load->view('v_payment',$data);
     }
     
-    public function getPositionData(){
+    public function getPaymentData(){
         if(!$this->M_check_user->check()){
             redirect('/Login');
         }
@@ -53,7 +53,7 @@ class Payment extends CI_Controller{
         );
         
         $data["OUT_REC"] = $this->M_payment->selectPaymentData($dataSrch);
-        // $data["OUT_REC_CNT"] = $this->M_payment->countPaymentnData($dataSrch);
+        $data["OUT_REC_CNT"] = $this->M_payment->countPaymentData($dataSrch);
         echo json_encode($data);
     }
     

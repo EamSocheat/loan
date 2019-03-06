@@ -59,7 +59,7 @@ var _thisPage = {
 		    $("#loading").show();
 		    $.ajax({
 				type: "POST",
-				url: $("#base_url").val() +"Payment/selectPaymentData",
+				url: $("#base_url").val() +"Payment/getPaymentData",
 				data: input,
 				dataType: "json",
 				success: function(data) {
@@ -69,22 +69,28 @@ var _thisPage = {
 					console.log(data.OUT_REC)
 					if(data.OUT_REC.length > 0){
 						$.each(data.OUT_REC, function(i,v){
-							html += '<tr data-id='+v.pos_id+'>';
-							html += '  	<td><input type="checkbox" onclick="setChk()"></td>';
-							html += '  	<td><div>'+v.pos_nm+'</div></td>';
-							html += ' 	<td><div>'+v.pos_nm_kh+'</div></td>';
-							html += '  	<td><div>'+null2Void(v.pos_des)+'</div></td>';
-							html += '  	<td><div>'+(null2Void(v.regDt)).substr(0,10)+'</div></td>';							
-							html += '	<td class="text-center"><button onclick="_thisPage.editData('+v.pos_id+')" type="button" class="btn btn-primary btn-xs"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></button></td>';
-							html += '</tr>';
+							html += '<tr data-id='+v.pay_id+'>';
+    					  	html += '	<td><input type="checkbox" id="chkAll"></td>';
+    					  	html += '	<td><div>'+v.pay_no+'</div></td>';
+                          	html += '	<td><div>'+v.con_no+'</div></td>';
+    					  	html += '	<td><div>'+v.pay_loan+'</div></td>';
+    					  	html += '	<td><div>'+stock.comm.null2Void(v.pay_loan_int)+'</div></td>';
+                          	html += '	<td><div>'+stringDate(v.pay_date.substr(0,10))+'</div></td>';
+                          	html += '	<td><div>select</div></td>';
+                          	html += '	<td><div>Customer        </div></td>';
+    					  	html += '	<td class="text-center"><button onclick="editData('+v.pay_id+') type="button" class="btn btn-primary btn-xs">';
+    					  	html += '		<i class="fa fa-pencil-square-o" aria-hidden="true"></i></button>';
+							html += '	</td>';
+    						html += '</tr>';
 						});
+
 						$("#tblPayment tbody").append(html);
 						$("#chkAll").show();
 						$("#chkAll").prop("checked",false);
 						stock.comm.renderPaging("paging",$("#perPage").val(),data.OUT_REC_CNT[0]["total_rec"],pageNo);
 					}else{
 						$("#chkAll").hide();
-						$("#tblPosition tbody").append("<tr><td colspan='6' style='text-align:center;'>No data to show.</td></tr>");
+						$("#tblPayment tbody").append("<tr><td colspan='7' style='text-align:center;'>No data to show.</td></tr>");
 						stock.comm.renderPaging("paging",$("#perPage").val(),0,pageNo);
 					}
 					
@@ -199,12 +205,14 @@ function null2Void(dat){
 	return dat;
 }
 
-function popupPositionCallback(){
-	console.log(true)
+function popupPaymentCallback(){
 	_thisPage.loadData(_pageNo);
 }
 
-
+function stringDate(str){
+	if(str == '') return '';
+	return str = str.substr(8,10) +'-'+ str.substr(5,2) +'-'+ str.substr(0,4);
+}
 
 
 

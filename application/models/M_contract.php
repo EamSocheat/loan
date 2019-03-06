@@ -30,6 +30,7 @@
             $this->db->join('tbl_customer','tbl_customer.cus_id = tbl_contract.cus_id');
             $this->db->join('tbl_currency','tbl_currency.cur_id = tbl_contract.cur_id');
             $this->db->where('tbl_contract.com_id', $_SESSION['comId']);
+            $this->db->where('tbl_contract.useYn', 'Y');
             
             if($dataSrch['conIdArr'] != null && $dataSrch['conIdArr'] != ""){
                 $integerIDs = array_map('intval', explode(',', $dataSrch['conIdArr']));

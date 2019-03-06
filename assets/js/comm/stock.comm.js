@@ -70,8 +70,16 @@ if(!stock.comm) {stock.comm={};}
 
 	stock.comm.null2Void = function(val,option)
 	{
-		if(val == null || val == "undefined" || val == "" || val == undefined || isNaN(val)){
+		if(val == null || val == "undefined" || val == "null" || val == "" || val == undefined || isNaN(val || isEmpty(val))){
 			return option;
+		}
+
+		function isEmpty(val) {
+		    for(var prop in obj) {
+		        if(obj.hasOwnProperty(prop))
+		            return false;
+		    }
+		    return JSON.stringify(obj) === JSON.stringify({});
 		}
 		return val;
 	};

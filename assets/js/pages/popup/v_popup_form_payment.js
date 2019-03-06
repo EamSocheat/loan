@@ -109,7 +109,7 @@ function saveData(str){
 				    clearForm();
 				}else{
 				    //close popup
-				    parent.stock.comm.closePopUpForm("PopupFormPayment",parent.popupContractCallback);
+				    parent.stock.comm.closePopUpForm("PopupFormPayment",parent.popupPaymentCallback);
 				}
 			}
 		},
