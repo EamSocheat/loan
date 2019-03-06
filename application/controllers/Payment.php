@@ -31,17 +31,29 @@ class Payment extends CI_Controller{
             redirect('/Login');
         }
         
-        $dataSrch = array (
-            'pos_id'    => $this->input->post('pos_id'),
-            'pos_nm'    => $this->input->post('posNm'),
-            'pos_nm_kh' => $this->input->post('posNmKh'),
-            'limit'     => $this->input->post('limit'),
-            'offset'    => $this->input->post('offset'),
-            'srch_all' 	=> $this->input->post('srchAll')
+        $startDate = $this->input->post('txtSrchContSD');
+        $endDate   = $this->input->post('txtSrchContED');
+        
+        if($startDate != null || $startDate != ""){
+            $startDate = date('Y-m-d H:i:s',strtotime($startDate));
+        }
+
+        if($endDate != null || $endDate != ""){
+            $endDate = date('Y-m-d H:i:s',strtotime($endDate));
+        }
+
+        $dataSrch = array(
+            'limit'         => $this->input->post('perPage'),
+            'offset'        => $this->input->post('offset'),
+            'pay_id'        => $this->input->post('payId'),
+            'pay_no'        => $this->input->post('txtSrchPayCode'),
+            'con_start_dt'  => $startDate,
+            'con_end_dt'    => $endDate,
+            'srch_all'      => $this->input->post('srchAll')
         );
         
         $data["OUT_REC"] = $this->M_payment->selectPaymentData($dataSrch);
-        $data["OUT_REC_CNT"] = $this->M_payment->countPaymentnData($dataSrch);
+        // $data["OUT_REC_CNT"] = $this->M_payment->countPaymentnData($dataSrch);
         echo json_encode($data);
     }
     

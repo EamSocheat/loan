@@ -1,7 +1,7 @@
 
 var _pageNo = 1;
 $(document).ready(function(){
-	//_thisPage.onload();
+	_thisPage.onload();
 });
 
 var _thisPage = {
@@ -10,9 +10,35 @@ var _thisPage = {
 			_this.loadData();
 			_this.event();
 			_this.init();
+			stock.comm.checkAllTblChk("chkAll","tblPayment","chk_box");
+
+			$('#txtSrchContSD').datepicker({
+				language: (getCookie("lang") == "kh" ? "kh" : "en"),
+				weekStart: true,
+		        todayBtn:  true,
+				autoclose: true,
+				todayHighlight: 1,
+				forceParse: 0,
+				sideBySide: true,
+				format: "dd-mm-yyyy",
+		    });
+			$("#txtSrchContSD").inputmask();
+
+			$('#txtSrchContED').datepicker({
+				language: (getCookie("lang") == "kh" ? "kh" : "en"),
+				weekStart: true,
+		        todayBtn:  true,
+				autoclose: true,
+				todayHighlight: 1,
+				forceParse: 0,
+				sideBySide: true,
+				format: "dd-mm-yyyy",
+		    });
+			$("#txtSrchContED").inputmask();
 		}, init : function(){
 			 /*stock.comm.getBrnachType("cbxSrchBraType");
 			 $("#cbxSrchBraType").prepend("<option value='' selected='selected'></option>");*/
+
 		}, loadData : function(page_no){
 			var pageNo = 1;
 		    if(page_no != "" && page_no != null && page_no != undefined){
@@ -26,13 +52,14 @@ var _thisPage = {
 
 			input["limit"]	 = $("#perPage").val();
 			input["offset"]	 = parseInt($("#perPage").val())  * ( pageNo - 1);
-			input["posNm"]	 = $("#txtSrchPosNm").val().trim();
-			input["posNmKh"] = $("#txtSrchPosNmKh").val().trim();
+			input["txtSrchPayCode"]	= $("#txtSrchPayCode").val();
+		    input["txtSrchContSD"]	= $("#txtSrchContSD").val();
+		    input["txtSrchContED"]	= $("#txtSrchContED").val();
 			
 		    $("#loading").show();
 		    $.ajax({
 				type: "POST",
-				url: $("#base_url").val() +"Payment/getPositionData",
+				url: $("#base_url").val() +"Payment/selectPaymentData",
 				data: input,
 				dataType: "json",
 				success: function(data) {

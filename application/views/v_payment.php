@@ -35,34 +35,55 @@
 						<!-- /.box-header -->
 						<div class="box-body">
 							<div class="row" >
-							    <div class="col-sm-12 col-md-12 col-lg-12 row">
-							        <div class="col-sm-4 col-md-4 col-lg-4">
-    									<div class="form-group form-inline">
-                                            <label for="txtSrchPosNm" class="control-label" data-i18ncd="lb_name">Name</label>
-                                            <input type="text" class="form-control input-sm" id="txtSrchPosNm" placeholder="Name">
+							    <div class="col-sm-12 col-md-12 col-lg-12 row" style="
+                                            ">
+                                            <div class="col-sm-3 col-md-3 col-lg-3" style="
+                                                ">
+                                                <div class="form-group form-inline" style="display: table-caption;">
+                                                    <label for="txtSrchPayCode" class="control-label" data-i18ncd="lb_pay_code" style="
+                                                        margin-bottom: 7px;
+                                                    ">លេខសម្គាល់កិច្ចសន្យា</label>
+                                                    <input type="text" class="form-control input-sm" id="txtSrchPayCode" placeholder="បញ្ជូល លេខសម្គាល់កិច្ចសន្យា" style="
+                                                    ">
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-4 col-md-4 col-lg-4" style="
+                                                ">
+                                                <div class="input-group date" style="
+                                                    ">
+                                                    <label for="txtSrchContSD" class="control-label" data-i18ncd="lb_contract_start" style="
+                                                        margin-bottom: 7px;
+                                                        display: table-caption;
+                                                    ">ចាប់ផ្ដើមកិច្ចសន្យា</label>
+                                                    <div class="input-group-addon" id="txtContSDIcon" style="border-top-left-radius: 5px;border-bottom-left-radius: 5px;padding: 5px 11px;">
+                                                        <i class="fa fa-calendar"></i>
+                                                    </div>
+                                                    <input type="text" class="form-control pull-left date-pick" id="txtSrchContSD" name="txtSrchContSD" required="required" data-inputmask="'alias': 'dd-mm-yyyy'" data-mask="" placeholder="បញ្ជូល " style="font-size: 12px;width: 60%;">
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-3 col-md-3 col-lg-3" style="
+                                                ">
+                                                <div class="input-group date">
+                                                    <label for="txtSrchContED" class="control-label" data-i18ncd="lb_contract_end" style="
+                                                        display: table-caption;
+                                                        margin-bottom: 7px;
+                                                    ">កិច្ចសន្យាបញ្ចប់</label>
+                                                    <div class="input-group-addon" id="txtContEDIcon" style="border-top-left-radius: 5px;border-bottom-left-radius: 5px;">
+                                                        <i class="fa fa-calendar"></i>
+                                                    </div>
+                                                    <input type="text" class="form-control pull-left date-pick" id="txtSrchContED" name="txtSrchContED" required="required" data-inputmask="'alias': 'dd-mm-yyyy'" data-mask="" placeholder="បញ្ជូល " style="font-size: 12px;width: 60%;">
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-2 col-md-2 col-lg-2" style="
+                                                ">
+                                                <div class="form-group form-inline" style="display: none;">
+                                                    <label for="txtSrchContNm" class="control-label" data-i18ncd="lb_name" style="
+                                                        margin-bottom: 7px;
+                                                    ">ឈ្មោះ</label>
+                                                    <input type="text" class="form-control input-sm" id="txtSrchContNm" placeholder="បញ្ជូល ចាប់ផ្ដើមកិច្ចសន្យា">
+                                                </div>
+                                            </div>
                                         </div>
-    								</div>
-    								<div class="col-sm-4 col-md-4 col-lg-4">
-    									<div class="form-group form-inline">
-                                            <label for="txtSrchPosNmKh" class="control-label" data-i18ncd="lb_name_kh">Khmer Name</label>
-                                            <input type="text" class="form-control input-sm" id="txtSrchPosNmKh" placeholder="Khmer Name">
-                                        </div>
-    								</div>
-    								<!-- <div class="col-sm-3 col-md-3 col-lg-3">
-    									<div class="form-group form-inline">
-                                            <label for="txtSrchBraPhone" class="control-label" data-i18ncd="lb_phone">Phone </label>
-                                            <input type="text" class="form-control input-sm"  id="txtSrchBraPhone" placeholder="Phone">
-                                        </div>
-    								</div> -->
-    								<!-- <div class="col-sm-4 col-md-4 col-lg-4">
-    									<div class="form-group form-inline">
-                                            <label for="cbxSrchBraType" class="control-label" data-i18ncd="lb_branch_type">Branch Type </label>
-                                            <select class="form-control input-sm" id="cbxSrchBraType" name="cbxSrchBraType">
-                                               
-                                            </select>
-                                        </div>
-    								</div> -->
-							    </div>
 								<div class="col-sm-12 col-md-12 col-lg-12">
 								    <button id="btnSearch" type="button" class="btn btn-success btn-sm pull-right" onclick="_thisPage.loadData(1);"><i class="fa fa-search" aria-hidden="true"></i> <span data-i18ncd="lb_search">Search</span></button>
 									<button id="btnReset" type="button" class="btn btn-warning btn-sm pull-right" style="margin-right: 5px"><i class="fa fa-refresh" aria-hidden="true"></i> <span data-i18ncd="btn_reset">Reset</span></button>
@@ -111,17 +132,29 @@
     					<tr>
     					  <th><input type="checkbox" id="chkAll" style="display:none;"></th>
     					  <th data-i18ncd="lb_pay_code">Payment Code</th>
+                          <th data-i18ncd="lb_pay_code">Contract Code</th>
     					  <th data-i18ncd="lb_pay_loan">Payment Loan</th>
     					  <th data-i18ncd="lb_pay_interest">Payment Interest</th>
                           <th data-i18ncd="lb_pay_date">Payment Date</th>
                           <th data-i18ncd="lb_pay_total">Total Payment</th>
                           <th data-i18ncd="lb_customer">Customer</th>
-    					  <th data-i18ncd="lb_des">Description</th>
     					  <th data-i18ncd="lb_action">Action</th>
     					</tr>
 					</thead>
 					<tbody>
-						
+						<tr>
+                            <td class="chk_box"><input type="checkbox"></td>
+                            <td><div>000001</div></td>
+                            <td><div>2019-02-08</div></td>
+                            <td><div>200$</div></td>
+                            <td><div>10%</div></td>
+                            <td><div>M</div></td>
+                            <td><div>1 year</div></td>
+                            <td><div>customer 00001</div></td>
+                            <td class="text-center">
+                                <button onclick="" type="button" class="btn btn-primary btn-xs"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></button>
+                            </td>
+                        </tr>
    					</tbody>
 				  </table>
 				</div>
