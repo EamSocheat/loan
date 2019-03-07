@@ -8,10 +8,10 @@
     	}
 
     	function selectPaymentData($dataSrch){
-        	$this->db->select('tbl_payment.pay_id, tbl_payment.pay_no, tbl_payment.pay_loan, tbl_payment.pay_int, tbl_payment.pay_loan_int, tbl_payment.pay_loan_int_type, tbl_payment.pay_date, tbl_contract.con_no, (select tbl_customer.cus_nm fromm tbl_customer where tbl_customer.cus_id = tbl_contract.cus_id) as cus_nm');
+        	$this->db->select('tbl_payment.pay_id, tbl_payment.pay_no, tbl_payment.pay_loan, tbl_payment.pay_int, tbl_payment.pay_loan_int, tbl_payment.pay_loan_int_type, tbl_payment.pay_date, tbl_contract.con_no, tbl_customer.cus_nm as cus_nm');
 
         	$this->db->join('tbl_contract', 'tbl_payment.con_id = tbl_contract.con_id');
-            // $this->db->join('tbl_customer', 'tbl_contract.con_id = tbl_customer.con_id');
+            $this->db->join('tbl_customer', 'tbl_customer.cus_id = tbl_contract.cus_id');
             $this->db->where('tbl_payment.com_id', $_SESSION['comId']);
             $this->db->where('tbl_payment.useYn', 'Y');
 
@@ -48,7 +48,7 @@
                 // $this->db->or_like('tbl_payment.cus_nm', $dataSrch['srch_all']);
             }
 
-            $this->db->order_by("pay_id", "asc");
+            $this->db->order_by("pay_id", "desc");
             return $this->db->get('tbl_payment', $dataSrch['limit'], $dataSrch['offset'])->result();
 		}
 

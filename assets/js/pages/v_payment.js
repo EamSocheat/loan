@@ -66,18 +66,18 @@ var _thisPage = {
 					$("#loading").hide();
 					var html = "";
 					$("#tblPayment tbody").empty();
-					console.log(data.OUT_REC)
+					console.log(data.OUT_REC);
 					if(data.OUT_REC.length > 0){
 						$.each(data.OUT_REC, function(i,v){
 							html += '<tr data-id='+v.pay_id+'>';
     					  	html += '	<td><input type="checkbox" id="chkAll"></td>';
     					  	html += '	<td><div>'+v.pay_no+'</div></td>';
                           	html += '	<td><div>'+v.con_no+'</div></td>';
-    					  	html += '	<td><div>'+v.pay_loan+'</div></td>';
-    					  	html += '	<td><div>'+stock.comm.null2Void(v.pay_loan_int)+'</div></td>';
+    					  	html += '	<td><div>'+stock.comm.formatCurrency(stock.comm.null2Void(v.pay_loan))+'</div></td>';
+    					  	html += '	<td><div>'+stock.comm.formatCurrency(stock.comm.null2Void(v.pay_int))+'</div></td>';
                           	html += '	<td><div>'+stringDate(v.pay_date.substr(0,10))+'</div></td>';
-                          	html += '	<td><div>select</div></td>';
-                          	html += '	<td><div>Customer        </div></td>';
+                          	html += '	<td><div>'+ stock.comm.formatCurrency( (parseInt(stock.comm.null2Void(v.pay_loan)) + parseInt(stock.comm.null2Void(v.pay_int))) )+'</div></td>';
+                          	html += '	<td><div>'+v.cus_nm+'</div></td>';
     					  	html += '	<td class="text-center"><button onclick="editData('+v.pay_id+') type="button" class="btn btn-primary btn-xs">';
     					  	html += '		<i class="fa fa-pencil-square-o" aria-hidden="true"></i></button>';
 							html += '	</td>';
