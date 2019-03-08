@@ -8,7 +8,15 @@
     	}
 
     	function selectPaymentData($dataSrch){
-        	$this->db->select('tbl_payment.pay_id, tbl_payment.pay_no, tbl_payment.pay_loan, tbl_payment.pay_int, tbl_payment.pay_loan_int, tbl_payment.pay_loan_int_type, tbl_payment.pay_date, tbl_contract.con_no, tbl_customer.cus_nm as cus_nm');
+        	$this->db->select('tbl_payment.pay_id, tbl_payment.pay_no, tbl_payment.pay_loan, tbl_payment.pay_int, tbl_payment.pay_loan_int_type, tbl_payment.pay_loan_int, tbl_payment.pay_loan_int_type, tbl_payment.pay_date, tbl_payment.pay_des, tbl_contract.con_no, tbl_contract.con_principle, tbl_contract.con_interest_type, tbl_customer.cus_nm as cus_nm,  tbl_customer.cus_id as cus_id, (select tbl_currency.cur_syn from tbl_currency where tbl_currency.cur_id = tbl_payment.pay_loan_int_type) as cur_syn, (tbl_contract.con_principle 
+                    - 
+                (select COALESCE(sum(tbl_payment.pay_loan), 0)
+                    from tbl_payment where tbl_payment.con_id = tbl_contract.con_id)
+                ) as loan_amount_left,
+                (select tbl_payment.pay_date
+                    from tbl_payment where tbl_payment.con_id = tbl_contract.con_id
+                    order by tbl_payment.con_id
+                    limit 1) as last_pay_date');
 
         	$this->db->join('tbl_contract', 'tbl_payment.con_id = tbl_contract.con_id');
             $this->db->join('tbl_customer', 'tbl_customer.cus_id = tbl_contract.cus_id');
@@ -26,6 +34,10 @@
             
             if($dataSrch['pay_no'] != null && $dataSrch['pay_no'] != ""){
                 $this->db->like('tbl_payment.pay_no', $dataSrch['pay_no']);
+            }
+
+            if($dataSrch['cus_nm'] != null && $dataSrch['cus_nm'] != ""){
+                $this->db->like('tbl_customer.cus_nm', $dataSrch['cus_nm']);
             }
 
             if($dataSrch['con_start_dt'] != null && $dataSrch['con_start_dt'] != ""){

@@ -49,7 +49,9 @@ class Payment extends CI_Controller{
             'pay_no'        => $this->input->post('txtSrchPayCode'),
             'con_start_dt'  => $startDate,
             'con_end_dt'    => $endDate,
-            'srch_all'      => $this->input->post('srchAll')
+            'srch_all'      => $this->input->post('srchAll'),
+            'cus_nm'        => $this->input->post('txtSrchCusNm'),
+            
         );
         
         $data["OUT_REC"] = $this->M_payment->selectPaymentData($dataSrch);
@@ -68,7 +70,7 @@ class Payment extends CI_Controller{
             'pay_int'       => $this->input->post('txtPayInterAmt2'),
             'pay_loan_int'  => $this->input->post('txtLoanInter2'),
             'pay_loan_int_type'  => $this->input->post('txtIntTypeCur'),
-            'pay_date'      => date('Y-m-d H:i:s',strtotime($this->input->post('txtContSD'))),
+            'pay_date'      => date('Y-m-d H:i:s',strtotime($this->input->post('txtPaySD'))),
             'pay_des'       => $this->input->post('txtPayDesc'),
             'useYn'         => "Y",
             'com_id'        => $_SESSION['comId']
@@ -97,11 +99,10 @@ class Payment extends CI_Controller{
             $this->M_payment->insertPaymentDB($data);
         }
         
-        echo json_encode($data);
         echo 'OK';
     }
     
-    public function deletePosition(){
+    public function deletePayment(){
         if(!$this->M_check_user->check()){
             redirect('/Login');
         }
@@ -110,15 +111,15 @@ class Payment extends CI_Controller{
         $cntDel = 0;
         for($i=0; $i<sizeof($delObj); $i++){
             $cntActive = 0;
-            //check staff table using position or not
+            //check staff table using contract or not
             $dataCol = array(
-                'tbl_nm' 		=> "tbl_staff",
-                'id_nm' 		=> "pos_id",
+                'tbl_nm' 		=> "tbl_contract",
+                'id_nm' 		=> "con_id",
                 'com_id' 		=> "com_id"
             );
             
             $dataVal = array(
-                'id_val' 		=> $delObj[$i]['posId'],
+                'id_val' 		=> $delObj[$i]['payId'],
                 'com_val' 		=> $_SESSION['comId']
             );
 
@@ -129,14 +130,14 @@ class Payment extends CI_Controller{
                 continue;
             }else{ 
                 $data = array(
-                    'pos_id'    => $delObj[$i]['posId'],
+                    'pay_id'    => $delObj[$i]['payId'],
                     'useYn'		=> "N",
                     'com_id'	=> $_SESSION['comId'],
                     'upDt'		=> date('Y-m-d H:i:s'),
                     //'upUsr'		=> $_SESSION['usrId']
                 );
                 
-                $this->M_position->updatePositionDB($data);
+                $this->M_payment->updatePaymentDB($data);
                 $cntDel += 1;
             }
         }

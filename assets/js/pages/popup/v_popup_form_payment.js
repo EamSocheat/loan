@@ -14,17 +14,17 @@ var _thisPage = {
 			parent.$("#loading").hide();
 			clearForm();
 			if($("#frmAct").val() == "U"){
-			    getDataEdit($("#contId").val());
+			    getDataView($("#payId").val());
 			    $("#popupTitle").html("<i class='fa fa-pie-chart'></i> "+$.i18n.prop("btn_edit")+" "+ $.i18n.prop("lb_payment"));
 			}else{
-				stock.comm.todayDate("#txtContSD","-");
+				stock.comm.todayDate("#txtPaySD","-");
 			    $("#btnSaveNew").show();
 			    $("#popupTitle").html("<i class='fa fa-pie-chart'></i> "+$.i18n.prop("btn_add_new")+" "+ $.i18n.prop("lb_payment"));
 			}
 			$("#frmPayment").show();
 			$("#braNm").focus();
 			//
-			$('#txtContSD').datepicker({
+			$('#txtPaySD').datepicker({
 				language: (getCookie("lang") == "kh" ? "kh" : "en"),
 				weekStart: true,
 		        todayBtn:  true,
@@ -34,7 +34,7 @@ var _thisPage = {
 				sideBySide: true,
 				format: "dd-mm-yyyy"
 		    });
-			$("#txtContSD").inputmask();
+			$("#txtPaySD").inputmask();
 			//
 			stock.comm.inputPhoneKhmer("txtPhone1");
 			stock.comm.inputPhoneKhmer("txtPhone2");
@@ -73,10 +73,10 @@ var _thisPage = {
 				option["height"] = "450px";
 			    stock.comm.openPopUpSelect(controllerNm, option, data, "modal-md");
 			});
-			$("#txtContSD").on("change", function(e){
+			$("#txtPaySD").on("change", function(e){
 				calPayInterestAmt();
 			});
-			$("#txtContSDIcon").click(function(e){
+			$("#txtPaySDIcon").click(function(e){
 				$(this).next().focus();
 			});
 			$("#txtpayLoanAmt").keyup(function(e){				
@@ -103,13 +103,13 @@ function saveData(str){
 		success: function(res) {
 			console.log(res);
 		    parent.$("#loading").hide();
-			if(res =="OK"){
+			if(res == "OK"){
 				parent.stock.comm.alertMsg($.i18n.prop("msg_save_com"),"braNm");
 				if(str == "new"){
 				    clearForm();
 				}else{
 				    //close popup
-				    parent.stock.comm.closePopUpForm("PopupFormPayment",parent.popupPaymentCallback);
+				    parent.stock.comm.closePopUpForm("PopupFormPayment", parent.popupPaymentCallback);
 				}
 			}
 		},
@@ -120,37 +120,43 @@ function saveData(str){
 	});
 }
 
-function getDataEdit(cont_id){
-    //
+function getDataView(pay_id){
     $("#loading").show();
     $.ajax({
 		type: "POST",
-		url: $("#base_url").val() +"Contract/getContract",
-		data: {"contId":cont_id},
+		url : $("#base_url").val() +"Payment/getPaymentData",
+		data: {"payId":pay_id},
 		dataType: "json",
 		async: false,
 		success: function(res) {
+			console.log(res.OUT_REC)
+
 			if(res.OUT_REC != null && res.OUT_REC.length > 0){
-			    $("#txtBraNm").val(res.OUT_REC[0]["bra_nm"]);
-			    $("#txtBraId").val(res.OUT_REC[0]["bra_id"]);
-			    $("#txtContractNm").val(res.OUT_REC[0]["cont_nm"]);
-			    $("#txtPosNm").val(res.OUT_REC[0]["pos_nm"]);
-			    $("#txtPosId").val(res.OUT_REC[0]["pos_id"]);
-			    $("#txtContractNmKh").val(res.OUT_REC[0]["cont_nm_kh"]);
-			    $("#cboGender").val(res.OUT_REC[0]["cont_gender"]);
-			    $("#txtDob").val(moment(res.OUT_REC[0]["cont_dob"], "YYYY-MM-DD").format("DD-MM-YYYY"));
-			    $("#txtAddr").val(res.OUT_REC[0]["cont_addr"]);
-			    $("#txtPhone1").val(res.OUT_REC[0]["cont_phone1"]);
-			    $("#txtPhone2").val(res.OUT_REC[0]["cont_phone2"]);
-			    $("#txtEmail").val(res.OUT_REC[0]["cont_email"]);
-			    $("#txtStartDate").val(moment(res.OUT_REC[0]["sta_start_dt"], "YYYY-MM-DD").format("DD-MM-YYYY"));
-			    $("#txtEndDate").val(moment(res.OUT_REC[0]["sta_end_dt"], "YYYY-MM-DD").format("DD-MM-YYYY"));
-			    $("#txtDes").val(res.OUT_REC[0]["sta_des"]);
-			    if(res.OUT_REC[0]["sta_photo"] != null && res.OUT_REC[0]["sta_photo"] != ""){
-			    	$("#staImgView").attr("src",$("#base_url").val()+"upload"+res.OUT_REC[0]["sta_photo"]);
-			    }
-			    
-			    $("#txtContractNm").focus();
+				for(var i = 0; i < res.OUT_REC.length; i++){
+					$("#paymentNo").text("Payment No: "+res.OUT_REC[i]['pay_no']);
+					$("#txtContCode").val(res.OUT_REC[i]['pay_no']);
+					$("#txtContId").val(res.OUT_REC[i]['pay_id']);
+					$("#txtCusName").val(res.OUT_REC[i]['cus_nm']);
+					$("#txtCusId").val(res.OUT_REC[i]['cus_id']);
+					$("#txtPaySD").val(stringDate(res.OUT_REC[i]['pay_date']));
+					$("#txtPaySD").attr("disabled", true);
+					$("#txtPaySDIcon").css("background-color", "rgb(235, 235, 228)");
+					$("#txtLoanInter").val(res.OUT_REC[i]['pay_loan_int']);
+					$("#txtLoanInter2").val(res.OUT_REC[i]['pay_loan_int']);
+					$("#txtloanInterType").val(res.OUT_REC[i]['con_interest_type']);
+					$("#txtpayLoanAmt").val(stock.comm.formatCurrency(res.OUT_REC[i]['pay_loan']));
+					$("#txtpayLoanAmt").attr("disabled", true);
+					$("#txtCurrency").val(res.OUT_REC[i]['cur_syn']);
+					$("#txtLoanAmtLeft").val(stock.comm.formatCurrency(res.OUT_REC[i]['loan_amount_left']));
+					$("#txtPayInterAmt").val(stock.comm.formatCurrency(res.OUT_REC[i]['pay_int']));
+					$("#txtLastPay").val(stringDate(res.OUT_REC[i]['last_pay_date'].substr(0,10)));
+					$("#txtLoanAmt").val(stock.comm.formatCurrency(res.OUT_REC[i]["con_principle"]));
+					$("#txtTotalInterAmt").val(stock.comm.formatCurrency(parseFloat(res.OUT_REC[i]["pay_loan"])+parseFloat(res.OUT_REC[i]["pay_int"])));
+					$("#txtPayDesc").val(res.OUT_REC[i]["pay_des"]);
+					$("#txtPayDesc").attr("disabled", true);
+					$("#btnSave").hide();					
+					
+				}
 			}else{
 			    console.log(res);
 			    stock.comm.alertMsg($.i18n.prop("msg_err"));
@@ -165,11 +171,25 @@ function getDataEdit(cont_id){
 
 }
 
+
 function clearForm(){
-    $("#frmContract input").val("");
-    $("#frmContract textarea").val("");
-    $("#staImgView").attr("src",$("#base_url").val()+"assets/image/default-staff-photo.png");
-    $("#txtContractNm").focus();
+    $("#txtContCode").val("");
+    $("#txtCusName").val("");
+    $("#txtLoanInter").val("");
+    $("#txtLoanInter2").val("");
+    $("#txtCusName").val("");
+    $("#txtloanInterType").val("");
+    $("#txtIntTypeCur").val("");
+    $("#txtpayLoanAmt").val("");
+    $("#txtCurrency").val("");
+    $("#txtLoanAmtLeft").val("");
+    $("#txtPayInterAmt").val("");
+    $("#txtPayInterAmt2").val("");
+    $("#txtLastPay").val("");
+    $("#txtLoanAmt").val("");
+    $("#txtTotalInterAmt").val("");
+    $("#txtPayDesc").val("");
+
 }
 
 function selectConractCallback(data){
@@ -194,7 +214,7 @@ function selectConractCallback(data){
 }
 
 function calPayInterestAmt(){
-	var currDay   = $("#txtContSD").val();
+	var currDay   = $("#txtPaySD").val();
 	var lastPay   = $("#txtLastPay").val();
 	var interest  = stock.comm.replaceAll($("#txtLoanInter2").val(), ",", "");
 	var loanAmt   = stock.comm.replaceAll($("#txtLoanAmtLeft").val(), ",", "");

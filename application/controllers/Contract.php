@@ -131,7 +131,7 @@ class Contract extends CI_Controller{
         
         $delObj = $this->input->post('delObj');
         $cntDel = 0;
-        for($i = 0; $i < sizeof($delObj); $i++){
+        for($i = 0; $i<sizeof($delObj); $i++){
             $data = array(
                     'con_id'    => $delObj[$i]['contId'],
                     'useYn'     => "N",
@@ -140,7 +140,7 @@ class Contract extends CI_Controller{
                     'upUsr'     => $_SESSION['usrId']
             );
             $this->M_contract->update($data);
-            $cntDel += 1;
+            $cntDel = 1;
         }
         echo $cntDel;
     }

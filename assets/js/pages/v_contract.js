@@ -215,6 +215,7 @@ function stringDate(str){
 }
 
 function deleteDataArr(dataArr){
+	console.log(dataArr)
 	$.ajax({
 		type: "POST",
 		url : $("#base_url").val() +"Contract/delete",

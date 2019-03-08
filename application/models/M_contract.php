@@ -17,7 +17,7 @@
                 CASE WHEN (select tbl_payment.pay_date
                                     from tbl_payment where tbl_payment.con_id = tbl_contract.con_id
                                     order by tbl_payment.con_id
-                                    limit 1) 
+                                    limit 1)
                 IS NULL THEN  tbl_contract.con_start_dt
                 ELSE
                 (select tbl_payment.pay_date

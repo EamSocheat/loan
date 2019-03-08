@@ -70,17 +70,10 @@ if(!stock.comm) {stock.comm={};}
 
 	stock.comm.null2Void = function(val,option)
 	{
-		if(val == null || val == "undefined" || val == "null" || val == "" || val == undefined || isNaN(val || isEmpty(val))){
+		if(val == null || val == "undefined" || val == "null" || val == "" || val == undefined || isNaN(val)){
 			return option;
 		}
-
-		function isEmpty(val) {
-		    for(var prop in obj) {
-		        if(obj.hasOwnProperty(prop))
-		            return false;
-		    }
-		    return JSON.stringify(obj) === JSON.stringify({});
-		}
+		
 		return val;
 	};
 
@@ -240,6 +233,14 @@ if(!stock.comm) {stock.comm={};}
 		
 	};
 
+	stock.comm.isEmpty = function(val){
+		if(val == "null" || val == null || val == undefined || val == "undefined" || val == ""){
+			return true;
+		}else{
+			return false;
+		}
+		
+	};
 
 	stock.comm.renderYn = function(val){
 		

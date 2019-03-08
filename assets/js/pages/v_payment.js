@@ -55,31 +55,34 @@ var _thisPage = {
 			input["txtSrchPayCode"]	= $("#txtSrchPayCode").val();
 		    input["txtSrchContSD"]	= $("#txtSrchContSD").val();
 		    input["txtSrchContED"]	= $("#txtSrchContED").val();
+		    input["txtSrchCusNm"]	= $("#txtSrchCusNm").val();
 			
 		    $("#loading").show();
 		    $.ajax({
 				type: "POST",
-				url: $("#base_url").val() +"Payment/getPaymentData",
+				url : $("#base_url").val() +"Payment/getPaymentData",
 				data: input,
 				dataType: "json",
 				success: function(data) {
 					$("#loading").hide();
 					var html = "";
 					$("#tblPayment tbody").empty();
-					console.log(data.OUT_REC);
+
 					if(data.OUT_REC.length > 0){
-						$.each(data.OUT_REC, function(i,v){
+						$.each(data.OUT_REC, function(i,v){							
+							
 							html += '<tr data-id='+v.pay_id+'>';
     					  	html += '	<td><input type="checkbox" id="chkAll"></td>';
     					  	html += '	<td><div>'+v.pay_no+'</div></td>';
                           	html += '	<td><div>'+v.con_no+'</div></td>';
-    					  	html += '	<td><div>'+stock.comm.formatCurrency(stock.comm.null2Void(v.pay_loan))+'</div></td>';
-    					  	html += '	<td><div>'+stock.comm.formatCurrency(stock.comm.null2Void(v.pay_int))+'</div></td>';
+    					  	html += '	<td><div class="txt_r">'+stock.comm.formatCurrency(stock.comm.null2Void(v.pay_loan))+addCurrency(v.pay_loan_int_type,v.pay_loan)+'</div></td>';
+    					  	html += '	<td><div class="txt_r">'+stock.comm.formatCurrency(stock.comm.null2Void(v.pay_int))+addCurrency(v.pay_loan_int_type,v.pay_int)+'</div></td>';
+                          	html += '	<td><div class="txt_r">'+ stock.comm.formatCurrency( (parseInt(stock.comm.null2Void(v.pay_loan)) + parseInt(stock.comm.null2Void(v.pay_int))) )+addCurrency(v.pay_loan_int_type,(v.pay_loan+v.pay_int))+'</div></td>';
+                          	html += '	<td><div class="txt_r">'+stock.comm.formatCurrency(stock.comm.null2Void(v.con_principle))+addCurrency(v.pay_loan_int_type,v.con_principle)+'</div></td>';
                           	html += '	<td><div>'+stringDate(v.pay_date.substr(0,10))+'</div></td>';
-                          	html += '	<td><div>'+ stock.comm.formatCurrency( (parseInt(stock.comm.null2Void(v.pay_loan)) + parseInt(stock.comm.null2Void(v.pay_int))) )+'</div></td>';
                           	html += '	<td><div>'+v.cus_nm+'</div></td>';
-    					  	html += '	<td class="text-center"><button onclick="editData('+v.pay_id+') type="button" class="btn btn-primary btn-xs">';
-    					  	html += '		<i class="fa fa-pencil-square-o" aria-hidden="true"></i></button>';
+    					  	html += '	<td class="text-center"><button onclick="_this.viewData('+v.pay_id+')" type="button" class="btn btn-primary btn-xs">';
+    					  	html += '		<i class="fa fa-eye" aria-hidden="true"></i></button>';
 							html += '	</td>';
     						html += '</tr>';
 						});
@@ -90,7 +93,7 @@ var _thisPage = {
 						stock.comm.renderPaging("paging",$("#perPage").val(),data.OUT_REC_CNT[0]["total_rec"],pageNo);
 					}else{
 						$("#chkAll").hide();
-						$("#tblPayment tbody").append("<tr><td colspan='7' style='text-align:center;'>No data to show.</td></tr>");
+						$("#tblPayment tbody").append("<tr><td colspan='10' style='text-align:center;'>No data to show.</td></tr>");
 						stock.comm.renderPaging("paging",$("#perPage").val(),0,pageNo);
 					}
 					
@@ -100,10 +103,11 @@ var _thisPage = {
 				    stock.comm.alertMsg($.i18n.prop("msg_err"));
 		        }
 			});
-		}, editData : function(pos_id){
+		}, viewData : function(pay_id){
+			console.log(pay_id)
 			$("#loading").show();
 			var option = {};
-			var data = "id="+pos_id;
+			var data   = "id="+pay_id+"&action=U";
 			var controllerNm = "PopupFormPayment";
 			option["height"] = "520px";
 			
@@ -118,7 +122,7 @@ var _thisPage = {
 		}, deleteData : function(dataArr){
 			$.ajax({
 				type: "POST",
-				url: $("#base_url").val() +"Position/deletePosition",
+				url : $("#base_url").val() +"Payment/deletePayment",
 				data: dataArr,
 				success: function(res) {
 				    if(res > 0){
@@ -140,12 +144,12 @@ var _thisPage = {
 			$("#chkAll").on("click", function(){
 				$("#tblPosition tbody input:checkbox").prop("checked", this.checked);
 			});
-			$("#txtSrchPosNm").on("keypress", function(e){
+			$("#txtSrchPayCode").on("keypress", function(e){
 				if(e.which == 13){
 					_this.loadData(1);
 				}
 			});
-			$("#txtSrchPosNmKh").on("keypress", function(e){
+			$("#txtSrchCusNm").on("keypress", function(e){
 				if(e.which == 13){
 					_this.loadData(1);
 				}
@@ -165,8 +169,18 @@ var _thisPage = {
 		}
 }
 
+function addCurrency(curId,amt){
+	if(curId == "1" && !stock.comm.isEmpty(amt) && amt != 0){
+		return "៛";	
+	}else if(curId == "2" && !stock.comm.isEmpty(amt) && amt != 0){
+		return "$";
+	}else{
+		return "";
+	}
+}
+
 function fn_delete(){
-	var chkItem = $("#tblPosition tbody input[type=checkbox]:checked");
+	var chkItem = $("#tblPayment tbody input[type=checkbox]:checked");
 	
 	if(chkItem.length == 0){
 		stock.comm.alertMsg($.i18n.prop("msg_con_del"));
@@ -181,9 +195,9 @@ function fn_delete(){
 		var delObj = {};
 		chkItem.each(function(i){
 			var delData = {};
-			var tblTr = $(this).parent().parent();
-			var braId = tblTr.attr("data-id");
-			delData["posId"] = braId;
+			var tblTr   = $(this).parent().parent();
+			var payId   = tblTr.attr("data-id");
+			delData["payId"] = payId;
 			delArr.push(delData);
 		});
 		

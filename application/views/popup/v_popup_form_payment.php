@@ -9,6 +9,7 @@
                 <span aria-hidden="true">&times;</span>
             </button>
             <h4 class="modal-title" id="popupTitle">Default Modal</h4>
+            <h5 class="modal-title" id="paymentNo" style="float: right;margin-top: -24px;margin-right: 31px;">Contract Code : ??</h5>
 		</div>
 
 		<div class="modal-body" id="modalMdBody">
@@ -20,7 +21,7 @@
 							<label for="cusNm2" data-i18ncd="lb_contract_no">Contract No.</label>
 							<div class="input-group">
 								<input type="text" style="height: 34px;" class="form-control input-sm" disabled="disabled" id="txtContCode" name="txtContCode">
-									<span id="btnPopupPayment" class="input-group-addon label-info" style="border-top-right-radius: 5px;border-bottom-right-radius: 5px;cursor: pointer;border-color: #46b8da !important;"><i class="fa fa-search-plus"></i></span>
+								<span id="btnPopupPayment" class="input-group-addon label-info" style="border-top-right-radius: 5px;border-bottom-right-radius: 5px;cursor: pointer;border-color: #46b8da !important;"><i class="fa fa-search-plus"></i></span>
 							</div>
 							<input type="hidden" id="txtContId" name="txtContId">
 						</div>
@@ -38,12 +39,12 @@
             		</div>                    
             		<div class="col-xs-4 padding-forms-right">
                         <div class="form-group">
-                            <label for="txtContSD" data-i18ncd="lb_pay_date">Payment Date</label>
+                            <label for="txtPaySD" data-i18ncd="lb_pay_date">Payment Date</label>
                             <div class="input-group date">
-                                <div class="input-group-addon" id="txtContSDIcon" style="border-top-left-radius: 5px; border-bottom-left-radius: 5px;">
+                                <div class="input-group-addon" id="txtPaySDIcon" style="border-top-left-radius: 5px; border-bottom-left-radius: 5px;">
                                     <i class="fa fa-calendar"></i>
                                 </div>
-                                <input type="text" class="form-control pull-right date-pick" id="txtContSD" name="txtContSD" required="required" data-inputmask="'alias': 'dd-mm-yyyy'" data-mask="" autocomplete="off" />
+                                <input type="text" class="form-control pull-right date-pick" id="txtPaySD" name="txtPaySD" required="required" data-inputmask="'alias': 'dd-mm-yyyy'" data-mask="" autocomplete="off" />
                             </div>
                         </div>
                     </div>
@@ -89,7 +90,7 @@
                     </div>
                     <div class="col-xs-4 padding-forms-right">
                         <div class="form-group">
-                            <label for="" data-i18nCd="lb_pay_inter_paid">Pay Interest Amount:</label>
+                            <label for="txtPayInterAmt" data-i18nCd="lb_pay_inter_paid">Pay Interest Amount:</label>
                             <input type="text" maxlength="2" class="form-control" id="txtPayInterAmt" name="txtPayInterAmt" placeholder="Enter interest" disabled="disabled" >
                             <input type="hidden" id="txtPayInterAmt2" name="txtPayInterAmt2">
                         </div>  
@@ -103,7 +104,7 @@
                         <div class="form-group">
                             <label for="txtLastPay" data-i18ncd="lb_pay_last_date">Last Pay Date</label>
                             <div class="input-group date">
-                                <div class="input-group-addon" id="txtContSDIcon" style="border-top-left-radius: 5px; border-bottom-left-radius: 5px;background-color: rgb(235, 235, 228);">
+                                <div class="input-group-addon" id="txtLastPayIcon" style="border-top-left-radius: 5px; border-bottom-left-radius: 5px;background-color: rgb(235, 235, 228);">
                                     <i class="fa fa-calendar"></i>
                                 </div>
                                 <input type="text" class="form-control pull-right date-pick" id="txtLastPay" name="txtLastPay" required="required" data-inputmask="'alias': 'dd-mm-yyyy'" data-mask="" disabled="disabled">

@@ -37,7 +37,7 @@
 							<div class="row" >
 							    <div class="col-sm-12 col-md-12 col-lg-12 row" style="
                                             ">
-                                            <div class="col-sm-3 col-md-3 col-lg-3" style="
+                                            <div class="col-sm-4 col-md-4 col-lg-4" style="
                                                 ">
                                                 <div class="form-group form-inline" style="display: table-caption;">
                                                     <label for="txtSrchPayCode" class="control-label" data-i18ncd="lb_pay_code" style="
@@ -47,7 +47,7 @@
                                                     ">
                                                 </div>
                                             </div>
-                                            <div class="col-sm-4 col-md-4 col-lg-4" style="
+                                            <div class="col-sm-3 col-md-3 col-lg-3" style="
                                                 ">
                                                 <div class="input-group date" style="
                                                     ">
@@ -74,13 +74,12 @@
                                                     <input type="text" class="form-control pull-left date-pick" id="txtSrchContED" name="txtSrchContED" required="required" data-inputmask="'alias': 'dd-mm-yyyy'" data-mask="" placeholder="បញ្ជូល " style="font-size: 12px;width: 60%;">
                                                 </div>
                                             </div>
-                                            <div class="col-sm-2 col-md-2 col-lg-2" style="
-                                                ">
-                                                <div class="form-group form-inline" style="display: none;">
-                                                    <label for="txtSrchContNm" class="control-label" data-i18ncd="lb_name" style="
+                                            <div class="col-sm-2 col-md-2 col-lg-2" style="">
+                                                <div class="form-group form-inline">
+                                                    <label for="txtSrchCusNm" class="control-label" data-i18ncd="lb_customer" style="
                                                         margin-bottom: 7px;
                                                     ">ឈ្មោះ</label>
-                                                    <input type="text" class="form-control input-sm" id="txtSrchContNm" placeholder="បញ្ជូល ចាប់ផ្ដើមកិច្ចសន្យា">
+                                                    <input type="text" class="form-control input-sm" id="txtSrchCusNm" placeholder="បញ្ជូល ចាប់ផ្ដើមកិច្ចសន្យា">
                                                 </div>
                                             </div>
                                         </div>
@@ -132,11 +131,12 @@
     					<tr>
     					  <th><input type="checkbox" id="chkAll" style="display:none;"></th>
     					  <th data-i18ncd="lb_pay_code">Payment Code</th>
-                          <th data-i18ncd="lb_pay_code">Contract Code</th>
-    					  <th data-i18ncd="lb_pay_loan">Payment Loan</th>
-    					  <th data-i18ncd="lb_pay_interest">Payment Interest</th>
+                          <th data-i18ncd="lb_contract_no">Contract Code</th>
+    					  <th data-i18ncd="lb_pay_loan" class="txt_r">Payment Loan</th>
+    					  <th data-i18ncd="lb_pay_interest" class="txt_r">Payment Interest</th>
+                          <th data-i18ncd="lb_pay_total" class="txt_r">Total Payment</th>
+                          <th data-i18ncd="lb_principle_amt" class="txt_r">Loan Amount</th>
                           <th data-i18ncd="lb_pay_date">Payment Date</th>
-                          <th data-i18ncd="lb_pay_total">Total Payment</th>
                           <th data-i18ncd="lb_customer">Customer</th>
     					  <th data-i18ncd="lb_action">Action</th>
     					</tr>
