@@ -62,6 +62,7 @@
     .txt_c{ text-align: center; }
     .txt_r{ text-align: right; }
     .txt_l{ text-align: left; }
+    .float_r{ float: right; }
 
 </style>
 </head>

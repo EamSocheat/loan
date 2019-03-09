@@ -156,7 +156,8 @@ function loadContractData(){
     dat["perPage"] = _perPage;
     dat["offset"]  = _perPage * ( _pageNo - 1);
     //searching
-    dat["srchAll"] = $("#txtSearch").val().trim();	
+    dat["srchAll"]  = $("#txtSearch").val().trim();	
+    dat["srch_status"] = "0";	
     
     console.log(dat);
     // parent.$("#loading").show();

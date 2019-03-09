@@ -23,8 +23,8 @@
             $this->db->where('tbl_payment.com_id', $_SESSION['comId']);
             $this->db->where('tbl_payment.useYn', 'Y');
 
-            if($dataSrch['conIdArr'] != null && $dataSrch['conIdArr'] != ""){
-                $integerIDs = array_map('intval', explode(',', $dataSrch['payIdArr']));
+            if($dataSrch['payIdArray'] != null && $dataSrch['payIdArray'] != ""){
+                $integerIDs = array_map('intval', explode(',', $dataSrch['payIdArray']));
                 $this->db->where_in('tbl_payment.pay_id', $integerIDs);
             }
 
@@ -36,22 +36,25 @@
                 $this->db->like('tbl_payment.pay_no', $dataSrch['pay_no']);
             }
 
-            if($dataSrch['cus_nm'] != null && $dataSrch['cus_nm'] != ""){
-                $this->db->like('tbl_customer.cus_nm', $dataSrch['cus_nm']);
+            if($dataSrch['srch_customer'] != null && $dataSrch['srch_customer'] != ""){
+                $this->db->like('tbl_customer.cus_nm', $dataSrch['srch_customer']);
+                $this->db->or_like('tbl_customer.cus_nm_kh', $dataSrch['srch_customer']);
+                $this->db->or_like('tbl_customer.cus_phone1', $dataSrch['srch_customer']);
+                $this->db->or_like('tbl_customer.cus_phone2', $dataSrch['srch_customer']);
             }
 
-            if($dataSrch['con_start_dt'] != null && $dataSrch['con_start_dt'] != ""){
-                $this->db->where('tbl_payment.con_start_dt >=', $dataSrch['con_start_dt']);                
+            if($dataSrch['pay_start_dt'] != null && $dataSrch['pay_start_dt'] != ""){
+                $this->db->where('tbl_payment.pay_date >=', $dataSrch['pay_start_dt']);
             }
 
-            if(($dataSrch['con_start_dt'] != null && $dataSrch['con_start_dt'] != "") 
-                && ($dataSrch['con_end_dt'] != null && $dataSrch['con_end_dt'] != "")){
-                $this->db->where('tbl_contract.con_start_dt >=', $dataSrch['con_start_dt']);
-                $this->db->where('tbl_contract.con_start_dt <=', $dataSrch['con_end_dt']);
+            if(($dataSrch['pay_start_dt'] != null && $dataSrch['pay_start_dt'] != "") 
+                && ($dataSrch['pay_end_dt'] != null && $dataSrch['pay_end_dt'] != "")){
+                $this->db->where('tbl_payment.pay_date >=', $dataSrch['pay_start_dt']);
+                $this->db->where('tbl_payment.pay_date <=', $dataSrch['pay_end_dt']);
             }
 
-            if($dataSrch['con_end_dt'] != null && $dataSrch['con_end_dt'] != ""){
-                $this->db->where('tbl_contract.con_end_dt <=', $dataSrch['con_end_dt']);
+            if($dataSrch['pay_end_dt'] != null && $dataSrch['pay_end_dt'] != ""){
+                $this->db->where('tbl_payment.pay_date <=', $dataSrch['pay_end_dt']);
             }
             
             if($dataSrch['srch_all'] != null && $dataSrch['srch_all'] != ""){
@@ -84,18 +87,18 @@
                 $this->db->like('tbl_payment.pay_no', $dataSrch['pay_no']);
             }
 
-            if($dataSrch['con_start_dt'] != null && $dataSrch['con_start_dt'] != ""){
-                $this->db->where('tbl_payment.con_start_dt >=', $dataSrch['con_start_dt']);                
+            if($dataSrch['pay_start_dt'] != null && $dataSrch['pay_start_dt'] != ""){
+                $this->db->where('tbl_payment.pay_date >=', $dataSrch['pay_start_dt']);                
             }
 
-            if(($dataSrch['con_start_dt'] != null && $dataSrch['con_start_dt'] != "") 
-                && ($dataSrch['con_end_dt'] != null && $dataSrch['con_end_dt'] != "")){
-                $this->db->where('tbl_contract.con_start_dt >=', $dataSrch['con_start_dt']);
-                $this->db->where('tbl_contract.con_start_dt <=', $dataSrch['con_end_dt']);
+            if(($dataSrch['pay_start_dt'] != null && $dataSrch['pay_start_dt'] != "") 
+                && ($dataSrch['pay_end_dt'] != null && $dataSrch['pay_end_dt'] != "")){
+                $this->db->where('tbl_payment.pay_date >=', $dataSrch['pay_start_dt']);
+                $this->db->where('tbl_payment.pay_date <=', $dataSrch['pay_end_dt']);
             }
 
-            if($dataSrch['con_end_dt'] != null && $dataSrch['con_end_dt'] != ""){
-                $this->db->where('tbl_contract.con_end_dt <=', $dataSrch['con_end_dt']);
+            if($dataSrch['pay_end_dt'] != null && $dataSrch['pay_end_dt'] != ""){
+                $this->db->where('tbl_payment.pay_date <=', $dataSrch['pay_end_dt']);
             }
             
             if($dataSrch['srch_all'] != null && $dataSrch['srch_all'] != ""){

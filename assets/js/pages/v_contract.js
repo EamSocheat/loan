@@ -51,6 +51,7 @@ var _thisPage = {
 		    dat["txtSrchContCode"]	= $("#txtSrchContCode").val();
 		    dat["txtSrchContSD"]	= $("#txtSrchContSD").val();
 		    dat["txtSrchContED"]	= $("#txtSrchContED").val();
+		    dat["txtSrchCusNm"]		= $("#txtSrchCusNm").val();
 
 		    $("#loading").show();
 		    $.ajax({
@@ -82,10 +83,12 @@ var _thisPage = {
 					    }
 					    console.log(calDayBetweenTwoDate('2019-03-01', "2019-02-20", '-'));
 					    
+					    $("#chkAllBox").show();
 					    $("#tblContract tbody").html(html);
 					    stock.comm.renderPaging("paging",$("#perPage").val(),res.OUT_REC_CNT[0]["total_rec"],pageNo);
 					}else{
-					    $("#tblContract tbody").append("<tr><td colspan='9' style='text-align: center;'>"+$.i18n.prop("lb_no_data")+"</td></tr>");
+						$("#chkAllBox").hide();
+					    $("#tblContract tbody").append("<tr><td colspan='10' style='text-align: center;'>"+$.i18n.prop("lb_no_data")+"</td></tr>");
 					    stock.comm.renderPaging("paging",$("#perPage").val(),0,pageNo);
 					}
 				},
@@ -102,6 +105,12 @@ var _thisPage = {
 		}, deleteData : function(dataArr){
 			
 		}, event : function(){
+			$("#txtSrchCusNm, #txtSrchContCode").on("keypress", function(e){
+				if(e.which == 13){
+					_thisPage.loadData(1);
+				}
+			});
+			//
 			$("#perPage").change(function(e){
 				_pageNo = 1;
 				_thisPage.loadData();
@@ -115,7 +124,7 @@ var _thisPage = {
 			$(".box-footer").on("click", "#btnGoToPage", function(e) {
 				var pageNo = $("#txtGoToPage").val();
 				_thisPage.loadData(pageNo);
-			});			
+			});
 			//
 			$("#btnAddNew").click(function(){
 				$("#loading").show();
@@ -219,10 +228,7 @@ function deleteDataArr(dataArr){
 	$.ajax({
 		type: "POST",
 		url : $("#base_url").val() +"Contract/delete",
-		data: dataArr,
-		contentType:false,
-		cache:false,
-		processData:false,
+		data: dataArr,		
 		success: function(res) {
 		    if(res > 0){
 		        stock.comm.alertMsg(res+$.i18n.prop("msg_del_com"));

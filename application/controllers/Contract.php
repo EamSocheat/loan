@@ -50,11 +50,12 @@ class Contract extends CI_Controller{
             'con_no'        => $this->input->post('txtSrchContCode'),
             'con_start_dt'  => $startDate,
             'con_end_dt'    => $endDate,
-            'srch_all'      => $this->input->post('srchAll')
+            'srch_status'   => $this->input->post('srch_status'),
+            'srch_customer' => $this->input->post('txtSrchCusNm'),
         );
 
         $data["OUT_REC"] = $this->M_contract->selectContractData($dataSrch);
-        $data["OUT_REC_CNT"] = $this->M_contract->countContractData($dataSrch);        
+        $data["OUT_REC_CNT"] = $this->M_contract->countContractData($dataSrch);
         echo json_encode($data);
     }
 

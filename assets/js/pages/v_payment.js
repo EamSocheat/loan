@@ -12,7 +12,7 @@ var _thisPage = {
 			_this.init();
 			stock.comm.checkAllTblChk("chkAll","tblPayment","chk_box");
 
-			$('#txtSrchContSD').datepicker({
+			$('#txtSrchPaymentSD').datepicker({
 				language: (getCookie("lang") == "kh" ? "kh" : "en"),
 				weekStart: true,
 		        todayBtn:  true,
@@ -22,9 +22,9 @@ var _thisPage = {
 				sideBySide: true,
 				format: "dd-mm-yyyy",
 		    });
-			$("#txtSrchContSD").inputmask();
+			$("#txtSrchPaymentSD").inputmask();
 
-			$('#txtSrchContED').datepicker({
+			$('#txtSrchPaymentED').datepicker({
 				language: (getCookie("lang") == "kh" ? "kh" : "en"),
 				weekStart: true,
 		        todayBtn:  true,
@@ -34,7 +34,7 @@ var _thisPage = {
 				sideBySide: true,
 				format: "dd-mm-yyyy",
 		    });
-			$("#txtSrchContED").inputmask();
+			$("#txtSrchPaymentED").inputmask();
 		}, init : function(){
 			 /*stock.comm.getBrnachType("cbxSrchBraType");
 			 $("#cbxSrchBraType").prepend("<option value='' selected='selected'></option>");*/
@@ -53,8 +53,8 @@ var _thisPage = {
 			input["limit"]	 = $("#perPage").val();
 			input["offset"]	 = parseInt($("#perPage").val())  * ( pageNo - 1);
 			input["txtSrchPayCode"]	= $("#txtSrchPayCode").val();
-		    input["txtSrchContSD"]	= $("#txtSrchContSD").val();
-		    input["txtSrchContED"]	= $("#txtSrchContED").val();
+		    input["txtSrchPaymentSD"]	= $("#txtSrchPaymentSD").val();
+		    input["txtSrchPaymentED"]	= $("#txtSrchPaymentED").val();
 		    input["txtSrchCusNm"]	= $("#txtSrchCusNm").val();
 			
 		    $("#loading").show();
@@ -72,12 +72,12 @@ var _thisPage = {
 						$.each(data.OUT_REC, function(i,v){							
 							
 							html += '<tr data-id='+v.pay_id+'>';
-    					  	html += '	<td><input type="checkbox" id="chkAll"></td>';
+    					  	html += '	<td class="chk_box"><input type="checkbox"></td>';
     					  	html += '	<td><div>'+v.pay_no+'</div></td>';
                           	html += '	<td><div>'+v.con_no+'</div></td>';
     					  	html += '	<td><div class="txt_r">'+stock.comm.formatCurrency(stock.comm.null2Void(v.pay_loan))+addCurrency(v.pay_loan_int_type,v.pay_loan)+'</div></td>';
     					  	html += '	<td><div class="txt_r">'+stock.comm.formatCurrency(stock.comm.null2Void(v.pay_int))+addCurrency(v.pay_loan_int_type,v.pay_int)+'</div></td>';
-                          	html += '	<td><div class="txt_r">'+ stock.comm.formatCurrency( (parseInt(stock.comm.null2Void(v.pay_loan)) + parseInt(stock.comm.null2Void(v.pay_int))) )+addCurrency(v.pay_loan_int_type,(v.pay_loan+v.pay_int))+'</div></td>';
+                          	html += '	<td><div class="txt_r">'+ stock.comm.formatCurrency( (parseFloat(stock.comm.null2Void(v.pay_loan)) + parseFloat(stock.comm.null2Void(v.pay_int))).toFixed(2) )+addCurrency(v.pay_loan_int_type,(v.pay_loan+v.pay_int))+'</div></td>';
                           	html += '	<td><div class="txt_r">'+stock.comm.formatCurrency(stock.comm.null2Void(v.con_principle))+addCurrency(v.pay_loan_int_type,v.con_principle)+'</div></td>';
                           	html += '	<td><div>'+stringDate(v.pay_date.substr(0,10))+'</div></td>';
                           	html += '	<td><div>'+v.cus_nm+'</div></td>';
@@ -120,6 +120,7 @@ var _thisPage = {
 			
 			stock.comm.openPopUpForm(controllerNm, option, null, "modal-lg");
 		}, deleteData : function(dataArr){
+			console.log(dataArr)
 			$.ajax({
 				type: "POST",
 				url : $("#base_url").val() +"Payment/deletePayment",
@@ -166,6 +167,24 @@ var _thisPage = {
 		        var pageNo = $("#txtGoToPage").val();
 		        _this.loadData(pageNo);
 		    });
+		    $("#btnDownExcel").click(function(e){
+				e.preventDefault();
+				var chkVal = $('#tblPayment tbody tr td.chk_box input[type="checkbox"]:checked');
+
+				if(chkVal.length <= 0){
+					stock.comm.alertMsg($.i18n.prop("msg_down_excel"));
+					return;
+				}
+				
+				var objArr = [];
+				chkVal.each(function(i){
+					var tblTr   = $(this).parent().parent();
+					var data_id = tblTr.attr("data-id");
+					objArr.push(Number(data_id));
+				});
+				$("#payId").val(objArr);
+				$("#btnExcel").submit();
+			});
 		}
 }
 

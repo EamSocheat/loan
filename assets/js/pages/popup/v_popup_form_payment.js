@@ -17,6 +17,7 @@ var _thisPage = {
 			    getDataView($("#payId").val());
 			    $("#popupTitle").html("<i class='fa fa-pie-chart'></i> "+$.i18n.prop("btn_edit")+" "+ $.i18n.prop("lb_payment"));
 			}else{
+				$("#paymentNo").hide();
 				stock.comm.todayDate("#txtPaySD","-");
 			    $("#btnSaveNew").show();
 			    $("#popupTitle").html("<i class='fa fa-pie-chart'></i> "+$.i18n.prop("btn_add_new")+" "+ $.i18n.prop("lb_payment"));
@@ -90,9 +91,14 @@ var _thisPage = {
 };
 
 function saveData(str){
-	// $("#payId").appendTo("#frmPayment");
-    parent.$("#loading").show();
-    // console.log(new FormData($("#frmPayment")[0]).serialize())
+    // parent.$("#loading").show();
+    var totalPayment = $("#txtTotalInterAmt").val();
+    if(parseFloat(totalPayment) <= 0){
+    	parent.stock.comm.alertMsg($.i18n.prop("msg_pay_save"));
+    	parent.$("#loading").hide();
+    	return;
+    }
+
 	$.ajax({
 		type: "POST",
 		url : $("#base_url").val() +"Payment/savePayment",
@@ -134,7 +140,7 @@ function getDataView(pay_id){
 			if(res.OUT_REC != null && res.OUT_REC.length > 0){
 				for(var i = 0; i < res.OUT_REC.length; i++){
 					$("#paymentNo").text("Payment No: "+res.OUT_REC[i]['pay_no']);
-					$("#txtContCode").val(res.OUT_REC[i]['pay_no']);
+					$("#txtContCode").val(res.OUT_REC[i]['con_no']);
 					$("#txtContId").val(res.OUT_REC[i]['pay_id']);
 					$("#txtCusName").val(res.OUT_REC[i]['cus_nm']);
 					$("#txtCusId").val(res.OUT_REC[i]['cus_id']);
@@ -148,9 +154,11 @@ function getDataView(pay_id){
 					$("#txtpayLoanAmt").attr("disabled", true);
 					$("#txtCurrency").val(res.OUT_REC[i]['cur_syn']);
 					$("#txtLoanAmtLeft").val(stock.comm.formatCurrency(res.OUT_REC[i]['loan_amount_left']));
+					$("#txtLoanAmtLeft2").val(stock.comm.formatCurrency(res.OUT_REC[i]['loan_amount_left']));
 					$("#txtPayInterAmt").val(stock.comm.formatCurrency(res.OUT_REC[i]['pay_int']));
 					$("#txtLastPay").val(stringDate(res.OUT_REC[i]['last_pay_date'].substr(0,10)));
 					$("#txtLoanAmt").val(stock.comm.formatCurrency(res.OUT_REC[i]["con_principle"]));
+					$("#txtLoanAmt2").val(stock.comm.formatCurrency(res.OUT_REC[i]["con_principle"]));
 					$("#txtTotalInterAmt").val(stock.comm.formatCurrency(parseFloat(res.OUT_REC[i]["pay_loan"])+parseFloat(res.OUT_REC[i]["pay_int"])));
 					$("#txtPayDesc").val(res.OUT_REC[i]["pay_des"]);
 					$("#txtPayDesc").attr("disabled", true);
@@ -183,10 +191,12 @@ function clearForm(){
     $("#txtpayLoanAmt").val("");
     $("#txtCurrency").val("");
     $("#txtLoanAmtLeft").val("");
+    $("#txtLoanAmtLeft2").val("");
     $("#txtPayInterAmt").val("");
     $("#txtPayInterAmt2").val("");
     $("#txtLastPay").val("");
     $("#txtLoanAmt").val("");
+    $("#txtLoanAmt2").val("");
     $("#txtTotalInterAmt").val("");
     $("#txtPayDesc").val("");
 
@@ -208,8 +218,10 @@ function selectConractCallback(data){
 	$("#txtLastPay").val(stringDate(data["con_pay_last_date"]));
 	$("#txtCurrency").val(data["con_currency"]);
 	$("#txtLoanAmt").val(stock.comm.formatCurrency(data["con_principle"]));
+	$("#txtLoanAmt2").val(stock.comm.formatCurrency(data["con_principle"]));
 	$("#txtLoanAmtLeft").val(stock.comm.formatCurrency(data["loan_amount_left"]));
-
+	$("#txtLoanAmtLeft2").val(stock.comm.formatCurrency(data["loan_amount_left"]));
+	console.log(data)
 	calPayInterestAmt();
 }
 

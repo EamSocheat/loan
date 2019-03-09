@@ -51,27 +51,27 @@
                                                 ">
                                                 <div class="input-group date" style="
                                                     ">
-                                                    <label for="txtSrchContSD" class="control-label" data-i18ncd="lb_contract_start" style="
+                                                    <label for="txtSrchPaymentSD" class="control-label" data-i18ncd="lb_payment_start" style="
                                                         margin-bottom: 7px;
                                                         display: table-caption;
-                                                    ">ចាប់ផ្ដើមកិច្ចសន្យា</label>
-                                                    <div class="input-group-addon" id="txtContSDIcon" style="border-top-left-radius: 5px;border-bottom-left-radius: 5px;padding: 5px 11px;">
+                                                    ">Payment Start Date</label>
+                                                    <div class="input-group-addon" id="txtSrchPaymentSDIcon" style="border-top-left-radius: 5px;border-bottom-left-radius: 5px;padding: 5px 11px;">
                                                         <i class="fa fa-calendar"></i>
                                                     </div>
-                                                    <input type="text" class="form-control pull-left date-pick" id="txtSrchContSD" name="txtSrchContSD" required="required" data-inputmask="'alias': 'dd-mm-yyyy'" data-mask="" placeholder="បញ្ជូល " style="font-size: 12px;width: 60%;">
+                                                    <input type="text" class="form-control pull-left date-pick" id="txtSrchPaymentSD" name="txtSrchPaymentSD" required="required" data-inputmask="'alias': 'dd-mm-yyyy'" data-mask="" placeholder="បញ្ជូល " style="font-size: 12px;width: 60%;">
                                                 </div>
                                             </div>
                                             <div class="col-sm-3 col-md-3 col-lg-3" style="
                                                 ">
                                                 <div class="input-group date">
-                                                    <label for="txtSrchContED" class="control-label" data-i18ncd="lb_contract_end" style="
+                                                    <label for="txtSrchPaymentED" class="control-label" data-i18ncd="lb_payment_end" style="
                                                         display: table-caption;
                                                         margin-bottom: 7px;
-                                                    ">កិច្ចសន្យាបញ្ចប់</label>
-                                                    <div class="input-group-addon" id="txtContEDIcon" style="border-top-left-radius: 5px;border-bottom-left-radius: 5px;">
+                                                    ">Payment End Date</label>
+                                                    <div class="input-group-addon" id="txtSrchPaymentEDIcon" style="border-top-left-radius: 5px;border-bottom-left-radius: 5px;">
                                                         <i class="fa fa-calendar"></i>
                                                     </div>
-                                                    <input type="text" class="form-control pull-left date-pick" id="txtSrchContED" name="txtSrchContED" required="required" data-inputmask="'alias': 'dd-mm-yyyy'" data-mask="" placeholder="បញ្ជូល " style="font-size: 12px;width: 60%;">
+                                                    <input type="text" class="form-control pull-left date-pick" id="txtSrchPaymentED" name="txtSrchPaymentED" required="required" data-inputmask="'alias': 'dd-mm-yyyy'" data-mask="" placeholder="បញ្ជូល " style="font-size: 12px;width: 60%;">
                                                 </div>
                                             </div>
                                             <div class="col-sm-2 col-md-2 col-lg-2" style="">
@@ -100,8 +100,14 @@
 					<div class="col-xs-12">
                         <div class="col-xs-12">
     					    <button type="button" id="btnDelete" class="btn btn-danger btn-sm" style="margin-right: 5px" onclick="fn_delete();"><i class="fa fa-trash" aria-hidden="true"></i> <span data-i18ncd="btn_delete">Delete</span></button>
-    					    <!-- <button type="button" id="btnEdit" class="btn btn-primary btn-sm" style="margin-right: 5px"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> <span data-i18ncd="btn_edit">Edit</span></button> -->
     					    <button type="button" id="btnAddNew" class="btn btn-default btn-sm" onclick="_thisPage.addNewData();"><i class="fa fa-plus" aria-hidden="true"></i> <span data-i18ncd="btn_add_new">Add New</span></button>
+                            <button type="button" id="btnDownExcel" class="btn btn-success btn-sm" style="margin-left: 7px;"><i class="fa fa-download" aria-hidden="true"></i> <span data-i18ncd="btn_excel">Download Excel</span></button>
+                            <div style="margin-left: 5px;display: none;">
+                                <form method="post" action="<?php echo base_url(); ?>Payment/download_excel" id="btnExcel">
+                                    <input type="submit" value="Submit">
+                                    <input type="hidden" name="payIdArray" id="payId" class="btn btn-success" value="" />
+                                </form>
+                            </div>
                         </div>
     				</div>
 				</div>
@@ -142,7 +148,7 @@
     					</tr>
 					</thead>
 					<tbody>
-						<tr>
+						<!-- <tr>
                             <td class="chk_box"><input type="checkbox"></td>
                             <td><div>000001</div></td>
                             <td><div>2019-02-08</div></td>
@@ -154,7 +160,7 @@
                             <td class="text-center">
                                 <button onclick="" type="button" class="btn btn-primary btn-xs"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></button>
                             </td>
-                        </tr>
+                        </tr> -->
    					</tbody>
 				  </table>
 				</div>

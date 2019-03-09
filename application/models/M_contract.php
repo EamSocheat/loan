@@ -8,7 +8,7 @@
     	}
 
     	function selectContractData($dataSrch){
-    	    $this->db->select('tbl_contract.*, tbl_customer.cus_nm, tbl_customer.cus_phone1, tbl_customer.cus_nm_kh, tbl_customer.cus_id, tbl_currency.cur_nm, tbl_currency.cur_nm_kh, tbl_currency.cur_syn,
+    	    $this->db->select('tbl_contract.*, tbl_customer.cus_nm, tbl_customer.cus_phone1, tbl_customer.cus_nm_kh, tbl_customer.cus_id, tbl_currency.cur_nm, tbl_currency.cur_nm_kh, tbl_currency.cur_syn, tbl_contract.con_principle,
                 (tbl_contract.con_principle 
                     - 
                 (select COALESCE(sum(tbl_payment.pay_loan), 0)
@@ -31,6 +31,10 @@
             $this->db->join('tbl_currency','tbl_currency.cur_id = tbl_contract.cur_id');
             $this->db->where('tbl_contract.com_id', $_SESSION['comId']);
             $this->db->where('tbl_contract.useYn', 'Y');
+
+            if($dataSrch['srch_status'] != null && $dataSrch['srch_status'] != ""){
+                $this->db->where('tbl_contract.con_status != ', $dataSrch['srch_status']);
+            }
             
             if($dataSrch['conIdArr'] != null && $dataSrch['conIdArr'] != ""){
                 $integerIDs = array_map('intval', explode(',', $dataSrch['conIdArr']));
@@ -59,10 +63,11 @@
                 $this->db->where('tbl_contract.con_end_dt <=', $dataSrch['con_end_dt']);
             }
             
-            if($dataSrch['srch_all'] != null && $dataSrch['srch_all'] != ""){
-                $this->db->like('tbl_contract.con_no', $dataSrch['srch_all']);
-                $this->db->or_like('tbl_customer.cus_nm_kh', $dataSrch['srch_all']);
-                $this->db->or_like('tbl_customer.cus_nm', $dataSrch['srch_all']);
+            if($dataSrch['srch_customer'] != null && $dataSrch['srch_customer'] != ""){
+                $this->db->like('tbl_customer.cus_nm', $dataSrch['srch_customer']);
+                $this->db->or_like('tbl_customer.cus_nm_kh', $dataSrch['srch_customer']);
+                $this->db->or_like('tbl_customer.cus_phone1', $dataSrch['srch_customer']);
+                $this->db->or_like('tbl_customer.cus_phone2', $dataSrch['srch_customer']);
             }
 
             $this->db->order_by("con_id", "asc");

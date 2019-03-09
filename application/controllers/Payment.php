@@ -10,7 +10,9 @@ class Payment extends CI_Controller{
         $this->load->model('M_menu');
         $this->load->helper('form');
         $this->load->model('M_payment');
+        $this->load->model('M_contract');
         $this->load->model('M_common');
+        $this->load->library("excel");
     }
     
     public function index(){
@@ -31,8 +33,8 @@ class Payment extends CI_Controller{
             redirect('/Login');
         }
         
-        $startDate = $this->input->post('txtSrchContSD');
-        $endDate   = $this->input->post('txtSrchContED');
+        $startDate = $this->input->post('txtSrchPaymentSD');
+        $endDate   = $this->input->post('txtSrchPaymentED');
         
         if($startDate != null || $startDate != ""){
             $startDate = date('Y-m-d H:i:s',strtotime($startDate));
@@ -47,11 +49,10 @@ class Payment extends CI_Controller{
             'offset'        => $this->input->post('offset'),
             'pay_id'        => $this->input->post('payId'),
             'pay_no'        => $this->input->post('txtSrchPayCode'),
-            'con_start_dt'  => $startDate,
-            'con_end_dt'    => $endDate,
+            'pay_start_dt'  => $startDate,
+            'pay_end_dt'    => $endDate,
             'srch_all'      => $this->input->post('srchAll'),
-            'cus_nm'        => $this->input->post('txtSrchCusNm'),
-            
+            'srch_customer' => $this->input->post('txtSrchCusNm'),
         );
         
         $data["OUT_REC"] = $this->M_payment->selectPaymentData($dataSrch);
@@ -64,6 +65,10 @@ class Payment extends CI_Controller{
             redirect('/Login');
         }
         
+        $pay_loan = $this->input->post('txtpayLoanAmt');
+        $pay_left = $this->input->post('txtLoanAmtLeft2');
+        $loan_amt = $this->input->post('txtLoanAmt2');
+
         $data = array (
             'con_id'        => $this->input->post('txtContId'),
             'pay_loan'      => $this->input->post('txtpayLoanAmt'),
@@ -98,6 +103,33 @@ class Payment extends CI_Controller{
             $data['regDt']  = date('Y-m-d H:i:s');
             $this->M_payment->insertPaymentDB($data);
         }
+
+        if((int)$pay_loan == (int)$pay_left){
+            $dataCont['con_status'] = "0";
+            $dataCont['con_id']     = $this->input->post('txtContId');
+            $dataCont['con_end_dt'] = date('Y-m-d H:i:s',strtotime($this->input->post('txtPaySD')));
+            $dataCont['regDt']      = date('Y-m-d H:i:s');
+            $dataCont['regUsr']     = $_SESSION['usrId'];
+            $this->M_contract->update($dataCont);
+        }
+
+        /*if((int)$pay_left == 0){
+            if((int)$pay_loan == (int)$loan_amt){
+                $data['con_status'] = "0";
+                $data['con_id']     = $this->input->post('txtContId');
+                $data['con_end_dt'] = date('Y-m-d H:i:s',strtotime($this->input->post('txtPaySD')));
+                $data['regDt']      = date('Y-m-d H:i:s');
+                $data['regUsr']     = $_SESSION['usrId'];
+                $this->M_contract->update($data);
+            }
+        }else if((int)$pay_loan == (int)$pay_left){
+            $data['con_status'] = "0";
+            $data['con_id']     = $this->input->post('txtContId');
+            $data['con_end_dt'] = date('Y-m-d H:i:s',strtotime($this->input->post('txtPaySD')));
+            $data['regDt']      = date('Y-m-d H:i:s');
+            $data['regUsr']     = $_SESSION['usrId'];
+            $this->M_contract->update($data);
+        }*/
         
         echo 'OK';
     }
@@ -144,7 +176,100 @@ class Payment extends CI_Controller{
         
         echo $cntDel;
     }
+
+    function download_excel(){
+        
+        $object = new PHPExcel();
+        $object->setActiveSheetIndex(0);
+
+        $table_columns = array("Payment Code", "Contract No", "Paid Amount", "Payment Interest", "Total Payment", "Loan Amount", "Payment Date", "Customer");
+        $column = 0;
+
+        /**
+         * get header
+         */
+        foreach($table_columns as $field){
+            $object->getActiveSheet()->setCellValueByColumnAndRow($column, 1, $field);
+            $column++;
+                        
+            /**
+             * set auto width foreach column size
+             */
+            foreach (range($field, $object->getActiveSheet()->getHighestDataColumn()) as $col) {
+                $object->getActiveSheet()->getColumnDimension($col)->setAutoSize(true);
+            }
+        }
+
+        /**
+         * set style to header
+         */
+        $styleArray = array(
+            'font' => array('bold' => true,'color' => array('rgb' => 'FF0000'),),
+            'alignment' => array('horizontal' => \PHPExcel_Style_Alignment::HORIZONTAL_CENTER,),
+            /*'fill' => array(
+                'type' => PHPExcel_Style_Fill::FILL_SOLID,
+                'color' => array('rgb' => 'B2B2B2')
+            ),*/
+            'borders' => array(
+                'allborders' => array(
+                    'style' => PHPExcel_Style_Border::BORDER_THIN,
+                    'color' => array('rgb' => 'DDDDDD'),),
+                'top' => array(
+                    'style' => \PHPExcel_Style_Border::BORDER_THIN,),
+                /*'fill' => array(
+                    'type' => \PHPExcel_Style_Fill::FILL_GRADIENT_LINEAR,
+                    'rotation' => 90,
+                    'startcolor' => array('argb' => 'FFA0A0A0',),'endcolor' => array('argb' => '333333',),),*/
+            ),
+        );
+        $object->getActiveSheet()->getStyle('A1:H1')->applyFromArray($styleArray);
+        $object->getDefaultStyle()->getFont()->setName('Khmer OS Battambang');
+        
+        /**
+         * retrieve data from table database
+         */
+        $dataSrch = array(
+            'payIdArray' => $this->input->post("payIdArray")
+        );
+        $contract_data = $this->M_payment->selectPaymentData($dataSrch);
+
+        /**
+         * match header and data
+         */
+        $excel_row = 2;
+        foreach($contract_data as $row){
+            $curr = $row->pay_loan_int_type;
+            $object->getActiveSheet()->setCellValueByColumnAndRow(0, $excel_row, $row->pay_no);
+            $object->getActiveSheet()->setCellValueByColumnAndRow(1, $excel_row, $row->con_no);
+            $object->getActiveSheet()->setCellValueByColumnAndRow(2, $excel_row, $this->commaAmt($row->pay_loan).$this->addCurrncy($curr,$row->pay_loan));
+            $object->getActiveSheet()->setCellValueByColumnAndRow(3, $excel_row, $this->commaAmt($row->pay_int).$this->addCurrncy($curr,$row->pay_int));
+            $object->getActiveSheet()->setCellValueByColumnAndRow(4, $excel_row, $this->commaAmt($row->pay_loan+$row->pay_int).$this->addCurrncy($curr,$row->pay_loan+$row->pay_int));
+            $object->getActiveSheet()->setCellValueByColumnAndRow(5, $excel_row, $this->commaAmt($row->con_principle).$this->addCurrncy($curr,$row->con_principle));
+            $object->getActiveSheet()->setCellValueByColumnAndRow(6, $excel_row, $row->pay_date);
+            $object->getActiveSheet()->setCellValueByColumnAndRow(7, $excel_row, $row->cus_nm);
+            $excel_row++;
+        }
+
+        $object_writer = PHPExcel_IOFactory::createWriter($object, 'Excel5');
+        header('Content-Type: application/vnd.ms-excel');
+        header('Content-Disposition: attachment;filename="Payment_'.date('Y/m/d').'.xls"');        
+        $object_writer->save('php://output');
+    }
     
+    function commaAmt($str){
+        $str = (int)$str;
+        return number_format($str);
+    }
+
+    function addCurrncy($curr,$amt){
+        if($curr == "1" && (int)$amt != 0){
+            return "៛"; 
+        }else if($curr == "2" && (int)$amt != 0){
+            return "$";
+        }else{
+            return "";
+        }
+    }
 }
 
 ?>

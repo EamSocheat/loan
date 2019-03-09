@@ -53,7 +53,7 @@
                     <div class="col-xs-4 padding-forms-left">
                         <div class="form-group">
                             <label for="" data-i18ncd="lb_interest_amt">Loan Interest(%)</label>
-                            <input type="text" class="form-control" id="txtLoanInter" name="txtLoanInter" disabled="disabled">
+                            <input type="text" class="form-control txt_r" id="txtLoanInter" name="txtLoanInter" disabled="disabled">
                             <input type="hidden" id="txtLoanInter2" name="txtLoanInter2">
                         </div>
                     </div>
@@ -69,13 +69,13 @@
                     </div>
                     <div class="col-xs-4 padding-forms-right">
                         <div class="form-group">
-                            <label  for="txtpayLoanAmt" data-i18nCd="lb_pay_loan">Pay Loan Amount $:</label>
-                            <input type="text" class="form-control" id="txtpayLoanAmt" name="txtpayLoanAmt" placeholder="Enter loan amount" autocomplete="off" />
+                            <label  for="txtpayLoanAmt" class="float_r" data-i18nCd="lb_pay_loan">Paid Amount</label>
+                            <input type="text" class="form-control txt_r" id="txtpayLoanAmt" name="txtpayLoanAmt" placeholder="Enter loan amount" autocomplete="off" />
                         </div>
                     </div>                                        
                 </div>
             	 <!-- data readonly -->
-                <div class="col-xs-12 row" style="padding:0;display: block;">                    
+                <div class="col-xs-12 row" style="padding:0;display: block;">
                     <div class="col-xs-4 padding-forms-left">
                         <div class="form-group">
                             <label for="txtCurrency" data-i18ncd="lb_currency">Currency</label>
@@ -84,14 +84,15 @@
                     </div> 
                     <div class="col-xs-4 padding-forms-right">
                         <div class="form-group">
-                            <label for="txtLoanAmtLeft" data-i18nCd="lb_pay_balance">Balance</label>
-                            <input type="text" maxlength="2" class="form-control" id="txtLoanAmtLeft" name="txtLoanAmtLeft" placeholder="Enter interest" disabled="disabled">
+                            <label for="txtLoanAmtLeft" class="float_r" data-i18nCd="lb_pay_balance">Balance</label>
+                            <input type="text" maxlength="2" class="form-control txt_r" id="txtLoanAmtLeft" name="txtLoanAmtLeft" placeholder="Enter interest" disabled="disabled">
+                            <input type="hidden" id="txtLoanAmtLeft2" name="txtLoanAmtLeft2">
                         </div>  
                     </div>
                     <div class="col-xs-4 padding-forms-right">
                         <div class="form-group">
-                            <label for="txtPayInterAmt" data-i18nCd="lb_pay_inter_paid">Pay Interest Amount:</label>
-                            <input type="text" maxlength="2" class="form-control" id="txtPayInterAmt" name="txtPayInterAmt" placeholder="Enter interest" disabled="disabled" >
+                            <label for="txtPayInterAmt" class="float_r" data-i18nCd="lb_pay_inter_paid">Pay Interest Amount:</label>
+                            <input type="text" maxlength="2" class="form-control txt_r" id="txtPayInterAmt" name="txtPayInterAmt" placeholder="Enter interest" disabled="disabled" >
                             <input type="hidden" id="txtPayInterAmt2" name="txtPayInterAmt2">
                         </div>  
                     </div>
@@ -113,14 +114,15 @@
                     </div>		
                     <div class="col-xs-4 padding-forms-right">
                         <div class="form-group">
-                            <label  for="txtLoanAmt" data-i18nCd="lb_pay_loan_amt">Loaned Amount $</label>
-                            <input type="text" class="form-control" id="txtLoanAmt" name="txtLoanAmt" placeholder="Loaned amount" disabled="disabled">
+                            <label  for="txtLoanAmt" class="float_r" data-i18nCd="lb_pay_loan_amt">Loaned Amount $</label>
+                            <input type="text" class="form-control txt_r" id="txtLoanAmt" name="txtLoanAmt" placeholder="Loaned amount" disabled="disabled">
+                            <input type="hidden" id="txtLoanAmt2" name="txtLoanAmt2">
                         </div> 
                     </div>
                     <div class="col-xs-4 padding-forms-right">
                         <div class="form-group">
-                            <label for="" data-i18nCd="lb_pay_total">Total Payment:</label>
-                            <input type="text" maxlength="100" class="form-control" id="txtTotalInterAmt" name="txtTotalInterAmt" placeholder="Enter interest" disabled="disabled" >
+                            <label for="" class="float_r" data-i18nCd="lb_pay_total">Total Payment:</label>
+                            <input type="text" maxlength="100" class="form-control txt_r" id="txtTotalInterAmt" name="txtTotalInterAmt" placeholder="Enter interest" disabled="disabled" >
                         </div>  
                     </div>
             	</div>            	

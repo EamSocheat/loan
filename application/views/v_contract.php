@@ -35,7 +35,7 @@
 									<div class="row" >
 										<div class="col-sm-12 col-md-12 col-lg-12 row" style="
 											">
-											<div class="col-sm-3 col-md-3 col-lg-3" style="
+											<div class="col-sm-4 col-md-4 col-lg-4" style="
 												">
 												<div class="form-group form-inline" style="display: table-caption;">
 													<label for="txtSrchContCode" class="control-label" data-i18ncd="lb_contract_no" style="
@@ -45,7 +45,7 @@
 													">
 												</div>
 											</div>
-											<div class="col-sm-4 col-md-4 col-lg-4" style="
+											<div class="col-sm-3 col-md-3 col-lg-3" style="
 												">
 												<div class="input-group date" style="
 													">
@@ -72,15 +72,14 @@
 													<input type="text" class="form-control pull-left date-pick" id="txtSrchContED" name="txtSrchContED" required="required" data-inputmask="'alias': 'dd-mm-yyyy'" data-mask="" placeholder="បញ្ជូល " style="font-size: 12px;width: 60%;">
 												</div>
 											</div>
-											<div class="col-sm-2 col-md-2 col-lg-2" style="
-												">
-												<div class="form-group form-inline" style="display: none;">
-													<label for="txtSrchContNm" class="control-label" data-i18ncd="lb_name" style="
-														margin-bottom: 7px;
-													">ឈ្មោះ</label>
-													<input type="text" class="form-control input-sm" id="txtSrchContNm" placeholder="បញ្ជូល ចាប់ផ្ដើមកិច្ចសន្យា">
-												</div>
-											</div>
+											<div class="col-sm-2 col-md-2 col-lg-2" style="">
+                                                <div class="form-group form-inline">
+                                                    <label for="txtSrchCusNm" class="control-label" data-i18ncd="lb_customer" style="
+                                                        margin-bottom: 7px;
+                                                    ">ឈ្មោះ</label>
+                                                    <input type="text" class="form-control input-sm" id="txtSrchCusNm" placeholder="បញ្ជូល ចាប់ផ្ដើមកិច្ចសន្យា">
+                                                </div>
+                                            </div>
 										</div>
 										<div class="col-sm-12 col-md-12 col-lg-12">
 											<button id="btnSearch" type="button" class="btn btn-success btn-sm pull-right" onclick="_thisPage.loadData(1);"><i class="fa fa-search" aria-hidden="true"></i> <span data-i18ncd="lb_search">Search</span></button>
@@ -135,7 +134,7 @@
 							<table class="table table-hover" id="tblContract">
 								<thead>
 									<tr>
-										<th><input type="checkbox" id="chkAllBox"></th>
+										<th><input type="checkbox" id="chkAllBox" style="display: none;"></th>
 										<th data-i18ncd="lb_contract_no">Contract Code</th>
 										<th data-i18ncd="lb_contract_start" class="txt_c">Contract Start</th>
 										<th data-i18ncd="lb_principle_amt" class="txt_r">Loan Amount</th>
@@ -148,7 +147,7 @@
 									</tr>
 								</thead>
 								<tbody>
-									<tr>
+									<!-- <tr>
 										<td class="chk_box"><input type="checkbox"></td>
 										<td><div>000001</div></td>
 										<td><div>2019-02-08</div></td>
@@ -160,7 +159,7 @@
 										<td class="text-center">
 											<button onclick="" type="button" class="btn btn-primary btn-xs"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></button>
 										</td>
-									</tr>
+									</tr> -->
 								</tbody>
 							</table>
 						</div>
