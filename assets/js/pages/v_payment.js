@@ -146,7 +146,7 @@ var _thisPage = {
 			$("#chkAll").on("click", function(){
 				$("#tblPosition tbody input:checkbox").prop("checked", this.checked);
 			});
-			$("#txtSrchPayCode").on("keypress", function(e){
+			$("#txtSrchPayCode, #txtSrchContCode").on("keypress", function(e){
 				if(e.which == 13){
 					_this.loadData(1);
 				}

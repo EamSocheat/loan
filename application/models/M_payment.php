@@ -66,6 +66,8 @@
     		if($dataSrch['srch_cont_code'] != null && $dataSrch['srch_cont_code'] != ""){
                 $this->db->like('tbl_contract.con_no', $dataSrch['srch_cont_code']);
             }
+
+            
             
             $this->db->order_by("pay_id", "desc");
             return $this->db->get('tbl_payment', $dataSrch['limit'], $dataSrch['offset'])->result();
