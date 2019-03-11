@@ -148,8 +148,8 @@
 										<option value="1" data-i18ncd="lb_row1">1 rows</option>
 										<option value="2" data-i18ncd="lb_row2">2 rows</option>
 										<option value="3" data-i18ncd="lb_row3">3 rows</option>
-										<option value="10" data-i18ncd="lb_row10">10 rows</option>
-										<option value="20" data-i18ncd="lb_row20" selected="selected">20 rows</option>
+										<option value="10" data-i18ncd="lb_row10" selected="selected">10 rows</option>
+										<option value="20" data-i18ncd="lb_row20" >20 rows</option>
 										<option value="50" data-i18ncd="lb_row50">50 rows</option>
 										<option value="100" data-i18ncd="lb_row100">100 rows</option>
 									</select>

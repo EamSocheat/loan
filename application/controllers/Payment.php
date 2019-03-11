@@ -53,6 +53,7 @@ class Payment extends CI_Controller{
             'pay_end_dt'    => $endDate,
             'srch_all'      => $this->input->post('srchAll'),
             'srch_customer' => $this->input->post('txtSrchCusNm'),
+        	'srch_cont_code' => $this->input->post('txtSrchContCode')
         );
         
         $data["OUT_REC"] = $this->M_payment->selectPaymentData($dataSrch);

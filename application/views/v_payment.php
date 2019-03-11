@@ -37,11 +37,11 @@
 							<div class="row" >
 							    <div class="col-sm-12 col-md-12 col-lg-12 row" style="
                                             ">
-                                            <div class="col-sm-4 col-md-4 col-lg-4" style="
+                                            <div class="col-sm-3 col-md-3 col-lg-3" style="
                                                 ">
-                                                <div class="form-group form-inline" style="display: table-caption;">
+                                                <div class="form-group form-inline" >
                                                     <label for="txtSrchPayCode" class="control-label" data-i18ncd="lb_pay_code" style="
-                                                        margin-bottom: 7px;
+                                                        margin-bottom: 7px;display: -webkit-box;
                                                     ">លេខសម្គាល់កិច្ចសន្យា</label>
                                                     <input type="text" class="form-control input-sm" id="txtSrchPayCode" placeholder="បញ្ជូល លេខសម្គាល់កិច្ចសន្យា" style="
                                                     ">
@@ -74,20 +74,43 @@
                                                     <input type="text" class="form-control pull-left date-pick" id="txtSrchPaymentED" name="txtSrchPaymentED" required="required" data-inputmask="'alias': 'dd-mm-yyyy'" data-mask="" placeholder="បញ្ជូល " style="font-size: 12px;width: 60%;">
                                                 </div>
                                             </div>
-                                            <div class="col-sm-2 col-md-2 col-lg-2" style="">
+                                            <div class="col-sm-3 col-md-3 col-lg-3" style="">
                                                 <div class="form-group form-inline">
                                                     <label for="txtSrchCusNm" class="control-label" data-i18ncd="lb_customer" style="
-                                                        margin-bottom: 7px;
+                                                        margin-bottom: 7px;display: -webkit-box;
                                                     ">ឈ្មោះ</label>
                                                     <input type="text" class="form-control input-sm" id="txtSrchCusNm" placeholder="បញ្ជូល ចាប់ផ្ដើមកិច្ចសន្យា">
                                                 </div>
                                             </div>
                                         </div>
 								<div class="col-sm-12 col-md-12 col-lg-12">
-								    <button id="btnSearch" type="button" class="btn btn-success btn-sm pull-right" onclick="_thisPage.loadData(1);"><i class="fa fa-search" aria-hidden="true"></i> <span data-i18ncd="lb_search">Search</span></button>
+								    
+								</div>
+							</div>
+							
+							
+							<div class="row" >
+								<div class="col-sm-12 col-md-12 col-lg-12 row" style="
+									">
+									<div class="col-sm-3 col-md-3 col-lg-3" style="
+										">
+										<div class="form-group form-inline">
+											<label for="txtSrchContCode" class="control-label" data-i18ncd="lb_contract_no" style="
+												margin-bottom: 7px;
+												display: -webkit-box;
+											">លេខសម្គាល់កិច្ចសន្យា</label>
+											<input type="text" class="form-control input-sm" id="txtSrchContCode" placeholder="បញ្ជូល លេខសម្គាល់កិច្ចសន្យា" style="
+											">
+										</div>
+									</div>
+									
+								</div>
+								<div class="col-sm-12 col-md-12 col-lg-12">
+									<button id="btnSearch" type="button" class="btn btn-success btn-sm pull-right" onclick="_thisPage.loadData(1);"><i class="fa fa-search" aria-hidden="true"></i> <span data-i18ncd="lb_search">Search</span></button>
 									<button id="btnReset" type="button" class="btn btn-warning btn-sm pull-right" style="margin-right: 5px"><i class="fa fa-refresh" aria-hidden="true"></i> <span data-i18ncd="btn_reset">Reset</span></button>
 								</div>
 							</div>
+							
 						</div>
 						<!-- /.box-body -->
 					</div>
@@ -121,8 +144,8 @@
                                 <option value="1" data-i18ncd="lb_row1">1 rows</option>
                                 <option value="2" data-i18ncd="lb_row2"> 2 rows</option>
                                 <option value="3" data-i18ncd="lb_row3">3 rows</option>
-                                <option value="10" data-i18ncd="lb_row10">10 rows</option>
-                                <option value="20" data-i18ncd="lb_row20" selected="selected">20 rows</option>
+                                <option value="10" data-i18ncd="lb_row10" selected="selected">10 rows</option>
+                                <option value="20" data-i18ncd="lb_row20" >20 rows</option>
                                 <option value="50" data-i18ncd="lb_row50">50 rows</option>
                                 <option value="100" data-i18ncd="lb_row100">100 rows</option>
                             </select>

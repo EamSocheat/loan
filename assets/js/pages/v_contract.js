@@ -318,3 +318,14 @@ function calDayBetweenTwoDate(date1,date2,str){
 	var daysDiff = msDiff / 1000 / 60 / 60 / 24;
 	return daysDiff;
 }
+
+/**
+ * 
+ */
+function resetFormSearch(){
+	$("#txtSrchContCode").val("");
+    $("#txtSrchContSD").val("");
+    $("#txtSrchContED").val("");
+    $("#txtSrchCusNm").val("");
+    $("#cboStatus").val("");
+}

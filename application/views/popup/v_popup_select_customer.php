@@ -56,7 +56,7 @@
                 <!-- end modal body  -->
           </div>
      
-          <div class="modal-footer" style="padding-top: 0;padding-bottom: 0;">
+          <div class="modal-footer" style="padding-bottom: 0;">
             <button data-i18ncd="btn_choose" type="button" class="btn btn-primary btn-sm" id="btnChoose">Choose</button>
             <button data-i18ncd="btn_close" type="button" class="btn btn-default btn-sm" id="btnClose">Close</button>
           </div>

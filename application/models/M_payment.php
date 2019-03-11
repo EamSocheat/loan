@@ -62,7 +62,11 @@
                 // $this->db->or_like('tbl_payment.cus_nm_kh', $dataSrch['srch_all']);
                 // $this->db->or_like('tbl_payment.cus_nm', $dataSrch['srch_all']);
             }
-
+			
+    		if($dataSrch['srch_cont_code'] != null && $dataSrch['srch_cont_code'] != ""){
+                $this->db->like('tbl_contract.con_no', $dataSrch['srch_cont_code']);
+            }
+            
             $this->db->order_by("pay_id", "desc");
             return $this->db->get('tbl_payment', $dataSrch['limit'], $dataSrch['offset'])->result();
 		}
@@ -105,6 +109,10 @@
                 $this->db->like('tbl_payment.pay_no', $dataSrch['srch_all']);
                 // $this->db->or_like('tbl_payment.cus_nm_kh', $dataSrch['srch_all']);
                 // $this->db->or_like('tbl_payment.cus_nm', $dataSrch['srch_all']);
+            }
+            
+			if($dataSrch['srch_cont_code'] != null && $dataSrch['srch_cont_code'] != ""){
+                $this->db->like('tbl_contract.con_no', $dataSrch['srch_cont_code']);
             }
 
             return $this->db->get()->result();

@@ -8,7 +8,7 @@
           <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal" aria-label="Close" id="btnExit">
               <span aria-hidden="true">&times;</span></button>
-            <h4 class="modal-title" id="popupTitle"><i class="fa fa-users"></i> <span data-i18ncd="lb_select_contract">Select Contract</span></h4>
+            <h4 class="modal-title" id="popupTitle"><i class="fa fa-handshake-o"></i> <span data-i18ncd="lb_select_contract">Select Contract</span></h4>
           </div>
           
           <div class="modal-body" id="modalMdBody">
@@ -54,7 +54,7 @@
                 <!-- end modal body  -->
           </div>
      
-          <div class="modal-footer" style="padding-top: 0;padding-bottom: 0;">
+          <div class="modal-footer" style="padding-bottom: 0;">
             <button data-i18ncd="btn_choose" type="button" class="btn btn-primary btn-sm" id="btnChoose">Choose</button>
             <button data-i18ncd="btn_close" type="button" class="btn btn-default btn-sm" id="btnClose">Close</button>
           </div>

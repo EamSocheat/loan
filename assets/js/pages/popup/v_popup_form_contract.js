@@ -241,14 +241,27 @@ function getDataEdit(cont_id){
 				$("#cbointerestType option[value='"+res.OUT_REC[0]["con_interest_type"]+"']").attr("selected",true);
 			    $("#lYear").val(res.OUT_REC[0]["con_per_year"]);
 			    $("#lMonth").val(res.OUT_REC[0]["con_per_month"]);
-
-			    if(status == "0" || status == 0){
+			    
+			    if(status == "0"){
 			    	$("#btnStatusActive").show();
 			    	$("#btnStatusClose").hide();
 			    	$("#statusID").val("1");
 			    	$("#btnSave").hide();
+			    	$("#txtContED").val(moment(res.OUT_REC[0]["con_end_dt"], "YYYY-MM-DD").format("DD-MM-YYYY"));
+			    	$("#totalLAmt").val(stock.comm.formatCurrency(res.OUT_REC[0]["total_paid_amt"]));
+				    $("#totalLRate").val(stock.comm.formatCurrency(res.OUT_REC[0]["total_paid_int"]));
+				    
+				    
+				    $("#divEnd1").show();
+			    	$("#divEnd2").show();
+				    $("#divEnd3").show();
+				    
 			    	// $("#btnStatus").attr("data-i18ncd", "btn_status_closed");
 			    }else{
+			    	$("#divEnd1").hide();
+			    	$("#divEnd2").hide();
+				    $("#divEnd3").hide();
+				    
 			    	$("#btnStatusActive").hide();
 			    	$("#btnStatusClose").show();
 			    	$("#statusID").val("0");

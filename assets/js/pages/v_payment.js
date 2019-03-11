@@ -56,6 +56,7 @@ var _thisPage = {
 		    input["txtSrchPaymentSD"]	= $("#txtSrchPaymentSD").val();
 		    input["txtSrchPaymentED"]	= $("#txtSrchPaymentED").val();
 		    input["txtSrchCusNm"]	= $("#txtSrchCusNm").val();
+		    input["txtSrchContCode"]	= $("#txtSrchContCode").val();
 			
 		    $("#loading").show();
 		    $.ajax({
@@ -247,7 +248,16 @@ function stringDate(str){
 	return str = str.substr(8,10) +'-'+ str.substr(5,2) +'-'+ str.substr(0,4);
 }
 
-
+/**
+ * 
+ */
+function resetFormSearch(){
+	$("#txtSrchPayCode").val("");
+    $("#txtSrchPaymentSD").val("");
+    $("#txtSrchPaymentED").val("");
+    $("#txtSrchCusNm").val("");
+    $("#txtSrchContCode").val("");
+}
 
 
 

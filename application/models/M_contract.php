@@ -25,7 +25,10 @@
                             order by tbl_payment.con_id
                             limit 1) 
                 END                     
-                as pay_last_date');
+                as pay_last_date,
+                (tbl_contract.con_principle + 
+                ( select COALESCE(sum(tbl_payment.pay_int), 0) from tbl_payment where tbl_payment.con_id = tbl_contract.con_id )) as total_paid_amt,
+                ( select COALESCE(sum(tbl_payment.pay_int), 0) from tbl_payment where tbl_payment.con_id = tbl_contract.con_id ) as total_paid_int');
             //$this->db->from('tbl_contract');
             $this->db->join('tbl_customer','tbl_customer.cus_id = tbl_contract.cus_id');
             $this->db->join('tbl_currency','tbl_currency.cur_id = tbl_contract.cur_id');
@@ -84,18 +87,59 @@
     	}
 
     	public function countContractData($dataSrch){
+    		
 		    $this->db->select('count(con_id) as total_rec');
             $this->db->from('tbl_contract');
             $this->db->join('tbl_customer','tbl_customer.cus_id = tbl_contract.cus_id');
+            $this->db->join('tbl_currency','tbl_currency.cur_id = tbl_contract.cur_id');
             $this->db->where('tbl_contract.com_id', $_SESSION['comId']);
             $this->db->where('tbl_contract.useYn', 'Y');
+
+            if($dataSrch['srch_status'] != null && $dataSrch['srch_status'] != ""){
+                $this->db->where('tbl_contract.con_status != ', $dataSrch['srch_status']);
+            }
             
+            if($dataSrch['conIdArr'] != null && $dataSrch['conIdArr'] != ""){
+                $integerIDs = array_map('intval', explode(',', $dataSrch['conIdArr']));
+                $this->db->where_in('tbl_contract.con_id', $integerIDs);
+            }
+
             if($dataSrch['con_id'] != null && $dataSrch['con_id'] != ""){
                 $this->db->where('tbl_contract.con_id', $dataSrch['con_id']);
             }
             
             if($dataSrch['con_no'] != null && $dataSrch['con_no'] != ""){
                 $this->db->like('tbl_contract.con_no', $dataSrch['con_no']);
+            }
+
+            if($dataSrch['con_start_dt'] != null && $dataSrch['con_start_dt'] != ""){
+                $this->db->where('tbl_contract.con_start_dt >=', $dataSrch['con_start_dt']);                
+            }
+
+            if(($dataSrch['con_start_dt'] != null && $dataSrch['con_start_dt'] != "") 
+                && ($dataSrch['con_end_dt'] != null && $dataSrch['con_end_dt'] != "")){
+                $this->db->where('tbl_contract.con_start_dt >=', $dataSrch['con_start_dt']);
+                $this->db->where('tbl_contract.con_start_dt <=', $dataSrch['con_end_dt']);
+            }
+
+            if($dataSrch['con_end_dt'] != null && $dataSrch['con_end_dt'] != ""){
+                $this->db->where('tbl_contract.con_end_dt <=', $dataSrch['con_end_dt']);
+            }
+            
+            if($dataSrch['srch_customer'] != null && $dataSrch['srch_customer'] != ""){
+                $this->db->like('tbl_customer.cus_nm', $dataSrch['srch_customer']);
+                $this->db->or_like('tbl_customer.cus_nm_kh', $dataSrch['srch_customer']);
+                $this->db->or_like('tbl_customer.cus_phone1', $dataSrch['srch_customer']);
+                $this->db->or_like('tbl_customer.cus_phone2', $dataSrch['srch_customer']);
+            }
+            
+    	  	if($dataSrch['filter_status'] != null && $dataSrch['filter_status'] != ""){
+    	  		if(strcmp($dataSrch['filter_status'],'1') == 0){
+    	  			$this->db->where('tbl_contract.con_status !=', "0");
+    	  		}else{
+    	  			$this->db->where('tbl_contract.con_status', "0");
+    	  		}
+                
             }
             
             return $this->db->get()->result();

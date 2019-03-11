@@ -109,9 +109,9 @@
                     </div>
                 </div>
                 <!-- data readonly -->
-                <div class="col-xs-12 row" style="padding:0;display: block;">
+                <div class="col-xs-12 row" style="padding:0;min-height: 55px;" id="divContractEnd">
                     <div class="col-xs-4 padding-forms-left">
-                        <div class="form-group">
+                        <div class="form-group" style="display: none;" id="divEnd1">
                             <label for="txtContSD" data-i18ncd="lb_contract_end">Contract End Date</label>
                             <div class="input-group date">
                                 <div class="input-group-addon" id="txtContEDIcon" style="border-top-left-radius: 5px; border-bottom-left-radius: 5px;">
@@ -122,15 +122,15 @@
                         </div>
                     </div>
                     
-                    <div class="col-xs-4 padding-forms-right">
-                        <div class="form-group">
+                    <div class="col-xs-4 padding-forms-right" >
+                        <div class="form-group" style="display: none;" id="divEnd2">
                             <label  for="totalLAmt" data-i18nCd="lb_total_priciple">Total Loaned Amount</label>
                             <input type="text" class="form-control" id="totalLAmt" placeholder="Loaned amount" name="totalL" disabled="disabled" autocomplete="off" />
                         </div> 
                     </div>
                     
-                    <div class="col-xs-4 padding-forms-right">
-                        <div class="form-group">
+                    <div class="col-xs-4 padding-forms-right" >
+                        <div class="form-group" style="display: none;" id="divEnd3">
                             <label for="totalLRate" data-i18nCd="lb_total_interest">Total Interest Amount</label>
                             <input type="text" maxlength="2" class="form-control" id="totalLRate" placeholder="Enter interest" name="totalLRate" disabled="disabled" autocomplete="off" />
                         </div>  
