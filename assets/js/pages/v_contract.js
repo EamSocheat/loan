@@ -52,7 +52,8 @@ var _thisPage = {
 		    dat["txtSrchContSD"]	= $("#txtSrchContSD").val();
 		    dat["txtSrchContED"]	= $("#txtSrchContED").val();
 		    dat["txtSrchCusNm"]		= $("#txtSrchCusNm").val();
-
+		    dat["cboStatus"]		= $("#cboStatus").val();
+		    
 		    $("#loading").show();
 		    $.ajax({
 				type: "POST",
@@ -73,7 +74,7 @@ var _thisPage = {
 							html += 	'<td><div class="txt_r">'+res.OUT_REC[i]["con_interest"]+'%</div></td>';
 							html += 	'<td><div class="txt_c">'+$.i18n.prop("lb_interest_type_"+res.OUT_REC[i]["con_interest_type"])+'</div></td>';
 							html += 	'<td><div class="txt_c">'+showPeriod(res.OUT_REC[i]["con_per_year"], res.OUT_REC[i]["con_per_month"])+'</div></td>';
-							html += 	'<td><div class="txt_c">'+res.OUT_REC[i]["cus_nm"]+'</div></td>';
+							html += 	'<td><div class="txt_c">'+(getCookie("lang") == "kh" ? res.OUT_REC[i]["cus_nm_kh"] : res.OUT_REC[i]["cus_nm"]) +'</div></td>';
 							html += 	'<td><div class="txt_c">'+chkContStatus(res.OUT_REC[i]["con_status"])+'</div></td>';
 							html += 	'<td class="text-center">';
 							html +=			'<button onclick="editData('+res.OUT_REC[i]["con_id"]+')" type="button" class="btn btn-primary btn-xs">';

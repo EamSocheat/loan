@@ -33,7 +33,7 @@ class Contract extends CI_Controller{
         }
         $startDate = $this->input->post('txtSrchContSD');
         $endDate   = $this->input->post('txtSrchContED');
-        
+        $conStatus = $this->input->post('cboStatus');
         if($startDate != null || $startDate != ""){
             $startDate = date('Y-m-d H:i:s',strtotime($startDate));
         }
@@ -52,6 +52,7 @@ class Contract extends CI_Controller{
             'con_end_dt'    => $endDate,
             'srch_status'   => $this->input->post('srch_status'),
             'srch_customer' => $this->input->post('txtSrchCusNm'),
+        	'filter_status' 	=> $conStatus,
         );
 
         $data["OUT_REC"] = $this->M_contract->selectContractData($dataSrch);

@@ -6,12 +6,12 @@
 	<section class="content-header">
 		<h1>
 		<i class="fa fa-handshake-o"></i>
-		<span data-i18ncd="lb_lb_contract">Contract</span>
+		<span data-i18ncd="lb_contract">Contract</span>
 		<small data-i18ncd="lb_information">Information</small>
 		</h1>
 		<ol class="breadcrumb">
 			<li><a href="javascript:"><i class="fa fa-dashboard"></i><span data-i18ncd="lb_dasbord">Dashboard</span></a></li>
-			<li class="active" data-i18ncd="lb_lb_contract">Contract</li>
+			<li class="active" data-i18ncd="lb_contract">Contract</li>
 		</ol>
 	</section>
 	<!-- Main content -->
@@ -35,11 +35,12 @@
 									<div class="row" >
 										<div class="col-sm-12 col-md-12 col-lg-12 row" style="
 											">
-											<div class="col-sm-4 col-md-4 col-lg-4" style="
+											<div class="col-sm-3 col-md-3 col-lg-3" style="
 												">
-												<div class="form-group form-inline" style="display: table-caption;">
+												<div class="form-group form-inline">
 													<label for="txtSrchContCode" class="control-label" data-i18ncd="lb_contract_no" style="
 														margin-bottom: 7px;
+														display: -webkit-box;
 													">លេខសម្គាល់កិច្ចសន្យា</label>
 													<input type="text" class="form-control input-sm" id="txtSrchContCode" placeholder="បញ្ជូល លេខសម្គាល់កិច្ចសន្យា" style="
 													">
@@ -72,20 +73,47 @@
 													<input type="text" class="form-control pull-left date-pick" id="txtSrchContED" name="txtSrchContED" required="required" data-inputmask="'alias': 'dd-mm-yyyy'" data-mask="" placeholder="បញ្ជូល " style="font-size: 12px;width: 60%;">
 												</div>
 											</div>
-											<div class="col-sm-2 col-md-2 col-lg-2" style="">
+											<div class="col-sm-3 col-md-3 col-lg-3" style="">
                                                 <div class="form-group form-inline">
                                                     <label for="txtSrchCusNm" class="control-label" data-i18ncd="lb_customer" style="
-                                                        margin-bottom: 7px;
-                                                    ">ឈ្មោះ</label>
+														margin-bottom: 7px;
+														display: -webkit-box;
+													">ឈ្មោះ</label>
                                                     <input type="text" class="form-control input-sm" id="txtSrchCusNm" placeholder="បញ្ជូល ចាប់ផ្ដើមកិច្ចសន្យា">
                                                 </div>
                                             </div>
+										</div>
+										<div class="col-sm-12 col-md-12 col-lg-12">
+											
+										</div>
+									</div>
+									
+									<div class="row" >
+										<div class="col-sm-12 col-md-12 col-lg-12 row" style="
+											">
+											<div class="col-sm-3 col-md-3 col-lg-3" style="
+												">
+												<div class="form-group form-inline">
+													<label for="cboStatus" class="control-label" data-i18ncd="lb_status" style="
+														margin-bottom: 7px;
+														display: -webkit-box;
+													">Status</label>
+													<select class="form-control" id="cboStatus" name="cboStatus" style="font-size: 14px;min-width: 150px;">
+														<option value="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</option>
+														<option value="1" data-i18ncd="lb_active">Active</option>
+														<option value="0" data-i18ncd="lb_close">Close</option>
+													</select>
+												</div>
+											</div>
+											
 										</div>
 										<div class="col-sm-12 col-md-12 col-lg-12">
 											<button id="btnSearch" type="button" class="btn btn-success btn-sm pull-right" onclick="_thisPage.loadData(1);"><i class="fa fa-search" aria-hidden="true"></i> <span data-i18ncd="lb_search">Search</span></button>
 											<button id="btnReset" type="button" class="btn btn-warning btn-sm pull-right" style="margin-right: 5px"><i class="fa fa-refresh" aria-hidden="true"></i> <span data-i18ncd="btn_reset">Reset</span></button>
 										</div>
 									</div>
+									
+									
 								</div>
 								<!-- /.box-body -->
 							</div>

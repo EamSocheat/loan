@@ -69,8 +69,17 @@
                 $this->db->or_like('tbl_customer.cus_phone1', $dataSrch['srch_customer']);
                 $this->db->or_like('tbl_customer.cus_phone2', $dataSrch['srch_customer']);
             }
+            
+    	  	if($dataSrch['filter_status'] != null && $dataSrch['filter_status'] != ""){
+    	  		if(strcmp($dataSrch['filter_status'],'1') == 0){
+    	  			$this->db->where('tbl_contract.con_status !=', "0");
+    	  		}else{
+    	  			$this->db->where('tbl_contract.con_status', "0");
+    	  		}
+                
+            }
 
-            $this->db->order_by("con_id", "asc");
+            $this->db->order_by("con_id", "desc");
             return $this->db->get('tbl_contract',$dataSrch['limit'],$dataSrch['offset'])->result();
     	}
 
