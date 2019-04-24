@@ -159,15 +159,15 @@ function loadContractData(){
     dat["srchAll"]  = $("#txtSearch").val().trim();	
     dat["srch_status"] = "0";	
     
-    console.log(dat);
-    // parent.$("#loading").show();
+    parent.$("#loading").show();
     $.ajax({
 		type: "POST",
 		url : $("#base_url").val() +"Contract/getContract",
 		data: dat,
 		dataType: "json",
 		success: function(res) {
-			// parent.$("#loading").hide();
+			parent.$("#loading").hide();
+			$("#chkAllContract").show();
 			if(dat["offset"] == 0){
 				$("#tblContract tbody").html("");
 			}
@@ -197,6 +197,7 @@ function loadContractData(){
 			        $("#tblContract tbody").append(html);
 			    }    
 			}else{
+				$("#chkAllContract").hide();
 				if($("#tblContract tbody tr").length <= 0){
 					$("#tblContract tbody").append("<tr><td colspan='9' style='    text-align: center;'>"+$.i18n.prop("lb_no_data")+"</td></tr>");
 				}

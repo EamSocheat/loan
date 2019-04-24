@@ -52,7 +52,6 @@ var _thisPage = {
 			//
 			$("#frmContract").submit(function(e){
 				e.preventDefault();
-				console.log(_btnId)
 				if(_btnId == "btnSave"){
 			    	saveData();
 				}else{
@@ -125,6 +124,10 @@ var _thisPage = {
 					updateContractStatus(statusID);
 				});
 			});
+
+			$("input").focus(function(){
+				$("#lRate").css("border","1px solid #d2d6de");
+			});
 			
 		}
 };
@@ -156,8 +159,19 @@ function loadCurrencyData(){
 }
 
 function saveData(str){
-	$("#contId").appendTo("#frmContract");
-    parent.$("#loading").show();
+	$("#contId").appendTo("#frmContract");    
+    
+    var isCusomterEmpty = $("#txtCusNm").val().trim();
+    var loanInter = $("#lRate").val().trim();
+
+    if(stock.comm.isNull(isCusomterEmpty) || stock.comm.isEmpty(isCusomterEmpty)) return;
+    if(loanInter == "null" || stock.comm.isNull(loanInter) || Number(loanInter) < 0){
+    	$("#lRate").css("border","1px solid red");
+    	stock.comm.alertMsg($.i18n.prop("msg_err_interest"));
+    	return;
+    }
+
+	parent.$("#loading").show();
 	$.ajax({
 		type : "POST",
 		url  : $("#base_url").val() +"Contract/saveContract",
@@ -172,8 +186,7 @@ function saveData(str){
 				parent.stock.comm.alertMsg($.i18n.prop("msg_save_com"),"braNm");
 				if(str == "new"){
 				    clearForm();
-				}else{
-					console.log(false)
+				}else{					
 				    parent.stock.comm.closePopUpForm("PopupFormContract",parent.popupContractCallback);
 				}
 			}

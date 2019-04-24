@@ -76,6 +76,7 @@
       position: sticky !important;
       top: 0 !important;
     }
+    .pointer {cursor: pointer;}
   </style>
 </head>
 <body>

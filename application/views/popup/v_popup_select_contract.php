@@ -35,7 +35,7 @@
               <table class="table table-hover" id="tblContract" >
                 <thead>  
                   <tr>
-                    <th class="top-zero"><input type="checkbox" id="chkAllContract"></th>
+                    <th class="top-zero"><input type="checkbox" id="chkAllContract" style="display: none;"></th>
                     <th class="top-zero" data-i18ncd="" class="top-zero">Contract Code</th>
                     <th class="top-zero" data-i18ncd="">Contract Start</th>
                     <th class="top-zero" data-i18ncd="">Loan Amount</th>                    

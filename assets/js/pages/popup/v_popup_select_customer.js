@@ -36,7 +36,7 @@ var _thisPage = {
 		});
 		//
 		$("#btnEdit").click(function(){
-			var chkVal = $('#tblCustomer tbody tr td.chk_box input[type="checkbox"]:checked');
+			var chkVal = $('#tblCustomer tbody tr td.chk_box input[type="radio"]:checked');
 			if(chkVal.length != 1){
 			    parent.stock.comm.alertMsg($.i18n.prop("msg_con_edit1"));
 				return;
@@ -48,7 +48,7 @@ var _thisPage = {
 		});
 		//
 		$("#btnDelete").click(function(e){
-			var chkVal = $('#tblCustomer tbody tr td.chk_box input[type="checkbox"]:checked');
+			var chkVal = $('#tblCustomer tbody tr td.chk_box input[type="radio"]:checked');
 			
 			if(chkVal.length <= 0){
 				parent.stock.comm.alertMsg($.i18n.prop("msg_con_del"));
@@ -102,7 +102,7 @@ var _thisPage = {
 		});
 		//
 		$("#btnChoose").click(function(e) {
-			var chkVal = $('#tblCustomer tbody tr td.chk_box input[type="checkbox"]:checked');
+			var chkVal = $('#tblCustomer tbody tr td.chk_box input[type="radio"]:checked');
 			if(chkVal.length != 1){
 			    parent.stock.comm.alertMsg($.i18n.prop("msg_con_choose1"));
 				return;
@@ -138,8 +138,6 @@ var _thisPage = {
 			}
 			parent.stock.comm.closePopUpForm("PopupSelectBranch",callbackFunction,data);
 		});
-		
-		
 	}
 };
 
@@ -165,14 +163,15 @@ function getData(){
 			
 			if(res.OUT_REC != null && res.OUT_REC.length >0){
 			    for(var i=0; i<res.OUT_REC.length;i++){
-			        var html = "<tr data-id='"+res.OUT_REC[i]["cus_id"]+"'>";
+			        var html = "<tr class='dataRow pointer' data-id='"+res.OUT_REC[i]["cus_id"]+"'>";
 			        var urlPhoto ="";
 			        if(res.OUT_REC[i]["cus_photo"] != null && res.OUT_REC[i]["cus_photo"] != ""){
 			        	urlPhoto = $("#base_url").val()+"/upload"+ res.OUT_REC[i]["cus_photo"];
 			        }else{
 			        	urlPhoto = $("#base_url").val()+"/assets/image/default-staff-photo.png";
 			        }
-			        html += "<td class='chk_box'><input type='checkbox'></td>";
+			        // html += "<td class='chk_box'><input type='checkbox'></td>";
+			        html += "<td class='chk_box' style='text-align:center;'><input type='radio' name='customer' style='margin-top: 10px;'></td>";
 			        html += "<td class='cus_image'><img style='width: 35px;height: 35px;' src='"+ urlPhoto +"' class='img-circle' /></td>";
 			        html += "<td class='cus_iden'>"+stock.comm.nullToEmpty(res.OUT_REC[i]["cus_idnt_num"])+"</td>";
 			        html += "<td class='cus_nm'>"+res.OUT_REC[i]["cus_nm"]+"</td>";
