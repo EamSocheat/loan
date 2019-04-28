@@ -221,6 +221,10 @@ function selectConractCallback(data){
 	$("#txtLoanAmt2").val(stock.comm.formatCurrency(data["con_principle"]));
 	$("#txtLoanAmtLeft").val(stock.comm.formatCurrency(data["loan_amount_left"]));
 	$("#txtLoanAmtLeft2").val(stock.comm.formatCurrency(data["loan_amount_left"]));
+
+	$("#txtCustPayment").val();
+	$("#cboCurrencyType").val();
+	$("#txtCustPayReturn").val();
 	console.log(data)
 	calPayInterestAmt();
 }
@@ -281,4 +285,12 @@ function totalAmt(a,b){
 	console.log("b:  "+b)
 
 	return parseFloat(a) + parseFloat(b);
+}
+
+function isNumber(evt) {
+    var iKeyCode = (evt.which) ? evt.which : evt.keyCode
+    if (iKeyCode != 46 && iKeyCode > 31 && (iKeyCode < 48 || iKeyCode > 57))
+        return false;
+
+    return true;
 }
