@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 09, 2019 at 06:02 PM
+-- Generation Time: Apr 30, 2019 at 06:40 AM
 -- Server version: 5.7.14
 -- PHP Version: 5.6.25
 
@@ -152,7 +152,8 @@ CREATE TABLE `tbl_contract` (
 --
 
 INSERT INTO `tbl_contract` (`con_id`, `con_no`, `con_start_dt`, `con_principle`, `con_interest`, `con_interest_type`, `con_per_year`, `con_per_month`, `con_total_principle`, `con_total_interest`, `con_status`, `con_end_dt`, `regDt`, `regUsr`, `upDt`, `upUsr`, `con_desc`, `useYn`, `com_id`, `cus_id`, `cur_id`) VALUES
-(32, '0000000001', '2019-03-01 00:00:00', 100, 10, 'M', 0, 10, 0, 0, '0', '2019-03-10 00:00:00', '2019-03-09 17:12:18', '1', NULL, NULL, '', 'Y', 1, 6, 2);
+(38, '0000000033', '2019-04-28 00:00:00', 500, 10, 'M', 2, 1, 0, 0, '', NULL, '2019-04-28 13:19:07', '1', NULL, NULL, '', 'Y', 1, 5, 2),
+(32, '0000000001', '2019-03-01 00:00:00', 100, 10, 'M', 0, 10, 0, 0, '1', '2019-03-10 00:00:00', '2019-03-09 17:12:18', '1', '2019-04-27 15:13:30', '1', '', 'Y', 1, 6, 2);
 
 -- --------------------------------------------------------
 
@@ -438,16 +439,34 @@ CREATE TABLE `tbl_payment` (
   `regUsr` int(11) DEFAULT NULL,
   `upUsr` int(11) DEFAULT NULL,
   `com_id` int(11) DEFAULT NULL,
-  `con_id` int(11) DEFAULT NULL
+  `con_id` int(11) DEFAULT NULL,
+  `pay_usr_id` int(11) DEFAULT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=armscii8;
 
 --
 -- Dumping data for table `tbl_payment`
 --
 
-INSERT INTO `tbl_payment` (`pay_id`, `pay_no`, `pay_loan`, `pay_int`, `pay_loan_int`, `pay_loan_int_type`, `pay_date`, `pay_des`, `regDt`, `upDt`, `useYn`, `regUsr`, `upUsr`, `com_id`, `con_id`) VALUES
-(31, '0000000001', 80, 3, 10, '2', '2019-03-10 00:00:00', '', '2019-03-09 17:11:56', NULL, 'Y', 1, NULL, 1, 32),
-(32, '0000000032', 20, 0, 10, '2', '2019-03-10 00:00:00', '', '2019-03-09 17:12:18', NULL, 'Y', 1, NULL, 1, 32);
+INSERT INTO `tbl_payment` (`pay_id`, `pay_no`, `pay_loan`, `pay_int`, `pay_loan_int`, `pay_loan_int_type`, `pay_date`, `pay_des`, `regDt`, `upDt`, `useYn`, `regUsr`, `upUsr`, `com_id`, `con_id`, `pay_usr_id`) VALUES
+(37, '0000000037', 60, 36.17, 10, '2', '2019-06-01 00:00:00', '', '2019-04-28 13:56:10', NULL, 'Y', 1, NULL, 1, 38, NULL),
+(35, '0000000033', 100, -45, 10, '2', '2019-04-01 00:00:00', '', '2019-04-28 13:22:34', NULL, 'Y', 1, NULL, 1, 38, NULL),
+(36, '0000000036', 50, 40, 10, '2', '2019-05-01 00:00:00', '', '2019-04-28 13:23:12', NULL, 'Y', 1, NULL, 1, 38, NULL),
+(31, '0000000001', 80, 3, 10, '2', '2019-03-10 00:00:00', '', '2019-03-09 17:11:56', NULL, 'Y', 1, NULL, 1, 32, NULL),
+(32, '0000000032', 20, 0, 10, '2', '2019-03-10 00:00:00', '', '2019-03-09 17:12:18', NULL, 'Y', 1, NULL, 1, 32, NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tbl_payment_user`
+--
+
+CREATE TABLE `tbl_payment_user` (
+  `pay_usr_id` int(11) NOT NULL,
+  `pay_usr_amount` double NOT NULL,
+  `pay_usr_amount_return` double DEFAULT NULL,
+  `pay_usr_rate` double DEFAULT NULL,
+  `cur_id` int(11) DEFAULT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=armscii8;
 
 -- --------------------------------------------------------
 
@@ -498,6 +517,24 @@ CREATE TABLE `tbl_product` (
   `cat_id` int(11) NOT NULL,
   `com_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tbl_rate`
+--
+
+CREATE TABLE `tbl_rate` (
+  `rate_id` int(11) NOT NULL,
+  `rate_amount` double NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=armscii8;
+
+--
+-- Dumping data for table `tbl_rate`
+--
+
+INSERT INTO `tbl_rate` (`rate_id`, `rate_amount`) VALUES
+(1, 4000);
 
 -- --------------------------------------------------------
 
@@ -803,6 +840,12 @@ ALTER TABLE `tbl_payment`
   ADD PRIMARY KEY (`pay_id`);
 
 --
+-- Indexes for table `tbl_payment_user`
+--
+ALTER TABLE `tbl_payment_user`
+  ADD PRIMARY KEY (`pay_usr_id`);
+
+--
 -- Indexes for table `tbl_position`
 --
 ALTER TABLE `tbl_position`
@@ -813,6 +856,12 @@ ALTER TABLE `tbl_position`
 --
 ALTER TABLE `tbl_product`
   ADD PRIMARY KEY (`pro_id`);
+
+--
+-- Indexes for table `tbl_rate`
+--
+ALTER TABLE `tbl_rate`
+  ADD PRIMARY KEY (`rate_id`);
 
 --
 -- Indexes for table `tbl_staff`
@@ -890,7 +939,7 @@ ALTER TABLE `tbl_company`
 -- AUTO_INCREMENT for table `tbl_contract`
 --
 ALTER TABLE `tbl_contract`
-  MODIFY `con_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
+  MODIFY `con_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=39;
 --
 -- AUTO_INCREMENT for table `tbl_currency`
 --
@@ -915,7 +964,7 @@ ALTER TABLE `tbl_installment`
 -- AUTO_INCREMENT for table `tbl_menu`
 --
 ALTER TABLE `tbl_menu`
-  MODIFY `menu_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `menu_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 --
 -- AUTO_INCREMENT for table `tbl_move`
 --
@@ -925,7 +974,12 @@ ALTER TABLE `tbl_move`
 -- AUTO_INCREMENT for table `tbl_payment`
 --
 ALTER TABLE `tbl_payment`
-  MODIFY `pay_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
+  MODIFY `pay_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=38;
+--
+-- AUTO_INCREMENT for table `tbl_payment_user`
+--
+ALTER TABLE `tbl_payment_user`
+  MODIFY `pay_usr_id` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT for table `tbl_position`
 --
@@ -936,6 +990,11 @@ ALTER TABLE `tbl_position`
 --
 ALTER TABLE `tbl_product`
   MODIFY `pro_id` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `tbl_rate`
+--
+ALTER TABLE `tbl_rate`
+  MODIFY `rate_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 --
 -- AUTO_INCREMENT for table `tbl_staff`
 --
