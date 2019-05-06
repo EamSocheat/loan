@@ -82,6 +82,13 @@ class Payment extends CI_Controller{
             'com_id'        => $_SESSION['comId']
         );
 
+        $dataPayUser = array(
+            'pay_usr_amount'         => $this->input->post('txtCustPayment'),
+            'pay_usr_rate'        => $this->input->post('cboCurrencyType'),
+            'pay_usr_amount_calculate'        => $this->input->post('txtCustCalcuPay'),
+            'pay_usr_amount_return'        => $this->input->post('txtCustPayReturn')
+        );
+
         $pay_no  = $this->M_payment->selectId();
         foreach($pay_no as $r){
             $max_id = (int)$r->pay_id + 1;

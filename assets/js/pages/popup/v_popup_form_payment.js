@@ -107,7 +107,6 @@ function saveData(str){
         contentType: false,
         processData: false,
 		success: function(res) {
-			console.log(res);
 		    parent.$("#loading").hide();
 			if(res == "OK"){
 				parent.stock.comm.alertMsg($.i18n.prop("msg_save_com"),"braNm");
@@ -162,6 +161,11 @@ function getDataView(pay_id){
 					$("#txtTotalInterAmt").val(stock.comm.formatCurrency(parseFloat(res.OUT_REC[i]["pay_loan"])+parseFloat(res.OUT_REC[i]["pay_int"])));
 					$("#txtPayDesc").val(res.OUT_REC[i]["pay_des"]);
 					$("#txtPayDesc").attr("disabled", true);
+
+					$("#txtCustPayment").attr("disabled", "disabled");
+					$("#cboCurrencyType").attr("disabled", "disabled");
+					$("#txtCustPayReturn").attr("disabled", "disabled");
+
 					$("#btnSave").hide();					
 					
 				}

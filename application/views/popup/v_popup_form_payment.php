@@ -129,7 +129,7 @@
                 <div class="col-xs-12 row" style="padding:0px">
                     <div class="col-xs-4 padding-forms-left">
                         <div class="form-group">
-                            <label  for="txtCustPayment" class="float_r" data-i18nCd="lb_customer_amt">Customer Payment $</label>
+                            <label  for="txtCustPayment" class="float_r" data-i18nCd="lb_customer_amt">Customer Pay Payment $</label>
                             <input type="text" class="form-control txt_r" id="txtCustPayment" name="txtCustPayment" onkeypress="javascript:return isNumber(event)" placeholder="Customer Payment" />
                             <input type="hidden" id="txtLoanAmt2" name="txtLoanAmt2">
                         </div> 
@@ -138,6 +138,7 @@
                         <div class="form-group">
                             <label  for="cboCurrencyType" data-i18nCd="lb_currency">Currency Type</label>
                              <select class="form-control" id="cboCurrencyType" name="cboCurrencyType" style="font-size: 14px;">
+                                <option value="" data-i18nCd="lb_select">Please Select</option>
                                 <option value="M" data-i18nCd="lb_currency_type_R">Reils</option>
                                 <option value="Y" data-i18nCd="lb_currency_type_D">Dollars</option>
                             </select>
@@ -145,21 +146,28 @@
                     </div>
                     <div class="col-xs-4 padding-forms-right">
                         <div class="form-group">
-                            <label  for="txtCustPayReturn" class="float_r" data-i18nCd="lb_return_amt">Return Amount $</label>
-                            <input type="text" class="form-control txt_r" id="txtCustPayReturn" name="txtCustPayReturn" onkeypress="javascript:return isNumber(event)" placeholder="Return Amount" />
-                            <input type="hidden" id="txtLoanAmt2" name="txtLoanAmt2">
-                        </div> 
+                            <label  for="txtCustCalcuPay" class="float_r" data-i18nCd="lb_cal_pay_amt">Calculate Payment</label>
+                            <input type="text" class="form-control txt_r" id="txtCustCalcuPay" name="txtCustCalcuPay" onkeypress="javascript:return isNumber(event)" placeholder="Return Amount" disabled="disabled" />
+                            <input type="hidden" id="txtCustCalcuPay" name="txtCustCalcuPay">
+                        </div>
                     </div>
                 </div>
             <!-- end modal body  -->
-                <div class="col-xs-12 row" style="padding:0px">                    
-                    <div class="col-xs-12 padding-forms-left">
+                <div class="col-xs-12 row" style="padding:0px">                
+                    <div class="col-xs-8 padding-forms-left">
                         <div class="form-group">
                             <label for="txtPayDesc" data-i18nCd="lb_des">Description:</label>
                             <input type="text" maxlength="100" class="form-control" id="txtPayDesc" placeholder="Enter year" name="txtPayDesc" autocomplete="off" >
                         </div>
-                    </div>                     
-                </div> 
+                    </div>
+                    <div class="col-xs-4 padding-forms-right">
+                        <div class="form-group">
+                            <label  for="txtCustPayReturn" class="float_r" data-i18nCd="lb_return_amt">Return Amount $</label>
+                            <input type="text" class="form-control txt_r" id="txtCustPayReturn" name="txtCustPayReturn" onkeypress="javascript:return isNumber(event)" placeholder="Return Amount" disabled="disabled" />
+                            <input type="hidden" id="txtCustPayReturn" name="txtCustPayReturn">
+                        </div>
+                    </div>
+                </div>
         </div>
      
         <div class="modal-footer" style="text-align: center;">

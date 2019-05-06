@@ -30,7 +30,7 @@
                 		<div class="col-xs-4 padding-forms-right">                			
                 			<div class="form-group">
                               <label for="braNm" data-i18ncd="lb_name">Name</label>
-                              <input type="text" class="form-control" id="txtCustomerNm" name="txtCustomerNm" required="required" autocomplete="off" />
+                              <input type="text" class="form-control" id="txtCustomerNm" name="txtCustomerNm" autocomplete="off" />
                             </div>
                 		</div>
                 		
