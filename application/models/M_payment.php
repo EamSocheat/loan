@@ -16,10 +16,17 @@
                 (select tbl_payment.pay_date
                     from tbl_payment where tbl_payment.con_id = tbl_contract.con_id
                     order by tbl_payment.con_id
-                    limit 1) as last_pay_date');
+                    limit 1) as last_pay_date,
+                tbl_payment_user.pay_usr_amount,
+                tbl_payment_user.pay_usr_amount_return,
+                tbl_payment_user.pay_usr_amount_calculate,
+                tbl_payment_user.pay_usr_rate,
+                tbl_payment_user.cur_id
+                ');
 
         	$this->db->join('tbl_contract', 'tbl_payment.con_id = tbl_contract.con_id');
             $this->db->join('tbl_customer', 'tbl_customer.cus_id = tbl_contract.cus_id');
+            $this->db->join('tbl_payment_user', 'tbl_payment_user.pay_usr_id = tbl_payment.pay_usr_id', 'left');
             $this->db->where('tbl_payment.com_id', $_SESSION['comId']);
             $this->db->where('tbl_payment.useYn', 'Y');
 
@@ -73,10 +80,18 @@
             return $this->db->get('tbl_payment', $dataSrch['limit'], $dataSrch['offset'])->result();
 		}
 
+        function selectRateAmount($dataSrch){
+            $this->db->select('tbl_rate.rate_id, tbl_rate.rate_amount');
+            
+            return $this->db->get('tbl_rate')->result();
+        }
+
 		public function countPaymentData($dataSrch){
 		    $this->db->select('count(tbl_payment.pay_id) as total_rec');
-		    $this->db->from('tbl_payment');   		    
-		    $this->db->join('tbl_contract', 'tbl_payment.con_id = tbl_contract.con_id');
+		    $this->db->from('tbl_payment');
+            $this->db->join('tbl_contract', 'tbl_payment.con_id = tbl_contract.con_id');
+            $this->db->join('tbl_customer', 'tbl_customer.cus_id = tbl_contract.cus_id');
+            $this->db->join('tbl_payment_user', 'tbl_payment_user.pay_usr_id = tbl_payment.pay_usr_id', 'left');
             $this->db->where('tbl_payment.com_id', $_SESSION['comId']);
             $this->db->where('tbl_payment.useYn', 'Y');
             
@@ -136,6 +151,10 @@
 			$this->db->insert('tbl_payment',$data);
 			return $this->db->insert_id();
 		}
-		
+
+        public function insertPaymentUser($data){
+            $this->db->insert('tbl_payment_user',$data);
+            return $this->db->insert_id();
+        }		
 
     }

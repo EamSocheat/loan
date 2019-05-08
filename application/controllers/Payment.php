@@ -70,7 +70,17 @@ class Payment extends CI_Controller{
         $pay_left = $this->input->post('txtLoanAmtLeft2');
         $loan_amt = $this->input->post('txtLoanAmt2');
 
+        $dataPayUser = array(
+            'pay_usr_amount'            => $this->input->post('txtCustPayment'),
+            'cur_id'                    => $this->input->post('custCurrencyType'),
+            'pay_usr_rate'              => $this->input->post('customerRateAmount'),
+            'pay_usr_amount_calculate'  => $this->input->post('txtCustCalcuPay2'),
+            'pay_usr_amount_return'     => $this->input->post('txtCustPayReturn2')
+        );
+        $payUsrId  = $this->M_payment->insertPaymentUser($dataPayUser);
+
         $data = array (
+            'pay_usr_id'    => $payUsrId,
             'con_id'        => $this->input->post('txtContId'),
             'pay_loan'      => $this->input->post('txtpayLoanAmt'),
             'pay_int'       => $this->input->post('txtPayInterAmt2'),
@@ -80,14 +90,7 @@ class Payment extends CI_Controller{
             'pay_des'       => $this->input->post('txtPayDesc'),
             'useYn'         => "Y",
             'com_id'        => $_SESSION['comId']
-        );
-
-        $dataPayUser = array(
-            'pay_usr_amount'         => $this->input->post('txtCustPayment'),
-            'pay_usr_rate'        => $this->input->post('cboCurrencyType'),
-            'pay_usr_amount_calculate'        => $this->input->post('txtCustCalcuPay'),
-            'pay_usr_amount_return'        => $this->input->post('txtCustPayReturn')
-        );
+        );        
 
         $pay_no  = $this->M_payment->selectId();
         foreach($pay_no as $r){
@@ -184,6 +187,20 @@ class Payment extends CI_Controller{
         
         echo $cntDel;
     }
+
+    public function getRateAmount(){
+        if(!$this->M_check_user->check()){
+            redirect('/Login');
+        }
+              
+        $data["OUT_REC"] = $this->M_payment->selectRateAmount();        
+        echo json_encode($data);
+    }
+
+
+
+
+
 
     function download_excel(){
         
