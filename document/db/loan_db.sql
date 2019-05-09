@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 30, 2019 at 06:40 AM
+-- Generation Time: May 09, 2019 at 02:33 AM
 -- Server version: 5.7.14
 -- PHP Version: 5.6.25
 
@@ -152,6 +152,13 @@ CREATE TABLE `tbl_contract` (
 --
 
 INSERT INTO `tbl_contract` (`con_id`, `con_no`, `con_start_dt`, `con_principle`, `con_interest`, `con_interest_type`, `con_per_year`, `con_per_month`, `con_total_principle`, `con_total_interest`, `con_status`, `con_end_dt`, `regDt`, `regUsr`, `upDt`, `upUsr`, `con_desc`, `useYn`, `com_id`, `cus_id`, `cur_id`) VALUES
+(45, '0000000045', '2019-05-01 00:00:00', 10000, 1.5, 'M', 0, 12, 0, 0, '', NULL, '2019-05-01 05:07:17', '1', NULL, NULL, '', 'Y', 1, 5, 2),
+(44, '0000000044', '2019-05-01 00:00:00', 10000, 18, 'Y', 1, 0, 0, 0, '', NULL, '2019-05-01 05:04:19', '1', NULL, NULL, '', 'Y', 1, 5, 2),
+(43, '0000000043', '2019-05-01 00:00:00', 1000, 10, 'Y', 1, 0, 0, 0, '', NULL, '2019-05-01 05:01:55', '1', NULL, NULL, '', 'Y', 1, 6, 2),
+(42, '0000000042', '2019-05-01 00:00:00', 1000, 10, 'M', 1, 0, 0, 0, '', NULL, '2019-05-01 04:41:43', '1', NULL, NULL, '', 'Y', 1, 6, 2),
+(41, '0000000041', '2019-05-01 00:00:00', 1000, 10, 'M', 1, 0, 0, 0, '', NULL, '2019-05-01 04:41:20', '1', NULL, NULL, '', 'Y', 1, 6, 1),
+(40, '0000000040', '2019-05-01 00:00:00', 1000, 10, 'M', 1, 0, 0, 0, '', NULL, '2019-05-01 04:37:49', '1', NULL, NULL, '', 'Y', 1, 6, 2),
+(39, '0000000039', '2019-05-01 00:00:00', 100, 10, 'M', 0, 6, 0, 0, '', NULL, '2019-05-01 04:35:11', '1', NULL, NULL, '', 'Y', 1, 11, 1),
 (38, '0000000033', '2019-04-28 00:00:00', 500, 10, 'M', 2, 1, 0, 0, '', NULL, '2019-04-28 13:19:07', '1', NULL, NULL, '', 'Y', 1, 5, 2),
 (32, '0000000001', '2019-03-01 00:00:00', 100, 10, 'M', 0, 10, 0, 0, '1', '2019-03-10 00:00:00', '2019-03-09 17:12:18', '1', '2019-04-27 15:13:30', '1', '', 'Y', 1, 6, 2);
 
@@ -226,7 +233,8 @@ INSERT INTO `tbl_customer` (`cus_id`, `cus_nm`, `cus_nm_kh`, `cus_gender`, `cus_
 (8, 'added on contract', 'អតិថិជន from contract', 'Male', '1970-01-01', '/loan/customer/2019-03-02-08-19-21_1_1.png', '091212121', '012323232', 'customercontract@gmail.com', 'customer contract.....', 'customer contract', '999888000', NULL, '2019-03-02 08:19:21', '2019-03-02 08:20:11', 'N', 1, '1', 1),
 (9, 'resrkkkkkk', 'kkkkkkkkkkk', 'Male', '1970-01-01', '/loan/customer/2019-03-02-08-20-55_1_1.png', '023923834', '098888880', 'customer00006@gmail.com', 'customer 00004 str.', 'customer 00006 description', '876867867', NULL, '2019-03-02 08:20:55', '2019-03-02 08:34:34', 'N', 1, '1', 1),
 (10, 'wwwwwwwwwwwww', 'wwwwwwwwwww', 'Male', '2000-07-02', '/loan/customer/2019-03-02-08-33-55_1_1.png', '091212121', '012211212', 'customer00006@gmail.com', 'customer 00003 str.', 'customer 00006 description', '123888192', NULL, '2019-03-02 08:33:55', '2019-03-02 08:34:34', 'N', 1, '1', 1),
-(11, 'kkkkkk', 'kkkkkkk', 'Male', '2017-01-10', '/loan/customer/2019-03-02-08-39-13_1_1.png', '012121213', '098112112', 'customer00006@gmail.com', 'customer 00004 str.', 'customer 00006 description', '123123121', NULL, '2019-03-02 08:39:13', NULL, 'Y', 1, '', 1);
+(11, 'kkkkkk', 'kkkkkkk', 'Male', '2017-01-10', '/loan/customer/2019-03-02-08-39-13_1_1.png', '012121213', '098112112', 'customer00006@gmail.com', 'customer 00004 str.', 'customer 00006 description', '123123121', NULL, '2019-03-02 08:39:13', NULL, 'Y', 1, '', 1),
+(12, '', 'សុខា', 'Female', '2009-01-11', '', '092221212', '092221133', '', 'Str....', 'testse', '12121212', NULL, '2019-05-06 11:19:14', NULL, 'Y', 1, '', 1);
 
 -- --------------------------------------------------------
 
@@ -452,7 +460,15 @@ INSERT INTO `tbl_payment` (`pay_id`, `pay_no`, `pay_loan`, `pay_int`, `pay_loan_
 (35, '0000000033', 100, -45, 10, '2', '2019-04-01 00:00:00', '', '2019-04-28 13:22:34', NULL, 'Y', 1, NULL, 1, 38, NULL),
 (36, '0000000036', 50, 40, 10, '2', '2019-05-01 00:00:00', '', '2019-04-28 13:23:12', NULL, 'Y', 1, NULL, 1, 38, NULL),
 (31, '0000000001', 80, 3, 10, '2', '2019-03-10 00:00:00', '', '2019-03-09 17:11:56', NULL, 'Y', 1, NULL, 1, 32, NULL),
-(32, '0000000032', 20, 0, 10, '2', '2019-03-10 00:00:00', '', '2019-03-09 17:12:18', NULL, 'Y', 1, NULL, 1, 32, NULL);
+(32, '0000000032', 20, 0, 10, '2', '2019-03-10 00:00:00', '', '2019-03-09 17:12:18', NULL, 'Y', 1, NULL, 1, 32, NULL),
+(38, '0000000038', 100, 0, 10, '2', '2019-05-01 00:00:00', '', '2019-05-01 04:38:26', NULL, 'Y', 1, NULL, 1, 40, NULL),
+(39, '0000000039', 0, 155, 18, '2', '2019-06-01 00:00:00', '', '2019-05-01 05:05:13', NULL, 'Y', 1, NULL, 1, 44, NULL),
+(40, '0000000040', 0, 30, 1.5, '2', '2019-05-07 00:00:00', '', '2019-05-07 14:38:18', NULL, 'Y', 1, NULL, 1, 45, 1),
+(41, '0000000041', 0, 95, 18, '2', '2019-06-20 00:00:00', '', '2019-05-07 14:39:45', NULL, 'Y', 1, NULL, 1, 44, 2),
+(42, '0000000042', 0, 18, 10, '2', '2019-05-07 00:00:00', '', '2019-05-07 14:53:38', NULL, 'Y', 1, NULL, 1, 40, 3),
+(43, '0000000043', 0, 3, 10, '2', '2019-05-08 00:00:00', '', '2019-05-07 14:58:42', NULL, 'Y', 1, NULL, 1, 40, 4),
+(44, '0000000044', 0, 5, 1.5, '2', '2019-05-08 00:00:00', '', '2019-05-08 11:58:25', NULL, 'Y', 1, NULL, 1, 45, 5),
+(45, '0000000045', 100, 5, 1.5, '2', '2019-05-09 00:00:00', '', '2019-05-08 14:39:22', NULL, 'Y', 1, NULL, 1, 45, 6);
 
 -- --------------------------------------------------------
 
@@ -464,9 +480,22 @@ CREATE TABLE `tbl_payment_user` (
   `pay_usr_id` int(11) NOT NULL,
   `pay_usr_amount` double NOT NULL,
   `pay_usr_amount_return` double DEFAULT NULL,
+  `pay_usr_amount_calculate` double NOT NULL,
   `pay_usr_rate` double DEFAULT NULL,
   `cur_id` int(11) DEFAULT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=armscii8;
+
+--
+-- Dumping data for table `tbl_payment_user`
+--
+
+INSERT INTO `tbl_payment_user` (`pay_usr_id`, `pay_usr_amount`, `pay_usr_amount_return`, `pay_usr_amount_calculate`, `pay_usr_rate`, `cur_id`) VALUES
+(1, 0, 0, 0, 0, NULL),
+(2, 0, 0, 0, 0, NULL),
+(3, 100000, 28, 72, 0, NULL),
+(4, 50000, 38000, 12000, 0, NULL),
+(5, 100000, 80000, 20000, NULL, 1),
+(6, 1000000, 580000, 420000, 4000, 1);
 
 -- --------------------------------------------------------
 
@@ -939,7 +968,7 @@ ALTER TABLE `tbl_company`
 -- AUTO_INCREMENT for table `tbl_contract`
 --
 ALTER TABLE `tbl_contract`
-  MODIFY `con_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=39;
+  MODIFY `con_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=46;
 --
 -- AUTO_INCREMENT for table `tbl_currency`
 --
@@ -949,7 +978,7 @@ ALTER TABLE `tbl_currency`
 -- AUTO_INCREMENT for table `tbl_customer`
 --
 ALTER TABLE `tbl_customer`
-  MODIFY `cus_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `cus_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 --
 -- AUTO_INCREMENT for table `tbl_import`
 --
@@ -974,12 +1003,12 @@ ALTER TABLE `tbl_move`
 -- AUTO_INCREMENT for table `tbl_payment`
 --
 ALTER TABLE `tbl_payment`
-  MODIFY `pay_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=38;
+  MODIFY `pay_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=46;
 --
 -- AUTO_INCREMENT for table `tbl_payment_user`
 --
 ALTER TABLE `tbl_payment_user`
-  MODIFY `pay_usr_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `pay_usr_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 --
 -- AUTO_INCREMENT for table `tbl_position`
 --
