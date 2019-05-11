@@ -92,12 +92,12 @@ var _thisPage = {
 				fn_calculatePayment();
 			});
 			
-			$("#txtCustPayment").keyup(function(e){			
+			$("#txtCustPayment").keyup(function(e){
 				getRateAmount();
 				fn_calculatePayment();
 			});
 
-			$("#custCurrencyType").on("change", function(e){			
+			$("#custCurrencyType").on("change", function(e){
 				getRateAmount();
 				fn_calculatePayment();
 			});
@@ -149,20 +149,24 @@ function fn_calculatePayment(){
 		}else if(paymentCurrency == "៛"){
 			calculatePayAmt = parseFloat(txtTotalInterAmt) * parseFloat(_data_rate_amount);
 		}
-		console.log("paymentCurrency:: "+paymentCurrency)
 		txtCustPayReturnAmt = parseFloat(txtCustPayment) - parseFloat(calculatePayAmt);
 		if((txtCustPayment != 0 || txtCustPayment != "") && (txtCustPayReturnAmt != "" || txtCustPayReturnAmt != 0)){
 			$("#txtCustPayReturn").val(stock.comm.formatCurrency(txtCustPayReturnAmt)+paymentCurrency);
 			$("#txtCustPayReturn2").val(txtCustPayReturnAmt);
 		}
-		$("#txtCustCalcuPay").val(stock.comm.formatCurrency(calculatePayAmt)+paymentCurrency);
+		$("#txtCustCalcuPay").val(stock.comm.formatCurrency(stock.comm.null2Void(calculatePayAmt, ''))+paymentCurrency);
 		$("#txtCustCalcuPay2").val(calculatePayAmt);
-
 	}else{
-		$("#txtCustCalcuPay").val(stock.comm.formatCurrency(txtTotalInterAmt)+contractCurrency);
+		$("#txtCustCalcuPay").val(stock.comm.formatCurrency(stock.comm.null2Void(txtTotalInterAmt, ''))+contractCurrency);
 		$("#txtCustCalcuPay2").val(txtTotalInterAmt);
 		$("#txtCustPayReturn").val("");
 		$("#txtCustPayReturn2").val("");
+
+		txtCustPayReturnAmt = parseFloat(txtCustPayment) - parseFloat(txtTotalInterAmt);
+		if((txtCustPayment != 0 || txtCustPayment != "") && (txtCustPayReturnAmt != "" || txtCustPayReturnAmt != 0)){
+			$("#txtCustPayReturn").val(Number(txtCustPayReturnAmt).toFixed(2)+paymentCurrency);
+			$("#txtCustPayReturn2").val(Number(txtCustPayReturnAmt).toFixed(2));
+		}
 	}
 
 	
@@ -170,13 +174,13 @@ function fn_calculatePayment(){
 }
 
 function saveData(str){
-    // parent.$("#loading").show();
+    parent.$("#loading").show();
     var totalPayment = $("#txtTotalInterAmt").val();
-    // if(parseFloat(totalPayment) <= 0){
-    // 	parent.stock.comm.alertMsg($.i18n.prop("msg_pay_save"));
-    // 	parent.$("#loading").hide();
-    // 	return;
-    // }
+    if(parseFloat(totalPayment) <= 0){
+    	parent.stock.comm.alertMsg($.i18n.prop("msg_pay_save"));
+    	parent.$("#loading").hide();
+    	return;
+    }
 
 	$.ajax({
 		type: "POST",
@@ -213,7 +217,6 @@ function getDataView(pay_id){
 		dataType: "json",
 		async: false,
 		success: function(res) {
-			console.log(res.OUT_REC)
 
 			if(res.OUT_REC != null && res.OUT_REC.length > 0){
 				for(var i = 0; i < res.OUT_REC.length; i++){
@@ -256,7 +259,6 @@ function getDataView(pay_id){
 					
 				}
 			}else{
-			    console.log(res);
 			    stock.comm.alertMsg($.i18n.prop("msg_err"));
 			}
 			$("#loading").hide();
@@ -318,7 +320,6 @@ function selectConractCallback(data){
 	$("#txtCustPayReturn").val();
 	$("#txtCustPayReturn2").val();
 
-	console.log(data)
 	calPayInterestAmt();
 }
 
@@ -373,9 +374,6 @@ function totalAmt(a,b){
 	if(isNaN(b) || b == ""){
 		b = 0
 	}
-
-	console.log("a:  "+a)
-	console.log("b:  "+b)
 
 	return parseFloat(a) + parseFloat(b);
 }
