@@ -50,12 +50,12 @@ var _thisPage = {
 			
 			var input = {};
 
-			input["limit"]	 = $("#perPage").val();
+			input["perPage"]	 = $("#perPage").val();
 			input["offset"]	 = parseInt($("#perPage").val())  * ( pageNo - 1);
-			input["txtSrchPayCode"]	= $("#txtSrchPayCode").val();
+			input["txtSrchPayCode"]		= $("#txtSrchPayCode").val();
 		    input["txtSrchPaymentSD"]	= $("#txtSrchPaymentSD").val();
 		    input["txtSrchPaymentED"]	= $("#txtSrchPaymentED").val();
-		    input["txtSrchCusNm"]	= $("#txtSrchCusNm").val();
+		    input["txtSrchCusNm"]		= $("#txtSrchCusNm").val();
 		    input["txtSrchContCode"]	= $("#txtSrchContCode").val();
 			
 		    $("#loading").show();
@@ -66,18 +66,24 @@ var _thisPage = {
 				dataType: "json",
 				success: function(data) {
 					$("#loading").hide();
-					var html = "";
+					var html = "", strTotal = "", totalDollar = 0, totalRiels = 0;
 					$("#tblPayment tbody").empty();
 
 					if(data.OUT_REC.length > 0){
-						$.each(data.OUT_REC, function(i,v){							
-							
+						$.each(data.OUT_REC, function(i,v){
+							if(v.pay_loan_int_type == "1"){
+								totalRiels += parseFloat(stock.comm.null2Void(v.pay_usr_amount_calculate), 0);
+							}else if(v.pay_loan_int_type == "2"){
+								totalDollar += parseFloat(stock.comm.null2Void(v.pay_usr_amount_calculate), 0);
+							}
+
 							html += '<tr data-id='+v.pay_id+'>';
     					  	html += '	<td class="chk_box"><input type="checkbox"></td>';
     					  	html += '	<td><div>'+v.pay_no+'</div></td>';
                           	html += '	<td><div>'+v.con_no+'</div></td>';
-    					  	html += '	<td><div class="txt_r">'+stock.comm.formatCurrency(stock.comm.null2Void(v.pay_loan))+addCurrency(v.pay_loan_int_type,v.pay_loan)+'</div></td>';
-    					  	html += '	<td><div class="txt_r">'+stock.comm.formatCurrency(stock.comm.null2Void(v.pay_int))+addCurrency(v.pay_loan_int_type,v.pay_int)+'</div></td>';
+                          	html += '	<td><div class="txt_r">'+stock.comm.formatCurrency(stock.comm.null2Void(v.pay_usr_amount_calculate, ''))+addCurrency(v.pay_loan_int_type,v.pay_usr_amount_calculate)+'</div></td>';
+    					  	// html += '	<td><div class="txt_r">'+stock.comm.formatCurrency(stock.comm.null2Void(v.pay_loan))+addCurrency(v.pay_loan_int_type,v.pay_loan)+'</div></td>';
+    					  	// html += '	<td><div class="txt_r">'+stock.comm.formatCurrency(stock.comm.null2Void(v.pay_int))+addCurrency(v.pay_loan_int_type,v.pay_int)+'</div></td>';
                           	html += '	<td><div class="txt_r">'+ stock.comm.formatCurrency( (parseFloat(stock.comm.null2Void(v.pay_loan)) + parseFloat(stock.comm.null2Void(v.pay_int))).toFixed(2) )+addCurrency(v.pay_loan_int_type,(v.pay_loan+v.pay_int))+'</div></td>';
                           	html += '	<td><div class="txt_r">'+stock.comm.formatCurrency(stock.comm.null2Void(v.con_principle))+addCurrency(v.pay_loan_int_type,v.con_principle)+'</div></td>';
                           	html += '	<td><div>'+stringDate(v.pay_date.substr(0,10))+'</div></td>';
@@ -88,7 +94,16 @@ var _thisPage = {
     						html += '</tr>';
 						});
 
+						strTotal += '<tr class="total">';
+						strTotal += '	<td colspan="2"><b>'+$.i18n.prop("lb_cal_pay_amt_total")+'</b></td>';
+						strTotal += '	<td><b style="opacity: 0.7;">'+$.i18n.prop("lb_money_khmer")+':</b><b style="margin-left: 10px;">'+null2Zero(stock.comm.formatCurrency(totalRiels))+addCurrency("1", totalRiels)+'</b></td>';
+						strTotal += '	<td><b style="opacity: 0.7;">'+$.i18n.prop("lb_money_dollar")+':</b><b style="margin-left: 10px;">'+null2Zero(stock.comm.formatCurrency(totalDollar))+addCurrency("2", totalDollar)+'</b></td>';
+						strTotal += '<td colspan="5"></td>';
+						strTotal += '</tr>';
+
 						$("#tblPayment tbody").append(html);
+						$("#tblPayment tbody").append(strTotal);
+
 						$("#chkAll").show();
 						$("#chkAll").prop("checked",false);
 						stock.comm.renderPaging("paging",$("#perPage").val(),data.OUT_REC_CNT[0]["total_rec"],pageNo);
@@ -157,7 +172,7 @@ var _thisPage = {
 				}
 			});
 			$("#perPage").change(function(e){
-				_this.loadData(1);
+				// _this.loadData(1);
 			});
 			$("#paging").on("click", "li a", function(e) {
 		        var pageNo = $(this).html();
@@ -235,6 +250,13 @@ function setChk(){
 function null2Void(dat){
 	if(dat == null || dat == undefined || dat == "null" || dat == "undefined"){
 		return "";
+	}
+	return dat;
+}
+
+function null2Zero(dat){
+	if(dat == null || dat == undefined || dat == "null" || dat == "undefined" || dat == ""){
+		return 0;
 	}
 	return dat;
 }

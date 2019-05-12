@@ -46,8 +46,6 @@ var _thisPage = {
 		    //paging
 		    dat["perPage"] = $("#perPage").val();
 		    dat["offset"]  = parseInt($("#perPage").val())  * ( pageNo - 1);
-		    //searching
-		    // dat["txtSrchContNm"]	= $("#txtSrchContNm").val();
 		    dat["txtSrchContCode"]	= $("#txtSrchContCode").val();
 		    dat["txtSrchContSD"]	= $("#txtSrchContSD").val();
 		    dat["txtSrchContED"]	= $("#txtSrchContED").val();
@@ -61,11 +59,17 @@ var _thisPage = {
 				data: dat,
 				dataType: "json",
 				success: function(res) {
-					var html = "";
+					var html = "", strTotal = "", totalDollar = 0, totalRiels = 0;
 					$("#loading").hide();
 					$("#tblContract tbody").html("");
 					if(res.OUT_REC != null && res.OUT_REC.length >0){
 					    for(var i=0; i<res.OUT_REC.length;i++){
+					    	if(res.OUT_REC[i]["cur_id"] == "1"){
+								totalRiels += parseFloat(stock.comm.null2Void(res.OUT_REC[i]["con_principle"], 0));
+							}else if(res.OUT_REC[i]["cur_id"] == "2"){
+								totalDollar += parseFloat(stock.comm.null2Void(res.OUT_REC[i]["con_principle"], 0));
+							}
+
 					    	html += '<tr data-id='+res.OUT_REC[i]["con_id"]+'>';
 					        html += 	'<td class="chk_box"><input type="checkbox"></td>';
 							html += 	'<td><div>'+stock.comm.nullToEmpty(res.OUT_REC[i]["con_no"])+'</div></td>';
@@ -80,12 +84,23 @@ var _thisPage = {
 							html +=			'<button onclick="editData('+res.OUT_REC[i]["con_id"]+')" type="button" class="btn btn-primary btn-xs">';
 							html += 		'<i class="fa fa-pencil-square-o" aria-hidden="true"></i></button>';
 							html += 	'</td>';
-							html += '</tr>';							
+							html += '</tr>';
+
+							console.log("res.OUT_REC[i]['con_principle']:: "+res.OUT_REC[i]["cur_id"])
 					    }
-					    console.log(calDayBetweenTwoDate('2019-03-01', "2019-02-20", '-'));
+
+					    
+					    strTotal += '<tr class="total">';
+						strTotal += '	<td colspan="2"><b>'+$.i18n.prop("lb_cal_loan_amt_total")+'</b></td>';
+						strTotal += '	<td><b style="opacity: 0.7;">'+$.i18n.prop("lb_money_khmer")+':</b><b style="margin-left: 10px;">'+null2Zero(stock.comm.formatCurrency(totalRiels))+addCurrency("1", totalRiels)+'</b></td>';
+						strTotal += '	<td><b style="opacity: 0.7;">'+$.i18n.prop("lb_money_dollar")+':</b><b style="margin-left: 10px;">'+null2Zero(stock.comm.formatCurrency(totalDollar))+addCurrency("2", totalDollar)+'</b></td>';
+						strTotal += '<td colspan="5"></td>';
+						strTotal += '</tr>';
 					    
 					    $("#chkAllBox").show();
 					    $("#tblContract tbody").html(html);
+					    $("#tblContract tbody").append(strTotal);
+
 					    stock.comm.renderPaging("paging",$("#perPage").val(),res.OUT_REC_CNT[0]["total_rec"],pageNo);
 					}else{
 						$("#chkAllBox").hide();
@@ -271,6 +286,16 @@ function showPeriod(y,m){
 	return strPer;
 }
 
+function addCurrency(curId,amt){
+	if(curId == "1" && !stock.comm.isEmpty(amt) && amt != 0){
+		return "៛";	
+	}else if(curId == "2" && !stock.comm.isEmpty(amt) && amt != 0){
+		return "$";
+	}else{
+		return "";
+	}
+}
+
 function showYear(y){
 	var year = '';
 	if(y > 1){
@@ -294,6 +319,13 @@ function showMonth(m){
 function commaAmt(str){
 	str = String(str);
 	return str.replace(/(\d)(?=(?:\d{3})+(?!\d))/g, '$1,');
+}
+
+function null2Zero(dat){
+	if(dat == null || dat == undefined || dat == "null" || dat == "undefined" || dat == ""){
+		return 0;
+	}
+	return dat;
 }
 
 function chkContStatus(s){

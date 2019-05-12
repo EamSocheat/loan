@@ -197,17 +197,11 @@ class Payment extends CI_Controller{
         echo json_encode($data);
     }
 
-
-
-
-
-
     function download_excel(){
-        
         $object = new PHPExcel();
         $object->setActiveSheetIndex(0);
 
-        $table_columns = array("Payment Code", "Contract No", "Paid Amount", "Payment Interest", "Total Payment", "Loan Amount", "Payment Date", "Customer");
+        $table_columns = array("Payment Code", "Contract No", "Payment User Calculate", "Paid Amount", "Payment Interest", "Total Payment", "Loan Amount", "Payment Date", "Customer");
         $column = 0;
 
         /**
@@ -247,7 +241,7 @@ class Payment extends CI_Controller{
                     'startcolor' => array('argb' => 'FFA0A0A0',),'endcolor' => array('argb' => '333333',),),*/
             ),
         );
-        $object->getActiveSheet()->getStyle('A1:H1')->applyFromArray($styleArray);
+        $object->getActiveSheet()->getStyle('A1:I1')->applyFromArray($styleArray);
         $object->getDefaultStyle()->getFont()->setName('Khmer OS Battambang');
         
         /**
@@ -266,18 +260,19 @@ class Payment extends CI_Controller{
             $curr = $row->pay_loan_int_type;
             $object->getActiveSheet()->setCellValueByColumnAndRow(0, $excel_row, $row->pay_no);
             $object->getActiveSheet()->setCellValueByColumnAndRow(1, $excel_row, $row->con_no);
-            $object->getActiveSheet()->setCellValueByColumnAndRow(2, $excel_row, $this->commaAmt($row->pay_loan).$this->addCurrncy($curr,$row->pay_loan));
-            $object->getActiveSheet()->setCellValueByColumnAndRow(3, $excel_row, $this->commaAmt($row->pay_int).$this->addCurrncy($curr,$row->pay_int));
-            $object->getActiveSheet()->setCellValueByColumnAndRow(4, $excel_row, $this->commaAmt($row->pay_loan+$row->pay_int).$this->addCurrncy($curr,$row->pay_loan+$row->pay_int));
-            $object->getActiveSheet()->setCellValueByColumnAndRow(5, $excel_row, $this->commaAmt($row->con_principle).$this->addCurrncy($curr,$row->con_principle));
-            $object->getActiveSheet()->setCellValueByColumnAndRow(6, $excel_row, $row->pay_date);
-            $object->getActiveSheet()->setCellValueByColumnAndRow(7, $excel_row, $row->cus_nm);
+            $object->getActiveSheet()->setCellValueByColumnAndRow(2, $excel_row, $this->commaAmt($row->pay_usr_amount_calculate).$this->addCurrncy($curr,$row->pay_usr_amount_calculate));
+            $object->getActiveSheet()->setCellValueByColumnAndRow(3, $excel_row, $this->commaAmt($row->pay_loan).$this->addCurrncy($curr,$row->pay_loan));
+            $object->getActiveSheet()->setCellValueByColumnAndRow(4, $excel_row, $this->commaAmt($row->pay_int).$this->addCurrncy($curr,$row->pay_int));
+            $object->getActiveSheet()->setCellValueByColumnAndRow(5, $excel_row, $this->commaAmt($row->pay_loan+$row->pay_int).$this->addCurrncy($curr,$row->pay_loan+$row->pay_int));
+            $object->getActiveSheet()->setCellValueByColumnAndRow(6, $excel_row, $this->commaAmt($row->con_principle).$this->addCurrncy($curr,$row->con_principle));
+            $object->getActiveSheet()->setCellValueByColumnAndRow(7, $excel_row, $row->pay_date);
+            $object->getActiveSheet()->setCellValueByColumnAndRow(8, $excel_row, $row->cus_nm);
             $excel_row++;
         }
 
         $object_writer = PHPExcel_IOFactory::createWriter($object, 'Excel5');
         header('Content-Type: application/vnd.ms-excel');
-        header('Content-Disposition: attachment;filename="Payment_'.date('Y/m/d').'.xls"');        
+        header('Content-Disposition: attachment;filename="Payment_'.date('Y/m/d').'.xls"');
         $object_writer->save('php://output');
     }
     
@@ -287,9 +282,9 @@ class Payment extends CI_Controller{
     }
 
     function addCurrncy($curr,$amt){
-        if($curr == "1" && (int)$amt != 0){
+        if($curr == "1"){
             return "៛"; 
-        }else if($curr == "2" && (int)$amt != 0){
+        }else if($curr == "2"){
             return "$";
         }else{
             return "";

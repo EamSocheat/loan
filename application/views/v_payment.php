@@ -161,8 +161,9 @@
     					  <th><input type="checkbox" id="chkAll" style="display:none;"></th>
     					  <th data-i18ncd="lb_pay_code">Payment Code</th>
                           <th data-i18ncd="lb_contract_no">Contract Code</th>
-    					  <th data-i18ncd="lb_pay_loan" class="txt_r">Payment Loan</th>
-    					  <th data-i18ncd="lb_pay_interest" class="txt_r">Payment Interest</th>
+                          <th data-i18ncd="lb_cal_pay_amt" class="txt_r">Payment User Calculate</th>
+    					  <!-- <th data-i18ncd="lb_pay_loan" class="txt_r">Payment Loan</th>
+    					  <th data-i18ncd="lb_pay_interest" class="txt_r">Payment Interest</th> -->
                           <th data-i18ncd="lb_pay_total" class="txt_r">Total Payment</th>
                           <th data-i18ncd="lb_principle_amt" class="txt_r">Loan Amount</th>
                           <th data-i18ncd="lb_pay_date">Payment Date</th>

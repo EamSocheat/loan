@@ -78,6 +78,8 @@ var _thisPage = {
 			    stock.comm.openPopUpSelect(controllerNm, option, data, "modal-md");
 			});
 			$("#txtPaySD").on("change", function(e){
+				getRateAmount();
+				fn_calculatePayment();
 				calPayInterestAmt();
 			});
 			$("#txtPaySDIcon").click(function(e){
@@ -109,10 +111,10 @@ function getRateAmount(){
 	parent.$("#loading").hide();
 
 	$.ajax({
-		type: "POST",
-		url : $("#base_url").val() +"Payment/getRateAmount",
-		data: '',
-		cache: false,
+		type 	: "POST",
+		url 	: $("#base_url").val() +"Payment/getRateAmount",
+		data 	: '',
+		cache	: false,
 		dataType: "json",
 		async:false,
 		success: function(res) {
@@ -138,7 +140,7 @@ function getRateAmount(){
 function fn_calculatePayment(){
 	var contractCurrency = $("#txtCurrency").val();
 	var paymentCurrency  = $("#custCurrencyType option:selected").data("sign");
-	var txtTotalInterAmt = $("#txtTotalInterAmt").val().trim();
+	var txtTotalInterAmt = stock.comm.replaceAll($("#txtTotalInterAmt").val().trim(), ',', '');
 	var txtCustPayReturn = $("#txtCustPayReturn").val().trim();
 	var txtCustPayment	 = $("#txtCustPayment").val().trim();
 	
@@ -154,6 +156,7 @@ function fn_calculatePayment(){
 			$("#txtCustPayReturn").val(stock.comm.formatCurrency(txtCustPayReturnAmt)+paymentCurrency);
 			$("#txtCustPayReturn2").val(txtCustPayReturnAmt);
 		}
+
 		$("#txtCustCalcuPay").val(stock.comm.formatCurrency(stock.comm.null2Void(calculatePayAmt, ''))+paymentCurrency);
 		$("#txtCustCalcuPay2").val(calculatePayAmt);
 	}else{
@@ -163,6 +166,7 @@ function fn_calculatePayment(){
 		$("#txtCustPayReturn2").val("");
 
 		txtCustPayReturnAmt = parseFloat(txtCustPayment) - parseFloat(txtTotalInterAmt);
+
 		if((txtCustPayment != 0 || txtCustPayment != "") && (txtCustPayReturnAmt != "" || txtCustPayReturnAmt != 0)){
 			$("#txtCustPayReturn").val(Number(txtCustPayReturnAmt).toFixed(2)+paymentCurrency);
 			$("#txtCustPayReturn2").val(Number(txtCustPayReturnAmt).toFixed(2));
