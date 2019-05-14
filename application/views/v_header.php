@@ -110,11 +110,14 @@
           		<div class="navbar-custom-menu">
             		<ul class="nav navbar-nav">          
                     <!-- Notifications: style can be found in dropdown.less -->
-              			<!-- <li class="dropdown notifications-menu">
-                			<a href="javascript:" class="dropdown-toggle" data-toggle="dropdown">
-                  				<i class="fa fa-home"></i> <span id="comName">Company Profile</span>
+              			<li class="dropdown notifications-menu" id ="divExRate" style="cursor: default;">
+                			<a href="javascript:" class="dropdown-toggle" data-toggle="dropdown" style="cursor: default;">
+                  				<span>Exchange Rate ៛: </span> <input style="height: 20px;width: 50px;   border-radius: 5px; padding: 2px;" type="text" id="exRate" disabled="disabled"> 
+                  				<input type="hidden" value="" id="exRateId">
+                  				<button style="padding: 0px 5px; line-height: 1.4;margin-bottom: 1px;" type="button" id="btnEditRate" class="btn btn-default btn-xs"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></button>
                 			</a>
-              			</li> -->
+                			
+              			</li>
                         <!-- Tasks: style can be found in dropdown.less -->
               			<li class="dropdown tasks-menu">
                 			<a href="javascript:" class="dropdown-toggle" data-toggle="dropdown" id="langDrop">

@@ -247,8 +247,9 @@ $(document).ready(function() {
 	//render menu for user
 	getUserMenu();
 	checkCookieLang();
-  setCompanyName();
-	
+  	setCompanyName();
+ 	getRateAmountHeader();
+ 	stock.comm.inputNumber("exRate");
 	$("#langDropSelect a").click(function(e){
 		$('#loading').show();
 		//$("#langDrop").html($(this).html());
@@ -276,7 +277,25 @@ $(document).ready(function() {
 		});
 	});
 
+	$("#btnEditRate").click(function(e){
+		
+		if($("#exRate").attr("disabled") == "disabled"){
+			$("#exRate").removeAttr("disabled");
+			$("#exRate").focus();
+			$("#btnEditRate").removeClass("btn-default");
+			$("#btnEditRate").addClass("btn-success");
+		}else{
+			$("#exRate").attr("disabled","disabled");
+			$("#btnEditRate").addClass("btn-default");
+			$("#btnEditRate").removeClass("btn-success");
+		}
+	});
 
+	$("#exRate").focusout(function(e){
+		$("#exRate").focus();
+	});
+
+	
 });
 
 function setCookie(cname,cvalue,exdays) {
@@ -504,6 +523,36 @@ function setCompanyName(){
     }
   });
 }
+
+
+function getRateAmountHeader(){
+	parent.$("#loading").hide();
+
+	$.ajax({
+		type 	: "POST",
+		url 	: $("#base_url").val() +"Payment/getRateAmount",
+		data 	: '',
+		cache	: false,
+		dataType: "json",
+		async:false,
+		success: function(res) {
+		    parent.$("#loading").hide();
+		    if(res.OUT_REC != null && res.OUT_REC.length > 0){
+				for(var i = 0; i < res.OUT_REC.length; i++){
+					_data_rate_amount = res.OUT_REC[i]['rate_amount'];
+					_data_rate_id	  = res.OUT_REC[i]['rate_id'];
+					$("#exRate").val(_data_rate_amount);
+					$("#exRateID").val(_data_rate_id);
+				}
+			}
+		},
+		error : function(data) {
+			console.log(data);
+			stock.comm.alertMsg($.i18n.prop("msg_err"));
+        }
+	});
+}
+
 
 </script>
 
