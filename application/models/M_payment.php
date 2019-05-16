@@ -155,6 +155,11 @@
         public function insertPaymentUser($data){
             $this->db->insert('tbl_payment_user',$data);
             return $this->db->insert_id();
-        }		
+        }	
+
+         public function insertRate($data){
+         	$this->db->update('tbl_rate', $data);
+           
+        }	
 
     }

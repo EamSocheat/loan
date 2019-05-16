@@ -288,6 +288,8 @@ $(document).ready(function() {
 			$("#exRate").attr("disabled","disabled");
 			$("#btnEditRate").addClass("btn-default");
 			$("#btnEditRate").removeClass("btn-success");
+			//
+			saveData("");
 		}
 	});
 
@@ -542,7 +544,7 @@ function getRateAmountHeader(){
 					_data_rate_amount = res.OUT_REC[i]['rate_amount'];
 					_data_rate_id	  = res.OUT_REC[i]['rate_id'];
 					$("#exRate").val(_data_rate_amount);
-					$("#exRateID").val(_data_rate_id);
+					$("#exRateId").val(_data_rate_id);
 				}
 			}
 		},
@@ -553,6 +555,26 @@ function getRateAmountHeader(){
 	});
 }
 
+
+
+function saveData(str){
+    parent.$("#loading").show();
+	$.ajax({
+		type: "POST",
+		url: $("#base_url").val() +"Payment/saveRate",
+		data: "rateAmount="+$("#exRate").val()+"&rateId=" +$("#exRateId").val(),
+		success: function(res) {
+		    parent.$("#loading").hide();
+			if(res =="OK"){
+				parent.stock.comm.alertMsg($.i18n.prop("msg_save_com"));
+			}
+		},
+		error : function(data) {
+			console.log(data);
+			stock.comm.alertMsg($.i18n.prop("msg_err"));
+        }
+	});
+}
 
 </script>
 
