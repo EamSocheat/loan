@@ -130,15 +130,14 @@
                     <div class="col-xs-4 padding-forms-left">
                         <div class="form-group">
                             <label  for="txtCustPayment" class="float_r" data-i18nCd="lb_customer_amt">Customer Pay Payment $</label>
-                            <input type="text" class="form-control txt_r" id="txtCustPayment" name="txtCustPayment" onkeypress="javascript:return isNumber(event)" placeholder="Customer Payment" />
+                            <input type="text" class="form-control txt_r" id="txtCustPayment" name="txtCustPayment" onkeypress="javascript:return isNumber(event)" placeholder="Customer Payment" autocomplete="off" />
                             <!-- <input type="hidden" id="txtCustPayment" name="txtCustPayment"> -->
                         </div> 
                     </div>      
                     <div class="col-xs-4 padding-forms-right">
                         <div class="form-group">
                             <label  for="custCurrencyType" data-i18nCd="lb_currency">Currency Type</label>
-                             <select class="form-control" id="custCurrencyType" name="custCurrencyType" style="font-size: 14px;">
-                                <option value="" data-i18nCd="lb_select">Please Select</option>
+                             <select class="form-control" id="custCurrencyType" name="custCurrencyType" style="font-size: 14px;">                               
                                 <option value="1" data-sign="៛" data-i18nCd="lb_currency_type_R">Reils</option>
                                 <option value="2" data-sign="$" data-i18nCd="lb_currency_type_D">Dollars</option>
                             </select>

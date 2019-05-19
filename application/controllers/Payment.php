@@ -290,9 +290,8 @@ class Payment extends CI_Controller{
             return "";
         }
     }
-    
-    
-	public function saveRate(){
+
+    public function saveRate(){
         if(!$this->M_check_user->check()){
             redirect('/Login');
         }
@@ -300,7 +299,6 @@ class Payment extends CI_Controller{
         $data['rate_id'] = $this->input->post('rateId');
         $data['rate_amount'] = $this->input->post('rateAmount');
         $this->M_payment->insertRate($data);
-
         echo 'OK';
     }
 }

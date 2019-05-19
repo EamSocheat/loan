@@ -111,6 +111,7 @@ var _thisPage = {
 			var tblTr = chkVal.parent().parent();
 			var data={};
 			data["cus_nm"] = tblTr.find("td.cus_nm").html();
+			data["cus_nm_kh"] = tblTr.find("td.cus_nm_kh").html();
 			data["cus_id"] = tblTr.attr("data-id");
 			data["cus_phone1"] = tblTr.find("td.cus_phone1").html();
 			

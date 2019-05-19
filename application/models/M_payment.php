@@ -14,7 +14,9 @@
                     from tbl_payment where tbl_payment.con_id = tbl_contract.con_id)
                 ) as loan_amount_left,
                 (select tbl_payment.pay_date
-                    from tbl_payment where tbl_payment.con_id = tbl_contract.con_id
+                    from tbl_payment 
+                   where tbl_payment.con_id = tbl_contract.con_id
+                     and tbl_payment.useYn = "Y"
                     order by tbl_payment.con_id
                     limit 1) as last_pay_date,
                 tbl_payment_user.pay_usr_amount,
@@ -155,11 +157,10 @@
         public function insertPaymentUser($data){
             $this->db->insert('tbl_payment_user',$data);
             return $this->db->insert_id();
-        }	
+        }
 
-         public function insertRate($data){
-         	$this->db->update('tbl_rate', $data);
-           
-        }	
+        public function insertRate($data){
+            $this->db->update('tbl_rate', $data);
+        }
 
     }

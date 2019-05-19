@@ -312,8 +312,12 @@ function clearForm(){
 }
 
 function selectCustomerCallback(data){
-	console.log(data["cus_nm"])
-	$("#txtCusNm").val(data["cus_nm"]);
+	if(data["cus_nm"] == "" || data["cus_nm"] == null || stock.comm.isEmpty(data["cus_nm"])){
+		$("#txtCusNm").val(data["cus_nm_kh"]);
+	}else{
+		$("#txtCusNm").val(data["cus_nm"]);		
+	}
+	
 	$("#txtCusId").val(data["cus_id"]);
 	$("#txtCusPhone").val(data["cus_phone1"]);
 }

@@ -89,16 +89,20 @@ var _thisPage = {
 				var payLoan     = $(this).val();
 				var interPayAmt = $("#txtPayInterAmt").val();
 				var totalAmtVal = totalAmt(interPayAmt,payLoan);
-				$("#txtTotalInterAmt").val(stock.comm.formatCurrency(totalAmtVal.toFixed(2)));
+				var currencyTxt = $("#txtCurrency").val();
+				if(currencyTxt == "$"){
+					$("#txtTotalInterAmt").val(stock.comm.formatCurrency(totalAmtVal.toFixed(2)));
+				}else{
+					$("#txtTotalInterAmt").val(stock.comm.formatCurrency(calRielsCurrency(totalAmtVal).toFixed(2)));
+				}
+				
 				getRateAmount();
 				fn_calculatePayment();
 			});
-			
 			$("#txtCustPayment").keyup(function(e){
 				getRateAmount();
 				fn_calculatePayment();
 			});
-
 			$("#custCurrencyType").on("change", function(e){
 				getRateAmount();
 				fn_calculatePayment();
@@ -106,6 +110,20 @@ var _thisPage = {
 			
 		}
 };
+
+function calRielsCurrency(val){
+	val = parseInt(val);
+	val = val.toString();
+	
+	if(val.substr((length-2),2) != "00"){
+    	val = val.substr(0,val.length-2) + "00";
+		val = parseFloat(val) + 100;
+    }else{
+    	val = parseFloat(val);
+    }
+    
+	return val;
+}
 
 function getRateAmount(){
 	parent.$("#loading").hide();
@@ -157,24 +175,20 @@ function fn_calculatePayment(){
 			$("#txtCustPayReturn2").val(txtCustPayReturnAmt);
 		}
 
-		$("#txtCustCalcuPay").val(stock.comm.formatCurrency(stock.comm.null2Void(calculatePayAmt, ''))+paymentCurrency);
+		$("#txtCustCalcuPay").val(stock.comm.formatCurrency(stock.comm.null2Void(calculatePayAmt, ''))+stock.comm.null2Void(paymentCurrency, ''));
 		$("#txtCustCalcuPay2").val(calculatePayAmt);
 	}else{
-		$("#txtCustCalcuPay").val(stock.comm.formatCurrency(stock.comm.null2Void(txtTotalInterAmt, ''))+contractCurrency);
+		$("#txtCustCalcuPay").val(stock.comm.formatCurrency(stock.comm.null2Void(txtTotalInterAmt, ''))+stock.comm.null2Void(contractCurrency, ''));
 		$("#txtCustCalcuPay2").val(txtTotalInterAmt);
-		$("#txtCustPayReturn").val("");
-		$("#txtCustPayReturn2").val("");
+		// $("#txtCustPayReturn").val("");
+		// $("#txtCustPayReturn2").val("");
 
 		txtCustPayReturnAmt = parseFloat(txtCustPayment) - parseFloat(txtTotalInterAmt);
-
 		if((txtCustPayment != 0 || txtCustPayment != "") && (txtCustPayReturnAmt != "" || txtCustPayReturnAmt != 0)){
 			$("#txtCustPayReturn").val(Number(txtCustPayReturnAmt).toFixed(2)+paymentCurrency);
 			$("#txtCustPayReturn2").val(Number(txtCustPayReturnAmt).toFixed(2));
 		}
 	}
-
-	
-	// calculate_pay_amt = if(currencyPayment != customerCurrency){currency == $ ? total_payment * tbl_rate : total_payment / tbl_rate}else{calculate_pay_amt = total_payment}
 }
 
 function saveData(str){
@@ -238,13 +252,25 @@ function getDataView(pay_id){
 					$("#txtpayLoanAmt").val(stock.comm.formatCurrency(res.OUT_REC[i]['pay_loan']));
 					$("#txtpayLoanAmt").attr("disabled", true);
 					$("#txtCurrency").val(res.OUT_REC[i]['cur_syn']);
+					$("#txtCurrency").data("id",res.OUT_REC[i]['cur_id']);
 					$("#txtLoanAmtLeft").val(stock.comm.formatCurrency(res.OUT_REC[i]['loan_amount_left']));
 					$("#txtLoanAmtLeft2").val(stock.comm.formatCurrency(res.OUT_REC[i]['loan_amount_left']));
 					$("#txtPayInterAmt").val(stock.comm.formatCurrency(res.OUT_REC[i]['pay_int']));
 					$("#txtLastPay").val(stringDate(res.OUT_REC[i]['last_pay_date'].substr(0,10)));
 					$("#txtLoanAmt").val(stock.comm.formatCurrency(res.OUT_REC[i]["con_principle"]));
 					$("#txtLoanAmt2").val(stock.comm.formatCurrency(res.OUT_REC[i]["con_principle"]));
-					$("#txtTotalInterAmt").val(stock.comm.formatCurrency(parseFloat(res.OUT_REC[i]["pay_loan"])+parseFloat(res.OUT_REC[i]["pay_int"])));
+					console.log("total value::: "+parseFloat(res.OUT_REC[i]["pay_loan"])+parseFloat(res.OUT_REC[i]["pay_int"]));
+					console.log("pay_loan:: "+parseFloat(res.OUT_REC[i]["pay_loan"]))
+					console.log("pay_int::: "+parseFloat(res.OUT_REC[i]["pay_int"]))
+					console.log("value::::: "+calRielsCurrency(parseFloat(res.OUT_REC[i]["pay_loan"])+parseFloat(res.OUT_REC[i]["pay_int"])))
+
+					if(res.OUT_REC[i]['cur_syn'] == "$"){
+						console.log(1)
+						$("#txtTotalInterAmt").val(stock.comm.formatCurrency(parseFloat(res.OUT_REC[i]["pay_loan"])+parseFloat(res.OUT_REC[i]["pay_int"])));						
+					}else{
+						console.log(2)
+						$("#txtTotalInterAmt").val(stock.comm.formatCurrency(calRielsCurrency(parseFloat(res.OUT_REC[i]["pay_loan"])+parseFloat(res.OUT_REC[i]["pay_int"]))));
+					}
 
 					$("#txtCustPayment").val(stock.comm.formatCurrency(res.OUT_REC[i]["pay_usr_amount"]));
 					$("#txtCustCalcuPay").val(stock.comm.formatCurrency(res.OUT_REC[i]["pay_usr_amount_calculate"]));
@@ -299,6 +325,7 @@ function clearForm(){
 }
 
 function selectConractCallback(data){
+	
 	$("#txtContId").val(data["con_id"]);
 	$("#txtContCode").val(data["con_no"]);	
 
@@ -313,6 +340,9 @@ function selectConractCallback(data){
 	$("#txtIntTypeCur").val(data["con_inter_cur"]);
 	$("#txtLastPay").val(stringDate(data["con_pay_last_date"]));
 	$("#txtCurrency").val(data["con_currency"]);
+	$("#custCurrencyType option").attr("selected", false);
+	$("#custCurrencyType option[data-sign='"+data["con_currency"]+"']").attr("selected", "selected");
+
 	$("#txtLoanAmt").val(stock.comm.formatCurrency(data["con_principle"]));
 	$("#txtLoanAmt2").val(stock.comm.formatCurrency(data["con_principle"]));
 	$("#txtLoanAmtLeft").val(stock.comm.formatCurrency(data["loan_amount_left"]));
@@ -334,6 +364,7 @@ function calPayInterestAmt(){
 	var loanAmt   = stock.comm.replaceAll($("#txtLoanAmtLeft").val(), ",", "");
 	var interType = $("#txtloanInterType").val();
 	var payLoan   = $("#txtpayLoanAmt").val();
+	var currencyTxt = $("#txtCurrency").val();
 	var calDay    = "";
 	var interPerDay  = "";
 	var interPayAmt  = 0;
@@ -350,7 +381,12 @@ function calPayInterestAmt(){
 	
 	$("#txtPayInterAmt").val(interPayAmt);
 	$("#txtPayInterAmt2").val(interPayAmt);
-	$("#txtTotalInterAmt").val(stock.comm.formatCurrency(totalAmtVal.toFixed(2)));
+	if(currencyTxt == "$"){
+		$("#txtTotalInterAmt").val(stock.comm.formatCurrency(totalAmtVal.toFixed(2)));
+	}else{
+		$("#txtTotalInterAmt").val(stock.comm.formatCurrency(calRielsCurrency(totalAmtVal).toFixed(2)));
+	}
+	
 }
 
 function calDayBetweenTwoDate(date1,date2,str){
