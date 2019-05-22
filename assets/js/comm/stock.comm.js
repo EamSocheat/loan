@@ -460,7 +460,7 @@ if(!stock.comm) {stock.comm={};}
     	if(checkNumPaging != 0){
     	    numPaging=numPaging+1;
     	}
-    	if(numPaging > 1){
+    	if(numPaging > 1 && per_page < 10000000 ){
         	$("#"+target_id).html("");
         	$("#"+target_id).show();
         	var checkDotPageNo=false;

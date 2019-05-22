@@ -36,11 +36,11 @@
                 <thead>  
                   <tr>
                     <th class="top-zero"><input type="checkbox" id="chkAllContract" style="display: none;"></th>
-                    <th class="top-zero" data-i18ncd="" class="top-zero">Contract Code</th>
-                    <th class="top-zero" data-i18ncd="">Contract Start</th>
-                    <th class="top-zero" data-i18ncd="">Loan Amount</th>                    
-                    <th class="top-zero" data-i18ncd="">Loan Interest</th>
-                    <th class="top-zero" data-i18ncd="">Customer</th>
+                    <th class="top-zero" data-i18ncd="lb_contract_no" class="top-zero">Contract Code</th>
+                    <th class="top-zero" data-i18ncd="lb_contract_start">Contract Start</th>
+                    <th class="top-zero" data-i18ncd="lb_principle_amt">Loan Amount</th>                    
+                    <th class="top-zero" data-i18ncd="lb_interest_amt">Loan Interest</th>
+                    <th class="top-zero" data-i18ncd="lb_customer">Customer</th>
                   </tr>
               </thead>
               <tbody>

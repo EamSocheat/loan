@@ -79,8 +79,9 @@ var _thisPage = {
 			});
 			$("#txtPaySD").on("change", function(e){
 				getRateAmount();
-				fn_calculatePayment();
+				//fn_calculatePayment();
 				calPayInterestAmt();
+				fn_calculatePayment();
 			});
 			$("#txtPaySDIcon").click(function(e){
 				$(this).next().focus();
@@ -93,7 +94,7 @@ var _thisPage = {
 				if(currencyTxt == "$"){
 					$("#txtTotalInterAmt").val(stock.comm.formatCurrency(totalAmtVal.toFixed(2)));
 				}else{
-					$("#txtTotalInterAmt").val(stock.comm.formatCurrency(calRielsCurrency(totalAmtVal).toFixed(2)));
+					$("#txtTotalInterAmt").val(stock.comm.formatCurrency(calRielsCurrency(totalAmtVal)));
 				}
 				
 				getRateAmount();
@@ -112,14 +113,18 @@ var _thisPage = {
 };
 
 function calRielsCurrency(val){
+	console.log(val);
+	if(val <=0 || val == 'null' || val == null ||  val == undefined || val == "undefined"){
+		return 0;
+	}
 	val = parseInt(val);
 	val = val.toString();
 	
 	if(val.substr((length-2),2) != "00"){
     	val = val.substr(0,val.length-2) + "00";
-		val = parseFloat(val) + 100;
+		val = parseInt(val) + 100;
     }else{
-    	val = parseFloat(val);
+    	val = parseInt(val);
     }
     
 	return val;
@@ -156,46 +161,65 @@ function getRateAmount(){
 
 
 function fn_calculatePayment(){
+	
 	var contractCurrency = $("#txtCurrency").val();
 	var paymentCurrency  = $("#custCurrencyType option:selected").data("sign");
 	var txtTotalInterAmt = stock.comm.replaceAll($("#txtTotalInterAmt").val().trim(), ',', '');
 	var txtCustPayReturn = $("#txtCustPayReturn").val().trim();
 	var txtCustPayment	 = $("#txtCustPayment").val().trim();
+//	console.log(txtCustPayment+"::::::::::");
+//	if(txtCustPayment <=0 || txtCustPayment == 'null' || txtCustPayment == null ||  txtCustPayment == undefined || txtCustPayment == "undefined" ){
+//		$("#txtCustCalcuPay").val("0");
+//		$("#txtCustCalcuPay2").val("0");
+//		$("#txtCustPayReturn2").val("0");
+//		$("#txtCustPayReturn").val("0");
+//	}else{
 	
-	var calculatePayAmt  = 0, txtCustPayReturnAmt = "";
-	if(contractCurrency != paymentCurrency){
-		if(paymentCurrency == "$"){
-			calculatePayAmt = parseFloat(txtTotalInterAmt) / parseFloat(_data_rate_amount);
-		}else if(paymentCurrency == "៛"){
-			calculatePayAmt = parseFloat(txtTotalInterAmt) * parseFloat(_data_rate_amount);
+		var calculatePayAmt  = 0, txtCustPayReturnAmt = "";
+		if(contractCurrency != paymentCurrency){
+			if(paymentCurrency == "$"){
+				calculatePayAmt = parseFloat(txtTotalInterAmt) / parseFloat(_data_rate_amount);
+			}else if(paymentCurrency == "៛"){
+				calculatePayAmt = parseFloat(txtTotalInterAmt) * parseFloat(_data_rate_amount);
+			}
+			txtCustPayReturnAmt = parseFloat(txtCustPayment) - parseFloat(calculatePayAmt);
+			if((txtCustPayment != 0 || txtCustPayment != "") && (txtCustPayReturnAmt != "" || txtCustPayReturnAmt != 0)){
+				$("#txtCustPayReturn").val(stock.comm.formatCurrency(txtCustPayReturnAmt)+paymentCurrency);
+				$("#txtCustPayReturn2").val(txtCustPayReturnAmt);
+			}
+			$("#txtCustCalcuPay").val(stock.comm.formatCurrency(calculatePayAmt)+paymentCurrency);
+			$("#txtCustCalcuPay2").val(calculatePayAmt);
+		}else{
+			
+			$("#txtCustCalcuPay").val(stock.comm.formatCurrency(txtTotalInterAmt)+contractCurrency);
+			$("#txtCustCalcuPay2").val(txtTotalInterAmt);
+			// $("#txtCustPayReturn").val("");
+			// $("#txtCustPayReturn2").val("");
+			
+			txtCustPayReturnAmt = parseFloat(txtCustPayment) - parseFloat(txtTotalInterAmt);
+			if(paymentCurrency == "៛"){
+				txtCustPayReturnAmt = parseInt(txtCustPayReturnAmt);
+			}
+			if((txtCustPayment != 0 || txtCustPayment != "") && (txtCustPayReturnAmt != "" || txtCustPayReturnAmt != 0)){
+				$("#txtCustPayReturn").val(stock.comm.formatCurrency(Number(txtCustPayReturnAmt).toFixed(2))+paymentCurrency);
+				$("#txtCustPayReturn2").val(Number(txtCustPayReturnAmt).toFixed(2));
+			}
 		}
-		txtCustPayReturnAmt = parseFloat(txtCustPayment) - parseFloat(calculatePayAmt);
-		if((txtCustPayment != 0 || txtCustPayment != "") && (txtCustPayReturnAmt != "" || txtCustPayReturnAmt != 0)){
-			$("#txtCustPayReturn").val(stock.comm.formatCurrency(txtCustPayReturnAmt)+paymentCurrency);
-			$("#txtCustPayReturn2").val(txtCustPayReturnAmt);
-		}
-
-		$("#txtCustCalcuPay").val(stock.comm.formatCurrency(stock.comm.null2Void(calculatePayAmt, ''))+stock.comm.null2Void(paymentCurrency, ''));
-		$("#txtCustCalcuPay2").val(calculatePayAmt);
-	}else{
-		$("#txtCustCalcuPay").val(stock.comm.formatCurrency(stock.comm.null2Void(txtTotalInterAmt, ''))+stock.comm.null2Void(contractCurrency, ''));
-		$("#txtCustCalcuPay2").val(txtTotalInterAmt);
-		// $("#txtCustPayReturn").val("");
-		// $("#txtCustPayReturn2").val("");
-
-		txtCustPayReturnAmt = parseFloat(txtCustPayment) - parseFloat(txtTotalInterAmt);
-		if((txtCustPayment != 0 || txtCustPayment != "") && (txtCustPayReturnAmt != "" || txtCustPayReturnAmt != 0)){
-			$("#txtCustPayReturn").val(Number(txtCustPayReturnAmt).toFixed(2)+paymentCurrency);
-			$("#txtCustPayReturn2").val(Number(txtCustPayReturnAmt).toFixed(2));
-		}
-	}
+	//}
+	
 }
 
 function saveData(str){
     parent.$("#loading").show();
     var totalPayment = $("#txtTotalInterAmt").val();
-    if(parseFloat(totalPayment) <= 0){
-    	parent.stock.comm.alertMsg($.i18n.prop("msg_pay_save"));
+    if($("#txtCustPayment").val() =="" || $("#txtCustPayment").val() == null ){
+    	parent.stock.comm.alertMsg($.i18n.prop("msg_pay_save"),'txtCustPayment');
+    	parent.$("#loading").hide();
+    	return;
+    }
+    //
+    if(parseFloat(totalPayment) <= 0 || ($("#txtCustPayment").val().replace(/[^0-9]/gi, '') < $("#txtTotalInterAmt").val().replace(/[^0-9]/gi, ''))){
+    	parent.stock.comm.alertMsg($.i18n.prop("msg_pay_save"),'txtCustPayment');
     	parent.$("#loading").hide();
     	return;
     }
@@ -238,7 +262,7 @@ function getDataView(pay_id){
 
 			if(res.OUT_REC != null && res.OUT_REC.length > 0){
 				for(var i = 0; i < res.OUT_REC.length; i++){
-					$("#paymentNo").text("Payment No: "+res.OUT_REC[i]['pay_no']);
+					$("#paymentNo").text($.i18n.prop("lb_pay_code")+": "+res.OUT_REC[i]['pay_no']);
 					$("#txtContCode").val(res.OUT_REC[i]['con_no']);
 					$("#txtContId").val(res.OUT_REC[i]['pay_id']);
 					$("#txtCusName").val(res.OUT_REC[i]['cus_nm']);
@@ -256,13 +280,13 @@ function getDataView(pay_id){
 					$("#txtLoanAmtLeft").val(stock.comm.formatCurrency(res.OUT_REC[i]['loan_amount_left']));
 					$("#txtLoanAmtLeft2").val(stock.comm.formatCurrency(res.OUT_REC[i]['loan_amount_left']));
 					$("#txtPayInterAmt").val(stock.comm.formatCurrency(res.OUT_REC[i]['pay_int']));
-					$("#txtLastPay").val(stringDate(res.OUT_REC[i]['last_pay_date'].substr(0,10)));
+					$("#txtLastPay").val(stringDate( res.OUT_REC[i]['last_pay_day'] == null ? res.OUT_REC[i]['con_start_dt'].substr(0,10) : res.OUT_REC[i]['last_pay_day'].substr(0,10)));
 					$("#txtLoanAmt").val(stock.comm.formatCurrency(res.OUT_REC[i]["con_principle"]));
 					$("#txtLoanAmt2").val(stock.comm.formatCurrency(res.OUT_REC[i]["con_principle"]));
-					console.log("total value::: "+parseFloat(res.OUT_REC[i]["pay_loan"])+parseFloat(res.OUT_REC[i]["pay_int"]));
-					console.log("pay_loan:: "+parseFloat(res.OUT_REC[i]["pay_loan"]))
-					console.log("pay_int::: "+parseFloat(res.OUT_REC[i]["pay_int"]))
-					console.log("value::::: "+calRielsCurrency(parseFloat(res.OUT_REC[i]["pay_loan"])+parseFloat(res.OUT_REC[i]["pay_int"])))
+//					console.log("total value::: "+parseFloat(res.OUT_REC[i]["pay_loan"])+parseFloat(res.OUT_REC[i]["pay_int"]));
+//					console.log("pay_loan:: "+parseFloat(res.OUT_REC[i]["pay_loan"]))
+//					console.log("pay_int::: "+parseFloat(res.OUT_REC[i]["pay_int"]))
+//					console.log("value::::: "+calRielsCurrency(parseFloat(res.OUT_REC[i]["pay_loan"])+parseFloat(res.OUT_REC[i]["pay_int"])))
 
 					if(res.OUT_REC[i]['cur_syn'] == "$"){
 						console.log(1)

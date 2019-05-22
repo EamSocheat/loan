@@ -260,7 +260,7 @@ class Payment extends CI_Controller{
             $curr = $row->pay_loan_int_type;
             $object->getActiveSheet()->setCellValueByColumnAndRow(0, $excel_row, $row->pay_no);
             $object->getActiveSheet()->setCellValueByColumnAndRow(1, $excel_row, $row->con_no);
-            $object->getActiveSheet()->setCellValueByColumnAndRow(2, $excel_row, $this->commaAmt($row->pay_usr_amount_calculate).$this->addCurrncy($curr,$row->pay_usr_amount_calculate));
+            $object->getActiveSheet()->setCellValueByColumnAndRow(2, $excel_row, $this->commaAmt($row->pay_usr_amount_calculate).$this->addCurrncy($row->pay_cur_id,$row->pay_usr_amount_calculate));
             $object->getActiveSheet()->setCellValueByColumnAndRow(3, $excel_row, $this->commaAmt($row->pay_loan).$this->addCurrncy($curr,$row->pay_loan));
             $object->getActiveSheet()->setCellValueByColumnAndRow(4, $excel_row, $this->commaAmt($row->pay_int).$this->addCurrncy($curr,$row->pay_int));
             $object->getActiveSheet()->setCellValueByColumnAndRow(5, $excel_row, $this->commaAmt($row->pay_loan+$row->pay_int).$this->addCurrncy($curr,$row->pay_loan+$row->pay_int));
@@ -277,8 +277,8 @@ class Payment extends CI_Controller{
     }
     
     function commaAmt($str){
-        $str = (int)$str;
-        return number_format($str);
+        $str = (floatval($str));
+        return $str;
     }
 
     function addCurrncy($curr,$amt){

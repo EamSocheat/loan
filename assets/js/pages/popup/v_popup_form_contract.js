@@ -14,6 +14,9 @@ var _thisPage = {
 			parent.$("#loading").hide();
 			clearForm();
 			loadCurrencyData();
+			stock.comm.inputCurrency("lRate");
+			stock.comm.inputCurrency("lAmt");
+			
 			//
 			$('#txtContSD').datepicker({
 				language: (getCookie("lang") == "kh" ? "kh" : "en"),
@@ -29,7 +32,7 @@ var _thisPage = {
 
 			if($("#frmAct").val() == "U"){
 			    getDataEdit($("#contId").val());
-			    $("#lAmt").attr("disabled","disabled");
+			    $("#lAmt").attr("readonly","readonly");
 			    $("#popupTitle").html("<i class='fa fa-handshake-o'></i> "+$.i18n.prop("btn_edit")+" "+ $.i18n.prop("lb_contract"));
 			}else{
 				stock.comm.todayDate("#txtContSD","-");
@@ -171,6 +174,8 @@ function saveData(str){
     	return;
     }
 
+    $("#lAmt").val($("#lAmt").val().replace(/[^0-9]/gi, ''));
+    
 	parent.$("#loading").show();
 	$.ajax({
 		type : "POST",
@@ -240,10 +245,12 @@ function getDataEdit(cont_id){
 		dataType: "json",
 		async: false,
 		success: function(res) {
+			//$("#btnSave").hide();
 			if(res.OUT_REC != null && res.OUT_REC.length >0){
+				
 				var status = res.OUT_REC[0]["con_status"];
 				$("#contractNo").text( $.i18n.prop("lb_contract_no") +" : "+ res.OUT_REC[0]["con_no"]);				
-			    $("#txtCusNm").val(res.OUT_REC[0]["cus_nm"]);
+			    $("#txtCusNm").val(res.OUT_REC[0]["cus_nm_kh"]);
 			    $("#txtCusId").val(res.OUT_REC[0]["cus_id"]);
 			    $("#txtCusPhone").val(res.OUT_REC[0]["cus_phone1"]);
 			    $("#cboCurrency option[value='"+res.OUT_REC[0]["cur_id"]+"']").attr("selected",true);

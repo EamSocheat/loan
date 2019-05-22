@@ -42,8 +42,8 @@
                                                 <div class="form-group form-inline" >
                                                     <label for="txtSrchPayCode" class="control-label" data-i18ncd="lb_pay_code" style="
                                                         margin-bottom: 7px;display: -webkit-box;
-                                                    ">លេខសម្គាល់កិច្ចសន្យា</label>
-                                                    <input type="text" class="form-control input-sm" id="txtSrchPayCode" placeholder="បញ្ជូល លេខសម្គាល់កិច្ចសន្យា" style="
+                                                    ">áž›áŸ�áž�ážŸáž˜áŸ’áž‚áž¶áž›áŸ‹áž€áž·áž…áŸ’áž…ážŸáž“áŸ’áž™áž¶</label>
+                                                    <input type="text" class="form-control input-sm" id="txtSrchPayCode" placeholder="áž”áž‰áŸ’áž‡áž¼áž› áž›áŸ�áž�ážŸáž˜áŸ’áž‚áž¶áž›áŸ‹áž€áž·áž…áŸ’áž…ážŸáž“áŸ’áž™áž¶" style="
                                                     ">
                                                 </div>
                                             </div>
@@ -58,7 +58,7 @@
                                                     <div class="input-group-addon" id="txtSrchPaymentSDIcon" style="border-top-left-radius: 5px;border-bottom-left-radius: 5px;padding: 5px 11px;">
                                                         <i class="fa fa-calendar"></i>
                                                     </div>
-                                                    <input type="text" class="form-control pull-left date-pick" id="txtSrchPaymentSD" name="txtSrchPaymentSD" required="required" data-inputmask="'alias': 'dd-mm-yyyy'" data-mask="" placeholder="បញ្ជូល " style="font-size: 12px;width: 60%;">
+                                                    <input type="text" class="form-control pull-left date-pick" id="txtSrchPaymentSD" name="txtSrchPaymentSD" required="required" data-inputmask="'alias': 'dd-mm-yyyy'" data-mask="" placeholder="áž”áž‰áŸ’áž‡áž¼áž› " style="font-size: 12px;width: 60%;">
                                                 </div>
                                             </div>
                                             <div class="col-sm-3 col-md-3 col-lg-3" style="
@@ -71,15 +71,15 @@
                                                     <div class="input-group-addon" id="txtSrchPaymentEDIcon" style="border-top-left-radius: 5px;border-bottom-left-radius: 5px;">
                                                         <i class="fa fa-calendar"></i>
                                                     </div>
-                                                    <input type="text" class="form-control pull-left date-pick" id="txtSrchPaymentED" name="txtSrchPaymentED" required="required" data-inputmask="'alias': 'dd-mm-yyyy'" data-mask="" placeholder="បញ្ជូល " style="font-size: 12px;width: 60%;">
+                                                    <input type="text" class="form-control pull-left date-pick" id="txtSrchPaymentED" name="txtSrchPaymentED" required="required" data-inputmask="'alias': 'dd-mm-yyyy'" data-mask="" placeholder="áž”áž‰áŸ’áž‡áž¼áž› " style="font-size: 12px;width: 60%;">
                                                 </div>
                                             </div>
                                             <div class="col-sm-3 col-md-3 col-lg-3" style="">
                                                 <div class="form-group form-inline">
                                                     <label for="txtSrchCusNm" class="control-label" data-i18ncd="lb_customer" style="
                                                         margin-bottom: 7px;display: -webkit-box;
-                                                    ">ឈ្មោះ</label>
-                                                    <input type="text" class="form-control input-sm" id="txtSrchCusNm" placeholder="បញ្ជូល ចាប់ផ្ដើមកិច្ចសន្យា">
+                                                    ">ážˆáŸ’áž˜áŸ„áŸ‡</label>
+                                                    <input type="text" class="form-control input-sm" id="txtSrchCusNm" placeholder="áž”áž‰áŸ’áž‡áž¼áž› áž…áž¶áž”áŸ‹áž•áŸ’ážŠáž¾áž˜áž€áž·áž…áŸ’áž…ážŸáž“áŸ’áž™áž¶">
                                                 </div>
                                             </div>
                                         </div>
@@ -98,8 +98,8 @@
 											<label for="txtSrchContCode" class="control-label" data-i18ncd="lb_contract_no" style="
 												margin-bottom: 7px;
 												display: -webkit-box;
-											">លេខសម្គាល់កិច្ចសន្យា</label>
-											<input type="text" class="form-control input-sm" id="txtSrchContCode" placeholder="បញ្ជូល លេខសម្គាល់កិច្ចសន្យា" style="
+											">áž›áŸ�áž�ážŸáž˜áŸ’áž‚áž¶áž›áŸ‹áž€áž·áž…áŸ’áž…ážŸáž“áŸ’áž™áž¶</label>
+											<input type="text" class="form-control input-sm" id="txtSrchContCode" placeholder="áž”áž‰áŸ’áž‡áž¼áž› áž›áŸ�áž�ážŸáž˜áŸ’áž‚áž¶áž›áŸ‹áž€áž·áž…áŸ’áž…ážŸáž“áŸ’áž™áž¶" style="
 											">
 										</div>
 									</div>
@@ -142,13 +142,13 @@
                             <label for="limitRow" data-i18ncd="lb_records">Records</label>
                             <select class="form-control input-sm" id="perPage" onchange="_thisPage.loadData(1);">
                                 <option value="1" data-i18ncd="lb_row1">1 rows</option>
-                                <option value="2" data-i18ncd="lb_row2"> 2 rows</option>
-                                <option value="3" data-i18ncd="lb_row3">3 rows</option>
                                 <option value="10" data-i18ncd="lb_row10" selected="selected">10 rows</option>
                                 <option value="20" data-i18ncd="lb_row20" >20 rows</option>
                                 <option value="50" data-i18ncd="lb_row50">50 rows</option>
                                 <option value="100" data-i18ncd="lb_row100">100 rows</option>
+                                <option value="10000000" data-i18ncd="lb_all">All</option>
                             </select>
+                            
 						</form>
 					</div>
 				    <br>
@@ -164,7 +164,7 @@
                           <th data-i18ncd="lb_cal_pay_amt" class="txt_r">Payment User Calculate</th>
     					  <!-- <th data-i18ncd="lb_pay_loan" class="txt_r">Payment Loan</th>
     					  <th data-i18ncd="lb_pay_interest" class="txt_r">Payment Interest</th> -->
-                          <th data-i18ncd="lb_pay_total" class="txt_r">Total Payment</th>
+                          <!-- <th data-i18ncd="lb_pay_total" class="txt_r">Total Payment</th>-->
                           <th data-i18ncd="lb_principle_amt" class="txt_r">Loan Amount</th>
                           <th data-i18ncd="lb_pay_date">Payment Date</th>
                           <th data-i18ncd="lb_customer">Customer</th>

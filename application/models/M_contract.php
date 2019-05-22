@@ -12,16 +12,18 @@
                 (tbl_contract.con_principle 
                     - 
                 (select COALESCE(sum(tbl_payment.pay_loan), 0)
-                    from tbl_payment where tbl_payment.con_id = tbl_contract.con_id)
+                    from tbl_payment where tbl_payment.con_id = tbl_contract.con_id and tbl_payment.useYn = "Y")
                 ) as loan_amount_left,
                 CASE WHEN (select tbl_payment.pay_date
                                     from tbl_payment where tbl_payment.con_id = tbl_contract.con_id
+                                    and tbl_payment.useYn = "Y"
                                     order by tbl_payment.pay_id desc
                                     limit 1)
                 IS NULL THEN  tbl_contract.con_start_dt
                 ELSE
                 (select tbl_payment.pay_date
                             from tbl_payment where tbl_payment.con_id = tbl_contract.con_id
+                            and tbl_payment.useYn = "Y"
                             order by tbl_payment.pay_id desc
                             limit 1) 
                 END                     
@@ -52,18 +54,17 @@
                 $this->db->like('tbl_contract.con_no', $dataSrch['con_no']);
             }
 
-            if($dataSrch['con_start_dt'] != null && $dataSrch['con_start_dt'] != ""){
-                $this->db->where('tbl_contract.con_start_dt >=', $dataSrch['con_start_dt']);                
-            }
-
-            if(($dataSrch['con_start_dt'] != null && $dataSrch['con_start_dt'] != "") 
+    	 	if(($dataSrch['con_start_dt'] != null && $dataSrch['con_start_dt'] != "") 
                 && ($dataSrch['con_end_dt'] != null && $dataSrch['con_end_dt'] != "")){
-                $this->db->where('tbl_contract.con_start_dt >=', $dataSrch['con_start_dt']);
-                $this->db->where('tbl_contract.con_start_dt <=', $dataSrch['con_end_dt']);
-            }
-
-            if($dataSrch['con_end_dt'] != null && $dataSrch['con_end_dt'] != ""){
-                $this->db->where('tbl_contract.con_end_dt <=', $dataSrch['con_end_dt']);
+                $this->db->where('tbl_contract.con_start_dt >=', date('Y-m-d', strtotime($dataSrch['con_start_dt'])));
+                $this->db->where('tbl_contract.con_start_dt <=', date('Y-m-d', strtotime($dataSrch['con_end_dt'])));
+            }else{
+	            if($dataSrch['con_start_dt'] != null && $dataSrch['con_start_dt'] != ""){
+	                $this->db->where('tbl_contract.con_start_dt >=', strtotime($dataSrch['con_start_dt']));                
+	            }
+	            if($dataSrch['con_end_dt'] != null && $dataSrch['con_end_dt'] != ""){
+	                $this->db->where('tbl_contract.con_end_dt <=', strtotime($dataSrch['con_end_dt']));
+	            }      
             }
             
             if($dataSrch['srch_customer'] != null && $dataSrch['srch_customer'] != ""){
@@ -80,6 +81,15 @@
     	  			$this->db->where('tbl_contract.con_status', "0");
     	  		}
                 
+            }
+            
+    	
+            
+    		if($dataSrch['srch_all'] != null && $dataSrch['srch_all'] != ""){
+                $this->db->like('tbl_customer.cus_nm', $dataSrch['srch_all']);
+                $this->db->or_like('tbl_customer.cus_nm_kh', $dataSrch['srch_all']);
+                $this->db->or_like('tbl_contract.con_no', $dataSrch['srch_all']);
+                $this->db->or_like('tbl_customer.cus_phone1', $dataSrch['srch_all']);
             }
 
             $this->db->order_by("con_id", "desc");
@@ -112,19 +122,22 @@
                 $this->db->like('tbl_contract.con_no', $dataSrch['con_no']);
             }
 
-            if($dataSrch['con_start_dt'] != null && $dataSrch['con_start_dt'] != ""){
-                $this->db->where('tbl_contract.con_start_dt >=', $dataSrch['con_start_dt']);                
-            }
+            
 
             if(($dataSrch['con_start_dt'] != null && $dataSrch['con_start_dt'] != "") 
                 && ($dataSrch['con_end_dt'] != null && $dataSrch['con_end_dt'] != "")){
-                $this->db->where('tbl_contract.con_start_dt >=', $dataSrch['con_start_dt']);
-                $this->db->where('tbl_contract.con_start_dt <=', $dataSrch['con_end_dt']);
+                $this->db->where('tbl_contract.con_start_dt >=', date('Y-m-d', strtotime($dataSrch['con_start_dt'])));
+                $this->db->where('tbl_contract.con_start_dt <=', date('Y-m-d', strtotime($dataSrch['con_end_dt'])));
+            }else{
+	            if($dataSrch['con_start_dt'] != null && $dataSrch['con_start_dt'] != ""){
+	                $this->db->where('tbl_contract.con_start_dt >=', strtotime($dataSrch['con_start_dt']));                
+	            }
+	            if($dataSrch['con_end_dt'] != null && $dataSrch['con_end_dt'] != ""){
+	                $this->db->where('tbl_contract.con_end_dt <=', strtotime($dataSrch['con_end_dt']));
+	            }        
             }
 
-            if($dataSrch['con_end_dt'] != null && $dataSrch['con_end_dt'] != ""){
-                $this->db->where('tbl_contract.con_end_dt <=', $dataSrch['con_end_dt']);
-            }
+            
             
             if($dataSrch['srch_customer'] != null && $dataSrch['srch_customer'] != ""){
                 $this->db->like('tbl_customer.cus_nm', $dataSrch['srch_customer']);
@@ -140,6 +153,14 @@
     	  			$this->db->where('tbl_contract.con_status', "0");
     	  		}
                 
+            }
+            
+            
+    		if($dataSrch['srch_all'] != null && $dataSrch['srch_all'] != ""){
+                $this->db->like('tbl_customer.cus_nm', $dataSrch['srch_all']);
+                $this->db->or_like('tbl_customer.cus_nm_kh', $dataSrch['srch_all']);
+                $this->db->or_like('tbl_contract.con_no', $dataSrch['srch_all']);
+                $this->db->or_like('tbl_customer.cus_phone1', $dataSrch['srch_all']);
             }
             
             return $this->db->get()->result();

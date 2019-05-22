@@ -53,6 +53,7 @@ class Contract extends CI_Controller{
             'srch_status'   => $this->input->post('srch_status'),
             'srch_customer' => $this->input->post('txtSrchCusNm'),
         	'filter_status' 	=> $conStatus,
+        	'srch_all'		=> $this->input->post('srchAll')
         );
 
         $data["OUT_REC"] = $this->M_contract->selectContractData($dataSrch);
@@ -142,7 +143,7 @@ class Contract extends CI_Controller{
                     'upUsr'     => $_SESSION['usrId']
             );
             $this->M_contract->update($data);
-            $cntDel = 1;
+            $cntDel += 1;
         }
         echo $cntDel;
     }

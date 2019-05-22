@@ -180,8 +180,8 @@ function loadContractData(){
 					html += 	'<td><div class="txt_c">'+stringDate(res.OUT_REC[i]["con_start_dt"].substr(0,10))+'</div></td>';
 					html += 	'<td><div class="txt_r">'+stock.comm.formatCurrency(res.OUT_REC[i]["con_principle"])+res.OUT_REC[i]["cur_syn"]+'</div></td>';
 					html += 	'<td><div class="txt_r">'+res.OUT_REC[i]["con_interest"]+'%</div></td>';
-					html += 	'<td><div class="txt_c">'+res.OUT_REC[i]["cus_nm"]+'</div></td>';
-					html += 	'<input type="hidden" class="con_customer" value='+res.OUT_REC[i]["cus_nm"]+' />';
+					html += 	'<td><div class="txt_c">'+(res.OUT_REC[i]["cus_nm_kh"] =='' ? res.OUT_REC[i]["cus_nm"] : res.OUT_REC[i]["cus_nm_kh"])+'</div></td>';
+					html += 	'<input type="hidden" class="con_customer" value='+(res.OUT_REC[i]["cus_nm_kh"] =='' ? res.OUT_REC[i]["cus_nm"] : res.OUT_REC[i]["cus_nm_kh"])+' />';
 					html += 	'<input type="hidden" class="con_customer_id" value='+res.OUT_REC[i]["cus_id"]+' />';
 					html += 	'<input type="hidden" class="con_customer_phone" value='+res.OUT_REC[i]["cus_phone1"]+' />';
 					html += 	'<input type="hidden" class="con_inter" value='+res.OUT_REC[i]["con_interest"]+' />';

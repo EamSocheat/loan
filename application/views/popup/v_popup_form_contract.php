@@ -70,7 +70,7 @@
             		<div class="col-xs-4 padding-forms-right">
             			<div class="form-group">
 				    		<label for="lRate" data-i18nCd="lb_interest_amt" >Loan Interest(%)</label>
-					      	<input type="text" maxlength="2" class="form-control" id="lRate" placeholder="Enter interest" name="lRate" autocomplete="off" />
+					      	<input  type="text" maxlength="5" class="form-control" id="lRate" placeholder="Enter interest" name="lRate" autocomplete="off" />
 				      	</div>  
             		</div>
             	</div>
