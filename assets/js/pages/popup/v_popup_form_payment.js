@@ -43,6 +43,7 @@ var _thisPage = {
 			stock.comm.inputPhoneKhmer("txtPhone1");
 			stock.comm.inputPhoneKhmer("txtPhone2");
 			stock.comm.inputCurrency("txtpayLoanAmt");
+			stock.comm.inputCurrency("txtCustPayment");
 			
 		},
 		event : function(){
@@ -79,6 +80,18 @@ var _thisPage = {
 			});
 			$("#txtPaySD").on("change", function(e){
 				getRateAmount();
+				
+				var payLoan     = $("#txtpayLoanAmt").val().replace(/[^0-9]/gi, '');
+				var interPayAmt = $("#txtPayInterAmt").val().replace(/[^0-9]/gi, '');
+				var totalAmtVal = totalAmt(interPayAmt,payLoan);
+				var currencyTxt = $("#txtCurrency").val();
+				
+				if(currencyTxt == "$"){
+					$("#txtTotalInterAmt").val(stock.comm.formatCurrency(totalAmtVal.toFixed(2)));
+				}else{
+					$("#txtTotalInterAmt").val(stock.comm.formatCurrency(calRielsCurrency(totalAmtVal)));
+				}
+				
 				//fn_calculatePayment();
 				calPayInterestAmt();
 				fn_calculatePayment();
@@ -87,8 +100,8 @@ var _thisPage = {
 				$(this).next().focus();
 			});
 			$("#txtpayLoanAmt").keyup(function(e){
-				var payLoan     = $(this).val();
-				var interPayAmt = $("#txtPayInterAmt").val();
+				var payLoan     = $(this).val().replace(/[^0-9]/gi, '');
+				var interPayAmt = $("#txtPayInterAmt").val().replace(/[^0-9]/gi, '');
 				var totalAmtVal = totalAmt(interPayAmt,payLoan);
 				var currencyTxt = $("#txtCurrency").val();
 				if(currencyTxt == "$"){
@@ -113,7 +126,7 @@ var _thisPage = {
 };
 
 function calRielsCurrency(val){
-	console.log(val);
+	
 	if(val <=0 || val == 'null' || val == null ||  val == undefined || val == "undefined"){
 		return 0;
 	}
@@ -165,8 +178,8 @@ function fn_calculatePayment(){
 	var contractCurrency = $("#txtCurrency").val();
 	var paymentCurrency  = $("#custCurrencyType option:selected").data("sign");
 	var txtTotalInterAmt = stock.comm.replaceAll($("#txtTotalInterAmt").val().trim(), ',', '');
-	var txtCustPayReturn = $("#txtCustPayReturn").val().trim();
-	var txtCustPayment	 = $("#txtCustPayment").val().trim();
+	var txtCustPayReturn = $("#txtCustPayReturn").val().replace(/[^0-9]/gi, '');
+	var txtCustPayment	 = $("#txtCustPayment").val().replace(/[^0-9]/gi, '');
 //	console.log(txtCustPayment+"::::::::::");
 //	if(txtCustPayment <=0 || txtCustPayment == 'null' || txtCustPayment == null ||  txtCustPayment == undefined || txtCustPayment == "undefined" ){
 //		$("#txtCustCalcuPay").val("0");
@@ -200,7 +213,7 @@ function fn_calculatePayment(){
 			if(paymentCurrency == "៛"){
 				txtCustPayReturnAmt = parseInt(txtCustPayReturnAmt);
 			}
-			if((txtCustPayment != 0 || txtCustPayment != "") && (txtCustPayReturnAmt != "" || txtCustPayReturnAmt != 0)){
+			if(txtCustPayment != 0 && txtCustPayment != ""){
 				$("#txtCustPayReturn").val(stock.comm.formatCurrency(Number(txtCustPayReturnAmt).toFixed(2))+paymentCurrency);
 				$("#txtCustPayReturn2").val(Number(txtCustPayReturnAmt).toFixed(2));
 			}
@@ -210,20 +223,25 @@ function fn_calculatePayment(){
 }
 
 function saveData(str){
-    parent.$("#loading").show();
-    var totalPayment = $("#txtTotalInterAmt").val();
+	parent.$("#loading").show();
+	
+    
+    var totalPayment = $("#txtTotalInterAmt").val().replace(/[^0-9]/gi, '');
     if($("#txtCustPayment").val() =="" || $("#txtCustPayment").val() == null ){
     	parent.stock.comm.alertMsg($.i18n.prop("msg_pay_save"),'txtCustPayment');
     	parent.$("#loading").hide();
     	return;
     }
     //
-    if(parseFloat(totalPayment) <= 0 || ($("#txtCustPayment").val().replace(/[^0-9]/gi, '') < $("#txtTotalInterAmt").val().replace(/[^0-9]/gi, ''))){
+    if(parseFloat(totalPayment) <= 0 || (parseFloat($("#txtCustPayment").val().replace(/[^0-9]/gi, '')) < parseFloat($("#txtTotalInterAmt").val().replace(/[^0-9]/gi, '')))){
     	parent.stock.comm.alertMsg($.i18n.prop("msg_pay_save"),'txtCustPayment');
     	parent.$("#loading").hide();
     	return;
     }
 
+    $("#txtpayLoanAmt").val($("#txtpayLoanAmt").val().replace(/[^0-9]/gi, ''));
+	$("#txtCustPayment").val($("#txtCustPayment").val().replace(/[^0-9]/gi, ''));
+    
 	$.ajax({
 		type: "POST",
 		url : $("#base_url").val() +"Payment/savePayment",
@@ -234,7 +252,13 @@ function saveData(str){
 		success: function(res) {
 		    parent.$("#loading").hide();
 			if(res == "OK"){
-				parent.stock.comm.alertMsg($.i18n.prop("msg_save_com"),"braNm");
+				//parent.stock.comm.alertMsg($.i18n.prop("msg_save_com"),"braNm");
+				
+				parent.stock.comm.confirmMsg($.i18n.prop("msg_save_print"));
+				parent.$("#btnConfirmOk").unbind().click(function(e){
+					printInvoice();
+				});
+				
 				if(str == "new"){
 				    clearForm();
 				}else{
@@ -387,7 +411,7 @@ function calPayInterestAmt(){
 	var interest  = stock.comm.replaceAll($("#txtLoanInter2").val(), ",", "");
 	var loanAmt   = stock.comm.replaceAll($("#txtLoanAmtLeft").val(), ",", "");
 	var interType = $("#txtloanInterType").val();
-	var payLoan   = $("#txtpayLoanAmt").val();
+	var payLoan   = $("#txtpayLoanAmt").val().replace(/[^0-9]/gi, '');
 	var currencyTxt = $("#txtCurrency").val();
 	var calDay    = "";
 	var interPerDay  = "";
@@ -403,7 +427,7 @@ function calPayInterestAmt(){
 	interPayAmt = stock.comm.null2Void(interPayAmt,"");
 	var totalAmtVal = totalAmt(interPayAmt,payLoan);
 	
-	$("#txtPayInterAmt").val(interPayAmt);
+	$("#txtPayInterAmt").val(stock.comm.formatCurrency(interPayAmt));
 	$("#txtPayInterAmt2").val(interPayAmt);
 	if(currencyTxt == "$"){
 		$("#txtTotalInterAmt").val(stock.comm.formatCurrency(totalAmtVal.toFixed(2)));
@@ -432,6 +456,7 @@ function stringDate(str){
 }
 
 function totalAmt(a,b){
+	
 	if(isNaN(a) || a == ""){
 		a = 0
 	}
@@ -448,4 +473,52 @@ function isNumber(evt) {
         return false;
 
     return true;
+}
+
+
+function printInvoice(pay_id){
+	var newWin=window.open('','Print-Window');
+	newWin.document.open();
+	var html="<html><body>";
+	html+="</body></html>";
+
+	newWin.document.write(html);
+
+	newWin.document.close();
+	newWin.focus();
+	newWin.print();
+	newWin.close();
+	/*
+	$("#loading").show();
+    $.ajax({
+		type: "POST",
+		url : $("#base_url").val() +"Payment/getPaymentData",
+		data: {"payId":pay_id},
+		dataType: "json",
+		async: false,
+		success: function(res) {
+			if(res.OUT_REC != null && res.OUT_REC.length > 0){
+				for(var i = 0; i < res.OUT_REC.length; i++){
+					var newWin=window.open('','Print-Window');
+					newWin.document.open();
+					var html="<html><body>";
+					html+="</body></html>";
+
+					newWin.document.write(html);
+
+					newWin.document.close();
+					newWin.focus();
+					newWin.print();
+					newWin.close();
+				}
+			}else{
+			    stock.comm.alertMsg($.i18n.prop("msg_err"));
+			}
+			$("#loading").hide();
+		},
+		error : function(data) {
+		    console.log(data);
+		    stock.comm.alertMsg($.i18n.prop("msg_err"));
+		}
+	});*/
 }
