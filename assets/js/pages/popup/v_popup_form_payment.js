@@ -100,6 +100,11 @@ var _thisPage = {
 				$(this).next().focus();
 			});
 			$("#txtpayLoanAmt").keyup(function(e){
+				if(parseFloat($("#txtpayLoanAmt").val().replace(/[^0-9]/gi, '')) > parseFloat($("#txtLoanAmtLeft").val().replace(/[^0-9]/gi, ''))){
+					parent.stock.comm.alertMsg($.i18n.prop("msg_err_loan_pay"),"frmAddEdit#txtpayLoanAmt");
+					$("#txtpayLoanAmt").focus();
+				}
+				
 				var payLoan     = $(this).val().replace(/[^0-9]/gi, '');
 				var interPayAmt = $("#txtPayInterAmt").val().replace(/[^0-9]/gi, '');
 				var totalAmtVal = totalAmt(interPayAmt,payLoan);
@@ -121,6 +126,8 @@ var _thisPage = {
 				getRateAmount();
 				fn_calculatePayment();
 			});
+			
+			
 			
 		}
 };
@@ -225,6 +232,12 @@ function fn_calculatePayment(){
 function saveData(str){
 	parent.$("#loading").show();
 	
+	if(parseFloat($("#txtpayLoanAmt").val().replace(/[^0-9]/gi, '')) > parseFloat($("#txtLoanAmtLeft").val().replace(/[^0-9]/gi, ''))){
+		parent.stock.comm.alertMsg($.i18n.prop("msg_err_loan_pay"),"frmAddEdit#txtpayLoanAmt");
+		$("#txtpayLoanAmt").focus();
+		parent.$("#loading").hide();
+		return;
+	}
     
     var totalPayment = $("#txtTotalInterAmt").val().replace(/[^0-9]/gi, '');
     if($("#txtCustPayment").val() =="" || $("#txtCustPayment").val() == null ){
@@ -269,7 +282,7 @@ function saveData(str){
 		},
 		error : function(data) {
 			console.log(data);
-			stock.comm.alertMsg($.i18n.prop("msg_err"));
+			parent.stock.comm.alertMsg($.i18n.prop("msg_err"));
         }
 	});
 }
@@ -313,10 +326,10 @@ function getDataView(pay_id){
 //					console.log("value::::: "+calRielsCurrency(parseFloat(res.OUT_REC[i]["pay_loan"])+parseFloat(res.OUT_REC[i]["pay_int"])))
 
 					if(res.OUT_REC[i]['cur_syn'] == "$"){
-						console.log(1)
+						//console.log(1)
 						$("#txtTotalInterAmt").val(stock.comm.formatCurrency(parseFloat(res.OUT_REC[i]["pay_loan"])+parseFloat(res.OUT_REC[i]["pay_int"])));						
 					}else{
-						console.log(2)
+						//console.log(2)
 						$("#txtTotalInterAmt").val(stock.comm.formatCurrency(calRielsCurrency(parseFloat(res.OUT_REC[i]["pay_loan"])+parseFloat(res.OUT_REC[i]["pay_int"]))));
 					}
 
@@ -337,7 +350,7 @@ function getDataView(pay_id){
 					
 				}
 			}else{
-			    stock.comm.alertMsg($.i18n.prop("msg_err"));
+				parent.stock.comm.alertMsg($.i18n.prop("msg_err"));
 			}
 			$("#loading").hide();
 		},
