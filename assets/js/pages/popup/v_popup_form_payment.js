@@ -199,7 +199,7 @@ function fn_calculatePayment(){
 		if(contractCurrency != paymentCurrency){
 			if(paymentCurrency == "$"){
 				calculatePayAmt = parseFloat(txtTotalInterAmt) / parseFloat(_data_rate_amount);
-			}else if(paymentCurrency == "៛"){
+			}else if(paymentCurrency == "áŸ›"){
 				calculatePayAmt = parseFloat(txtTotalInterAmt) * parseFloat(_data_rate_amount);
 			}
 			txtCustPayReturnAmt = parseFloat(txtCustPayment) - parseFloat(calculatePayAmt);
@@ -217,7 +217,7 @@ function fn_calculatePayment(){
 			// $("#txtCustPayReturn2").val("");
 			
 			txtCustPayReturnAmt = parseFloat(txtCustPayment) - parseFloat(txtTotalInterAmt);
-			if(paymentCurrency == "៛"){
+			if(paymentCurrency == "áŸ›"){
 				txtCustPayReturnAmt = parseInt(txtCustPayReturnAmt);
 			}
 			if(txtCustPayment != 0 && txtCustPayment != ""){
@@ -264,12 +264,14 @@ function saveData(str){
         processData: false,
 		success: function(res) {
 		    parent.$("#loading").hide();
-			if(res == "OK"){
+			if(res != "" || res!= null){
 				//parent.stock.comm.alertMsg($.i18n.prop("msg_save_com"),"braNm");
 				
 				parent.stock.comm.confirmMsg($.i18n.prop("msg_save_print"));
 				parent.$("#btnConfirmOk").unbind().click(function(e){
-					printInvoice();
+					parent.$("#mdlConfirm").modal('hide');
+					printInvoice(res);
+					parent.stock.comm.closePopUpForm("PopupFormPayment", parent.popupPaymentCallback);
 				});
 				
 				if(str == "new"){
@@ -304,7 +306,7 @@ function getDataView(pay_id){
 					$("#txtContId").val(res.OUT_REC[i]['pay_id']);
 					$("#txtCusName").val(res.OUT_REC[i]['cus_nm']);
 					$("#txtCusId").val(res.OUT_REC[i]['cus_id']);
-					$("#txtPaySD").val(stringDate(res.OUT_REC[i]['pay_date']));
+					$("#txtPaySD").val(stringDate(res.OUT_REC[i]['pay_date'].substr(0,10)));
 					$("#txtPaySD").attr("disabled", true);
 					$("#txtPaySDIcon").css("background-color", "rgb(235, 235, 228)");
 					$("#txtLoanInter").val(res.OUT_REC[i]['pay_loan_int']);
@@ -314,10 +316,12 @@ function getDataView(pay_id){
 					$("#txtpayLoanAmt").attr("disabled", true);
 					$("#txtCurrency").val(res.OUT_REC[i]['cur_syn']);
 					$("#txtCurrency").data("id",res.OUT_REC[i]['cur_id']);
-					$("#txtLoanAmtLeft").val(stock.comm.formatCurrency(res.OUT_REC[i]['loan_amount_left']));
-					$("#txtLoanAmtLeft2").val(stock.comm.formatCurrency(res.OUT_REC[i]['loan_amount_left']));
+					$("#txtLoanAmtLeft").val(stock.comm.formatCurrency(res.OUT_REC[i]['pay_loan_balance']));
+					$("#txtLoanAmtLeft2").val(res.OUT_REC[i]['loan_amount_left']);
 					$("#txtPayInterAmt").val(stock.comm.formatCurrency(res.OUT_REC[i]['pay_int']));
-					$("#txtLastPay").val(stringDate( res.OUT_REC[i]['last_pay_day'] == null ? res.OUT_REC[i]['con_start_dt'].substr(0,10) : res.OUT_REC[i]['last_pay_day'].substr(0,10)));
+					$("#txtLastPay").val(stringDate(res.OUT_REC[i]['pay_last_paid_dt'].substr(0,10)));
+					$("#txtLastPay2").val(stringDate(res.OUT_REC[i]['pay_last_paid_dt'].substr(0,10)));
+					
 					$("#txtLoanAmt").val(stock.comm.formatCurrency(res.OUT_REC[i]["con_principle"]));
 					$("#txtLoanAmt2").val(stock.comm.formatCurrency(res.OUT_REC[i]["con_principle"]));
 //					console.log("total value::: "+parseFloat(res.OUT_REC[i]["pay_loan"])+parseFloat(res.OUT_REC[i]["pay_int"]));
@@ -378,6 +382,7 @@ function clearForm(){
     $("#txtPayInterAmt").val("");
     $("#txtPayInterAmt2").val("");
     $("#txtLastPay").val("");
+    $("#txtLastPay2").val("");
     $("#txtLoanAmt").val("");
     $("#txtLoanAmt2").val("");
     $("#txtTotalInterAmt").val("");
@@ -400,6 +405,8 @@ function selectConractCallback(data){
 	$("#txtloanInterType").val(data["con_inter_type"]);
 	$("#txtIntTypeCur").val(data["con_inter_cur"]);
 	$("#txtLastPay").val(stringDate(data["con_pay_last_date"]));
+	$("#txtLastPay2").val(stringDate(data["con_pay_last_date"]));
+	
 	$("#txtCurrency").val(data["con_currency"]);
 	$("#custCurrencyType option").attr("selected", false);
 	$("#custCurrencyType option[data-sign='"+data["con_currency"]+"']").attr("selected", "selected");
@@ -407,7 +414,7 @@ function selectConractCallback(data){
 	$("#txtLoanAmt").val(stock.comm.formatCurrency(data["con_principle"]));
 	$("#txtLoanAmt2").val(stock.comm.formatCurrency(data["con_principle"]));
 	$("#txtLoanAmtLeft").val(stock.comm.formatCurrency(data["loan_amount_left"]));
-	$("#txtLoanAmtLeft2").val(stock.comm.formatCurrency(data["loan_amount_left"]));
+	$("#txtLoanAmtLeft2").val(data["loan_amount_left"]);
 
 	$("#txtCustPayment").val();
 	$("#txtCustPayment2").val();
@@ -490,18 +497,7 @@ function isNumber(evt) {
 
 
 function printInvoice(pay_id){
-	var newWin=window.open('','Print-Window');
-	newWin.document.open();
-	var html="<html><body>";
-	html+="</body></html>";
 
-	newWin.document.write(html);
-
-	newWin.document.close();
-	newWin.focus();
-	newWin.print();
-	newWin.close();
-	/*
 	$("#loading").show();
     $.ajax({
 		type: "POST",
@@ -512,10 +508,95 @@ function printInvoice(pay_id){
 		success: function(res) {
 			if(res.OUT_REC != null && res.OUT_REC.length > 0){
 				for(var i = 0; i < res.OUT_REC.length; i++){
-					var newWin=window.open('','Print-Window');
+					var newWin=parent.window.open('','Print-Window');
 					newWin.document.open();
-					var html="<html><body>";
-					html+="</body></html>";
+					var html='<html>';
+					html+='<head>';
+					html+='			<style>';
+					html+='			body{font-family: Khmer Os Battambang}';
+					html+='			  table {';
+					html+='			  	border-collapse: collapse;';
+					html+='			  	font-size: 12px;';
+					html+='			   	width: 100%;';
+					html+='			  }';
+					html+='			  td, th {';
+					html+='				border: 1px solid #000000;';
+					html+='			  	text-align: left;';
+					html+='			  	padding: 5px;';
+					html+='			  }';
+					html+='			  ';
+					html+='		  table.tbl-head tr td{';
+					html+='		  	border: none;';
+					html+='		  }';
+					html+='				.txt-b{';
+					html+='					padding-left: 5px;';
+					html+='					font-weight: bold;';
+					html+='				}';
+					html+='		</style>';
+					html+='	</head>';
+					html+='<body>';
+					html+='<div style="text-align: center; margin-top: 25px"><h3>វិក័យប័ត្របង់ប្រាក់</h3></div>';
+					html+='<div>';
+					html+='	<table class="tbl-head">';
+					html+='		<tr>';
+					html+='			<td>លេខសម្គាល់កិច្ចសន្យា៖ <span class="txt-b" id=""> '+res.OUT_REC[i]['con_no']+'</span></td>';
+					html+='			<td>លេខសម្គាល់ការបង់ប្រាក់៖<span class="txt-b" id="">'+res.OUT_REC[i]['pay_no']+'</span></td>';
+					html+='</tr>';
+					html+='<tr>';
+					html+='<td>ប្រាក់ខ្ចីពេលចុះកិច្ចសន្យា៖<span class="txt-b" id="">'+stock.comm.formatCurrency(res.OUT_REC[i]["con_principle"])+addCurrency(res.OUT_REC[i]["pay_loan_int_type"],res.OUT_REC[i]["con_principle"])+'</span></td>';
+					html+='<td>ថ្ងៃបង់ប្រាក់៖<span class="txt-b" id="">'+stringDate(res.OUT_REC[i]['pay_date'].substr(0,10))+'</span></td>';
+					html+='</tr>';
+					html+='		<tr>';
+					html+='			<td>ការប្រាក់(%)៖<span class="txt-b" id="">'+res.OUT_REC[i]['pay_loan_int']+'</span></td>';
+					html+='			<td>អតិថិជន៖<span class="txt-b" id="">'+res.OUT_REC[i]['cus_nm']+'</span></td>';
+					html+='		</tr>';
+					html+='		<tr>';
+					html+='			<td>កាលបរិច្ឆេទចាប់ផ្ដើមកិច្ចសន្យា៖<span class="txt-b" id="">'+stringDate(res.OUT_REC[i]['con_start_dt'].substr(0,10))+'</span></td>';
+					html+='			<td>ទូរស័ព្ទ៖<span class="txt-b" id="">'+res.OUT_REC[i]['cus_phone']+'</span></td>';
+					html+='	</tr>';
+					html+='</table>';
+					html+='</div>';
+					html+='	<div style="margin-top: 25px;">';
+					html+='		<table>';
+					html+='			<tr>';
+					html+='				<td style="width: 50%">ប្រាក់ជំពាក់នៅសល់ពេលបង់៖</td><td><span class="txt-b" id="">'+stock.comm.formatCurrency(res.OUT_REC[i]['pay_loan_balance'])+addCurrency(res.OUT_REC[i]["pay_loan_int_type"],res.OUT_REC[i]["pay_loan_balance"])+'</span></td>';
+					//html+='				<td style="width: 50%">ប្រាក់ជំពាក់នៅសល់៖</td><td><span class="txt-b" id="">'+stock.comm.formatCurrency(res.OUT_REC[i]['loan_amount_left'])+'</span></td>';
+					html+='			</tr>';
+					html+='			<tr>';
+					html+='				<td>ថ្ងៃបង់ប្រាក់ចុងក្រោយ៖</td><td><span class="txt-b" id="">'+stringDate( res.OUT_REC[i]['pay_last_paid_dt'].substr(0,10))+'</span></td>';
+					html+='			</tr>';
+					html+='			<tr>';
+					html+='				<td>ចំនួនប្រាក់ដើមត្រូវបង់៖</td><td><span class="txt-b" id="">'+stock.comm.formatCurrency(res.OUT_REC[i]['pay_loan'])+addCurrency(res.OUT_REC[i]["pay_loan_int_type"],res.OUT_REC[i]["pay_loan"])+'</span></td>';
+					html+='				</tr>';
+					html+='			<tr>';
+					html+='				<td>ចំនួនការប្រាក់ត្រូវបង់៖</td><td><span class="txt-b" id="">'+stock.comm.formatCurrency(res.OUT_REC[i]['pay_int'])+'</span></td>';
+					html+='			</tr>';
+					html+='			<tr>';
+					html+='				<td>ប្រាក់អតិថិជនត្រូវបង់៖</td><td><span class="txt-b" id="">'+stock.comm.formatCurrency(res.OUT_REC[i]["pay_usr_amount_calculate"])+addCurrency(res.OUT_REC[i]["pay_cur_id"],res.OUT_REC[i]["pay_usr_amount_calculate"])+'</span></td>';
+					html+='			</tr>';
+					html+='			<tr>';
+					html+='				<td>ប្រាក់ទទួលពីអតិថិជន៖</td><td><span class="txt-b" id="">'+stock.comm.formatCurrency(res.OUT_REC[i]["pay_usr_amount"])+addCurrency(res.OUT_REC[i]["pay_cur_id"],res.OUT_REC[i]["pay_usr_amount"])+'</span></td>';
+					html+='			</tr>';
+					html+='		<tr>';
+					html+='			<td>ប្រាក់អាប់៖</td><td><span class="txt-b" id="">'+stock.comm.formatCurrency(res.OUT_REC[i]["pay_usr_amount_return"])+addCurrency(res.OUT_REC[i]["pay_cur_id"],res.OUT_REC[i]["pay_usr_amount_return"])+'</span></td>';
+					html+='		</tr>';
+					html+='	</table>';
+					html+='</div>';
+					
+					html+='	<div style="margin-top: 10px;">';
+					html+='<table class="tbl-head">';
+					html+='	<tr>';
+					html+='	<td style="width: 50%">ហត្ថលេខា(អ្នកទទួល)</td><td>ហត្ថលេខា(អតិថិជន)</td>';
+					html+='</tr>';
+					html+='<tr>';
+					html+='<td></td><td></td>';
+					html+='</tr>';
+					html+='<tr>';
+					html+='<td>........................</td><td>........................</td>';
+					html+='</tr>';
+					html+='	</table>';
+					html+='</div>';
+					html+='</body></html>';
 
 					newWin.document.write(html);
 
@@ -533,5 +614,15 @@ function printInvoice(pay_id){
 		    console.log(data);
 		    stock.comm.alertMsg($.i18n.prop("msg_err"));
 		}
-	});*/
+	});
+}
+
+function addCurrency(curId,amt){
+	if(curId == "1" && !stock.comm.isEmpty(amt) && amt != 0){
+		return "៛";	
+	}else if(curId == "2" && !stock.comm.isEmpty(amt) && amt != 0){
+		return "$";
+	}else{
+		return "";
+	}
 }

@@ -109,6 +109,7 @@
                                     <i class="fa fa-calendar"></i>
                                 </div>
                                 <input type="text" class="form-control pull-right date-pick" id="txtLastPay" name="txtLastPay" required="required" data-inputmask="'alias': 'dd-mm-yyyy'" data-mask="" disabled="disabled">
+                            	<input type="hidden" id="txtLastPay2" name="txtLastPay2">
                             </div>
                         </div>
                     </div>		

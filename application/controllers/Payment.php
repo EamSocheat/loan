@@ -69,7 +69,7 @@ class Payment extends CI_Controller{
         $pay_loan = $this->input->post('txtpayLoanAmt');
         $pay_left = $this->input->post('txtLoanAmtLeft2');
         $loan_amt = $this->input->post('txtLoanAmt2');
-
+		$pay_insert_id = '';
         $dataPayUser = array(
             'pay_usr_amount'            => $this->input->post('txtCustPayment'),
             'cur_id'                    => $this->input->post('custCurrencyType'),
@@ -85,8 +85,10 @@ class Payment extends CI_Controller{
             'pay_loan'      => $this->input->post('txtpayLoanAmt'),
             'pay_int'       => $this->input->post('txtPayInterAmt2'),
             'pay_loan_int'  => $this->input->post('txtLoanInter2'),
+        	'pay_loan_balance'=> $this->input->post('txtLoanAmtLeft2'),
             'pay_loan_int_type'  => $this->input->post('txtIntTypeCur'),
             'pay_date'      => date('Y-m-d H:i:s',strtotime($this->input->post('txtPaySD'))),
+        	'pay_last_paid_dt'      => date('Y-m-d H:i:s',strtotime($this->input->post('txtLastPay2'))),
             'pay_des'       => $this->input->post('txtPayDesc'),
             'useYn'         => "Y",
             'com_id'        => $_SESSION['comId']
@@ -112,7 +114,7 @@ class Payment extends CI_Controller{
             $data['pay_no'] = $pay_no;
             $data['regUsr'] = $_SESSION['usrId'];
             $data['regDt']  = date('Y-m-d H:i:s');
-            $this->M_payment->insertPaymentDB($data);
+            $pay_insert_id = $this->M_payment->insertPaymentDB($data);
         }
 
         if((int)$pay_loan == (int)$pay_left){
@@ -142,7 +144,7 @@ class Payment extends CI_Controller{
             $this->M_contract->update($data);
         }*/
         
-        echo 'OK';
+        echo $pay_insert_id;
     }
     
     public function deletePayment(){

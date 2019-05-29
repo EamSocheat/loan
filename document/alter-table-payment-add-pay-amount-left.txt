@@ -1,0 +1,4 @@
+alter table tbl_payment
+add COLUMN pay_loan_balance double;
+alter table tbl_payment
+add COLUMN pay_last_paid_dt date;

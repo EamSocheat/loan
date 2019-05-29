@@ -8,7 +8,7 @@
     	}
 
     	function selectPaymentData($dataSrch){
-        	$this->db->select('tbl_contract.con_start_dt as con_start_dt,tbl_payment.pay_id, tbl_payment.pay_no, tbl_payment.pay_loan, tbl_payment.pay_int, tbl_payment.pay_loan_int_type, tbl_payment.pay_loan_int, tbl_payment.pay_loan_int_type, tbl_payment.pay_date, tbl_payment.pay_des, tbl_contract.con_no, tbl_contract.con_principle, tbl_contract.con_interest_type, tbl_customer.cus_nm_kh as cus_nm,  tbl_customer.cus_id as cus_id,tbl_payment_user.cur_id as pay_cur_id, (select tbl_currency.cur_syn from tbl_currency where tbl_currency.cur_id = tbl_payment.pay_loan_int_type) as cur_syn, (tbl_contract.con_principle 
+        	$this->db->select('tbl_payment.pay_last_paid_dt,tbl_payment.pay_loan_balance, tbl_contract.con_start_dt as con_start_dt,tbl_customer.cus_phone1 as cus_phone,tbl_payment.pay_id, tbl_payment.pay_no, tbl_payment.pay_loan, tbl_payment.pay_int, tbl_payment.pay_loan_int_type, tbl_payment.pay_loan_int, tbl_payment.pay_loan_int_type, tbl_payment.pay_date, tbl_payment.pay_des, tbl_contract.con_no, tbl_contract.con_principle, tbl_contract.con_interest_type, tbl_customer.cus_nm_kh as cus_nm,  tbl_customer.cus_id as cus_id,tbl_payment_user.cur_id as pay_cur_id, (select tbl_currency.cur_syn from tbl_currency where tbl_currency.cur_id = tbl_payment.pay_loan_int_type) as cur_syn, (tbl_contract.con_principle 
                     - 
                 (select COALESCE(sum(tbl_payment.pay_loan), 0)
                     from tbl_payment where tbl_payment.con_id = tbl_contract.con_id and tbl_payment.useYn = "Y")
