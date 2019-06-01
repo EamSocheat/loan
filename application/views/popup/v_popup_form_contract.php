@@ -9,7 +9,9 @@
                 <span aria-hidden="true">&times;</span>
             </button>
             <h4 class="modal-title" id="popupTitle">Default Modal</h4>
+            <h5 class="modal-title" id="balanceLeft" style="float: right;margin-top: -24px;margin-right: 45%;"></h5>
             <h5 class="modal-title" id="contractNo" style="float: right;margin-top: -24px;margin-right: 31px;"></h5>
+            
 		</div>
 
 		<div class="modal-body" id="modalMdBody">
@@ -121,14 +123,14 @@
                             </div>
                         </div>
                     </div>
-                    
+                    <!--
                     <div class="col-xs-4 padding-forms-right" >
                         <div class="form-group" style="display: none;" id="divEnd2">
                             <label  for="totalLAmt" data-i18nCd="lb_total_priciple">Total Loaned Amount</label>
                             <input type="text" class="form-control" id="totalLAmt" placeholder="Loaned amount" name="totalL" disabled="disabled" autocomplete="off" />
                         </div> 
                     </div>
-                    
+                     -->
                     <div class="col-xs-4 padding-forms-right" >
                         <div class="form-group" style="display: none;" id="divEnd3">
                             <label for="totalLRate" data-i18nCd="lb_total_interest">Total Interest Amount</label>

@@ -15,15 +15,18 @@ var _thisPage = {
 		},
 		onload : function(){
 			parent.$("#loading").hide();
+			$("#btnPrint").hide();
 			clearForm();
 			if($("#frmAct").val() == "U"){
 			    getDataView($("#payId").val());
 			    $("#popupTitle").html("<i class='fa fa-pie-chart'></i> "+$.i18n.prop("btn_edit")+" "+ $.i18n.prop("lb_payment"));
+			    $("#btnPrint").show();
 			}else{
 				$("#paymentNo").hide();
 				stock.comm.todayDate("#txtPaySD","-");
 			    $("#btnSaveNew").show();
 			    $("#popupTitle").html("<i class='fa fa-pie-chart'></i> "+$.i18n.prop("btn_add_new")+" "+ $.i18n.prop("lb_payment"));
+			    $("#btnPrint").hide();
 			}
 			$("#frmPayment").show();
 			$("#braNm").focus();
@@ -47,6 +50,10 @@ var _thisPage = {
 			
 		},
 		event : function(){
+			//
+			$("#btnPrint").click(function(e){
+				printInvoice($("#payId").val());
+			});
 			//
 			$("#btnClose,#btnExit").click(function(e){
 				//parent.$("#modalMd").modal('hide');
@@ -81,15 +88,17 @@ var _thisPage = {
 			$("#txtPaySD").on("change", function(e){
 				getRateAmount();
 				
-				var payLoan     = $("#txtpayLoanAmt").val().replace(/[^0-9]/gi, '');
-				var interPayAmt = $("#txtPayInterAmt").val().replace(/[^0-9]/gi, '');
+				var payLoan     = $("#txtpayLoanAmt").val().replace(/[,]/gi, '');
+				var interPayAmt = $("#txtPayInterAmt").val().replace(/[,]/gi, '');
 				var totalAmtVal = totalAmt(interPayAmt,payLoan);
 				var currencyTxt = $("#txtCurrency").val();
 				
 				if(currencyTxt == "$"){
 					$("#txtTotalInterAmt").val(stock.comm.formatCurrency(totalAmtVal.toFixed(2)));
+					$("#txtTotalInterAmt2").val(totalAmtVal.toFixed(2));
 				}else{
 					$("#txtTotalInterAmt").val(stock.comm.formatCurrency(calRielsCurrency(totalAmtVal)));
+					$("#txtTotalInterAmt2").val(calRielsCurrency(totalAmtVal));
 				}
 				
 				//fn_calculatePayment();
@@ -100,19 +109,22 @@ var _thisPage = {
 				$(this).next().focus();
 			});
 			$("#txtpayLoanAmt").keyup(function(e){
-				if(parseFloat($("#txtpayLoanAmt").val().replace(/[^0-9]/gi, '')) > parseFloat($("#txtLoanAmtLeft").val().replace(/[^0-9]/gi, ''))){
+				if(parseFloat($("#txtpayLoanAmt").val().replace(/[,]/gi, '')) > parseFloat($("#txtLoanAmtLeft").val().replace(/[,]/gi, ''))){
 					parent.stock.comm.alertMsg($.i18n.prop("msg_err_loan_pay"),"frmAddEdit#txtpayLoanAmt");
 					$("#txtpayLoanAmt").focus();
 				}
 				
-				var payLoan     = $(this).val().replace(/[^0-9]/gi, '');
-				var interPayAmt = $("#txtPayInterAmt").val().replace(/[^0-9]/gi, '');
+				var payLoan     = $(this).val().replace(/[,]/gi, '');
+				var interPayAmt = $("#txtPayInterAmt").val().replace(/[,]/gi, '');
 				var totalAmtVal = totalAmt(interPayAmt,payLoan);
 				var currencyTxt = $("#txtCurrency").val();
 				if(currencyTxt == "$"){
 					$("#txtTotalInterAmt").val(stock.comm.formatCurrency(totalAmtVal.toFixed(2)));
+					$("#txtTotalInterAmt2").val(totalAmtVal.toFixed(2));
+					
 				}else{
 					$("#txtTotalInterAmt").val(stock.comm.formatCurrency(calRielsCurrency(totalAmtVal)));
+					$("#txtTotalInterAmt2").val(calRielsCurrency(totalAmtVal));
 				}
 				
 				getRateAmount();
@@ -185,8 +197,8 @@ function fn_calculatePayment(){
 	var contractCurrency = $("#txtCurrency").val();
 	var paymentCurrency  = $("#custCurrencyType option:selected").data("sign");
 	var txtTotalInterAmt = stock.comm.replaceAll($("#txtTotalInterAmt").val().trim(), ',', '');
-	var txtCustPayReturn = $("#txtCustPayReturn").val().replace(/[^0-9]/gi, '');
-	var txtCustPayment	 = $("#txtCustPayment").val().replace(/[^0-9]/gi, '');
+	var txtCustPayReturn = $("#txtCustPayReturn").val().replace(/[,]/gi, '');
+	var txtCustPayment	 = $("#txtCustPayment").val().replace(/[,]/gi, '');
 //	console.log(txtCustPayment+"::::::::::");
 //	if(txtCustPayment <=0 || txtCustPayment == 'null' || txtCustPayment == null ||  txtCustPayment == undefined || txtCustPayment == "undefined" ){
 //		$("#txtCustCalcuPay").val("0");
@@ -199,7 +211,7 @@ function fn_calculatePayment(){
 		if(contractCurrency != paymentCurrency){
 			if(paymentCurrency == "$"){
 				calculatePayAmt = parseFloat(txtTotalInterAmt) / parseFloat(_data_rate_amount);
-			}else if(paymentCurrency == "áŸ›"){
+			}else if(paymentCurrency == "៛"){
 				calculatePayAmt = parseFloat(txtTotalInterAmt) * parseFloat(_data_rate_amount);
 			}
 			txtCustPayReturnAmt = parseFloat(txtCustPayment) - parseFloat(calculatePayAmt);
@@ -217,7 +229,7 @@ function fn_calculatePayment(){
 			// $("#txtCustPayReturn2").val("");
 			
 			txtCustPayReturnAmt = parseFloat(txtCustPayment) - parseFloat(txtTotalInterAmt);
-			if(paymentCurrency == "áŸ›"){
+			if(paymentCurrency == "៛"){
 				txtCustPayReturnAmt = parseInt(txtCustPayReturnAmt);
 			}
 			if(txtCustPayment != 0 && txtCustPayment != ""){
@@ -232,28 +244,28 @@ function fn_calculatePayment(){
 function saveData(str){
 	parent.$("#loading").show();
 	
-	if(parseFloat($("#txtpayLoanAmt").val().replace(/[^0-9]/gi, '')) > parseFloat($("#txtLoanAmtLeft").val().replace(/[^0-9]/gi, ''))){
+	if(parseFloat($("#txtpayLoanAmt").val().replace(/[,]/gi, '')) > parseFloat($("#txtLoanAmtLeft").val().replace(/[,]/gi, ''))){
 		parent.stock.comm.alertMsg($.i18n.prop("msg_err_loan_pay"),"frmAddEdit#txtpayLoanAmt");
 		$("#txtpayLoanAmt").focus();
 		parent.$("#loading").hide();
 		return;
 	}
     
-    var totalPayment = $("#txtTotalInterAmt").val().replace(/[^0-9]/gi, '');
+    var totalPayment = $("#txtTotalInterAmt").val().replace(/[,]/gi, '');
     if($("#txtCustPayment").val() =="" || $("#txtCustPayment").val() == null ){
     	parent.stock.comm.alertMsg($.i18n.prop("msg_pay_save"),'txtCustPayment');
     	parent.$("#loading").hide();
     	return;
     }
     //
-    if(parseFloat(totalPayment) <= 0 || (parseFloat($("#txtCustPayment").val().replace(/[^0-9]/gi, '')) < parseFloat($("#txtTotalInterAmt").val().replace(/[^0-9]/gi, '')))){
+    if(parseFloat(totalPayment) <= 0 || (parseFloat($("#txtCustPayment").val().replace(/[,]/gi, '')) < parseFloat($("#txtTotalInterAmt").val().replace(/[,]/gi, '')))){
     	parent.stock.comm.alertMsg($.i18n.prop("msg_pay_save"),'txtCustPayment');
     	parent.$("#loading").hide();
     	return;
     }
 
-    $("#txtpayLoanAmt").val($("#txtpayLoanAmt").val().replace(/[^0-9]/gi, ''));
-	$("#txtCustPayment").val($("#txtCustPayment").val().replace(/[^0-9]/gi, ''));
+    $("#txtpayLoanAmt").val($("#txtpayLoanAmt").val().replace(/[,]/gi, ''));
+	$("#txtCustPayment").val($("#txtCustPayment").val().replace(/[,]/gi, ''));
     
 	$.ajax({
 		type: "POST",
@@ -271,7 +283,12 @@ function saveData(str){
 				parent.$("#btnConfirmOk").unbind().click(function(e){
 					parent.$("#mdlConfirm").modal('hide');
 					printInvoice(res);
-					parent.stock.comm.closePopUpForm("PopupFormPayment", parent.popupPaymentCallback);
+					if(str == "new"){
+					    clearForm();
+					}else{
+					    //close popup
+					    parent.stock.comm.closePopUpForm("PopupFormPayment", parent.popupPaymentCallback);
+					}
 				});
 				
 				if(str == "new"){
@@ -317,7 +334,7 @@ function getDataView(pay_id){
 					$("#txtCurrency").val(res.OUT_REC[i]['cur_syn']);
 					$("#txtCurrency").data("id",res.OUT_REC[i]['cur_id']);
 					$("#txtLoanAmtLeft").val(stock.comm.formatCurrency(res.OUT_REC[i]['pay_loan_balance']));
-					$("#txtLoanAmtLeft2").val(res.OUT_REC[i]['loan_amount_left']);
+					$("#txtLoanAmtLeft2").val(res.OUT_REC[i]['pay_loan_balance']);
 					$("#txtPayInterAmt").val(stock.comm.formatCurrency(res.OUT_REC[i]['pay_int']));
 					$("#txtLastPay").val(stringDate(res.OUT_REC[i]['pay_last_paid_dt'].substr(0,10)));
 					$("#txtLastPay2").val(stringDate(res.OUT_REC[i]['pay_last_paid_dt'].substr(0,10)));
@@ -331,10 +348,13 @@ function getDataView(pay_id){
 
 					if(res.OUT_REC[i]['cur_syn'] == "$"){
 						//console.log(1)
-						$("#txtTotalInterAmt").val(stock.comm.formatCurrency(parseFloat(res.OUT_REC[i]["pay_loan"])+parseFloat(res.OUT_REC[i]["pay_int"])));						
+						$("#txtTotalInterAmt").val(stock.comm.formatCurrency(parseFloat(res.OUT_REC[i]["pay_loan"])+parseFloat(res.OUT_REC[i]["pay_int"])));	
+						$("#txtTotalInterAmt2").val(parseFloat(res.OUT_REC[i]["pay_loan"])+parseFloat(res.OUT_REC[i]["pay_int"]));	
+						
 					}else{
 						//console.log(2)
 						$("#txtTotalInterAmt").val(stock.comm.formatCurrency(calRielsCurrency(parseFloat(res.OUT_REC[i]["pay_loan"])+parseFloat(res.OUT_REC[i]["pay_int"]))));
+						$("#txtTotalInterAmt2").val(stock.comm.formatCurrency(calRielsCurrency(parseFloat(res.OUT_REC[i]["pay_loan"])+parseFloat(res.OUT_REC[i]["pay_int"]))));
 					}
 
 					$("#txtCustPayment").val(stock.comm.formatCurrency(res.OUT_REC[i]["pay_usr_amount"]));
@@ -387,7 +407,11 @@ function clearForm(){
     $("#txtLoanAmt2").val("");
     $("#txtTotalInterAmt").val("");
     $("#txtPayDesc").val("");
-
+    $("#txtCustCalcuPay").val();
+    $("#txtCustPayment").val();
+    $("#txtCustPayReturn").val();
+    
+    
 }
 
 function selectConractCallback(data){
@@ -431,7 +455,7 @@ function calPayInterestAmt(){
 	var interest  = stock.comm.replaceAll($("#txtLoanInter2").val(), ",", "");
 	var loanAmt   = stock.comm.replaceAll($("#txtLoanAmtLeft").val(), ",", "");
 	var interType = $("#txtloanInterType").val();
-	var payLoan   = $("#txtpayLoanAmt").val().replace(/[^0-9]/gi, '');
+	var payLoan   = $("#txtpayLoanAmt").val().replace(/[,]/gi, '');
 	var currencyTxt = $("#txtCurrency").val();
 	var calDay    = "";
 	var interPerDay  = "";
@@ -451,8 +475,10 @@ function calPayInterestAmt(){
 	$("#txtPayInterAmt2").val(interPayAmt);
 	if(currencyTxt == "$"){
 		$("#txtTotalInterAmt").val(stock.comm.formatCurrency(totalAmtVal.toFixed(2)));
+		$("#txtTotalInterAmt2").val(totalAmtVal.toFixed(2));
 	}else{
 		$("#txtTotalInterAmt").val(stock.comm.formatCurrency(calRielsCurrency(totalAmtVal).toFixed(2)));
+		$("#txtTotalInterAmt2").val(calRielsCurrency(totalAmtVal).toFixed(2));
 	}
 	
 }
@@ -483,7 +509,7 @@ function totalAmt(a,b){
 	if(isNaN(b) || b == ""){
 		b = 0
 	}
-
+	console.log("parseFloat(a)::"+parseFloat(a)+" parseFloat(b)::"+parseFloat(a))
 	return parseFloat(a) + parseFloat(b);
 }
 
@@ -569,7 +595,7 @@ function printInvoice(pay_id){
 					html+='				<td>ចំនួនប្រាក់ដើមត្រូវបង់៖</td><td><span class="txt-b" id="">'+stock.comm.formatCurrency(res.OUT_REC[i]['pay_loan'])+addCurrency(res.OUT_REC[i]["pay_loan_int_type"],res.OUT_REC[i]["pay_loan"])+'</span></td>';
 					html+='				</tr>';
 					html+='			<tr>';
-					html+='				<td>ចំនួនការប្រាក់ត្រូវបង់៖</td><td><span class="txt-b" id="">'+stock.comm.formatCurrency(res.OUT_REC[i]['pay_int'])+'</span></td>';
+					html+='				<td>ចំនួនការប្រាក់ត្រូវបង់៖</td><td><span class="txt-b" id="">'+stock.comm.formatCurrency(res.OUT_REC[i]['pay_int'])+addCurrency(res.OUT_REC[i]["pay_loan_int_type"],res.OUT_REC[i]["pay_int"])+'</span></td>';
 					html+='			</tr>';
 					html+='			<tr>';
 					html+='				<td>ប្រាក់អតិថិជនត្រូវបង់៖</td><td><span class="txt-b" id="">'+stock.comm.formatCurrency(res.OUT_REC[i]["pay_usr_amount_calculate"])+addCurrency(res.OUT_REC[i]["pay_cur_id"],res.OUT_REC[i]["pay_usr_amount_calculate"])+'</span></td>';

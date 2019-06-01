@@ -117,7 +117,7 @@ class Payment extends CI_Controller{
             $pay_insert_id = $this->M_payment->insertPaymentDB($data);
         }
 
-        if((int)$pay_loan == (int)$pay_left){
+        if( floatval($this->input->post('txtpayLoanAmt')) >= floatval($pay_left)){
             $dataCont['con_status'] = "0";
             $dataCont['con_id']     = $this->input->post('txtContId');
             $dataCont['con_end_dt'] = date('Y-m-d H:i:s',strtotime($this->input->post('txtPaySD')));

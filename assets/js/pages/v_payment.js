@@ -81,11 +81,11 @@ var _thisPage = {
     					  	html += '	<td class="chk_box"><input type="checkbox"></td>';
     					  	html += '	<td><div>'+v.pay_no+'</div></td>';
                           	html += '	<td><div>'+v.con_no+'</div></td>';
-                          	html += '	<td><div class="txt_r">'+stock.comm.formatCurrency(stock.comm.null2Void(v.pay_usr_amount_calculate, ''))+addCurrency(v.pay_cur_id,v.pay_usr_amount_calculate)+'</div></td>';
-    					  	// html += '	<td><div class="txt_r">'+stock.comm.formatCurrency(stock.comm.null2Void(v.pay_loan))+addCurrency(v.pay_loan_int_type,v.pay_loan)+'</div></td>';
-    					  	// html += '	<td><div class="txt_r">'+stock.comm.formatCurrency(stock.comm.null2Void(v.pay_int))+addCurrency(v.pay_loan_int_type,v.pay_int)+'</div></td>';
-                          	//html += '	<td><div class="txt_r">'+ stock.comm.formatCurrency( (parseFloat(stock.comm.null2Void(v.pay_loan)) + parseFloat(stock.comm.null2Void(v.pay_int))).toFixed(2) )+addCurrency(v.pay_loan_int_type,(v.pay_loan+v.pay_int))+'</div></td>';
-                          	html += '	<td><div class="txt_r">'+stock.comm.formatCurrency(stock.comm.null2Void(v.con_principle))+addCurrency(v.pay_loan_int_type,v.con_principle)+'</div></td>';
+    					  	html += '	<td><div class="txt_r">'+stock.comm.formatCurrency(stock.comm.null2Void(v.pay_loan))+addCurrency(v.pay_loan_int_type,v.pay_loan)+'</div></td>';
+    					  	html += '	<td><div class="txt_r">'+stock.comm.formatCurrency(stock.comm.null2Void(v.pay_int))+addCurrency(v.pay_loan_int_type,v.pay_int)+'</div></td>';
+    					  	html += '	<td><div class="txt_r">'+stock.comm.formatCurrency(stock.comm.null2Void(v.pay_usr_amount_calculate, ''))+addCurrency(v.pay_cur_id,v.pay_usr_amount_calculate)+'</div></td>';
+    					  	//html += '	<td><div class="txt_r">'+ stock.comm.formatCurrency( (parseFloat(stock.comm.null2Void(v.pay_loan)) + parseFloat(stock.comm.null2Void(v.pay_int))).toFixed(2) )+addCurrency(v.pay_loan_int_type,(v.pay_loan+v.pay_int))+'</div></td>';
+                          	//html += '	<td><div class="txt_r">'+stock.comm.formatCurrency(stock.comm.null2Void(v.con_principle))+addCurrency(v.pay_loan_int_type,v.con_principle)+'</div></td>';
                           	html += '	<td><div>'+stringDate(v.pay_date.substr(0,10))+'</div></td>';
                           	html += '	<td><div>'+v.cus_nm+'</div></td>';
     					  	html += '	<td class="text-center"><button onclick="_this.viewData('+v.pay_id+')" type="button" class="btn btn-primary btn-xs">';

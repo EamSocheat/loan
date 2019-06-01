@@ -249,7 +249,9 @@ function getDataEdit(cont_id){
 			if(res.OUT_REC != null && res.OUT_REC.length >0){
 				
 				var status = res.OUT_REC[0]["con_status"];
-				$("#contractNo").text( $.i18n.prop("lb_contract_no") +" : "+ res.OUT_REC[0]["con_no"]);				
+				$("#balanceLeft").text( $.i18n.prop("lb_pay_balance") +" : "+ stock.comm.formatCurrency(res.OUT_REC[0]["loan_amount_left"])+res.OUT_REC[0]["cur_syn"]);	
+				$("#contractNo").text( $.i18n.prop("lb_contract_no") +" : "+ res.OUT_REC[0]["con_no"]);		
+				
 			    $("#txtCusNm").val(res.OUT_REC[0]["cus_nm_kh"]);
 			    $("#txtCusId").val(res.OUT_REC[0]["cus_id"]);
 			    $("#txtCusPhone").val(res.OUT_REC[0]["cus_phone1"]);
@@ -262,25 +264,29 @@ function getDataEdit(cont_id){
 			    $("#lYear").val(res.OUT_REC[0]["con_per_year"]);
 			    $("#lMonth").val(res.OUT_REC[0]["con_per_month"]);
 			    
+			    $("#txtContED").val(moment(res.OUT_REC[0]["con_end_dt"], "YYYY-MM-DD").format("DD-MM-YYYY"));
+		    	$("#totalLAmt").val(stock.comm.formatCurrency(res.OUT_REC[0]["total_paid_amt"]));
+			    $("#totalLRate").val(stock.comm.formatCurrency(res.OUT_REC[0]["total_paid_int"]));
+			    
+			    $("#divEnd1").show();
+		    	$("#divEnd2").show();
+			    $("#divEnd3").show();
+			    
 			    if(status == "0"){
 			    	$("#btnStatusActive").show();
 			    	$("#btnStatusClose").hide();
 			    	$("#statusID").val("1");
 			    	$("#btnSave").hide();
-			    	$("#txtContED").val(moment(res.OUT_REC[0]["con_end_dt"], "YYYY-MM-DD").format("DD-MM-YYYY"));
-			    	$("#totalLAmt").val(stock.comm.formatCurrency(res.OUT_REC[0]["total_paid_amt"]));
-				    $("#totalLRate").val(stock.comm.formatCurrency(res.OUT_REC[0]["total_paid_int"]));
-				    
-				    
+
 				    $("#divEnd1").show();
-			    	$("#divEnd2").show();
-				    $("#divEnd3").show();
+				   /* $("#divEnd2").show();
+				    $("#divEnd3").show();*/
 				    
 			    	// $("#btnStatus").attr("data-i18ncd", "btn_status_closed");
 			    }else{
 			    	$("#divEnd1").hide();
-			    	$("#divEnd2").hide();
-				    $("#divEnd3").hide();
+			    	/*$("#divEnd2").hide();
+				    $("#divEnd3").hide();*/
 				    
 			    	$("#btnStatusActive").hide();
 			    	$("#btnStatusClose").show();

@@ -124,6 +124,7 @@
                         <div class="form-group">
                             <label for="" class="float_r" data-i18nCd="lb_pay_total">Total Payment:</label>
                             <input type="text" maxlength="100" class="form-control txt_r" id="txtTotalInterAmt" name="txtTotalInterAmt" placeholder="Enter interest" disabled="disabled" >
+                             <input type="hidden" id="txtTotalInterAmt2" name="txtTotalInterAmt2">
                         </div>  
                     </div>
             	</div>
@@ -174,6 +175,7 @@
         <input type="hidden" id="customerRateAmount" name="customerRateAmount">
      
         <div class="modal-footer" style="text-align: center;">
+        	<button data-i18ncd="btn_print" style="display:none" type="button" class="btn btn-warning btn-sm" id="btnPrint">Print</button>
             <button data-i18ncd="btn_save_new"  type="submit" class="btn btn-success btn-sm" id="btnSaveNew" style="display:none">Save + New</button>
             <button data-i18ncd="btn_save" type="submit" class="btn btn-primary btn-sm" id="btnSave">Save</button>
             <button data-i18ncd="btn_close" type="button" class="btn btn-default btn-sm" id="btnClose">Close</button>
