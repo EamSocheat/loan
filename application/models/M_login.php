@@ -82,7 +82,7 @@ class M_login extends CI_Model{
     	$this->db->from('tbl_user');
     	$this->db->join('tbl_company', 'tbl_user.com_id = tbl_company.com_id');
 		$this->db->join('tbl_staff', 'tbl_staff.sta_id = tbl_user.sta_id');
-		$this->db->join('tbl_position', 'tbl_position.pos_id = tbl_staff.pos_id');
+		//$this->db->join('tbl_position', 'tbl_position.pos_id = tbl_staff.pos_id');
 		$this->db->where('tbl_user.usr_nm', $user);
     	$this->db->where('tbl_user.usr_pwd', $this->encrypt->decode($pass,"PWD_ENCR_LOAN"));
     	$this->db->where('tbl_company.useYn', 'Y');

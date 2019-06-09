@@ -39,6 +39,7 @@ function login(){
 		async: false,
 		success: function(res) {
 			$("#loading").hide();
+			console.log(res);
 			if (res == "OK"){
 				window.location.href= $("#base_url").val()+"Customer";
 			}else{
@@ -47,6 +48,7 @@ function login(){
 		},
 		error : function(data) {
             stock.comm.alertMsg("System Error!!! PLease connect again.");
+            console.log(data);
         }
 	});
 }

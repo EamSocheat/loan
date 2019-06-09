@@ -157,7 +157,7 @@ function getData(page_no){
 			        html += "<td class='cus_iden'>"+stock.comm.nullToEmpty(res.OUT_REC[i]["cus_idnt_num"])+"</td>";
 			        html += "<td class='cus_nm'>"+res.OUT_REC[i]["cus_nm"]+"</td>";
 			        html += "<td class='cus_nm_kh'>"+res.OUT_REC[i]["cus_nm_kh"]+"</td>";
-			        html += "<td class='cus_gender'>"+res.OUT_REC[i]["cus_gender"]+"</td>";
+			        html += "<td class='cus_gender'>"+$.i18n.prop("lb_"+res.OUT_REC[i]["cus_gender"])+"</td>";
 			        html += "<td class='cus_phone1'>"+res.OUT_REC[i]["cus_phone1"]+"</td>";
 			        //html += "<td class='cus_email'>"+res.OUT_REC[i]["cus_email"]+"</td>";
 			        //html += "<td class='cus_addr'>"+res.OUT_REC[i]["cus_addr"]+"</td>";
