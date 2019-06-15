@@ -245,11 +245,12 @@ $('#adminCalendar').fullCalendar({
 
 $(document).ready(function() {
 	//render menu for user
-	getUserMenu();
+	
 	checkCookieLang();
   	setCompanyName();
  	getRateAmountHeader();
  	stock.comm.inputNumber("exRate");
+ 	getUserMenu();
 	$("#langDropSelect a").click(function(e){
 		$('#loading').show();
 		//$("#langDrop").html($(this).html());
@@ -297,6 +298,9 @@ $(document).ready(function() {
 		$("#exRate").focus();
 	});
 
+	$("#btnSetting").click(function(e){
+		updateUser();
+	});
 	
 });
 
@@ -471,6 +475,15 @@ function getUserMenu(){
 				htmlMenu += '</li>';
 
 				$("#divMenu").append(htmlMenu);
+				if(i == (res["menu_user"].length -1)){
+					var htmlMenu = '<li >';
+					htmlMenu += '<a id="btnSetting" style="'+styleFont+'" href="javascript:void(0)">';
+					htmlMenu += '<i class="fa fa-cogs"></i> <span>'+$.i18n.prop("lb_setting")+'</span>';
+					htmlMenu += '</a>';
+					htmlMenu += '</li>';
+					$("#divMenu").append(htmlMenu);
+					
+				}
 			}
 			
 		},
@@ -503,7 +516,7 @@ function signOut(){
     },
     error : function(data) {
       console.log(data);
-      stock.comm.alertMsg("System Error!!! PLease connect again.");
+      stock.comm.alertMsg($.i18n.prop("msg_err"));
     }
   });
 }
@@ -521,7 +534,7 @@ function setCompanyName(){
     },
     error : function(data) {
       console.log(data);
-      stock.comm.alertMsg("System Error!!! PLease connect again.");
+      stock.comm.alertMsg($.i18n.prop("msg_err"));
     }
   });
 }

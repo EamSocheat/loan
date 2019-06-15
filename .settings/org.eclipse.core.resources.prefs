@@ -1,3 +1,4 @@
+#Sat Jun 15 13:16:14 ICT 2019
 eclipse.preferences.version=1
 encoding//application/controllers/Register.php=UTF-8
 encoding//application/views/admin/footer.php=UTF-8
@@ -6,12 +7,18 @@ encoding//application/views/admin/loan.php=UTF-8
 encoding//application/views/admin/project.php=UTF-8
 encoding//application/views/admin/sell.php=UTF-8
 encoding//application/views/popup/v_popup_footer.php=UTF-8
+encoding//application/views/popup/v_popup_form_payment.php=UTF-8
 encoding//application/views/v_category.php=UTF-8
+encoding//application/views/v_contract.php=UTF-8
 encoding//application/views/v_footer.php=UTF-8
 encoding//application/views/v_header.php=UTF-8
 encoding//application/views/v_iframe.php=UTF-8
+encoding//application/views/v_payment.php=UTF-8
 encoding//application/views/v_supplier.php=UTF-8
 encoding//assets/admin/msg/bundle/Messages.properties=UTF-8
 encoding//assets/admin/msg/bundle/Messages_en.properties=UTF-8
 encoding//assets/admin/msg/bundle/Messages_kh.properties=UTF-8
+encoding//assets/js/pages/popup/v_popup_form_contract.js=UTF-8
+encoding//assets/js/pages/popup/v_popup_form_payment.js=UTF-8
+encoding//assets/js/pages/v_payment.js=UTF-8
 encoding//assets/msg/Messages_kh.properties=UTF-8

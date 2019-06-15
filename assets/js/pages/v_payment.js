@@ -35,6 +35,11 @@ var _thisPage = {
 				format: "dd-mm-yyyy",
 		    });
 			$("#txtSrchPaymentED").inputmask();
+			
+			//
+			$("#btnReset").click(function(e){
+				resetFormSearch();
+			});
 		}, init : function(){
 			 /*stock.comm.getBrnachType("cbxSrchBraType");
 			 $("#cbxSrchBraType").prepend("<option value='' selected='selected'></option>");*/
@@ -94,7 +99,7 @@ var _thisPage = {
     						html += '</tr>';
 						});
 
-						strTotal += '<tr class="total">';
+						strTotal += '<tr class="total" >';
 						strTotal += '	<td colspan="2"><b>'+$.i18n.prop("lb_cal_pay_amt_total")+'</b></td>';
 						strTotal += '	<td><b style="opacity: 0.7;">'+$.i18n.prop("lb_money_khmer")+':</b><b style="margin-left: 10px;">'+null2Zero(stock.comm.formatCurrency(totalRiels))+addCurrency("1", totalRiels)+'</b></td>';
 						strTotal += '	<td><b style="opacity: 0.7;">'+$.i18n.prop("lb_money_dollar")+':</b><b style="margin-left: 10px;">'+null2Zero(stock.comm.formatCurrency(totalDollar))+addCurrency("2", totalDollar)+'</b></td>';
@@ -279,6 +284,9 @@ function resetFormSearch(){
     $("#txtSrchPaymentED").val("");
     $("#txtSrchCusNm").val("");
     $("#txtSrchContCode").val("");
+    
+    $("#txtSrchPaymentSD").val("");
+    $("#txtSrchPaymentED").val("");
 }
 
 

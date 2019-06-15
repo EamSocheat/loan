@@ -266,7 +266,12 @@ function getDataEdit(cont_id){
 			    
 			    $("#txtContED").val(moment(res.OUT_REC[0]["con_end_dt"], "YYYY-MM-DD").format("DD-MM-YYYY"));
 		    	$("#totalLAmt").val(stock.comm.formatCurrency(res.OUT_REC[0]["total_paid_amt"]));
-			    $("#totalLRate").val(stock.comm.formatCurrency(res.OUT_REC[0]["total_paid_int"]));
+		    	if(res.OUT_REC[0]["cur_id"] == 1){
+		    		$("#totalLRate").val(stock.comm.formatCurrency(calRielsCurrency(res.OUT_REC[0]["total_paid_int"])) +"៛");
+		    	}else{
+		    		$("#totalLRate").val(stock.comm.formatCurrency(res.OUT_REC[0]["total_paid_int"])+"$");
+		    	}
+			    
 			    
 			    $("#divEnd1").show();
 		    	$("#divEnd2").show();
@@ -515,4 +520,20 @@ function resetEmi(){
 	
 	$("#lAmt").focus();
 }
-
+function calRielsCurrency(val){
+	
+	if(val <=0 || val == 'null' || val == null ||  val == undefined || val == "undefined"){
+		return 0;
+	}
+	val = parseInt(val);
+	val = val.toString();
+	
+	if(val.substr((length-2),2) != "00"){
+    	val = val.substr(0,val.length-2) + "00";
+		val = parseInt(val) + 100;
+    }else{
+    	val = parseInt(val);
+    }
+    
+	return val;
+}

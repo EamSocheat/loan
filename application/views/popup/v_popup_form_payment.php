@@ -60,9 +60,11 @@
 
                     <div class="col-xs-4 padding-forms-right">
                         <div class="form-group">
-                            <label for="txtloanInterType" data-i18ncd="lb_interest_type">Interest Type</label>
+                            <label for="txtloanInterType2" data-i18ncd="lb_interest_type">Interest Type</label>
                             <div class="input-group" style="width:100%;">
-                                <input style="height: 34px; border-radius: 3px;" type="text"  class="form-control input-sm" disabled="disabled" id="txtloanInterType" name="txtloanInterType">
+                                <input style="height: 34px; border-radius: 3px;" type="text"  class="form-control input-sm" disabled="disabled" id="txtloanInterType2" name="txtloanInterType2">
+                                <input style="height: 34px; border-radius: 3px;" type="hidden"  class="form-control input-sm" disabled="disabled" id="txtloanInterType" name="txtloanInterType">
+                               
                                 <input type="hidden" id="txtIntTypeCur" name="txtIntTypeCur">
                             </div>
                         </div>

@@ -202,10 +202,8 @@ function deleteDataArr(dataArr){
 		type: "POST",
 		url: $("#base_url").val() +"Customer/delete",
 		data: dataArr,
-		contentType:false,
-		cache:false,
-		processData:false,
 		success: function(res) {
+			console.log(res);
 		    if(res > 0){
 		        stock.comm.alertMsg(res+$.i18n.prop("msg_del_com"));
 		        getData(_pageNo);

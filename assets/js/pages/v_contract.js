@@ -60,14 +60,18 @@ var _thisPage = {
 				dataType: "json",
 				success: function(res) {
 					var html = "", strTotal = "", totalDollar = 0, totalRiels = 0;
+					var strTotalPaidInt="",totalPaidIntDollar = 0,totalPaidIntRiels = 0 ;
 					$("#loading").hide();
 					$("#tblContract tbody").html("");
 					if(res.OUT_REC != null && res.OUT_REC.length >0){
+						
 					    for(var i=0; i<res.OUT_REC.length;i++){
 					    	if(res.OUT_REC[i]["cur_id"] == "1"){
 								totalRiels += parseFloat(stock.comm.null2Void(res.OUT_REC[i]["con_principle"], 0));
+								totalPaidIntRiels+= parseFloat(stock.comm.null2Void(res.OUT_REC[i]["total_paid_int"], 0));
 							}else if(res.OUT_REC[i]["cur_id"] == "2"){
 								totalDollar += parseFloat(stock.comm.null2Void(res.OUT_REC[i]["con_principle"], 0));
+								totalPaidIntDollar+= parseFloat(stock.comm.null2Void(res.OUT_REC[i]["total_paid_int"], 0));
 							}
 
 					    	html += '<tr data-id='+res.OUT_REC[i]["con_id"]+'>';
@@ -85,22 +89,46 @@ var _thisPage = {
 							html += 		'<i class="fa fa-pencil-square-o" aria-hidden="true"></i></button>';
 							html += 	'</td>';
 							html += '</tr>';
-
-							console.log("res.OUT_REC[i]['con_principle']:: "+res.OUT_REC[i]["cur_id"])
+							
+							
 					    }
 
-					    
-					    strTotal += '<tr class="total">';
-						strTotal += '	<td colspan="2"><b>'+$.i18n.prop("lb_cal_loan_amt_total")+'</b></td>';
-						strTotal += '	<td><b style="opacity: 0.7;">'+$.i18n.prop("lb_money_khmer")+':</b><b style="margin-left: 10px;">'+null2Zero(stock.comm.formatCurrency(totalRiels))+addCurrency("1", totalRiels)+'</b></td>';
-						strTotal += '	<td><b style="opacity: 0.7;">'+$.i18n.prop("lb_money_dollar")+':</b><b style="margin-left: 10px;">'+null2Zero(stock.comm.formatCurrency(totalDollar))+addCurrency("2", totalDollar)+'</b></td>';
-						strTotal += '<td colspan="5"></td>';
+					    strTotal +='<tr style="height: 20px;"></tr>';
+					    strTotal += '<tr class="total" >';
+						strTotal += '	<td colspan="2" ><b>'+$.i18n.prop("lb_cal_loan_amt_total")+'</b></td>';
+						strTotal += '	<td style="text-align:right"><b style="opacity: 0.7;">'+$.i18n.prop("lb_money_khmer")+':</b></td>';
+						strTotal += '	<td style="text-align:right"><b style="margin-left: 10px;">'+null2Zero(stock.comm.formatCurrency(totalRiels))+addCurrency("1", totalRiels)+'</b></td>';
+						strTotal += '	<td style="text-align:right"><b style="opacity: 0.7;">'+$.i18n.prop("lb_money_dollar")+':</b></td>';
+						strTotal += '	<td style="text-align:right"><b style="margin-left: 10px;">'+null2Zero(stock.comm.formatCurrency(totalDollar))+addCurrency("2", totalDollar)+'</b></td>';
+						strTotal += '<td colspan="4"></td>';
 						strTotal += '</tr>';
+						
+						strTotalPaidInt += '<tr class="total" >';
+						strTotalPaidInt += '	<td colspan="2"><b>'+$.i18n.prop("lb_int_income_total")+'</b></td>';
+						strTotalPaidInt += '	<td style="text-align:right"><b style="opacity: 0.7;">'+$.i18n.prop("lb_money_khmer")+':</b></td>';
+						strTotalPaidInt += '	<td style="text-align:right"><b style="margin-left: 10px;">'+null2Zero(stock.comm.formatCurrency(calRielsCurrency(totalPaidIntRiels)))+addCurrency("1", totalPaidIntRiels)+'</b></td>';
+						strTotalPaidInt += '	<td style="text-align:right"><b style="opacity: 0.7;">'+$.i18n.prop("lb_money_dollar")+':</b></td>';
+						strTotalPaidInt += '	<td style="text-align:right"><b style="margin-left: 10px;">'+null2Zero(stock.comm.formatCurrency(totalPaidIntDollar))+addCurrency("2", totalPaidIntDollar)+'</b></td>';
+						strTotalPaidInt += '<td colspan="4"></td>';
+						strTotalPaidInt += '</tr>';
+						
+						var incomeAmtRiels = totalPaidIntRiels - totalRiels;
+						var incomeAmtDollar = totalPaidIntDollar-totalDollar;
+						
+						strTotalPaidInt += '<tr class="total" >';
+						strTotalPaidInt += '	<td colspan="2"><b>'+$.i18n.prop("lb_income_total")+'</b></td>';
+						strTotalPaidInt += '	<td style="text-align:right"><b style="opacity: 0.7;">'+$.i18n.prop("lb_money_khmer")+':</b></td>';
+						strTotalPaidInt += '	<td style="text-align:right"><b style="margin-left: 10px;">'+null2Zero(stock.comm.formatCurrency(calRielsCurrency(incomeAmtRiels)))+addCurrency("1", incomeAmtRiels)+'</b></td>';
+						strTotalPaidInt += '	<td style="text-align:right"><b style="opacity: 0.7;">'+$.i18n.prop("lb_money_dollar")+':</b></td>';
+						strTotalPaidInt += '	<td style="text-align:right"><b style="margin-left: 10px;">'+null2Zero(stock.comm.formatCurrency(incomeAmtDollar))+addCurrency("2", incomeAmtDollar)+'</b></td>';
+						strTotalPaidInt += '<td colspan="4"></td>';
+						strTotalPaidInt += '</tr>';
 					    
 					    $("#chkAllBox").show();
 					    $("#tblContract tbody").html(html);
 					    $("#tblContract tbody").append(strTotal);
-
+					    $("#tblContract tbody").append(strTotalPaidInt);
+					    
 					    stock.comm.renderPaging("paging",$("#perPage").val(),res.OUT_REC_CNT[0]["total_rec"],pageNo);
 					}else{
 						$("#chkAllBox").hide();
@@ -360,4 +388,22 @@ function resetFormSearch(){
     $("#txtSrchContED").val("");
     $("#txtSrchCusNm").val("");
     $("#cboStatus").val("");
+}
+
+function calRielsCurrency(val){
+	
+	if(val <=0 || val == 'null' || val == null ||  val == undefined || val == "undefined"){
+		return 0;
+	}
+	val = parseInt(val);
+	val = val.toString();
+	
+	if(val.substr((length-2),2) != "00"){
+    	val = val.substr(0,val.length-2) + "00";
+		val = parseInt(val) + 100;
+    }else{
+    	val = parseInt(val);
+    }
+    
+	return val;
 }

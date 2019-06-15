@@ -12,9 +12,9 @@
   <!-- Date Picker -->
   <link rel="stylesheet" href="<?php echo base_url('assets/') ?>bower_components/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css">
 
-  <!-- Google Font -->
+  <!-- Google Font 
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
-  
+  -->
   <style type="text/css">
 
 	@font-face {

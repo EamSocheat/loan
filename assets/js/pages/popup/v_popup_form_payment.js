@@ -14,6 +14,7 @@ var _thisPage = {
 			_this.event();			
 		},
 		onload : function(){
+			$("#frmAddEdit").focus();
 			parent.$("#loading").hide();
 			$("#btnPrint").hide();
 			clearForm();
@@ -47,7 +48,7 @@ var _thisPage = {
 			stock.comm.inputPhoneKhmer("txtPhone2");
 			stock.comm.inputCurrency("txtpayLoanAmt");
 			stock.comm.inputCurrency("txtCustPayment");
-			
+			$("#txtCustPayment").focus();
 		},
 		event : function(){
 			//
@@ -244,6 +245,22 @@ function fn_calculatePayment(){
 function saveData(str){
 	parent.$("#loading").show();
 	
+	
+	
+	if($("#txtContCode").val() == null || $("#txtContCode").val() ==""){
+		parent.stock.comm.alertMsg($.i18n.prop("lb_contract_sel"),"frmAddEdit#txtContCode");
+		$("#txtContCode").focus();
+		parent.$("#loading").hide();
+		return;
+	}
+	
+	if(parseFloat($("#txtPayInterAmt").val().replace(/[,]/gi, '')) <= 0){
+		parent.stock.comm.alertMsg($.i18n.prop("lb_date_pay_sel"),"frmAddEdit#txtPayInterAmt");
+		$("#txtPayInterAmt").focus();
+		parent.$("#loading").hide();
+		return;
+	}
+	
 	if(parseFloat($("#txtpayLoanAmt").val().replace(/[,]/gi, '')) > parseFloat($("#txtLoanAmtLeft").val().replace(/[,]/gi, ''))){
 		parent.stock.comm.alertMsg($.i18n.prop("msg_err_loan_pay"),"frmAddEdit#txtpayLoanAmt");
 		$("#txtpayLoanAmt").focus();
@@ -329,6 +346,7 @@ function getDataView(pay_id){
 					$("#txtLoanInter").val(res.OUT_REC[i]['pay_loan_int']);
 					$("#txtLoanInter2").val(res.OUT_REC[i]['pay_loan_int']);
 					$("#txtloanInterType").val(res.OUT_REC[i]['con_interest_type']);
+					$("#txtloanInterType2").val($.i18n.prop("lb_interest_type_"+res.OUT_REC[i]['con_interest_type']));
 					$("#txtpayLoanAmt").val(stock.comm.formatCurrency(res.OUT_REC[i]['pay_loan']));
 					$("#txtpayLoanAmt").attr("disabled", true);
 					$("#txtCurrency").val(res.OUT_REC[i]['cur_syn']);
@@ -394,6 +412,7 @@ function clearForm(){
     $("#txtLoanInter2").val("");
     $("#txtCusName").val("");
     $("#txtloanInterType").val("");
+    $("#txtloanInterType2").val("");
     $("#txtIntTypeCur").val("");
     $("#txtpayLoanAmt").val("");
     $("#txtCurrency").val("");
@@ -410,7 +429,18 @@ function clearForm(){
     $("#txtCustCalcuPay").val();
     $("#txtCustPayment").val();
     $("#txtCustPayReturn").val();
-    
+    $("#txtPaySD").focus();
+    $('#txtPaySD').datepicker({
+		language: (getCookie("lang") == "kh" ? "kh" : "en"),
+		weekStart: true,
+        todayBtn:  true,
+		autoclose: true,
+		todayHighlight: 1,
+		forceParse: 0,
+		sideBySide: true,
+		format: "dd-mm-yyyy"
+    });
+	$("#txtPaySD").inputmask();
     
 }
 
@@ -427,6 +457,8 @@ function selectConractCallback(data){
 	$("#txtLoanInter2").val(data["con_inter"]);
 
 	$("#txtloanInterType").val(data["con_inter_type"]);
+	$("#txtloanInterType2").val($.i18n.prop("lb_interest_type_"+data["con_inter_type"]));
+	
 	$("#txtIntTypeCur").val(data["con_inter_cur"]);
 	$("#txtLastPay").val(stringDate(data["con_pay_last_date"]));
 	$("#txtLastPay2").val(stringDate(data["con_pay_last_date"]));
@@ -509,7 +541,7 @@ function totalAmt(a,b){
 	if(isNaN(b) || b == ""){
 		b = 0
 	}
-	console.log("parseFloat(a)::"+parseFloat(a)+" parseFloat(b)::"+parseFloat(a))
+
 	return parseFloat(a) + parseFloat(b);
 }
 
@@ -625,11 +657,17 @@ function printInvoice(pay_id){
 					html+='</body></html>';
 
 					newWin.document.write(html);
-
 					newWin.document.close();
 					newWin.focus();
 					newWin.print();
 					newWin.close();
+					newWin.onload = function() {
+				        newWin.onunload = function() {
+				        	$("#frmAddEdit").focus();
+							
+				        }
+				    }
+					
 				}
 			}else{
 			    stock.comm.alertMsg($.i18n.prop("msg_err"));
