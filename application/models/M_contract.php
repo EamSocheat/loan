@@ -28,8 +28,8 @@
                             limit 1) 
                 END                     
                 as pay_last_date,
-                (tbl_contract.con_principle + 
-                ( select COALESCE(sum(tbl_payment.pay_int), 0) + COALESCE(sum(tbl_payment.pay_loan), 0) from tbl_payment where tbl_payment.con_id = tbl_contract.con_id and tbl_payment.useYn = "Y")) as total_paid_amt,
+                (( select COALESCE(sum(tbl_payment.pay_int), 0) + COALESCE(sum(tbl_payment.pay_loan), 0) from tbl_payment where tbl_payment.con_id = tbl_contract.con_id and tbl_payment.useYn = "Y")) as total_paid_amt,
+                ( select  COALESCE(sum(tbl_payment.pay_loan), 0) from tbl_payment where tbl_payment.con_id = tbl_contract.con_id and tbl_payment.useYn = "Y") as total_paid_prin,
                 ( select COALESCE(sum(tbl_payment.pay_int), 0) from tbl_payment where tbl_payment.con_id = tbl_contract.con_id and tbl_payment.useYn = "Y") as total_paid_int,
                 (tbl_contract.con_principle - (select COALESCE(sum(tbl_payment.pay_loan), 0) from tbl_payment where tbl_payment.con_id = tbl_contract.con_id and tbl_payment.useYn = "Y")) as loan_amount_left');
             //$this->db->from('tbl_contract');

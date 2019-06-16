@@ -266,10 +266,17 @@ function getDataEdit(cont_id){
 			    
 			    $("#txtContED").val(moment(res.OUT_REC[0]["con_end_dt"], "YYYY-MM-DD").format("DD-MM-YYYY"));
 		    	$("#totalLAmt").val(stock.comm.formatCurrency(res.OUT_REC[0]["total_paid_amt"]));
+		    	var totalPaidAmt = parseFloat(res.OUT_REC[0]["total_paid_int"]) + parseFloat(res.OUT_REC[0]["total_paid_prin"]);
+		    	var totalIncome = totalPaidAmt - parseFloat(res.OUT_REC[0]["con_principle"]);
+		    	if(totalIncome  < 0){
+		    		totalIncome = 0;
+				}
 		    	if(res.OUT_REC[0]["cur_id"] == 1){
-		    		$("#totalLRate").val(stock.comm.formatCurrency(calRielsCurrency(res.OUT_REC[0]["total_paid_int"])) +"៛");
+		    		$("#totalLRate").val(stock.comm.formatCurrency(calRielsCurrency(totalPaidAmt)) +"៛");
+		    		$("#totalIncome").val(stock.comm.formatCurrency(calRielsCurrency(totalIncome)) +"៛");
 		    	}else{
-		    		$("#totalLRate").val(stock.comm.formatCurrency(res.OUT_REC[0]["total_paid_int"])+"$");
+		    		$("#totalLRate").val(stock.comm.formatCurrency(totalPaidAmt)+"$");
+		    		$("#totalIncome").val(stock.comm.formatCurrency(totalIncome)+"$");
 		    	}
 			    
 			    

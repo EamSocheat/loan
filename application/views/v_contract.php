@@ -141,9 +141,11 @@
 						<!-- /.button -->
 						
 						<div class="col-sm-12">
+							
 							<div class="pull-right" style="padding-bottom: 5px;">
 								<form class="form-inline" action="">
-									<label for="limitRow" data-i18ncd="lb_records">Records</label>
+									<!--<label for="limitRow" data-i18ncd="lb_records">Records</label>-->
+									<button type="button" id="btnShowRecord" class="btn btn-default btn-sm" style="margin-right: 5px"><i class="fa fa-cog" aria-hidden="true"></i> <span data-i18ncd="lb_records">Record</span></button>
 									<select class="form-control input-sm" id="perPage" onchange="_thisPage.loadData(1);">
 										<option value="1" data-i18ncd="lb_row1">1 rows</option>
 										<option value="10" data-i18ncd="lb_row10" selected="selected">10 rows</option>

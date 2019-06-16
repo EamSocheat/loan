@@ -133,8 +133,14 @@
                      -->
                     <div class="col-xs-4 padding-forms-right" >
                         <div class="form-group" style="display: none;" id="divEnd3">
-                            <label for="totalLRate" data-i18nCd="lb_total_interest">Total Interest Amount</label>
-                            <input type="text" maxlength="2" class="form-control" id="totalLRate" placeholder="Enter interest" name="totalLRate" disabled="disabled" autocomplete="off" />
+                            <label for="totalLRate" data-i18nCd="lb_total_priciple">Total Paid Amount</label>
+                            <input type="text" class="form-control" id="totalLRate" placeholder="Enter interest" name="totalLRate" disabled="disabled" autocomplete="off" />
+                        </div>  
+                    </div>
+                     <div class="col-xs-4 padding-forms-right" >
+                        <div class="form-group" style="display: none;" id="divEnd2">
+                            <label for="totalLRate" data-i18nCd="lb_income">Total Income</label>
+                            <input type="text" class="form-control" id="totalIncome" placeholder="Enter interest" name="totalIncome" disabled="disabled" autocomplete="off" />
                         </div>  
                     </div>
                 </div>

@@ -212,16 +212,22 @@ function fn_calculatePayment(){
 		if(contractCurrency != paymentCurrency){
 			if(paymentCurrency == "$"){
 				calculatePayAmt = parseFloat(txtTotalInterAmt) / parseFloat(_data_rate_amount);
-			}else if(paymentCurrency == "៛"){
+			}else{
 				calculatePayAmt = parseFloat(txtTotalInterAmt) * parseFloat(_data_rate_amount);
 			}
 			txtCustPayReturnAmt = parseFloat(txtCustPayment) - parseFloat(calculatePayAmt);
-			if((txtCustPayment != 0 || txtCustPayment != "") && (txtCustPayReturnAmt != "" || txtCustPayReturnAmt != 0)){
-				$("#txtCustPayReturn").val(stock.comm.formatCurrency(txtCustPayReturnAmt)+paymentCurrency);
+			if((txtCustPayment != 0 || txtCustPayment != "")){
+				if(txtCustPayReturnAmt == 0){
+					$("#txtCustPayReturn").val("0"+paymentCurrency);
+				}else{
+					$("#txtCustPayReturn").val(stock.comm.formatCurrency(txtCustPayReturnAmt)+paymentCurrency);
+				}
 				$("#txtCustPayReturn2").val(txtCustPayReturnAmt);
+				
 			}
 			$("#txtCustCalcuPay").val(stock.comm.formatCurrency(calculatePayAmt)+paymentCurrency);
 			$("#txtCustCalcuPay2").val(calculatePayAmt);
+			console.log(txtCustPayReturnAmt+":BBBBB");
 		}else{
 			
 			$("#txtCustCalcuPay").val(stock.comm.formatCurrency(txtTotalInterAmt)+contractCurrency);
@@ -230,7 +236,7 @@ function fn_calculatePayment(){
 			// $("#txtCustPayReturn2").val("");
 			
 			txtCustPayReturnAmt = parseFloat(txtCustPayment) - parseFloat(txtTotalInterAmt);
-			if(paymentCurrency == "៛"){
+			if(paymentCurrency != "$"){
 				txtCustPayReturnAmt = parseInt(txtCustPayReturnAmt);
 			}
 			if(txtCustPayment != 0 && txtCustPayment != ""){

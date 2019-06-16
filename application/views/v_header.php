@@ -63,7 +63,9 @@
     .txt_r{ text-align: right; }
     .txt_l{ text-align: left; }
     .float_r{ float: right; }
-
+	.total_hide{
+		display:none;
+	}
 </style>
 </head>
 <body class="hold-transition skin-black-light sidebar-mini fixed">

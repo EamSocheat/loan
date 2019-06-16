@@ -113,7 +113,7 @@ class Customer extends CI_Controller {
 	        //check contract table using branch or not 
 	       $dataCol = array(
 				'tbl_nm' 		=> "tbl_contract",
-            	'id_nm' 		=> "con_id",
+            	'id_nm' 		=> "cus_id",
             	'com_id' 		=> "com_id"
             );
             
@@ -122,7 +122,7 @@ class Customer extends CI_Controller {
             'com_val' 		=> $_SESSION['comId']
             );
 	        $chkData = $this->M_common->checkActiveRecord($dataCol,$dataVal);
-	        $cntActive +=$chkData->active_rec;
+	        $cntActive +=$chkData[0]->active_rec;
 	        
 	        if($cntActive >0){
 	            continue;
