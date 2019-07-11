@@ -175,5 +175,6 @@
   <!-- /.content-wrapper -->
 
 <?php echo $footer; ?>
-<script src="<?php echo base_url('assets/') ?>js/pages/v_branch.js"></script>
+	<script src="<?php echo base_url('assets/') ?>js/pages/v_branch.js"></script>
+<!--	<script src="--><?php //echo base_url('assets/') ?><!--js/pages/v_supplier.js"></script>-->
 <?php echo $iframe; ?>

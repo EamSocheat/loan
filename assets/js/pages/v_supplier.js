@@ -1,15 +1,16 @@
 
 var _pageNo = 1;
 $(document).ready(function(){
+	console.log("test supplier......");
 	_thisPage.onload();
 });
 
 var _thisPage = {
 		onload : function(){
-			_this = this;
-			_this.loadData();
+			var _this = this;
 			_this.event();
-			stock.comm.checkAllTblChk("chkAll","tblSupplier","chk_box");
+			// _this.loadData();
+			// stock.comm.checkAllTblChk("chkAll","tblSupplier","chk_box");
 		}, loadData : function(page_no){
 			
 			var input = {};
@@ -87,7 +88,7 @@ var _thisPage = {
 			
 			stock.comm.openPopUpForm(controllerNm, option, data);
 		}, deleteData : function(dataArr){
-			console.log(dataArr)
+
 			$.ajax({
 				type: "POST",
 				url: $("#base_url").val() +"Supplier/deleteSupplier",

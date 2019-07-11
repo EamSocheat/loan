@@ -36,14 +36,14 @@ class Supplier extends CI_Controller{
             'sup_nm'    => $this->input->post('suppplyNm'),
             'sup_nm_kh' => $this->input->post('suppplyNmKh'),
             'limit'     => $this->input->post('limit'),
-            'offset'    => $this->input->post('offset'),
+            'offset'    => $this->input->post('offset')
         );
         
         $data["OUT_REC"]     = $this->M_supplier->selectSupplierData($dataSrch);
         $data["OUT_REC_CNT"] = $this->M_supplier->countSupplierData($dataSrch);
         echo json_encode($data);
     }
-     
+
     public function insertSupplierData(){
         if(!$this->M_check_user->check()){
             redirect('/Login');
